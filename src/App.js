@@ -33,15 +33,26 @@ const Input = styled.input`
   width:40px;
   height:18px;
   color:white;
-  background-color: BLACK;
+  background-color: yellow;
   margin:8px;
   font-family:"ABeeZee";
   font-size: 13px;
   border-style:inset;
      
 `
+const DivCalculo = styled.div`
+  width:40px;
+  height:18px;
+  color:black;
+  background-color: white;
+  margin:8px;
+  font-family:"ABeeZee";
+  font-size: 13px;
+  border-style:outset;
+`
+
+
 const Label = styled.label`
-  
   height: 20px;
   width: 65px;
   display:block;
@@ -67,7 +78,6 @@ const DivSimul = styled.div`
 `
 
 const Paragraph = styled.p`
-  
   block-size:1px;
   margin-left:15px;
   margin-bottom: 6px;
@@ -76,8 +86,7 @@ const Paragraph = styled.p`
   color: white;  
   width: 148px;
 `
-  const Button = styled.button`
-  
+const Button = styled.button`
   width:125px;
   height:40px;
   margin:3px 12px;
@@ -96,13 +105,13 @@ const Table1 = styled.table`
     
 `
 const Table2 = styled.table`
-width:210px;
-height:210px;
-font-family: "ABeeZee";
+  width:210px;
+  height:210px;
+  font-family: "ABeeZee";
 
-border: 2px solid grey;
-border-collapse: collapse;
-color: grey;
+  border: 2px solid grey;
+  border-collapse: collapse;
+  color: grey;
 
 `
 
@@ -115,29 +124,20 @@ const Th = styled.th`
   
 `
 const Th2 = styled.th`
- width: 100px;
- text-align: left;
- font-size: 14px;
- letter-spacing: 1px;
- padding:10px;
- border: 1px solid grey;
- color: white;
+  width: 100px;
+  text-align: left;
+  font-size: 14px;
+  letter-spacing: 1px;
+  padding:10px;
+  border: 1px solid grey;
+  color: white;
 `
 const Td = styled.td`
-text-align: center;
-width: 30px;
-border: 1px solid grey;
+  text-align: center;
+  width: 30px;
+  border: 1px solid grey;
 
 `
-
-const options = [
-  { value: "TASE" },
-  { value: "TCSE" },
-  { value: "TAE" },
-  { value: "TCE" },
- 
-];
-
 
 /*const ele = document.querySelector('button')
 const switchBtn = createSwitch(ele,{
@@ -196,6 +196,10 @@ function App() {
     L:"",        
   })
 
+  const [type1,setType1] = useState(["TASE","TCSE","TCE","TAE"]);
+
+  
+
   /*function handleButton(){
     console.log("Holaaaaaaaaa");
     setNum(num+1)
@@ -212,19 +216,19 @@ function App() {
     e.preventDefault();
     console.log(data)
   }
-  function handleInput1(e){
+  function handleSimulacion(e){
     setData1({...data1, [e.target.id]:e.target.value})
     console.log(data1)
   }
-  function handleInput2(e){
+  function handleCalcul(e){
     setData2({...data2, [e.target.id]:e.target.value})
     console.log(data2)
   }
-  function handleInput3(e){
+  function handlePrincipal(e){
     setData3({...data3, [e.target.id]:e.target.value})
     console.log(data3)
   }
-  function handleInput4(e){
+  function handleTeoria(e){
     setData4({...data4, [e.target.id]:e.target.value})
     console.log(data4)
   }
@@ -277,7 +281,13 @@ function App() {
             </Div>
             <Div>
               <Label>Ext1</Label>
-              <Input  value={data.Ext1} id={"Ext1"} onChange={(e) => handleInput(e)}/>
+              <select value={type1} id={"Ext1"} onChange={(e) => setType1(e.target.value)}>
+                
+                <option value="TASE">TASE</option>
+                <option value="TCSE">TCSE</option>
+                <option value="TCE">TCE</option>
+                <option value="TAE">TAE</option>
+              </select>
             </Div>
         </div>
         
@@ -312,19 +322,19 @@ function App() {
       
         <Div>
           <Label style={{color: "#EE7272"}}>Mater</Label>
-          <Input  value={data1.Mater} id={"Mater"} onChange={(e) => handleInput1(e)}/>
+          <Input  value={data1.Mater} id={"Mater"} onChange={(e) => handleSimulacion(e)}/>
         </Div>
         
         <Div>
           <Label style={{color: "#EE7272"}}>x</Label>
-          <Input  value={data1.x} id={"x"} onChange={(e) => handleInput1(e)}/>
+          <Input  value={data1.x} id={"x"} onChange={(e) => handleSimulacion(e)}/>
         </Div>
         
         <Div>
           <Label style={{color: "#EE7272"}}>grado</Label>
-          <Input  value={data1.grado} id={"grado"} onChange={(e) => handleInput1(e)}/>
+          <Input  value={data1.grado} id={"grado"} onChange={(e) => handleSimulacion(e)}/>
         </Div>
-        <div style={{display: "flex",columnGap:12,width:"100%",justifyContent:"flex-end"}}>
+        <div style={{display: "flex",columnGap:12,width:"100%",justifyContent:"flex-end", marginRight: 8}}>
           <Button>Simular</Button>
           <Button>Calcular</Button>
         </div>
@@ -336,27 +346,27 @@ function App() {
       <Paragraph style={{width: 480}}>Parametros calculados</Paragraph>
       <Div>
           <Label>w</Label>
-          <Input  value={data2.w} id={"w"} onChange={(e) => handleInput2(e)}/>
+          <DivCalculo  value={data2.w} id={"w"} onChange={(e) => handleCalcul(e)}/>
       </Div>
       <Div>
           <Label>D medio</Label>
-          <Input  value={data2.Dmedio} id={"D medio"} onChange={(e) => handleInput2(e)}/>
+          <DivCalculo  value={data2.Dmedio} id={"D medio"} onChange={(e) => handleCalcul(e)}/>
       </Div>
       <Div>
           <Label>f</Label>
-          <Input  value={data2.f} id={"f"} onChange={(e) => handleInput2(e)}/>
+          <DivCalculo  value={data2.f} id={"f"} onChange={(e) => handleCalcul(e)}/>
       </Div>
       <Div>
           <Label>Rel.d1</Label>
-          <Input  value={data2.Rel_d1} id={"Rel.d1"} onChange={(e) => handleInput2(e)}/>
+          <DivCalculo  value={data2.Rel_d1} id={"Rel.d1"} onChange={(e) => handleCalcul(e)}/>
       </Div>
       <Div>
           <Label>Rel.d2</Label>
-          <Input  value={data2.Rel_d2} id={"Rel.d2"} onChange={(e) => handleInput2(e)}/>
+          <DivCalculo  value={data2.Rel_d2} id={"Rel.d2"} onChange={(e) => handleCalcul(e)}/>
       </Div>
       <Div>
           <Label>Vt.red/VT</Label>
-          <Input  value={data2.Vt_red_VT} id={"Vt.red/VT"} onChange={(e) => handleInput2(e)}/>
+          <DivCalculo  value={data2.Vt_red_VT} id={"Vt.red/VT"} onChange={(e) => handleCalcul(e)}/>
       </Div>
 
       </DivSimul>
@@ -371,17 +381,17 @@ function App() {
         
           <Div>
             <Label>LDA</Label>
-            <Input  value={data3.LDA} id={"LDA"} onChange={(e) => handleInput3(e)}/>
+            <DivCalculo  value={data3.LDA} id={"LDA"} onChange={(e) => handlePrincipal(e)}/>
           </Div>
           
           <Div>
             <Label>LDA adic</Label>
-            <Input  value={data3.LDA_adic} id={"LDA adic"} onChange={(e) => handleInput3(e)}/>
+            <DivCalculo  value={data3.LDA_adic} id={"LDA adic"} onChange={(e) => handlePrincipal(e)}/>
           </Div>
           
           <Div>
             <Label>Peso</Label>
-            <Input  value={data3.Peso} id={"Peso"} onChange={(e) => handleInput3(e)}/>
+            <DivCalculo  value={data3.Peso} id={"Peso"} onChange={(e) => handlePrincipal(e)}/>
           </Div>
           <div>
             <Paragraph style={{width: 480}}>Grado tolerancias</Paragraph>
@@ -389,18 +399,18 @@ function App() {
           
           <Div>
             <Label>Dext</Label>
-            <Input  value={data3.Dext} id={"Dext"} onChange={(e) => handleInput3(e)}/>
+            <DivCalculo  value={data3.Dext} id={"Dext"} onChange={(e) => handlePrincipal(e)}/>
           </Div>
           
           <Div>
             <Label>L0</Label>
-            <Input  value={data3.L0} id={"L0"} onChange={(e) => handleInput3(e)}/>
+            <DivCalculo  value={data3.L0} id={"L0"} onChange={(e) => handlePrincipal(e)}/>
           </Div>
       </DivSimul>
 
       <div>  
         <Paragraph style={{width: 480}}>Descripcion</Paragraph>
-        <div style={{
+        <textarea style={{
           
                       width: 444, 
                       height: 160, 
@@ -409,23 +419,26 @@ function App() {
                       border:"2px solid grey",
                       borderBottom: "1px solid grey",
                       borderColor:"grey",
+                      backgroundColor:"black",
                       color:"grey",
                       fontFamily:"ABeeZee",
                       fontSize: 16,
                       padding:10,
 
-                    }}> Descripcion</div>
-          <div style={{
+                    }} placeholder="Descripcion"></textarea>
+          <textarea style={{
                       width: 444,
                       height: 20,
                       marginLeft:14,
+                      marginTop: 0,
                       border:"2px solid grey",
                       borderTop:"1px solid grey",
+                      backgroundColor:"black",
                       color:"grey",
                       fontFamily:"ABeeZee",
                       fontSize: 12,
                       padding:10,
-                      }}> Datos adicionales</div>
+                      }}placeholder="Datos adicionales"></textarea>
         
       </div>
 
@@ -433,15 +446,15 @@ function App() {
         <Paragraph style={{width: 480}}>Calculos teoricos</Paragraph>
         <Div>
             <Label>K</Label>
-            <Input  value={data4.K} id={"K"} onChange={(e) => handleInput4(e)}/>
+            <DivCalculo  value={data4.K} id={"K"} onChange={(e) => handleTeoria(e)}/>
         </Div>
         <Div>
             <Label>F</Label>
-            <Input  value={data4.F} id={"F"} onChange={(e) => handleInput4(e)}/>
+            <DivCalculo  value={data4.F} id={"F"} onChange={(e) => handleTeoria(e)}/>
         </Div>
         <Div>
             <Label>L</Label>
-            <Input  value={data4.L} id={"L"} onChange={(e) => handleInput4(e)}/>
+            <DivCalculo  value={data4.L} id={"L"} onChange={(e) => handleTeoria(e)}/>
         </Div>
       </DivSimul>
     </div>
@@ -553,15 +566,15 @@ function App() {
             <Paragraph style={{width: 480}}>Calculos reales</Paragraph>
             <Div>
                 <Label>K</Label>
-                <Input  value={data4.K} id={"K"} onChange={(e) => handleInput4(e)}/>
+                <DivCalculo  value={data4.K} id={"K"} onChange={(e) => handleTeoria(e)}/>
             </Div>
             <Div>
                 <Label>F</Label>
-                <Input  value={data4.F} id={"F"} onChange={(e) => handleInput4(e)}/>
+                <DivCalculo  value={data4.F} id={"F"} onChange={(e) => handleTeoria(e)}/>
             </Div>
             <Div>
                 <Label>L</Label>
-                <Input  value={data4.L} id={"L"} onChange={(e) => handleInput4(e)}/>
+                <DivCalculo  value={data4.L} id={"L"} onChange={(e) => handleTeoria(e)}/>
             </Div>
           </DivSimul>
 
