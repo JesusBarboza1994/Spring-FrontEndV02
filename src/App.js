@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "@fontsource/abeezee/400-italic.css"
 //import Componente from "./componente";
 //import Presentacion from "./presentacion";
@@ -32,7 +32,7 @@ const Div = styled.div`
 const Input = styled.input`
   width:40px;
   height:18px;
-  color:white;
+  color:black;
   background-color: yellow;
   margin:8px;
   font-family:"ABeeZee";
@@ -198,6 +198,10 @@ function App() {
 
   const [type1,setType1] = useState(["TASE","TCSE","TCE","TAE"]);
 
+  useEffect(() => {
+    setData2({...data2, w : ((data.Dext-data.d)/data.d),  Dmedio: (data.Dext - data.d)})
+
+  }, [data.d, data.Dext])
   
 
   /*function handleButton(){
@@ -346,11 +350,13 @@ function App() {
       <Paragraph style={{width: 480}}>Parametros calculados</Paragraph>
       <Div>
           <Label>w</Label>
-          <DivCalculo  value={data2.w} id={"w"} onChange={(e) => handleCalcul(e)}/>
+          {/* <DivCalculo  value={data2.w} id={"w"} onChange={(e) => handleCalcul(e)}/> */}
+          <DivCalculo id={"w"}> {data2.w} </DivCalculo>
       </Div>
       <Div>
           <Label>D medio</Label>
-          <DivCalculo  value={data2.Dmedio} id={"D medio"} onChange={(e) => handleCalcul(e)}/>
+          {/* <DivCalculo  value={data2.Dmedio} id={"D medio"} onChange={(e) => handleCalcul(e)}/> */}
+          <DivCalculo id={"Dmedio"}> {data2.Dmedio} </DivCalculo>
       </Div>
       <Div>
           <Label>f</Label>
@@ -397,6 +403,15 @@ function App() {
             <Paragraph style={{width: 480}}>Grado tolerancias</Paragraph>
           </div>
           
+          <Div>
+            <Label>Grado</Label>
+            <select>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+            </select>
+          </Div>
+
           <Div>
             <Label>Dext</Label>
             <DivCalculo  value={data3.Dext} id={"Dext"} onChange={(e) => handlePrincipal(e)}/>
