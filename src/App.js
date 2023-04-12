@@ -157,11 +157,11 @@ function App() {
     L0:"",      //longitud
     Luz1:"",
     Dint1:"",    //diam int1
-    Vtas1:"",    //vts red1
+    Vtas1:0,    //vts red1
     Ext1:"",     //extremo1
     Luz2:"",
     Dint2:"",    //diam int2
-    Vtas2:"",    //vts red2
+    Vtas2:0,    //vts red2
     Ext2:"",     //extremo2
   })
 
@@ -209,24 +209,12 @@ function App() {
   }, [data.d, data.Dext, data.Dint1, data.Dint2])
 
   useEffect(() => {
-    setData2({...data2, Vt_red_VT : ((data.Vtas1+data.Vtas2)/data.N) }) /* hay que poner condicion
-     if(vred1 =="" || vred1 ==" " || vred1 == "-"){
-      vred1 = 0;
-    }if(vred2 =="" || vred2 ==" " || vred2 == "-"){
-      vred2 = 0;
-    }
-    
-    if(vtasTot == "" || vtasTot==" "){
-     vRedvTot = 0;
-    }else{
-     vRedvTot = (vred1 + vred2)/vtasTot;
-    }*/
+    setData2({...data2, Vt_red_VT : ((data.Vtas1+data.Vtas2)/data.N) }) 
 
   }, [data.Vtas1, data.Vtas2, data.N])
 
   useEffect(() => {
     setData3({...data3, LDA : ((data.Dext-data.d)*data.N*3.14),  Dmedio: (data.Dext - data.d)})
-
   }, [data.d, data.Dext, data.N])
 
   useEffect(() => {
@@ -311,7 +299,7 @@ function App() {
             </Div>
             <Div>
               <Label>Vtas1</Label>
-              <Input  value={data.Vtas1} id={"Vtas1"} onChange={(e) => handleInput(e)}/>
+              <Input  value={data.Vtas1} type="number" id={"Vtas1"} onChange={(e) => handleInput(e)}/>
             </Div>
             <Div>
               <Label>Ext1</Label>
@@ -337,7 +325,7 @@ function App() {
             </Div>
             <Div>
               <Label>Vtas2</Label>
-              <Input  value={data.Vtas2} id={"Vtas2"} onChange={(e) => handleInput(e)}/>
+              <Input  value={data.Vtas2} type="number" id={"Vtas2"} onChange={(e) => handleInput(e)}/>
             </Div>
             <Div>
               <Label>Ext2</Label>
