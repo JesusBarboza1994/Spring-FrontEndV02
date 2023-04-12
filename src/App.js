@@ -15,7 +15,7 @@ const Form = styled.form`
   gap:6px;
   
   width: 480px;
-  background: green;
+  background: #9656fc64;
   color:white;
 `
 const Div = styled.div`
@@ -33,7 +33,7 @@ const Input = styled.input`
   width:40px;
   height:18px;
   color:black;
-  background-color: yellow;
+  background-color: #adc5fff1;
   margin:8px;
   font-family:"ABeeZee";
   font-size: 13px;
@@ -74,7 +74,7 @@ const DivSimul = styled.div`
   margin-bottom:30px;
   margin-top: 10px;
   width: 480px;
-  background-color: green;         
+  background-color: #9656fc64;         
 `
 
 const Paragraph = styled.p`
@@ -91,7 +91,7 @@ const Button = styled.button`
   height:40px;
   margin:3px 12px;
   border-radius:8px;
-  background-color: red;
+  background-color: #fc1221c5;
   color: white;
   
 `
@@ -202,6 +202,36 @@ function App() {
     setData2({...data2, w : ((data.Dext-data.d)/data.d),  Dmedio: (data.Dext - data.d)})
 
   }, [data.d, data.Dext])
+
+  useEffect(() => {
+    setData2({...data2, Rel_d1 : ((data.Dint1 + data.d)/(data.Dext - data.d)),  Rel_d2: ((data.Dint2 + data.d)/(data.Dext - data.d))})
+
+  }, [data.d, data.Dext, data.Dint1, data.Dint2])
+
+  useEffect(() => {
+    setData2({...data2, Vt_red_VT : ((data.Vtas1+data.Vtas2)/data.N) }) /* hay que poner condicion
+     if(vred1 =="" || vred1 ==" " || vred1 == "-"){
+      vred1 = 0;
+    }if(vred2 =="" || vred2 ==" " || vred2 == "-"){
+      vred2 = 0;
+    }
+    
+    if(vtasTot == "" || vtasTot==" "){
+     vRedvTot = 0;
+    }else{
+     vRedvTot = (vred1 + vred2)/vtasTot;
+    }*/
+
+  }, [data.Vtas1, data.Vtas2, data.N])
+
+  useEffect(() => {
+    setData3({...data3, LDA : ((data.Dext-data.d)*data.N*3.14),  Dmedio: (data.Dext - data.d)})
+
+  }, [data.d, data.Dext, data.N])
+
+  useEffect(() => {
+    setData3({...data3, Peso : ((data.d/12.7)^2*data3.LDA/1000)}) 
+  }, [data.d, data3.LDA])
   
 
   /*function handleButton(){
@@ -360,19 +390,19 @@ function App() {
       </Div>
       <Div>
           <Label>f</Label>
-          <DivCalculo  value={data2.f} id={"f"} onChange={(e) => handleCalcul(e)}/>
+          <DivCalculo id={"f"}>{data2.f}</DivCalculo>
       </Div>
       <Div>
           <Label>Rel.d1</Label>
-          <DivCalculo  value={data2.Rel_d1} id={"Rel.d1"} onChange={(e) => handleCalcul(e)}/>
+          <DivCalculo id={"Rel.d1"}>{data2.Rel_d1}</DivCalculo>
       </Div>
       <Div>
           <Label>Rel.d2</Label>
-          <DivCalculo  value={data2.Rel_d2} id={"Rel.d2"} onChange={(e) => handleCalcul(e)}/>
+          <DivCalculo id={"Rel.d2"}>{data2.Rel_d2}</DivCalculo>
       </Div>
       <Div>
           <Label>Vt.red/VT</Label>
-          <DivCalculo  value={data2.Vt_red_VT} id={"Vt.red/VT"} onChange={(e) => handleCalcul(e)}/>
+          <DivCalculo id={"Vt.red/VT"}>{data2.Vt_red_VT}</DivCalculo>
       </Div>
 
       </DivSimul>
@@ -387,17 +417,17 @@ function App() {
         
           <Div>
             <Label>LDA</Label>
-            <DivCalculo  value={data3.LDA} id={"LDA"} onChange={(e) => handlePrincipal(e)}/>
+            <DivCalculo id={"LDA"}>{data3.LDA}</DivCalculo>
           </Div>
           
           <Div>
             <Label>LDA adic</Label>
-            <DivCalculo  value={data3.LDA_adic} id={"LDA adic"} onChange={(e) => handlePrincipal(e)}/>
+            <DivCalculo  id={"LDA adic"}>200</DivCalculo> {/* condicional */}
           </Div>
           
           <Div>
             <Label>Peso</Label>
-            <DivCalculo  value={data3.Peso} id={"Peso"} onChange={(e) => handlePrincipal(e)}/>
+            <DivCalculo id={"Peso"}>{data3.Peso}</DivCalculo>
           </Div>
           <div>
             <Paragraph style={{width: 480}}>Grado tolerancias</Paragraph>
