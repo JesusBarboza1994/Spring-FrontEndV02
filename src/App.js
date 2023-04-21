@@ -1,6 +1,8 @@
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
-import "@fontsource/abeezee/400-italic.css"
+import "@fontsource/abeezee/400-italic.css";
+import { Switch } from "@mui/material";
+//import CustomizedSwitch from "./Switch";
 //import Componente from "./componente";
 //import Presentacion from "./presentacion";
 //import InputDiv from "./inputDiv";
@@ -80,7 +82,7 @@ const DivSimul = styled.div`
 const Paragraph = styled.p`
   block-size:1px;
   margin-left:15px;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   font-family:"ABeeZee";
   font-size:11px;
   color: white;  
@@ -139,6 +141,15 @@ const Td = styled.td`
 
 `
 
+const Select = styled.select`
+  background-color: black;
+  color: white;
+  font-family:"ABeeZee";
+  font-size: 13px;
+  border: 0px;
+
+`
+
 /*const ele = document.querySelector('button')
 const switchBtn = createSwitch(ele,{
   text: ["Maq.Auto","Torno"],
@@ -172,7 +183,7 @@ function App() {
   })
 
   const [data2, setData2] = useState({
-    w:"",      
+    w: "",      
     Dmedio:"",         
     f:"",      
     Rel_d1:"",      
@@ -183,7 +194,7 @@ function App() {
 
   const [data3, setData3] = useState({
     LDA:"",      
-    LDA_adic:"",         
+    LDA_adic:200,         
     Peso:"",
     Dext: "",
     L0:"",
@@ -197,40 +208,83 @@ function App() {
   })
 
   const [type1,setType1] = useState(["TASE","TCSE","TCE","TAE"]);
+  const [type2,setType2] = useState(["TASE","TCSE","TCE","TAE"]);
+  const [mater,setMater] = useState([
+    "SHI-180",
+    "SHI-165",
+    "CRSI SAE 9254(REC)",
+    "CRSI SAE 9254",
+    "CRMN SAE 5160",
+    "ACC",
+    "ACC HS3 GALV",
+    "BCC CAL.8-14",
+    "CP DSR",
+    "CP-DEINFRA",
+    "FDSICR (DSR)",
+    "FTO",
+    "FTO-TWO (DSR)",
+    "HD C-DSR",
+    "HD CLASE B",
+    "HD CLASE C",
+    "INOX CLASE A-DSR",
+    "INOX CLASE B-DSR",
+    "INOX SANDVIK"]);
 
+  
+  // if (data.Ext1 == "TASE" && data.Ext2 == "TASE"){
+  //  return paso_cuerpo = (data.L0 - data.d - paso_luz1 - paso_luz2)/(data.N-1.5)
+  // }
+
+  // if(data.Ext1 == "TAE" && data.Ext2 == "TAE" || data.Ext1 == "TAE" && data.Ext2 == "TCE" || data.Ext1 == "TCE" && data.Ext2 == "TCE" || data.Ext1 == "TCE" && data.Ext2 == "TAE"){
+  //   return paso_cuerpo = (data.L0 - paso_luz1 - paso_luz2)/(data.N-1.5)
+  // }
+  //  return paso_cuerpo = (data.L0 - 0.5*data.d - paso_luz1 - paso_luz2)/(data.N-1.5);
+
+ function Fila(luz,long,nvtas,paso,rigidez,tipo){
+  //  const [luz, setLuz] = useState();
+  //  const [long, setLong] = useState(luz + data.d);
+  //  const [nvtas, setNvtas] = useState("1");
+  //  const [paso, setPaso] = useState(long/nvtas);
+  //  const [rigidez, setRigidez] = useState((78500*data.d^4)/(8*data2.Dmedio^3*nvtas));
+   tipo: extremo;
+   tipo: cuerpo;
+
+
+    }
+ let Fila1=[Luz2,long,1,paso,rigidez,extremo]
+ let Fila2=[Luz1,long,1,paso,rigidez,extremo]
+ let Fila3=[Luz1,long,1,paso,rigidez,cuerpo]
+
+
+      
   useEffect(() => {
-    setData2({...data2, w : ((data.Dext-data.d)/data.d),  Dmedio: (data.Dext - data.d)})
-
-  }, [data.d, data.Dext])
-
-  useEffect(() => {
-    setData2({...data2, Rel_d1 : ((data.Dint1 + data.d)/(data.Dext - data.d)),  Rel_d2: ((data.Dint2 + data.d)/(data.Dext - data.d))})
+    setData2({...data2,
+      w : ((data.Dext-data.d)/data.d).toFixed(1),
+      Dmedio: (data.Dext - data.d), Rel_d1 : ((data.Dint1 + data.d)/(data.Dext - data.d)).toFixed(2),
+      Rel_d2: ((data.Dint2 + data.d)/(data.Dext - data.d)).toFixed(2)})
 
   }, [data.d, data.Dext, data.Dint1, data.Dint2])
 
+
   useEffect(() => {
-    setData2({...data2, Vt_red_VT : ((data.Vtas1+data.Vtas2)/data.N) }) 
+    setData2({...data2, Vt_red_VT : ((data.Vtas1+data.Vtas2)/data.N).toFixed(2) }) 
 
   }, [data.Vtas1, data.Vtas2, data.N])
 
   useEffect(() => {
-    setData3({...data3, LDA : ((data.Dext-data.d)*data.N*3.14),  Dmedio: (data.Dext - data.d)})
+  setData3({...data3, LDA : Math.round((data.Dext-data.d)*data.N*3.14),  Dmedio: (data.Dext - data.d)})
   }, [data.d, data.Dext, data.N])
 
   useEffect(() => {
-    setData3({...data3, Peso : ((data.d/12.7)^2*data3.LDA/1000)}) 
+    setData3({...data3, Peso : ((data.d/12.7)^2*data3.LDA/1000).toFixed(2)}) 
   }, [data.d, data3.LDA])
+
+  useEffect(() => {
+  setData4({...data4, K : ((78500*data.d^4)/(8*data2.Dmedio^3*(data.N-1.5))).toFixed(2)}) 
+  }, [data.d, data2.Dmedio, data.N])
   
 
-  /*function handleButton(){
-    console.log("Holaaaaaaaaa");
-    setNum(num+1)
-  }
-  function restar(){
-    num === 0 ? setNum(0) : setNum(num-1)
-  }  */
-
-  function handleInput(e){
+   function handleInput(e){
     setData({...data, [e.target.id]:e.target.value})
     console.log(data)
   }
@@ -256,6 +310,18 @@ function App() {
   }
 
 
+  const [boolSwitch,setBoolSwitch] = useState(false)
+  function handleChange(){
+    if (boolSwitch){
+       setData3({...data3, LDA_adic: 200})
+    }else{
+        setData3({...data3, LDA_adic: 400})
+    }
+    setBoolSwitch(!boolSwitch)
+    
+  }
+
+
   //const trabajadores=[["Renee", "ingeniero mecatronico"], ["Liudmila", "ingeniero mecanico"]]
   
   return (
@@ -267,19 +333,19 @@ function App() {
           <p style={{blockSize:2,marginLeft:14,fontFamily:"ABeeZee",fontSize:11, }}>Datos principales</p>
             <Div>
               <Label>d</Label>
-              <Input  value={data.d} id={"d"} onChange={(e) => handleInput(e)}/>
+              <Input  value={data.d} type="number" id={"d"} onChange={(e) => handleInput(e)}/>
             </Div>
             <Div>
               <Label>Dext</Label>
-              <Input  value={data.Dext} id={"Dext"} onChange={(e) => handleInput(e)}/>
+              <Input  value={data.Dext} type="number" id={"Dext"} onChange={(e) => handleInput(e)}/>
             </Div>
             <Div>
               <Label>N</Label>
-              <Input  value={data.N} id={"N"} onChange={(e) => handleInput(e)}/>
+              <Input  value={data.N} type="number" id={"N"} onChange={(e) => handleInput(e)}/>
             </Div>
             <Div>
               <Label>L0</Label>
-              <Input  value={data.L0} id={"L0"} onChange={(e) => handleInput(e)}/>
+              <Input  value={data.L0} type="number" id={"L0"} onChange={(e) => handleInput(e)}/>
             </Div>
             <button style={{width:125,
                             height:40,
@@ -291,11 +357,11 @@ function App() {
           <p style={{blockSize:2,marginLeft:14,fontFamily:"ABeeZee",fontSize:11, }}>Extremo 1</p>
             <Div>
               <Label>Luz1</Label>
-              <Input  value={data.Luz1} id={"Luz1"} onChange={(e) => handleInput(e)}/>
+              <Input  value={data.Luz1} type="number" id={"Luz1"} onChange={(e) => handleInput(e)}/>
             </Div>
             <Div>
               <Label>Dint1</Label>
-              <Input  value={data.Dint1} id={"Dint1"} onChange={(e) => handleInput(e)}/>
+              <Input  value={data.Dint1} type="number" id={"Dint1"} onChange={(e) => handleInput(e)}/>
             </Div>
             <Div>
               <Label>Vtas1</Label>
@@ -303,13 +369,13 @@ function App() {
             </Div>
             <Div>
               <Label>Ext1</Label>
-              <select value={type1} id={"Ext1"} onChange={(e) => setType1(e.target.value)}>
+              <Select value={type1} id={"Ext1"} onChange={(e) => setType1(e.target.value)}>
                 
                 <option value="TASE">TASE</option>
                 <option value="TCSE">TCSE</option>
                 <option value="TCE">TCE</option>
                 <option value="TAE">TAE</option>
-              </select>
+              </Select>
             </Div>
         </div>
         
@@ -317,11 +383,11 @@ function App() {
           <p style={{blockSize:2,marginLeft:14,fontFamily:"ABeeZee",fontSize:11, }}>Extremo 2</p>
             <Div>
               <Label>Luz2</Label>
-              <Input  value={data.Luz2} id={"Luz2"} onChange={(e) => handleInput(e)}/>
+              <Input  value={data.Luz2} type="number" id={"Luz2"} onChange={(e) => handleInput(e)}/>
             </Div>
             <Div>
               <Label>Dint2</Label>
-              <Input  value={data.Dint2} id={"Dint2"} onChange={(e) => handleInput(e)}/>
+              <Input  value={data.Dint2} type="number" id={"Dint2"} onChange={(e) => handleInput(e)}/>
             </Div>
             <Div>
               <Label>Vtas2</Label>
@@ -329,7 +395,14 @@ function App() {
             </Div>
             <Div>
               <Label>Ext2</Label>
-              <Input  value={data.Ext2} id={"Ext2"} onChange={(e) => handleInput(e)}/>
+              <Select  value={type2} id={"Ext2"} onChange={(e) => setType2(e.target.value)}>
+                
+                <option value="TASE">TASE</option>
+                <option value="TCSE">TCSE</option>
+                <option value="TCE">TCE</option>
+                <option value="TAE">TAE</option>
+          
+              </Select>
             </Div>
         </div>
           
@@ -342,12 +415,35 @@ function App() {
           <Paragraph>nodos</Paragraph>
         </div>
       
-        <Div>
-          <Label style={{color: "#EE7272"}}>Mater</Label>
-          <Input  value={data1.Mater} id={"Mater"} onChange={(e) => handleSimulacion(e)}/>
+        <Div style={{width:138}}>
+          
+          <Select style={{color: "white",borderRadius:8,}} id={"Mater"} onChange={(e) => setMater(e.target.value)}>
+          
+            <option style={{color: "#EE7272"}}>Mater</option>
+            <option value="SHI-165">SHI-165</option>
+            <option value="SHI-180">SHI-180</option>
+            <option value="CRSI SAE 9254(REC)">CRSI SAE 9254(REC)</option>
+            <option value="CRSI SAE 9254">CRSI SAE 9254</option>
+            <option value="CRMN SAE 5160">CRMN SAE 5160</option>
+            <option value="ACC">ACC</option>
+            <option value="HS3 GALV">HS3 GALV</option>
+            <option value="BCC CAL.8-14">BCC CAL.8-14</option>
+            <option value="CP DSR">CP DSR</option>
+            <option value="CP-DEINFRA">CP-DEINFRA</option>
+            <option value="FDSICR (DSR)">FDSICR (DSR)</option>
+            <option value="FTO">FTO</option>
+            <option value="FTO-TWO (DSR)">FTO-TWO (DSR)</option>
+            <option value="HD C-DSR">HD C-DSR</option>
+            <option value="HD CLASE B">HD CLASE B</option>
+            <option value="HD CLASE C">HD CLASE C</option>
+            <option value="INOX CLASE A-DSR">INOX A-DSR</option>
+            <option value="INOX CLASE B-DSR">INOX B-DSR</option>
+            <option value="INOX SANDVIK">INOX SANDVIK</option>
+                          
+          </Select>
         </Div>
         
-        <Div>
+        <Div style={{marginLeft: 0}}>
           <Label style={{color: "#EE7272"}}>x</Label>
           <Input  value={data1.x} id={"x"} onChange={(e) => handleSimulacion(e)}/>
         </Div>
@@ -369,6 +465,7 @@ function App() {
       <Div>
           <Label>w</Label>
           {/* <DivCalculo  value={data2.w} id={"w"} onChange={(e) => handleCalcul(e)}/> */}
+          
           <DivCalculo id={"w"}> {data2.w} </DivCalculo>
       </Div>
       <Div>
@@ -397,8 +494,10 @@ function App() {
 
       <DivSimul style={{marginBottom:10,}}>
           <div style={{display: "flex",}}>
-            <Paragraph>Datos principales</Paragraph>
-            <Paragraph>Maq.Auto/Torno</Paragraph>
+            <Paragraph style={{marginTop:9}}>Datos principales</Paragraph>
+            <Paragraph style={{marginTop:4}}>Maq.Auto<Switch onChange= {handleChange} size="small"/>Torno</Paragraph>
+            
+
             
             <Paragraph></Paragraph>
           </div>
@@ -410,7 +509,7 @@ function App() {
           
           <Div>
             <Label>LDA adic</Label>
-            <DivCalculo  id={"LDA adic"}>200</DivCalculo> {/* condicional */}
+            <DivCalculo  id={"LDA adic"}>{data3.LDA_adic}</DivCalculo> {/* condicional */}
           </Div>
           
           <Div>
