@@ -159,8 +159,7 @@ const switchBtn = createSwitch(ele,{
 })  */
 
 function App() {
-  //const [num, setNum] = useState(0);
-  
+    
   const [data, setData] = useState({
     d:"",        //alambre
     Dext:"",     //diam ext1
@@ -168,11 +167,11 @@ function App() {
     L0:"",      //longitud
     Luz1:"",
     Dint1:"",    //diam int1
-    Vtas1:0,    //vts red1
+    Vtas1:"",    //vts red1
     Ext1:"",     //extremo1
     Luz2:"",
     Dint2:"",    //diam int2
-    Vtas2:0,    //vts red2
+    Vtas2:"",    //vts red2
     Ext2:"",     //extremo2
   })
 
@@ -239,21 +238,93 @@ function App() {
   //   return paso_cuerpo = (data.L0 - paso_luz1 - paso_luz2)/(data.N-1.5)
   // }
   //  return paso_cuerpo = (data.L0 - 0.5*data.d - paso_luz1 - paso_luz2)/(data.N-1.5);
+ 
 
- function Fila(luz,long,nvtas,paso,rigidez,tipo){
-  //  const [luz, setLuz] = useState();
-  //  const [long, setLong] = useState(luz + data.d);
-  //  const [nvtas, setNvtas] = useState("1");
-  //  const [paso, setPaso] = useState(long/nvtas);
-  //  const [rigidez, setRigidez] = useState((78500*data.d^4)/(8*data2.Dmedio^3*nvtas));
-   tipo: extremo;
-   tipo: cuerpo;
+ //Tabla de Calculo para rigidez y cargas por puntos
+  const [filas, setFilas] = useState([])
+
+ function Fila123(){
+
+   const nvtas1 = 0.875;    //primera linea contando desde abajo por arriba (empieza con luz menor)
+   const nvtas2 = 0.875;  
+   const nvtas3 = Number(data.N) - (nvtas1 + nvtas2);  // Vueltas del cuerpo
+   
+   const long1 = Number(data.Luz2) + Number(data.d);
+   const long2 = Number(data.Luz1) + Number(data.d);
+   const long3 = Number(data.L0)- (long1+long2)-Number(data.d);
+   
+   const paso1 = long1/nvtas1;
+   const paso2 = long2/nvtas2;
+   const paso3 = long3/nvtas3;
+
+   const rigidez1 = 1/(78500*Math.pow(Number(data.d),4))/(8*Math.pow(Number(data2.Dmedio),3)*Number(nvtas1)); // N/mm
+   const rigidez2 = 1/(78500*Math.pow(Number(data.d),4))/(8*Math.pow(Number(data2.Dmedio),3)*Number(nvtas2));
+   const rigidez3 = 1/(78500*Math.pow(Number(data.d),4))/(8*Math.pow(Number(data2.Dmedio),3)*Number(nvtas3));
+
+   const Keq1 = Math.pow((rigidez1+rigidez2+rigidez3),-1);
+   const Keq2 = Math.pow((rigidez2+rigidez3),-1);
+   const Keq3 = Math.pow(rigidez3,-1);
+
+   const Xc1 = (paso1-Number(data.d))*Number(data.N);
+   const Xc2 = (paso2-Number(data.d))*(Number(data.N)-nvtas1)+(paso1*nvtas1)-nvtas1*Number(data.d);
+   const Xc3 = (paso3-Number(data.d))*(Number(data.N)-(nvtas1+nvtas2))+(paso1*nvtas1+paso2*nvtas2)-(nvtas1+nvtas2)*Number(data.d);
+
+   const b1 = 0;
+   const b2 = (Keq1-Keq2)*Xc1+b1;
+   const b3 = (Keq2-Keq3)*Xc2+b2;
+   
+   const Fc1 = (Keq1*Xc1+b1)/9.81;
+   const Fc2 = (Keq2*Xc2+b2)/9.81;
+   const Fc3 = (Keq3*Xc3+b3)/9.81;
 
 
-    }
- let Fila1=[Luz2,long,1,paso,rigidez,extremo]
- let Fila2=[Luz1,long,1,paso,rigidez,extremo]
- let Fila3=[Luz1,long,1,paso,rigidez,cuerpo]
+    
+     setFilas([...filas,{
+
+      nvtas1: nvtas1,
+      nvtas2: nvtas2,
+      nvtas3: nvtas3,
+      long1: long1,
+      long2: long2, 
+      long3: long3,
+      paso1: paso1,
+      paso2: paso2,
+      paso3: paso3,
+      // rigidez1: rigidez1,
+      // rigidez2: rigidez2,
+      // rigidez3: rigidez3,
+      Keq1: Keq1,
+      Keq2: Keq2,
+      Keq3: Keq3,
+      Xc1: Xc1,
+      Xc2: Xc2,
+      Xc3: Xc3,
+      Fc1: Fc1,
+      Fc2: Fc2,
+      Fc3: Fc3,
+      
+    
+     }])
+
+     console.log(filas)
+  }
+
+
+
+
+ function TablaCalculo(){
+   const [toler_grado1, setToler_grado1] = useState([
+    [0.63, 0.05, 0.07, 0.1],
+    [1, 0.05, 0.07, 0.1],
+    [1.6, 0.07, 0.1, 0.15],
+
+
+  ])
+
+}
+ 
+
+
 
 
       
@@ -279,14 +350,14 @@ function App() {
     setData3({...data3, Peso : ((data.d/12.7)^2*data3.LDA/1000).toFixed(2)}) 
   }, [data.d, data3.LDA])
 
-  useEffect(() => {
-  setData4({...data4, K : ((78500*data.d^4)/(8*data2.Dmedio^3*(data.N-1.5))).toFixed(2)}) 
-  }, [data.d, data2.Dmedio, data.N])
+  // useEffect(() => {
+  // setData4({...data4, K : ((78500*data.d^4)/(8*data2.Dmedio^3*(data.N-1.5))).toFixed(2)}) 
+  // }, [data.d, data2.Dmedio, data.N])
   
 
    function handleInput(e){
     setData({...data, [e.target.id]:e.target.value})
-    console.log(data)
+    
   }
   function handleSubmit(e){
     e.preventDefault();
@@ -578,15 +649,15 @@ function App() {
         <Paragraph style={{width: 480}}>Calculos teoricos</Paragraph>
         <Div>
             <Label>K</Label>
-            <DivCalculo  value={data4.K} id={"K"} onChange={(e) => handleTeoria(e)}/>
+            <DivCalculo id={"K"}>{filas.Keq3}</DivCalculo>
         </Div>
         <Div>
             <Label>F</Label>
-            <DivCalculo  value={data4.F} id={"F"} onChange={(e) => handleTeoria(e)}/>
+            <DivCalculo id={"F"}>{filas.Fc3}</DivCalculo> 
         </Div>
         <Div>
             <Label>L</Label>
-            <DivCalculo  value={data4.L} id={"L"} onChange={(e) => handleTeoria(e)}/>
+            <DivCalculo id={"L"}>{filas.Xc3}</DivCalculo>
         </Div>
       </DivSimul>
     </div>
@@ -714,7 +785,12 @@ function App() {
       
     
     </div> 
+    
+    <div>
+      <button onClick={Fila123}> result </button>
 
+
+    </div>
       
 
    </div>   
