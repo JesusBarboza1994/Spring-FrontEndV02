@@ -150,14 +150,6 @@ const Select = styled.select`
 
 `
 
-/*const ele = document.querySelector('button')
-const switchBtn = createSwitch(ele,{
-  text: ["Maq.Auto","Torno"],
-  onChange:(checked)=>{
-    console.log("checked",checked)
-  },
-})  */
-
 function App() {
     
   const [data, setData] = useState({
@@ -241,7 +233,29 @@ function App() {
  
 
  //Tabla de Calculo para rigidez y cargas por puntos
-  const [filas, setFilas] = useState([])
+  const [filas, setFilas] = useState({ 
+    nvtas1: "",
+    nvtas2: "",
+    nvtas3: "",
+    long1: "",
+    long2: "", 
+    long3: "",
+    paso1: "",
+    paso2: "",
+    paso3: "",
+    // rigidez1: rigidez1,
+    // rigidez2: rigidez2,
+    // rigidez3: rigidez3,
+    Keq1: "",
+    Keq2: "",
+    Keq3: "",
+    Xc1: "",
+    Xc2: "",
+    Xc3: "",
+    Fc1: "",
+    Fc2: "",
+    Fc3: "",
+  })
 
  function Fila123(){
 
@@ -249,37 +263,35 @@ function App() {
    const nvtas2 = 0.875;  
    const nvtas3 = Number(data.N) - (nvtas1 + nvtas2);  // Vueltas del cuerpo
    
-   const long1 = Number(data.Luz2) + Number(data.d);
-   const long2 = Number(data.Luz1) + Number(data.d);
-   const long3 = Number(data.L0)- (long1+long2)-Number(data.d);
+   const long1 = Number((Number(data.Luz2) + Number(data.d)).toFixed(2));
+   const long2 = Number((Number(data.Luz1) + Number(data.d)).toFixed(2));
+   const long3 = Number((Number(data.L0)- (long1+long2)-Number(data.d)).toFixed(2));
    
-   const paso1 = long1/nvtas1;
-   const paso2 = long2/nvtas2;
-   const paso3 = long3/nvtas3;
+   const paso1 = Number((long1/nvtas1).toFixed(2));
+   const paso2 = Number((long2/nvtas2).toFixed(2));
+   const paso3 = Number((long3/nvtas3).toFixed(2));
 
-   const rigidez1 = 1/(78500*Math.pow(Number(data.d),4))/(8*Math.pow(Number(data2.Dmedio),3)*Number(nvtas1)); // N/mm
-   const rigidez2 = 1/(78500*Math.pow(Number(data.d),4))/(8*Math.pow(Number(data2.Dmedio),3)*Number(nvtas2));
-   const rigidez3 = 1/(78500*Math.pow(Number(data.d),4))/(8*Math.pow(Number(data2.Dmedio),3)*Number(nvtas3));
+   const rigidez1 = 1/((78500*Math.pow(Number(data.d),4))/(8*Math.pow(Number(data2.Dmedio),3)*Number(nvtas1))); // N/mm
+   const rigidez2 = 1/((78500*Math.pow(Number(data.d),4))/(8*Math.pow(Number(data2.Dmedio),3)*Number(nvtas2)));
+   const rigidez3 = 1/((78500*Math.pow(Number(data.d),4))/(8*Math.pow(Number(data2.Dmedio),3)*Number(nvtas3)));
 
-   const Keq1 = Math.pow((rigidez1+rigidez2+rigidez3),-1);
-   const Keq2 = Math.pow((rigidez2+rigidez3),-1);
-   const Keq3 = Math.pow(rigidez3,-1);
+   const Keq1 = Number((1/(rigidez1+rigidez2+rigidez3)).toFixed(2));
+   const Keq2 = Number((1/(rigidez2+rigidez3)).toFixed(2));
+   const Keq3 = Number((1/rigidez3).toFixed(2));
 
-   const Xc1 = (paso1-Number(data.d))*Number(data.N);
-   const Xc2 = (paso2-Number(data.d))*(Number(data.N)-nvtas1)+(paso1*nvtas1)-nvtas1*Number(data.d);
-   const Xc3 = (paso3-Number(data.d))*(Number(data.N)-(nvtas1+nvtas2))+(paso1*nvtas1+paso2*nvtas2)-(nvtas1+nvtas2)*Number(data.d);
+   const Xc1 = Number(((paso1-Number(data.d))*Number(data.N)).toFixed(2));
+   const Xc2 = Number(((paso2-Number(data.d))*(Number(data.N)-nvtas1)+(paso1*nvtas1)-nvtas1*Number(data.d)).toFixed(2));
+   const Xc3 = Number(((paso3-Number(data.d))*(Number(data.N)-(nvtas1+nvtas2))+(paso1*nvtas1+paso2*nvtas2)-(nvtas1+nvtas2)*Number(data.d)).toFixed(2));
 
    const b1 = 0;
    const b2 = (Keq1-Keq2)*Xc1+b1;
    const b3 = (Keq2-Keq3)*Xc2+b2;
    
-   const Fc1 = (Keq1*Xc1+b1)/9.81;
-   const Fc2 = (Keq2*Xc2+b2)/9.81;
-   const Fc3 = (Keq3*Xc3+b3)/9.81;
+   const Fc1 = Number(((Keq1*Xc1+b1)/9.81).toFixed(2));
+   const Fc2 = Number(((Keq2*Xc2+b2)/9.81).toFixed(2));
+   const Fc3 = Number(((Keq3*Xc3+b3)/9.81).toFixed(2));
 
-
-    
-     setFilas([...filas,{
+   setFilas({...filas,
 
       nvtas1: nvtas1,
       nvtas2: nvtas2,
@@ -302,9 +314,8 @@ function App() {
       Fc1: Fc1,
       Fc2: Fc2,
       Fc3: Fc3,
-      
-    
-     }])
+          
+     })
 
      console.log(filas)
   }
@@ -323,11 +334,7 @@ function App() {
 
 }
  
-
-
-
-
-      
+     
   useEffect(() => {
     setData2({...data2,
       w : ((data.Dext-data.d)/data.d).toFixed(1),
@@ -351,11 +358,12 @@ function App() {
   }, [data.d, data3.LDA])
 
   // useEffect(() => {
-  // setData4({...data4, K : ((78500*data.d^4)/(8*data2.Dmedio^3*(data.N-1.5))).toFixed(2)}) 
-  // }, [data.d, data2.Dmedio, data.N])
+  // setData4({...data4, K : filas.Keq3, F : filas.Fc3, L : filas.Xc3 
+  // })}, [filas.Keq3, filas.Fc3, filas.Xc3])
   
 
-   function handleInput(e){
+
+  function handleInput(e){
     setData({...data, [e.target.id]:e.target.value})
     
   }
@@ -367,18 +375,18 @@ function App() {
     setData1({...data1, [e.target.id]:e.target.value})
     console.log(data1)
   }
-  function handleCalcul(e){
-    setData2({...data2, [e.target.id]:e.target.value})
-    console.log(data2)
-  }
+  // function handleCalcul(e){
+  //   setData2({...data2, [e.target.id]:e.target.value})
+  //   console.log(data2)
+  // }
   function handlePrincipal(e){
     setData3({...data3, [e.target.id]:e.target.value})
     console.log(data3)
   }
-  function handleTeoria(e){
-    setData4({...data4, [e.target.id]:e.target.value})
-    console.log(data4)
-  }
+  // function handleTeoria(e){
+  //   setData4({...data4, [e.target.id]:e.target.value})
+  //   console.log(data4)
+  // }
 
 
   const [boolSwitch,setBoolSwitch] = useState(false)
@@ -534,14 +542,11 @@ function App() {
       <DivSimul>
       <Paragraph style={{width: 480}}>Parametros calculados</Paragraph>
       <Div>
-          <Label>w</Label>
-          {/* <DivCalculo  value={data2.w} id={"w"} onChange={(e) => handleCalcul(e)}/> */}
-          
+          <Label>w</Label>              
           <DivCalculo id={"w"}> {data2.w} </DivCalculo>
       </Div>
       <Div>
           <Label>D medio</Label>
-          {/* <DivCalculo  value={data2.Dmedio} id={"D medio"} onChange={(e) => handleCalcul(e)}/> */}
           <DivCalculo id={"Dmedio"}> {data2.Dmedio} </DivCalculo>
       </Div>
       <Div>
@@ -769,15 +774,15 @@ function App() {
             <Paragraph style={{width: 480}}>Calculos reales</Paragraph>
             <Div>
                 <Label>K</Label>
-                <DivCalculo  value={data4.K} id={"K"} onChange={(e) => handleTeoria(e)}/>
+                <DivCalculo id={"K"}>{data4.K}</DivCalculo>
             </Div>
             <Div>
                 <Label>F</Label>
-                <DivCalculo  value={data4.F} id={"F"} onChange={(e) => handleTeoria(e)}/>
+                <DivCalculo id={"F"}>{data4.F}</DivCalculo>
             </Div>
             <Div>
                 <Label>L</Label>
-                <DivCalculo  value={data4.L} id={"L"} onChange={(e) => handleTeoria(e)}/>
+                <DivCalculo id={"L"}>{data4.L}</DivCalculo>
             </Div>
           </DivSimul>
 
@@ -798,10 +803,3 @@ function App() {
 }
 
 export default App;
-/*
-{
-  <InputDiv data={data.alambre} nombre={"alambre2"} onChange={(e) => handleInput(e)}/>
-} */
-
-
-
