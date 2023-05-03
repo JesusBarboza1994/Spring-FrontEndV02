@@ -187,9 +187,7 @@ function App() {
     LDA:"",      
     LDA_adic:200,         
     Peso:"",
-    Dext: "",
-    L0:"",
-    
+        
   })
 
   const [data4, setData4] = useState({
@@ -220,6 +218,7 @@ function App() {
     "INOX CLASE A-DSR",
     "INOX CLASE B-DSR",
     "INOX SANDVIK"]);
+  const [grado,setGrado] = useState([1,2,3]); 
 
   
   // if (data.Ext1 == "TASE" && data.Ext2 == "TASE"){
@@ -234,6 +233,7 @@ function App() {
 
  //Tabla de Calculo para rigidez y cargas por puntos
   const [filas, setFilas] = useState({ 
+    C: "",
     nvtas1: "",
     nvtas2: "",
     nvtas3: "",
@@ -259,6 +259,7 @@ function App() {
 
  function Fila123(){
 
+   const C = (Number(data.Dext)-Number(data.d))/Number(data.d);
    const nvtas1 = 0.875;    //primera linea contando desde abajo por arriba (empieza con luz menor)
    const nvtas2 = 0.875;  
    const nvtas3 = Number(data.N) - (nvtas1 + nvtas2);  // Vueltas del cuerpo
@@ -293,6 +294,7 @@ function App() {
 
    setFilas({...filas,
 
+      C: C,
       nvtas1: nvtas1,
       nvtas2: nvtas2,
       nvtas3: nvtas3,
@@ -320,19 +322,29 @@ function App() {
      console.log(filas)
   }
 
-
-
-
- function TablaCalculo(){
+ //Tolerancias para Dext (DIN EN 15800)
    const [toler_grado1, setToler_grado1] = useState([
     [0.63, 0.05, 0.07, 0.1],
     [1, 0.05, 0.07, 0.1],
     [1.6, 0.07, 0.1, 0.15],
-
-
+    [2.5, 0.1, 0.1, 0.15],
+    [4, 0.1, 0.15, 0.2],
+    [6.3, 0.15, 0.15, 0.2],
+    [10, 0.15, 0.2, 0.25],
+    [16, 0.2, 0.25, 0.3],
+    [25, 0.25, 0.3, 0.35],
+    [31.5, 0.25, 0.3, 0.35],
+    [40, 0.3, 0.4, 0.5],
+    [50, 0.4, 0.5, 0.6],
+    [63, 0.5, 0.7, 0.8],
+    [80, 0.6, 0.8, 0.9],
+    [100, 0.7, 1, 1.1],
+    [125, 0.9, 1.2, 1.4],
+    [160, 1.2, 1.5, 1.7],
+    [200, 0, 0, 0]
   ])
 
-}
+  
  
      
   useEffect(() => {
@@ -360,7 +372,12 @@ function App() {
   // useEffect(() => {
   // setData4({...data4, K : filas.Keq3, F : filas.Fc3, L : filas.Xc3 
   // })}, [filas.Keq3, filas.Fc3, filas.Xc3])
-  
+  function TablaToler(){
+    if (grado==1) {
+   data2.Dmedio=toler_grado1.find(toler_grado1)
+ }
+ 
+ }
 
 
   function handleInput(e){
@@ -572,9 +589,6 @@ function App() {
           <div style={{display: "flex",}}>
             <Paragraph style={{marginTop:9}}>Datos principales</Paragraph>
             <Paragraph style={{marginTop:4}}>Maq.Auto<Switch onChange= {handleChange} size="small"/>Torno</Paragraph>
-            
-
-            
             <Paragraph></Paragraph>
           </div>
         
@@ -594,25 +608,29 @@ function App() {
           </Div>
           <div>
             <Paragraph style={{width: 480}}>Grado tolerancias</Paragraph>
+            
           </div>
+
+
+
           
           <Div>
             <Label>Grado</Label>
-            <select>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-            </select>
+            <Select value={grado} id={"grado"} onChange={(e) => setGrado(e.target.value)}>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </Select>
           </Div>
 
           <Div>
-            <Label>Dext</Label>
-            <DivCalculo  value={data3.Dext} id={"Dext"} onChange={(e) => handlePrincipal(e)}/>
+            <Label>Dext={data.Dext}</Label>
+            <DivCalculo  value={data.Dext} id={"Dext"} onChange={(e) => handlePrincipal(e)}/>
           </Div>
           
           <Div>
-            <Label>L0</Label>
-            <DivCalculo  value={data3.L0} id={"L0"} onChange={(e) => handlePrincipal(e)}/>
+            <Label>L0={data.L0} </Label>
+            <DivCalculo  value={data.L0} id={"L0"} onChange={(e) => handlePrincipal(e)}/>
           </Div>
       </DivSimul>
 
