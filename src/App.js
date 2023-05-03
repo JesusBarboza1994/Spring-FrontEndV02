@@ -187,7 +187,7 @@ function App() {
     LDA:"",      
     LDA_adic:200,         
     Peso:"",
-        
+    Dmedio:"",    
   })
 
   const [data4, setData4] = useState({
@@ -218,7 +218,11 @@ function App() {
     "INOX CLASE A-DSR",
     "INOX CLASE B-DSR",
     "INOX SANDVIK"]);
-  const [grado,setGrado] = useState([1,2,3]); 
+  
+    const [grado,setGrado] = useState([1,2,3]); 
+    const [tablaToler,setTablaToler] = useState({
+      valor: ""
+    });
 
   
   // if (data.Ext1 == "TASE" && data.Ext2 == "TASE"){
@@ -259,7 +263,7 @@ function App() {
 
  function Fila123(){
 
-   const C = (Number(data.Dext)-Number(data.d))/Number(data.d);
+   const C = Number(((Number(data.Dext)-Number(data.d))/Number(data.d)).toFixed(2));
    const nvtas1 = 0.875;    //primera linea contando desde abajo por arriba (empieza con luz menor)
    const nvtas2 = 0.875;  
    const nvtas3 = Number(data.N) - (nvtas1 + nvtas2);  // Vueltas del cuerpo
@@ -323,28 +327,26 @@ function App() {
   }
 
  //Tolerancias para Dext (DIN EN 15800)
-   const [toler_grado1, setToler_grado1] = useState([
-    [0.63, 0.05, 0.07, 0.1],
-    [1, 0.05, 0.07, 0.1],
-    [1.6, 0.07, 0.1, 0.15],
-    [2.5, 0.1, 0.1, 0.15],
-    [4, 0.1, 0.15, 0.2],
-    [6.3, 0.15, 0.15, 0.2],
-    [10, 0.15, 0.2, 0.25],
-    [16, 0.2, 0.25, 0.3],
-    [25, 0.25, 0.3, 0.35],
-    [31.5, 0.25, 0.3, 0.35],
-    [40, 0.3, 0.4, 0.5],
-    [50, 0.4, 0.5, 0.6],
-    [63, 0.5, 0.7, 0.8],
-    [80, 0.6, 0.8, 0.9],
-    [100, 0.7, 1, 1.1],
-    [125, 0.9, 1.2, 1.4],
-    [160, 1.2, 1.5, 1.7],
-    [200, 0, 0, 0]
-  ])
-
-  
+   const tolerDiam = [
+    [0.63, 0.05, 0.07, 0.1, 0.07, 0.1, 0.15, 0.1, 0.15, 0.2],
+    [1, 0.05, 0.07, 0.1, 0.08, 0.1, 0.15, 0.15, 0.2, 0.3],
+    [1.6, 0.07, 0.1, 0.15, 0.1, 0.15, 0.2, 0.2, 0.3, 0.4],
+    [2.5, 0.1, 0.1, 0.15, 0.15, 0.2, 0.25, 0.3, 0.4, 0.5],
+    [4, 0.1, 0.15, 0.2, 0.2, 0.25, 0.3, 0.4, 0.5, 0.6],
+    [6.3, 0.15, 0.15, 0.2, 0.25, 0.3, 0.35, 0.5, 0.6, 0.7],
+    [10, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.6, 0.7, 0.8],
+    [16, 0.2, 0.25, 0.3, 0.35, 0.45, 0.5, 0.7, 0.9, 1],
+    [25, 0.25, 0.3, 0.35, 0.4, 0.5, 0.6, 0.8, 1, 1.2],
+    [31.5, 0.25, 0.3, 0.35, 0.5, 0.6, 0.7, 1, 1.2, 1.5],
+    [40, 0.3, 0.4, 0.5, 0.6, 0.8, 0.9, 1.2, 1.5, 1.8],
+    [50, 0.4, 0.5, 0.6, 0.8, 1, 1.1, 1.5, 2, 2.3],
+    [63, 0.5, 0.7, 0.8, 1, 1.2, 1.4, 1.8, 2.4, 2.8],
+    [80, 0.6, 0.8, 0.9, 1.2, 1.5, 1.7, 2.3, 3, 3.5],
+    [100, 0.7, 1, 1.1, 1.4, 1.9, 2.2, 2.8, 3.7, 4.4],
+    [125, 0.9, 1.2, 1.4, 1.8, 2.3, 2.7, 3.5, 4.6, 5.4],
+    [160, 1.2, 1.5, 1.7, 2.1, 2.9, 3.3, 4.2, 5.7, 6.6],
+    [200, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  ];
  
      
   useEffect(() => {
@@ -369,14 +371,53 @@ function App() {
     setData3({...data3, Peso : ((data.d/12.7)^2*data3.LDA/1000).toFixed(2)}) 
   }, [data.d, data3.LDA])
 
-  // useEffect(() => {
-  // setData4({...data4, K : filas.Keq3, F : filas.Fc3, L : filas.Xc3 
-  // })}, [filas.Keq3, filas.Fc3, filas.Xc3])
+  useEffect(() => {
+    let tolerancia = TablaToler()
+    setTablaToler({...tablaToler,
+      valor: tolerancia
+    })
+ }, [data.d, data.Dext])
+  
+  
+  
+  //Funcion para busqueda de tolerancia para Dext
   function TablaToler(){
-    if (grado==1) {
-   data2.Dmedio=toler_grado1.find(toler_grado1)
- }
- 
+   const linea = tolerDiam.findIndex((rango, indice, arreglo)=>{
+    if (indice<(tolerDiam.length-1)){
+      
+      return Number(data3.Dmedio)>=arreglo[indice][0] && Number(data3.Dmedio)<arreglo[indice+1][0]
+    }
+   });
+   //console.log(linea);
+   
+   let tolerBuscada=0;
+   if(grado===1){
+      if(filas.C>=4 && filas.C<8){
+          tolerBuscada=tolerDiam[linea][1];
+      }else if(filas.C>=8 && filas.C<=14){
+          tolerBuscada=tolerDiam[linea][2];
+      }else{
+          tolerBuscada=tolerDiam[linea][3];
+      }
+   }else if(grado===2){
+      if(filas.C>=4 && filas.C<8){
+        tolerBuscada=tolerDiam[linea][4];
+      }else if(filas.C>=8 && filas.C<=14){
+        tolerBuscada=tolerDiam[linea][5];
+      }else{
+         tolerBuscada=tolerDiam[linea][6];
+      }
+   }else{
+    if(filas.C>=4 && filas.C<8){
+      tolerBuscada=tolerDiam[linea][7];
+    }else if(filas.C>=8 && filas.C<=14){
+      tolerBuscada=tolerDiam[linea][8];
+    }else{
+      tolerBuscada=tolerDiam[linea][9];
+    }
+   }
+   console.log(tolerBuscada);
+   return tolerBuscada
  }
 
 
@@ -610,9 +651,6 @@ function App() {
             <Paragraph style={{width: 480}}>Grado tolerancias</Paragraph>
             
           </div>
-
-
-
           
           <Div>
             <Label>Grado</Label>
@@ -625,7 +663,7 @@ function App() {
 
           <Div>
             <Label>Dext={data.Dext}</Label>
-            <DivCalculo  value={data.Dext} id={"Dext"} onChange={(e) => handlePrincipal(e)}/>
+            <DivCalculo  value={data.Dext} id={"Dext"} onChange={(e) => handlePrincipal(e)}>{tablaToler.valor}</DivCalculo>
           </Div>
           
           <Div>
@@ -811,6 +849,7 @@ function App() {
     
     <div>
       <button onClick={Fila123}> result </button>
+      <button onClick={TablaToler}> toler </button>
 
 
     </div>
