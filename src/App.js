@@ -322,8 +322,6 @@ function App() {
       Fc3: Fc3,
           
      })
-
-     console.log(filas)
   }
 
  //Tolerancias para Dext (DIN EN 15800)
@@ -388,27 +386,23 @@ function App() {
 
   useEffect(() => {
     let tolerancia = TablaToler()
-    console.log(tolerancia)
     setTablaToler({...tablaToler,
       valor: tolerancia
     })
  }, [data.d, data.Dext, grado])
   
-  
-  
   //Funcion para busqueda de tolerancia para Dext
   function TablaToler(){
-   
+    const dmedio = (data.Dext - data.d)
+    if(dmedio === "" || dmedio <= 0) return -1;
+    const linea = tolerDiam.findIndex((_rango, indice, arreglo)=>{
+        return Number(dmedio)>=arreglo[indice][0] && Number(dmedio)<=arreglo[indice+1][0]
+      });
+    console.log(linea);
 
-   const linea = tolerDiam.findIndex((rango, indice, arreglo)=>{
-         
-      return Number(data3.Dmedio)>=arreglo[indice][0] && Number(data3.Dmedio)<=arreglo[indice+1][0]
-     });
-   console.log(tolerDiam[linea]);
-
-   let C = ((data.Dext-data.d)/data.d).toFixed(2)
-   let tolerBuscada=0;
-   switch(grado){
+    let C = ((data.Dext-data.d)/data.d).toFixed(2)
+    let tolerBuscada=0;
+    switch(grado){
     case "1":
       console.log("case1")
       if(C>=4 && C<8){
@@ -419,26 +413,28 @@ function App() {
           tolerBuscada=tolerDiam[linea][3];
       }
       break;
-   case "2":
-    console.log("case2")
+    case "2":
+      console.log("case2")
       if(C>=4 && C<8){
         tolerBuscada=tolerDiam[linea][4];
       }else if(C>=8 && C<=14){
         tolerBuscada=tolerDiam[linea][5];
       }else{
-         tolerBuscada=tolerDiam[linea][6];
+        tolerBuscada=tolerDiam[linea][6];
       }
       break;
-   case "3":
-    console.log("case3")
-    if(C>=4 && C<8){
-      tolerBuscada=tolerDiam[linea][7];
-    }else if(C>=8 && C<=14){
-      tolerBuscada=tolerDiam[linea][8];
-    }else{
-    tolerBuscada=tolerDiam[linea][9];
-    }
-    break;
+    case "3":
+      console.log("case3")
+      if(C>=4 && C<8){
+        tolerBuscada=tolerDiam[linea][7];
+      }else if(C>=8 && C<=14){
+        tolerBuscada=tolerDiam[linea][8];
+      }else{
+      tolerBuscada=tolerDiam[linea][9];
+      }
+      break;
+    default:
+      console.log("No entro a ninguno")
    }
    console.log(grado);
    return tolerBuscada
