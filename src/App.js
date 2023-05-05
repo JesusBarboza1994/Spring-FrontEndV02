@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import "@fontsource/abeezee/400-italic.css";
-import { Switch } from "@mui/material";
+import { Switch, breadcrumbsClasses } from "@mui/material";
 //import CustomizedSwitch from "./Switch";
 //import Componente from "./componente";
 //import Presentacion from "./presentacion";
@@ -219,7 +219,7 @@ function App() {
     "INOX CLASE B-DSR",
     "INOX SANDVIK"]);
   
-    const [grado,setGrado] = useState([1,2,3]); 
+    const [grado,setGrado] = useState(1); 
     const [tablaToler,setTablaToler] = useState({
       valor: ""
     });
@@ -347,11 +347,26 @@ function App() {
     [160, 1.2, 1.5, 1.7, 2.1, 2.9, 3.3, 4.2, 5.7, 6.6],
     [200, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   ];
- 
-     
+
+  let Q_Long=0
+  //Tolerancias para Lo y F
+  if(grado==1){
+    Q_Long=0.63
+  }else if(grado==2){
+    Q_Long=1
+  }else{
+    Q_Long=1.6
+  }
+
+  const af = 65.92*Math.pow(Number(data.d),3.3)/Math.pow(data2.Dmedio,1.6)*(-0.84*Math.pow(0.1*filas.C,3)+3.781*Math.pow(0.1*filas.C,2)-4.244*(0.1*filas.C)+2.274);
+  const kf = -1/(3*Math.pow((Number(data.N)-1.75),2))+8/(5*(Number(data.N)-1.75))+0.803;
+  const toler_L0 = (kf*af*Q_Long/filas.Keq3).toFixed(1);
+  //const toler_F = Q_Long*(af*kf+1.5*AG16*9.81/100)/9.81; 
+  
+
   useEffect(() => {
     setData2({...data2,
-      w : ((data.Dext-data.d)/data.d).toFixed(1),
+      w : ((data.Dext-data.d)/data.d).toFixed(2),
       Dmedio: (data.Dext - data.d), Rel_d1 : ((data.Dint1 + data.d)/(data.Dext - data.d)).toFixed(2),
       Rel_d2: ((data.Dint2 + data.d)/(data.Dext - data.d)).toFixed(2)})
 
@@ -373,50 +388,59 @@ function App() {
 
   useEffect(() => {
     let tolerancia = TablaToler()
+    console.log(tolerancia)
     setTablaToler({...tablaToler,
       valor: tolerancia
     })
- }, [data.d, data.Dext])
+ }, [data.d, data.Dext, grado])
   
   
   
   //Funcion para busqueda de tolerancia para Dext
   function TablaToler(){
-   const linea = tolerDiam.findIndex((rango, indice, arreglo)=>{
-    if (indice<(tolerDiam.length-1)){
-      
-      return Number(data3.Dmedio)>=arreglo[indice][0] && Number(data3.Dmedio)<arreglo[indice+1][0]
-    }
-   });
-   //console.log(linea);
    
+
+   const linea = tolerDiam.findIndex((rango, indice, arreglo)=>{
+         
+      return Number(data3.Dmedio)>=arreglo[indice][0] && Number(data3.Dmedio)<=arreglo[indice+1][0]
+     });
+   console.log(tolerDiam[linea]);
+
+   let C = ((data.Dext-data.d)/data.d).toFixed(2)
    let tolerBuscada=0;
-   if(grado===1){
-      if(filas.C>=4 && filas.C<8){
+   switch(grado){
+    case "1":
+      console.log("case1")
+      if(C>=4 && C<8){
           tolerBuscada=tolerDiam[linea][1];
-      }else if(filas.C>=8 && filas.C<=14){
+      }else if(C>=8 && C<=14){
           tolerBuscada=tolerDiam[linea][2];
       }else{
           tolerBuscada=tolerDiam[linea][3];
       }
-   }else if(grado===2){
-      if(filas.C>=4 && filas.C<8){
+      break;
+   case "2":
+    console.log("case2")
+      if(C>=4 && C<8){
         tolerBuscada=tolerDiam[linea][4];
-      }else if(filas.C>=8 && filas.C<=14){
+      }else if(C>=8 && C<=14){
         tolerBuscada=tolerDiam[linea][5];
       }else{
          tolerBuscada=tolerDiam[linea][6];
       }
-   }else{
-    if(filas.C>=4 && filas.C<8){
+      break;
+   case "3":
+    console.log("case3")
+    if(C>=4 && C<8){
       tolerBuscada=tolerDiam[linea][7];
-    }else if(filas.C>=8 && filas.C<=14){
+    }else if(C>=8 && C<=14){
       tolerBuscada=tolerDiam[linea][8];
     }else{
-      tolerBuscada=tolerDiam[linea][9];
+    tolerBuscada=tolerDiam[linea][9];
     }
+    break;
    }
-   console.log(tolerBuscada);
+   console.log(grado);
    return tolerBuscada
  }
 
@@ -663,12 +687,12 @@ function App() {
 
           <Div>
             <Label>Dext={data.Dext}</Label>
-            <DivCalculo  value={data.Dext} id={"Dext"} onChange={(e) => handlePrincipal(e)}>{tablaToler.valor}</DivCalculo>
+            <DivCalculo>±{tablaToler.valor}</DivCalculo>
           </Div>
           
           <Div>
             <Label>L0={data.L0} </Label>
-            <DivCalculo  value={data.L0} id={"L0"} onChange={(e) => handlePrincipal(e)}/>
+            <DivCalculo  value={data.L0} id={"L0"} onChange={(e) => handlePrincipal(e)}>±{toler_L0}</DivCalculo>
           </Div>
       </DivSimul>
 
