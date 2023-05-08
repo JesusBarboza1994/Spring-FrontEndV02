@@ -142,6 +142,53 @@ const Select = styled.select`
 
 `
 
+//Renee-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+const Input3 = styled.input`
+  width:50px;
+  background-color:black;
+  color: white;
+  margin:5px;
+  text-align: center;
+  border:none;
+`
+
+const Th3 = styled.th`
+  height: 80px;
+  font-size: 14px;
+  border: 1px solid grey;
+  
+`
+const Th4 = styled.th`
+  width: 20px;
+  text-align: center;
+  font-size: 14px;
+  letter-spacing: 1px;
+  padding:10px;
+  border: 1px solid grey;
+  color: white;
+`
+
+const Input2 = styled.input`
+  width:80px;
+  background-color:black;
+  color: gray;
+  margin:5px;
+  text-align: center;
+  border:none;
+`
+const Label2 = styled.label`
+  color: white;
+  margin: 5px;
+  height:15px;
+  display: block;
+  width: 40px;
+  background-color:black;
+  line-height: 15px;
+`
+
+//Renee-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 function App() {
     
   const [data, setData] = useState({
@@ -187,6 +234,61 @@ function App() {
     F:"",         
     L:"",        
   })
+
+  //Renee-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  const [data5, setData5] = useState({
+    Luz1:"",      
+    Luz2:"",         
+    Luz3:"",
+    Long1:"",
+    Long2:"",
+    Long3:"",
+    Vtas1:"",
+    Vtas2:"",
+    Vtas3:""        
+  })
+
+  const [puntos1, setPuntos1] = useState([
+    { id: 1, Luz: "", Long: "", Vtas: "" },
+    { id: 2, Luz: "", Long: "", Vtas: "" },
+    { id: 3, Luz: "", Long: "", Vtas: "" },
+    { id: 4, Luz: "", Long: "", Vtas: "" },
+    { id: 5, Luz: "", Long: "", Vtas: "" }
+  ])
+
+  const [puntos2, setPuntos2] = useState([
+    { id: 1, Paso: "", K: "", Kinv: "", Keq: "", Xc: "", b: "", Fc: "" },
+    { id: 2, Paso: "", K: "", Kinv: "", Keq: "", Xc: "", b: "", Fc: "" },
+    { id: 3, Paso: "", K: "", Kinv: "", Keq: "", Xc: "", b: "", Fc: "" },
+    { id: 4, Paso: "", K: "", Kinv: "", Keq: "", Xc: "", b: "", Fc: "" },
+    { id: 5, Paso: "", K: "", Kinv: "", Keq: "", Xc: "", b: "", Fc: "" }
+  ])
+
+  const [data6, setData6] = useState({
+    Paso1:"",      
+    Paso2:"",         
+    Paso3:"",
+    K1:"",
+    K2:"",
+    K3:"",
+    Kinv1:"",
+    Kinv2:"",
+    Kinv3:"",
+    Keq1:"",      
+    Keq2:"",         
+    Keq3:"",
+    Xc1:"",
+    Xc2:"",
+    Xc3:"",
+    Fc1:"",
+    Fc2:"",
+    Fc3:"",
+    b1:"",
+    b2:"",
+    b3:""
+  })
+
+  //Renee-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   const [type1,setType1] = useState(["TASE","TCSE","TCE","TAE"]);
   const [type2,setType2] = useState(["TASE","TCSE","TCE","TAE"]);
@@ -315,6 +417,111 @@ function App() {
           
      })
   }
+
+  //Renee-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  function handleButtonCalcular(){
+    let prueba = 2
+    switch (true){
+      case (prueba<4):
+        console.log("Menor que 4")
+        break;
+      case (prueba>4):
+        console.log("Mayor que 4")
+        break;
+      default:
+        console.log("Default")
+    }
+
+    console.log("Holaaaaaaaaa");
+    let luz1 = Number((parseFloat(data.Luz1)).toFixed(2))
+    let luz2 = Number((parseFloat(data.Luz2)).toFixed(2))
+    let long1 = Number((parseFloat(data.Luz1)+parseFloat(data.d)).toFixed(2))
+    let long2 = Number((parseFloat(data.Luz2)+parseFloat(data.d)).toFixed(2))
+    let vtas1 = 0.875
+    let vtas2 = 0.875
+    let vtas3 = Number((parseFloat(data.N)-2*0.875).toFixed(3))
+    let long3 = Number((parseFloat(data.L0)-long1-long2-parseFloat(data.d)).toFixed(2))
+    let luz3 = Number(((long3/vtas3)-parseFloat(data.d)).toFixed(2))
+    /*let luz3 = 0
+    console.log("Extremos")
+    console.log(data.Ext1)
+    console.log(data.Ext2)
+    if((data.Ext1 == "TASE" || data.Ext1 == "TCSE") && (data.Ext2 == "TASE" || data.Ext2 == "TCSE")){
+      luz3 = Number(((long3/vtas3)-parseFloat(data.d)).toFixed(2))
+    }
+    else if ((data.Ext1 == "TASE" || data.Ext1 == "TCSE") || (data.Ext2 == "TASE" || data.Ext2 == "TCSE")){
+      luz3 = Number(((long3/vtas3)-(parseFloat(data.d)/2)).toFixed(2))
+    }
+    else {
+      luz3 = Number((long3/vtas3).toFixed(2))
+    }*/
+
+    setData5({...data5,
+      Luz1 : luz1,
+      Luz2 : luz2,
+      Long1 : long1,
+      Long2 : long2,
+      Vtas1 : vtas1,
+      Vtas2 : vtas2,
+      Vtas3 : vtas3,
+      Long3 : long3,
+      Luz3 : luz3
+  
+    })
+
+    let luces = [luz1, luz2, luz3]
+    let longitudes = [long1, long2, long3]
+    let vueltas = [vtas1, vtas2, vtas3]
+
+    let d = Number(data.d)
+    let Dext = Number(data.Dext)
+    let Dm = Dext-d
+    let N = Number(data.N)
+
+    let paso1 = long1/vtas1
+    let paso2 = long2/vtas2
+    let paso3 = long3/vtas3
+    
+    let k1 = (78500*(Math.pow(data.d,4)))/(8*(Math.pow(Dm,3))*vtas1)
+    let k2 = (78500*(Math.pow(data.d,4)))/(8*(Math.pow(Dm,3))*vtas2)
+    let k3 = (78500*(Math.pow(data.d,4)))/(8*(Math.pow(Dm,3))*vtas3)
+    let kinv1 = Math.pow(k1,-1)
+    let kinv2 = Math.pow(k2,-1)
+    let kinv3 = Math.pow(k3,-1)
+
+    let keq1 = Math.pow(kinv1+kinv2+kinv3,-1)
+    let keq2 = Math.pow(kinv2+kinv3,-1)
+    let keq3 = Math.pow(kinv3,-1)
+
+    let xc1 = (paso1-d)*N
+    let xc2 = (paso2-d)*(N-vtas1)+paso1*vtas1-vtas1*d
+    let xc3 = (paso3-d)*(N-(vtas1+vtas2))+(paso1*vtas1+paso2*vtas2)-(vtas1+vtas2)*d
+
+    let b1 = 0
+    let b2 = (keq1-keq2)*xc1+b1
+    let b3 = (keq2-keq3)*xc2+b2
+
+    let fc1 = (keq1*xc1+b1)/9.81
+    let fc2 = (keq2*xc2+b2)/9.81
+    let fc3 = (keq3*xc3+b3)/9.81
+
+    let pasos = [Number(paso1.toFixed(3)), Number(paso2.toFixed(3)), Number(paso3.toFixed(3))]
+    let ks = [Number(k1.toFixed(3)), Number(k2.toFixed(3)), Number(k3.toFixed(3))]
+    let kinvs = [Number(kinv1.toFixed(3)), Number(kinv2.toFixed(3)), Number(kinv3.toFixed(3))]
+    let keqs = [Number(keq1.toFixed(3)), Number(keq2.toFixed(3)), Number(keq3.toFixed(3))]
+    let xcs = [Number(xc1.toFixed(3)), Number(xc2.toFixed(3)), Number(xc3.toFixed(3))]
+    let bs = [Number(b1.toFixed(3)), Number(b2.toFixed(3)), Number(b3.toFixed(3))]
+    let fcs = [Number(fc1.toFixed(3)), Number(fc2.toFixed(3)), Number(fc3.toFixed(3))]
+
+    setPuntos1(puntos1.map((punto, indice) => {
+      if (punto.id < 4) {
+        return { ...punto, Luz: luces[indice], Long: longitudes[indice], Vtas: vueltas[indice] };
+      }
+      return punto;
+    }));
+    
+  }
+  //Renee-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
  //Tolerancias para Dext (DIN EN 15800)
    const tolerDiam = [
