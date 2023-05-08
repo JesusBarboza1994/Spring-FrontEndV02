@@ -2,14 +2,6 @@ import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import "@fontsource/abeezee/400-italic.css";
 import { Switch, breadcrumbsClasses } from "@mui/material";
-//import CustomizedSwitch from "./Switch";
-//import Componente from "./componente";
-//import Presentacion from "./presentacion";
-//import InputDiv from "./inputDiv";
-//import { Element } from "./Element";
-//import createSwitch from "switch-button";
-//import { MultiSelect } from "react-multi-select-component";
-
 
 const Form = styled.form`
   display:flex;
