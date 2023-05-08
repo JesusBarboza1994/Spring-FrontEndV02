@@ -453,10 +453,7 @@ function App() {
     setData3({...data3, [e.target.id]:e.target.value})
     console.log(data3)
   }
-  // function handleTeoria(e){
-  //   setData4({...data4, [e.target.id]:e.target.value})
-  //   console.log(data4)
-  // }
+  
 
 
   const [boolSwitch,setBoolSwitch] = useState(false)
