@@ -317,6 +317,13 @@ function App() {
     const [tablaToler,setTablaToler] = useState({
       valor: ""
     });
+    const [coef, setCoef] = useState({
+      af : "",
+      kf : "",
+      Q_Long : 0,
+      toler_L0: "",
+
+    })
 
   
   // if (data.Ext1 == "TASE" && data.Ext2 == "TASE"){
@@ -390,7 +397,8 @@ function App() {
    const Fc2 = Number(((Keq2*Xc2+b2)/9.81).toFixed(2));
    const Fc3 = Number(((Keq3*Xc3+b3)/9.81).toFixed(2));
 
-   setFilas({...filas,
+
+    setFilas({...filas,
 
       C: C,
       nvtas1: nvtas1,
@@ -545,19 +553,20 @@ function App() {
     [200, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   ];
 
-  let Q_Long=0
+  
   //Tolerancias para Lo y F
   if(grado==1){
-    Q_Long=0.63
+    coef.Q_Long=0.63
   }else if(grado==2){
-    Q_Long=1
-  }else{
-    Q_Long=1.6
+    coef.Q_Long=1
+  }else {
+    coef.Q_Long=1.6
   }
+  console.log(coef.Q_Long)
 
   const af = 65.92*Math.pow(Number(data.d),3.3)/Math.pow(data2.Dmedio,1.6)*(-0.84*Math.pow(0.1*filas.C,3)+3.781*Math.pow(0.1*filas.C,2)-4.244*(0.1*filas.C)+2.274);
   const kf = -1/(3*Math.pow((Number(data.N)-1.75),2))+8/(5*(Number(data.N)-1.75))+0.803;
-  const toler_L0 = (kf*af*Q_Long/filas.Keq3).toFixed(1);
+  //const toler_L0 = (kf*af*Q_Long/filas.Keq3).toFixed(1);
   //const toler_F = Q_Long*(af*kf+1.5*AG16*9.81/100)/9.81; 
   
 
@@ -582,6 +591,10 @@ function App() {
   useEffect(() => {
     setData3({...data3, Peso : ((data.d/12.7)^2*data3.LDA/1000).toFixed(2)}) 
   }, [data.d, data3.LDA])
+
+  useEffect(() => {
+   setCoef({...coef, toler_L0: (coef.kf*coef.af*coef.Q_Long/filas.Keq3).toFixed(1) })
+  }, [data.N, data.d, data2.Dmedio ])
 
   useEffect(() => {
     let tolerancia = TablaToler()
@@ -635,7 +648,7 @@ function App() {
     default:
       console.log("No entro a ninguno")
    }
-   console.log(grado);
+   console.log(tolerBuscada);
    return tolerBuscada
  }
 
@@ -673,10 +686,7 @@ function App() {
     setBoolSwitch(!boolSwitch)
     
   }
-
-
-  //const trabajadores=[["Renee", "ingeniero mecatronico"], ["Liudmila", "ingeniero mecanico"]]
-  
+    
   return (
    <div className="App" style={{backgroundColor:"black", gap: 100, display:"flex"}}>
     
@@ -884,7 +894,7 @@ function App() {
           
           <Div>
             <Label>L0={data.L0} </Label>
-            <DivCalculo  value={data.L0} id={"L0"} onChange={(e) => handlePrincipal(e)}>±{toler_L0}</DivCalculo>
+            <DivCalculo id={"toler_L0"}>±{coef.toler_L0}</DivCalculo>
           </Div>
       </DivSimul>
 
