@@ -213,7 +213,7 @@ function App() {
   })
 
   const [data2, setData2] = useState({
-    w: "",      
+    C: "",      
     Dmedio:"",         
     f:"",      
     Rel_d1:"",      
@@ -311,34 +311,22 @@ function App() {
     "HD CLASE C",
     "INOX CLASE A-DSR",
     "INOX CLASE B-DSR",
-    "INOX SANDVIK"]);
+    "INOX SANDVIK"
+  ]);
   
-    const [grado,setGrado] = useState(1); 
-    const [tablaToler,setTablaToler] = useState({
-      valor: ""
-    });
-    const [coef, setCoef] = useState({
-      af : "",
-      kf : "",
-      Q_Long : 0,
-      toler_L0: "",
-
-    })
-
+  const [grado,setGrado] = useState(1); 
+  const [tablaToler,setTablaToler] = useState({
+    valor: ""
+  });
   
-  // if (data.Ext1 == "TASE" && data.Ext2 == "TASE"){
-  //  return paso_cuerpo = (data.L0 - data.d - paso_luz1 - paso_luz2)/(data.N-1.5)
-  // }
+  const [coef, setCoef] = useState({
+    af : 0,
+    kf : 0,
+    Q_Long : 0,
+    toler_L0: 0,
+  });
 
-  // if(data.Ext1 == "TAE" && data.Ext2 == "TAE" || data.Ext1 == "TAE" && data.Ext2 == "TCE" || data.Ext1 == "TCE" && data.Ext2 == "TCE" || data.Ext1 == "TCE" && data.Ext2 == "TAE"){
-  //   return paso_cuerpo = (data.L0 - paso_luz1 - paso_luz2)/(data.N-1.5)
-  // }
-  //  return paso_cuerpo = (data.L0 - 0.5*data.d - paso_luz1 - paso_luz2)/(data.N-1.5);
- 
-
- //Tabla de Calculo para rigidez y cargas por puntos
   const [filas, setFilas] = useState({ 
-    C: "",
     nvtas1: "",
     nvtas2: "",
     nvtas3: "",
@@ -360,72 +348,17 @@ function App() {
     Fc1: "",
     Fc2: "",
     Fc3: "",
-  })
+});
+ 
+const [valuetab, setValuetab] = useState({
+Linst: 0,
+Lcarga: 0,
+Lmax: 0,
+L4: 0
 
- function Fila123(){
+});
 
-   const C = Number(((Number(data.Dext)-Number(data.d))/Number(data.d)).toFixed(2));
-   const nvtas1 = 0.875;    //primera linea contando desde abajo por arriba (empieza con luz menor)
-   const nvtas2 = 0.875;  
-   const nvtas3 = Number(data.N) - (nvtas1 + nvtas2);  // Vueltas del cuerpo
    
-   const long1 = Number((Number(data.Luz2) + Number(data.d)).toFixed(2));
-   const long2 = Number((Number(data.Luz1) + Number(data.d)).toFixed(2));
-   const long3 = Number((Number(data.L0)- (long1+long2)-Number(data.d)).toFixed(2));
-   
-   const paso1 = Number((long1/nvtas1).toFixed(2));
-   const paso2 = Number((long2/nvtas2).toFixed(2));
-   const paso3 = Number((long3/nvtas3).toFixed(2));
-
-   const rigidez1 = 1/((78500*Math.pow(Number(data.d),4))/(8*Math.pow(Number(data2.Dmedio),3)*Number(nvtas1))); // N/mm
-   const rigidez2 = 1/((78500*Math.pow(Number(data.d),4))/(8*Math.pow(Number(data2.Dmedio),3)*Number(nvtas2)));
-   const rigidez3 = 1/((78500*Math.pow(Number(data.d),4))/(8*Math.pow(Number(data2.Dmedio),3)*Number(nvtas3)));
-
-   const Keq1 = Number((1/(rigidez1+rigidez2+rigidez3)).toFixed(2));
-   const Keq2 = Number((1/(rigidez2+rigidez3)).toFixed(2));
-   const Keq3 = Number((1/rigidez3).toFixed(2));
-
-   const Xc1 = Number(((paso1-Number(data.d))*Number(data.N)).toFixed(2));
-   const Xc2 = Number(((paso2-Number(data.d))*(Number(data.N)-nvtas1)+(paso1*nvtas1)-nvtas1*Number(data.d)).toFixed(2));
-   const Xc3 = Number(((paso3-Number(data.d))*(Number(data.N)-(nvtas1+nvtas2))+(paso1*nvtas1+paso2*nvtas2)-(nvtas1+nvtas2)*Number(data.d)).toFixed(2));
-
-   const b1 = 0;
-   const b2 = (Keq1-Keq2)*Xc1+b1;
-   const b3 = (Keq2-Keq3)*Xc2+b2;
-   
-   const Fc1 = Number(((Keq1*Xc1+b1)/9.81).toFixed(2));
-   const Fc2 = Number(((Keq2*Xc2+b2)/9.81).toFixed(2));
-   const Fc3 = Number(((Keq3*Xc3+b3)/9.81).toFixed(2));
-
-
-    setFilas({...filas,
-
-      C: C,
-      nvtas1: nvtas1,
-      nvtas2: nvtas2,
-      nvtas3: nvtas3,
-      long1: long1,
-      long2: long2, 
-      long3: long3,
-      paso1: paso1,
-      paso2: paso2,
-      paso3: paso3,
-      // rigidez1: rigidez1,
-      // rigidez2: rigidez2,
-      // rigidez3: rigidez3,
-      Keq1: Keq1,
-      Keq2: Keq2,
-      Keq3: Keq3,
-      Xc1: Xc1,
-      Xc2: Xc2,
-      Xc3: Xc3,
-      Fc1: Fc1,
-      Fc2: Fc2,
-      Fc3: Fc3,
-          
-     })
-  }
-
   //Renee-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
   function handleButtonCalcular(){
     let prueba = 2
@@ -555,24 +488,24 @@ function App() {
 
   
   //Tolerancias para Lo y F
-  if(grado==1){
-    coef.Q_Long=0.63
-  }else if(grado==2){
-    coef.Q_Long=1
-  }else {
-    coef.Q_Long=1.6
-  }
-  console.log(coef.Q_Long)
+  // if(grado==1){
+  //   coef.Q_Long=0.63
+  // }else if(grado==2){
+  //   coef.Q_Long=1
+  // }else {
+  //   coef.Q_Long=1.6
+  // }
+  // console.log(coef.Q_Long)
 
-  const af = 65.92*Math.pow(Number(data.d),3.3)/Math.pow(data2.Dmedio,1.6)*(-0.84*Math.pow(0.1*filas.C,3)+3.781*Math.pow(0.1*filas.C,2)-4.244*(0.1*filas.C)+2.274);
-  const kf = -1/(3*Math.pow((Number(data.N)-1.75),2))+8/(5*(Number(data.N)-1.75))+0.803;
+  // const af = 65.92*Math.pow(Number(data.d),3.3)/Math.pow(data2.Dmedio,1.6)*(-0.84*Math.pow(0.1*filas.C,3)+3.781*Math.pow(0.1*filas.C,2)-4.244*(0.1*filas.C)+2.274);
+  // const kf = -1/(3*Math.pow((Number(data.N)-1.75),2))+8/(5*(Number(data.N)-1.75))+0.803;
   //const toler_L0 = (kf*af*Q_Long/filas.Keq3).toFixed(1);
   //const toler_F = Q_Long*(af*kf+1.5*AG16*9.81/100)/9.81; 
   
 
   useEffect(() => {
     setData2({...data2,
-      w : ((data.Dext-data.d)/data.d).toFixed(2),
+      C : ((data.Dext-data.d)/data.d).toFixed(2),
       Dmedio: (data.Dext - data.d), Rel_d1 : ((data.Dint1 + data.d)/(data.Dext - data.d)).toFixed(2),
       Rel_d2: ((data.Dint2 + data.d)/(data.Dext - data.d)).toFixed(2)})
 
@@ -592,16 +525,94 @@ function App() {
     setData3({...data3, Peso : ((data.d/12.7)^2*data3.LDA/1000).toFixed(2)}) 
   }, [data.d, data3.LDA])
 
-  useEffect(() => {
-   setCoef({...coef, toler_L0: (coef.kf*coef.af*coef.Q_Long/filas.Keq3).toFixed(1) })
-  }, [data.N, data.d, data2.Dmedio ])
 
+  //calculo de la rigidez, fuerza y deformacion, mas la tolerancias
   useEffect(() => {
+   //const C = Number(((Number(data.Dext)-Number(data.d))/Number(data.d)).toFixed(2));
+   const nvtas1 = 0.875;    //primera linea contando desde abajo por arriba (empieza con luz menor)
+   const nvtas2 = 0.875;  
+   const nvtas3 = Number(data.N) - (nvtas1 + nvtas2);  // Vueltas del cuerpo
+   
+   const long1 = Number((Number(data.Luz2) + Number(data.d)).toFixed(2));
+   const long2 = Number((Number(data.Luz1) + Number(data.d)).toFixed(2));
+   const long3 = Number((Number(data.L0)- (long1+long2)-Number(data.d)).toFixed(2));
+   
+   const paso1 = Number((long1/nvtas1).toFixed(2));
+   const paso2 = Number((long2/nvtas2).toFixed(2));
+   const paso3 = Number((long3/nvtas3).toFixed(2));
+
+   const rigidez1 = 1/((78500*Math.pow(Number(data.d),4))/(8*Math.pow(Number(data2.Dmedio),3)*Number(nvtas1))); // N/mm
+   const rigidez2 = 1/((78500*Math.pow(Number(data.d),4))/(8*Math.pow(Number(data2.Dmedio),3)*Number(nvtas2)));
+   const rigidez3 = 1/((78500*Math.pow(Number(data.d),4))/(8*Math.pow(Number(data2.Dmedio),3)*Number(nvtas3)));
+
+   const Keq1 = Number((1/(rigidez1+rigidez2+rigidez3)).toFixed(2));
+   const Keq2 = Number((1/(rigidez2+rigidez3)).toFixed(2));
+   const Keq3 = Number((1/rigidez3).toFixed(2));
+
+   const Xc1 = Number(((paso1-Number(data.d))*Number(data.N)).toFixed(2));
+   const Xc2 = Number(((paso2-Number(data.d))*(Number(data.N)-nvtas1)+(paso1*nvtas1)-nvtas1*Number(data.d)).toFixed(2));
+   const Xc3 = Number(((paso3-Number(data.d))*(Number(data.N)-(nvtas1+nvtas2))+(paso1*nvtas1+paso2*nvtas2)-(nvtas1+nvtas2)*Number(data.d)).toFixed(2));
+
+   const b1 = 0;
+   const b2 = (Keq1-Keq2)*Xc1+b1;
+   const b3 = (Keq2-Keq3)*Xc2+b2;
+   
+   const Fc1 = Number(((Keq1*Xc1+b1)/9.81).toFixed(2));
+   const Fc2 = Number(((Keq2*Xc2+b2)/9.81).toFixed(2));
+   const Fc3 = Number(((Keq3*Xc3+b3)/9.81).toFixed(2));
+
+
+    setFilas({...filas,
+      
+      nvtas1: nvtas1,
+      nvtas2: nvtas2,
+      nvtas3: nvtas3,
+      long1: long1,
+      long2: long2, 
+      long3: long3,
+      paso1: paso1,
+      paso2: paso2,
+      paso3: paso3,
+      // rigidez1: rigidez1,
+      // rigidez2: rigidez2,
+      // rigidez3: rigidez3,
+      Keq1: Keq1,
+      Keq2: Keq2,
+      Keq3: Keq3,
+      Xc1: Xc1,
+      Xc2: Xc2,
+      Xc3: Xc3,
+      Fc1: Fc1,
+      Fc2: Fc2,
+      Fc3: Fc3,
+          
+     })
+
+    let Q_Long=0
+    if(grado==1){
+      Q_Long=0.63
+    }else if(grado==2){
+      Q_Long=1
+    }else {
+      Q_Long=1.6
+    }
+    console.log(Q_Long)
+
+    let af = 65.92*Math.pow(Number(data.d),3.3)/Math.pow(data2.Dmedio,1.6)*(-0.84*Math.pow(0.1*data2.C,3)+3.781*Math.pow(0.1*data2.C,2)-4.244*(0.1*data2.C)+2.274);
+    
+    let kf = -1/(3*Math.pow((Number(data.N)-1.75),2))+8/(5*(Number(data.N)-1.75))+0.803;
+    
+    let toler=(kf*af*Q_Long/Keq3).toFixed(1);
+    console.log(toler)
+    console.log(Keq3)
+    
     let tolerancia = TablaToler()
     setTablaToler({...tablaToler,
       valor: tolerancia
     })
- }, [data.d, data.Dext, grado])
+   setCoef({...coef, toler_L0: toler })
+  }, [grado])
+
   
   //Funcion para busqueda de tolerancia para Dext
   function TablaToler(){
@@ -610,7 +621,7 @@ function App() {
     const linea = tolerDiam.findIndex((_rango, indice, arreglo)=>{
         return Number(dmedio)>=arreglo[indice][0] && Number(dmedio)<=arreglo[indice+1][0]
       });
-    console.log(linea);
+    //console.log(linea);
 
     let C = ((data.Dext-data.d)/data.d).toFixed(2)
     let tolerBuscada=0;
@@ -648,9 +659,22 @@ function App() {
     default:
       console.log("No entro a ninguno")
    }
-   console.log(tolerBuscada);
+   //console.log(tolerBuscada);
    return tolerBuscada
  }
+
+ function Tab1(){
+    let Lbloqueo=0;
+    if(data.Ext1=="TASE" && data.Ext2=="TASE"){
+      Lbloqueo=(data.N+1)*data.d;
+    }else if(data.Ext1!=="TASE" && data.Ext2=="TASE" || data.Ext1=="TASE" && data.Ext2!=="TASE"){
+      Lbloqueo=(data.N+1)*data.d-0.5*data.d;
+    }else{
+      Lbloqueo=(data.N+1)*data.d-data.d;
+    }
+    console.log(Lbloqueo);
+    return Lbloqueo
+  }
 
 
   function handleInput(e){
@@ -665,16 +689,16 @@ function App() {
     setData1({...data1, [e.target.id]:e.target.value})
     console.log(data1)
   }
-  // function handleCalcul(e){
-  //   setData2({...data2, [e.target.id]:e.target.value})
-  //   console.log(data2)
-  // }
+  
   function handlePrincipal(e){
     setData3({...data3, [e.target.id]:e.target.value})
     console.log(data3)
   }
-  
 
+  function handleTab(e){
+    setValuetab({...valuetab, [e.target.id]:e.target.value});
+  }
+ 
 
   const [boolSwitch,setBoolSwitch] = useState(false)
   function handleChange(){
@@ -826,8 +850,8 @@ function App() {
       <DivSimul>
       <Paragraph style={{width: 480}}>Parametros calculados</Paragraph>
       <Div>
-          <Label>w</Label>              
-          <DivCalculo id={"w"}> {data2.w} </DivCalculo>
+          <Label>C</Label>              
+          <DivCalculo id={"C"}> {data2.C} </DivCalculo>
       </Div>
       <Div>
           <Label>D medio</Label>
@@ -963,8 +987,10 @@ function App() {
         </tr>
         <tr>
           <Th2>L instalada</Th2>
-          <Td>123</Td>
-          <Td>234</Td>
+          <Td>
+           <Input type="number" value={valuetab.Linst} id={"Linst"}  onChange={(e) => handleTab(e)}/>     
+          </Td>
+          <Td>-</Td>
           <Td>345</Td>
           <Td>456</Td>
           <Td>567</Td>
@@ -972,7 +998,9 @@ function App() {
         </tr>
         <tr>
           <Th2>L carga</Th2>
-          <Td>1</Td>
+          <Td>
+           <Input type="number" value={valuetab.Lcarga} id={"Lcarga"}  onChange={(e) => handleTab(e)}/>
+          </Td>
           <Td>2</Td>
           <Td>3</Td>
           <Td>4</Td>
@@ -981,7 +1009,9 @@ function App() {
         </tr>
         <tr>
           <Th2>L maxima</Th2>
-          <Td>1</Td>
+          <Td>
+           <Input type="number" value={valuetab.Lmax} id={"Lmax"}  onChange={(e) => handleTab(e)}/>
+          </Td>
           <Td>2</Td>
           <Td>3</Td>
           <Td>4</Td>
@@ -990,7 +1020,9 @@ function App() {
         </tr>
         <tr>
           <Th2>L4</Th2>
-          <Td>1</Td>
+          <Td>
+           <Input type="number" value={valuetab.L4} id={"L4"}  onChange={(e) => handleTab(e)}/>
+          </Td>
           <Td>2</Td>
           <Td>3</Td>
           <Td>4</Td>
@@ -999,7 +1031,7 @@ function App() {
         </tr>
         <tr>
           <Th2>L bloqueo</Th2>
-          <Td>1</Td>
+          <Td>{Tab1}</Td>
           <Td>2</Td>
           <Td>3</Td>
           <Td>4</Td>
@@ -1074,8 +1106,7 @@ function App() {
     </div> 
     
     <div>
-      <button onClick={Fila123}> result </button>
-      <button onClick={TablaToler}> toler </button>
+       <button onClick={TablaToler}> toler </button>
 
 
     </div>
