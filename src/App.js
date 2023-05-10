@@ -634,13 +634,11 @@ Lbloqueo: 0
     }
     console.log(Lbloq);
     
-
     setValuetab({...valuetab,
-      
       Lbloqueo: Lbloq
-      
-    }, [data.Ext1, data.Ext2])
-  })
+    })
+
+  }, [data.Ext1, data.Ext2])
   
 
 
