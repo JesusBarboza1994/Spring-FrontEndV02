@@ -354,7 +354,8 @@ const [valuetab, setValuetab] = useState({
 Linst: 0,
 Lcarga: 0,
 Lmax: 0,
-L4: 0
+L4: 0,
+Lbloqueo: 0
 
 });
 
@@ -502,6 +503,13 @@ L4: 0
   //const toler_L0 = (kf*af*Q_Long/filas.Keq3).toFixed(1);
   //const toler_F = Q_Long*(af*kf+1.5*AG16*9.81/100)/9.81; 
   
+  useEffect(() => {
+    let extremo1 = type1
+    let extremo2 = type2
+    setData({...data,
+      Ext1: extremo1, Ext2: extremo2
+    })
+  }, [type1, type2])
 
   useEffect(() => {
     setData2({...data2,
@@ -522,7 +530,7 @@ L4: 0
   }, [data.d, data.Dext, data.N])
 
   useEffect(() => {
-    setData3({...data3, Peso : ((data.d/12.7)^2*data3.LDA/1000).toFixed(2)}) 
+    setData3({...data3, Peso : (Math.pow(data.d/12.7,2)*data3.LDA/1000).toFixed(2)}) 
   }, [data.d, data3.LDA])
 
 
@@ -549,17 +557,18 @@ L4: 0
    const Keq2 = Number((1/(rigidez2+rigidez3)).toFixed(2));
    const Keq3 = Number((1/rigidez3).toFixed(2));
 
-   const Xc1 = Number(((paso1-Number(data.d))*Number(data.N)).toFixed(2));
-   const Xc2 = Number(((paso2-Number(data.d))*(Number(data.N)-nvtas1)+(paso1*nvtas1)-nvtas1*Number(data.d)).toFixed(2));
-   const Xc3 = Number(((paso3-Number(data.d))*(Number(data.N)-(nvtas1+nvtas2))+(paso1*nvtas1+paso2*nvtas2)-(nvtas1+nvtas2)*Number(data.d)).toFixed(2));
+   const Xc1 = Number(((paso1-Number(data.d))*Number(data.N)).toFixed(1));
+   const Xc2 = Number(((paso2-Number(data.d))*(Number(data.N)-nvtas1)+(paso1*nvtas1)-nvtas1*Number(data.d)).toFixed(1));
+   const Xc3 = Number(((paso3-Number(data.d))*(Number(data.N)-(nvtas1+nvtas2))+(paso1*nvtas1+paso2*nvtas2)-(nvtas1+nvtas2)*Number(data.d)).toFixed(1));
 
    const b1 = 0;
    const b2 = (Keq1-Keq2)*Xc1+b1;
    const b3 = (Keq2-Keq3)*Xc2+b2;
+   console.log(b3);
    
-   const Fc1 = Number(((Keq1*Xc1+b1)/9.81).toFixed(2));
-   const Fc2 = Number(((Keq2*Xc2+b2)/9.81).toFixed(2));
-   const Fc3 = Number(((Keq3*Xc3+b3)/9.81).toFixed(2));
+   const Fc1 = Number(((Keq1*Xc1+b1)/9.81).toFixed(1));
+   const Fc2 = Number(((Keq2*Xc2+b2)/9.81).toFixed(1));
+   const Fc3 = Number(((Keq3*Xc3+b3)/9.81).toFixed(1));
 
 
     setFilas({...filas,
@@ -613,7 +622,28 @@ L4: 0
    setCoef({...coef, toler_L0: toler })
   }, [grado])
 
+  useEffect(() => {
+    
+    let Lbloq=0;
+    if(data.Ext1=="TASE" && data.Ext2=="TASE"){
+      Lbloq=(data.N+1)*data.d;
+    }else if(data.Ext1!=="TASE" && data.Ext2=="TASE" || data.Ext1=="TASE" && data.Ext2!=="TASE"){
+      Lbloq=(data.N+1)*data.d-0.5*data.d;
+    }else{
+      Lbloq=(data.N+1)*data.d-data.d;
+    }
+    console.log(Lbloq);
+    
+
+    setValuetab({...valuetab,
+      
+      Lbloqueo: Lbloq
+      
+    }, [data.Ext1, data.Ext2])
+  })
   
+
+
   //Funcion para busqueda de tolerancia para Dext
   function TablaToler(){
     const dmedio = (data.Dext - data.d)
@@ -663,21 +693,8 @@ L4: 0
    return tolerBuscada
  }
 
- function Tab1(){
-    let Lbloqueo=0;
-    if(data.Ext1=="TASE" && data.Ext2=="TASE"){
-      Lbloqueo=(data.N+1)*data.d;
-    }else if(data.Ext1!=="TASE" && data.Ext2=="TASE" || data.Ext1=="TASE" && data.Ext2!=="TASE"){
-      Lbloqueo=(data.N+1)*data.d-0.5*data.d;
-    }else{
-      Lbloqueo=(data.N+1)*data.d-data.d;
-    }
-    console.log(Lbloqueo);
-    return Lbloqueo
-  }
-
-
-  function handleInput(e){
+ 
+ function handleInput(e){
     setData({...data, [e.target.id]:e.target.value})
     
   }
@@ -1031,7 +1048,7 @@ L4: 0
         </tr>
         <tr>
           <Th2>L bloqueo</Th2>
-          <Td>{Tab1}</Td>
+          <Td>{valuetab.Lbloqueo}</Td>
           <Td>2</Td>
           <Td>3</Td>
           <Td>4</Td>
