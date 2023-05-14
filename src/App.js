@@ -359,7 +359,24 @@ Lbloqueo: 0
 
 });
 
-   
+const [carrera, setCarrera] = useState({
+  carrCarga: "",
+  carrMax: "",
+  carrL4: "",
+  carrLc: "",
+  s1: "",
+  s2: "",
+  s3: "",
+  s4: "",
+  sc: "",
+  Finst: "",
+  Fcarg: "",
+  Fmax: "",
+  F4: "",
+
+})
+
+
   //Renee-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
   function handleButtonCalcular(){
     let prueba = 2
@@ -564,6 +581,7 @@ Lbloqueo: 0
    const b1 = 0;
    const b2 = (Keq1-Keq2)*Xc1+b1;
    const b3 = (Keq2-Keq3)*Xc2+b2;
+   console.log(b2);
    console.log(b3);
    
    const Fc1 = Number(((Keq1*Xc1+b1)/9.81).toFixed(1));
@@ -614,6 +632,11 @@ Lbloqueo: 0
     let toler=(kf*af*Q_Long/Keq3).toFixed(1);
     console.log(toler)
     console.log(Keq3)
+    console.log(Xc2)
+    console.log(Xc1)
+    console.log(long2)
+    console.log(long1)
+
     
     let tolerancia = TablaToler()
     setTablaToler({...tablaToler,
@@ -622,12 +645,62 @@ Lbloqueo: 0
    setCoef({...coef, toler_L0: toler })
   }, [grado])
 
+  //Funcion para busqueda de tolerancia para Dext
+  function TablaToler(){
+  const dmedio = (data.Dext - data.d)
+  if(dmedio === "" || dmedio <= 0) return -1;
+  const linea = tolerDiam.findIndex((_rango, indice, arreglo)=>{
+      return Number(dmedio)>=arreglo[indice][0] && Number(dmedio)<=arreglo[indice+1][0]
+    });
+  //console.log(linea);
+
+  let C = ((data.Dext-data.d)/data.d).toFixed(2)
+  let tolerBuscada=0;
+  switch(grado){
+  case "1":
+    console.log("case1")
+    if(C>=4 && C<8){
+        tolerBuscada=tolerDiam[linea][1];
+    }else if(C>=8 && C<=14){
+        tolerBuscada=tolerDiam[linea][2];
+    }else{
+        tolerBuscada=tolerDiam[linea][3];
+    }
+    break;
+  case "2":
+    console.log("case2")
+    if(C>=4 && C<8){
+      tolerBuscada=tolerDiam[linea][4];
+    }else if(C>=8 && C<=14){
+      tolerBuscada=tolerDiam[linea][5];
+    }else{
+      tolerBuscada=tolerDiam[linea][6];
+    }
+    break;
+  case "3":
+    console.log("case3")
+    if(C>=4 && C<8){
+      tolerBuscada=tolerDiam[linea][7];
+    }else if(C>=8 && C<=14){
+      tolerBuscada=tolerDiam[linea][8];
+    }else{
+    tolerBuscada=tolerDiam[linea][9];
+    }
+    break;
+  default:
+    console.log("No entro a ninguno")
+ }
+ //console.log(tolerBuscada);
+ return tolerBuscada
+}
+
   useEffect(() => {
     
     let Lbloq=0;
-    if(data.Ext1=="TASE" && data.Ext2=="TASE"){
+    if(data.Ext1=="TASE" && data.Ext2=="TASE" || data.Ext1=="TCSE" && data.Ext2=="TCSE"){
       Lbloq=(data.N+1)*data.d;
-    }else if(data.Ext1!=="TASE" && data.Ext2=="TASE" || data.Ext1=="TASE" && data.Ext2!=="TASE"){
+    }else if(data.Ext1=="TASE" && data.Ext2=="TAE" || data.Ext1=="TCSE" && data.Ext2=="TAE" || data.Ext1=="TASE" && data.Ext2=="TCE" || data.Ext1=="TCSE" && data.Ext2=="TCE" ||
+      data.Ext2=="TASE" && data.Ext1=="TAE" || data.Ext2=="TCSE" && data.Ext1=="TAE" || data.Ext2=="TASE" && data.Ext1=="TCE" || data.Ext2=="TCSE" && data.Ext1=="TCE"){
       Lbloq=(data.N+1)*data.d-0.5*data.d;
     }else{
       Lbloq=(data.N+1)*data.d-data.d;
@@ -635,61 +708,54 @@ Lbloqueo: 0
     console.log(Lbloq);
     
     setValuetab({...valuetab,
-      Lbloqueo: Lbloq
+    Lbloqueo: Lbloq.toFixed(1)
     })
 
   }, [data.Ext1, data.Ext2])
   
 
+  useEffect(() => {
+   let s1= (data.L0-valuetab.Linst);
+   let s2=data.L0-valuetab.Lcarga;
+   let s3=data.L0-valuetab.Lmax;
+   let s4=data.L0-valuetab.L4;
+   let sc=data.L0-valuetab.Lbloqueo;
 
-  //Funcion para busqueda de tolerancia para Dext
-  function TablaToler(){
-    const dmedio = (data.Dext - data.d)
-    if(dmedio === "" || dmedio <= 0) return -1;
-    const linea = tolerDiam.findIndex((_rango, indice, arreglo)=>{
-        return Number(dmedio)>=arreglo[indice][0] && Number(dmedio)<=arreglo[indice+1][0]
-      });
-    //console.log(linea);
+   let F1=0;
+   let Fcarg=0;
+   let Fmax=0;
+   let F4=0;
+   if (s1<filas.Xc1){
+     F1=filas.Keq1*s1+filas.b1;
+    }else if(s1<filas.Xc2){
+     F1=filas.Keq2*s1+filas.b2;
+    }else if(s1<filas.Xc3){
+     F1=filas.Keq3*s1+filas.b3;
+    }
+   console.log(F1);
 
-    let C = ((data.Dext-data.d)/data.d).toFixed(2)
-    let tolerBuscada=0;
-    switch(grado){
-    case "1":
-      console.log("case1")
-      if(C>=4 && C<8){
-          tolerBuscada=tolerDiam[linea][1];
-      }else if(C>=8 && C<=14){
-          tolerBuscada=tolerDiam[linea][2];
-      }else{
-          tolerBuscada=tolerDiam[linea][3];
-      }
-      break;
-    case "2":
-      console.log("case2")
-      if(C>=4 && C<8){
-        tolerBuscada=tolerDiam[linea][4];
-      }else if(C>=8 && C<=14){
-        tolerBuscada=tolerDiam[linea][5];
-      }else{
-        tolerBuscada=tolerDiam[linea][6];
-      }
-      break;
-    case "3":
-      console.log("case3")
-      if(C>=4 && C<8){
-        tolerBuscada=tolerDiam[linea][7];
-      }else if(C>=8 && C<=14){
-        tolerBuscada=tolerDiam[linea][8];
-      }else{
-      tolerBuscada=tolerDiam[linea][9];
-      }
-      break;
-    default:
-      console.log("No entro a ninguno")
-   }
-   //console.log(tolerBuscada);
-   return tolerBuscada
- }
+
+
+    setCarrera({...carrera,
+    carrCarga : (valuetab.Linst-valuetab.Lcarga),
+    carrMax: (valuetab.Linst-valuetab.Lmax),
+    carrL4: (valuetab.Linst-valuetab.L4),
+    carrLc: (valuetab.Linst-valuetab.Lbloqueo),
+    // s1: (data.L0-valuetab.Linst),
+    // s2: (data.L0-valuetab.Lcarga),
+    // s3: (data.L0-valuetab.Lmax),
+    // s4: (data.L0-valuetab.L4),
+    // sc: (data.L0-valuetab.Lbloqueo),
+    Finst: F1,
+    
+    }) 
+  }, [valuetab.Linst, valuetab.Lcarga, valuetab.Lmax, valuetab.L4,])
+
+
+
+
+
+  
 
  
  function handleInput(e){
@@ -1006,7 +1072,7 @@ Lbloqueo: 0
            <Input type="number" value={valuetab.Linst} id={"Linst"}  onChange={(e) => handleTab(e)}/>     
           </Td>
           <Td>-</Td>
-          <Td>345</Td>
+          <Td>{carrera.Finst}</Td>
           <Td>456</Td>
           <Td>567</Td>
           <Td>678</Td>
@@ -1016,7 +1082,7 @@ Lbloqueo: 0
           <Td>
            <Input type="number" value={valuetab.Lcarga} id={"Lcarga"}  onChange={(e) => handleTab(e)}/>
           </Td>
-          <Td>2</Td>
+          <Td>{carrera.carrCarga}</Td>
           <Td>3</Td>
           <Td>4</Td>
           <Td>5</Td>
@@ -1027,7 +1093,7 @@ Lbloqueo: 0
           <Td>
            <Input type="number" value={valuetab.Lmax} id={"Lmax"}  onChange={(e) => handleTab(e)}/>
           </Td>
-          <Td>2</Td>
+          <Td>{carrera.carrMax}</Td>
           <Td>3</Td>
           <Td>4</Td>
           <Td>5</Td>
@@ -1038,7 +1104,7 @@ Lbloqueo: 0
           <Td>
            <Input type="number" value={valuetab.L4} id={"L4"}  onChange={(e) => handleTab(e)}/>
           </Td>
-          <Td>2</Td>
+          <Td>{carrera.carrL4}</Td>
           <Td>3</Td>
           <Td>4</Td>
           <Td>5</Td>
@@ -1047,7 +1113,7 @@ Lbloqueo: 0
         <tr>
           <Th2>L bloqueo</Th2>
           <Td>{valuetab.Lbloqueo}</Td>
-          <Td>2</Td>
+          <Td>{carrera.carrLc}</Td>
           <Td>3</Td>
           <Td>4</Td>
           <Td>5</Td>
