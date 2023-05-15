@@ -90,26 +90,27 @@ const Button = styled.button`
   
 `
 const Table1 = styled.table`
-  width:420px;
+  width: 520px;
   height:380px;
   font-family: "ABeeZee";
   border: 2px solid grey;
   border-collapse: collapse;
   color: grey;
-    
+      
 `
-const Table2 = styled.table`
-  width:210px;
-  height:210px;
-  font-family: "ABeeZee";
-
-  border: 2px solid grey;
-  border-collapse: collapse;
-  color: grey;
-
+const Input8 = styled.input`
+  width:50px;
+  height:18px;
+  color:black;
+  background-color: #cadefc;
+  margin:5px;
+  font-family:"ABeeZee";
+  font-size: 13px;
+  border-style:inset;
+     
 `
-
 const Th = styled.th`
+  width: 100px;
   height: 170px;
   writing-mode: vertical-lr;
   text-orientation: upright;
@@ -118,7 +119,7 @@ const Th = styled.th`
   
 `
 const Th2 = styled.th`
-  width: 100px;
+  width: 120px;
   text-align: left;
   font-size: 14px;
   letter-spacing: 1px;
@@ -128,8 +129,18 @@ const Th2 = styled.th`
 `
 const Td = styled.td`
   text-align: center;
-  width: 30px;
+  width: 40px;
   border: 1px solid grey;
+
+`
+
+const Table2 = styled.table`
+  width:210px;
+  height:210px;
+  font-family: "ABeeZee";
+  border: 2px solid grey;
+  border-collapse: collapse;
+  color: grey;
 
 `
 
@@ -697,16 +708,17 @@ const [carrera, setCarrera] = useState({
   useEffect(() => {
     
     let Lbloq=0;
-    if(data.Ext1=="TASE" && data.Ext2=="TASE" || data.Ext1=="TCSE" && data.Ext2=="TCSE"){
-      Lbloq=(data.N+1)*data.d;
+    if(data.Ext1=="TASE" && data.Ext2=="TASE" || data.Ext1=="TCSE" && data.Ext2=="TCSE" || data.Ext1=="TCSE" && data.Ext2=="TASE" || data.Ext1=="TASE" && data.Ext2=="TCSE"){
+      Lbloq=(Number(data.N)+1)*Number(data.d);
+      
     }else if(data.Ext1=="TASE" && data.Ext2=="TAE" || data.Ext1=="TCSE" && data.Ext2=="TAE" || data.Ext1=="TASE" && data.Ext2=="TCE" || data.Ext1=="TCSE" && data.Ext2=="TCE" ||
       data.Ext2=="TASE" && data.Ext1=="TAE" || data.Ext2=="TCSE" && data.Ext1=="TAE" || data.Ext2=="TASE" && data.Ext1=="TCE" || data.Ext2=="TCSE" && data.Ext1=="TCE"){
-      Lbloq=(data.N+1)*data.d-0.5*data.d;
+      Lbloq=(Number(data.N)+1)*Number(data.d)-0.5*Number(data.d);
+
     }else{
-      Lbloq=(data.N+1)*data.d-data.d;
+      Lbloq=(Number(data.N)+1)*Number(data.d)-Number(data.d);
     }
-    console.log(Lbloq);
-    
+        
     setValuetab({...valuetab,
     Lbloqueo: Lbloq.toFixed(1)
     })
@@ -729,18 +741,18 @@ const [carrera, setCarrera] = useState({
      F1=filas.Keq1*s1+filas.b1;
     }else if(s1<filas.Xc2){
      F1=filas.Keq2*s1+filas.b2;
-    }else if(s1<filas.Xc3){
+    }else{
      F1=filas.Keq3*s1+filas.b3;
     }
-   console.log(F1);
-
+    
+    console.log(F1);
 
 
     setCarrera({...carrera,
-    carrCarga : (valuetab.Linst-valuetab.Lcarga),
-    carrMax: (valuetab.Linst-valuetab.Lmax),
-    carrL4: (valuetab.Linst-valuetab.L4),
-    carrLc: (valuetab.Linst-valuetab.Lbloqueo),
+    carrCarga : (valuetab.Linst-valuetab.Lcarga).toFixed(1),
+    carrMax: (valuetab.Linst-valuetab.Lmax).toFixed(1),
+    carrL4: (valuetab.Linst-valuetab.L4).toFixed(1),
+    carrLc: (valuetab.Linst-valuetab.Lbloqueo).toFixed(1),
     // s1: (data.L0-valuetab.Linst),
     // s2: (data.L0-valuetab.Lcarga),
     // s3: (data.L0-valuetab.Lmax),
@@ -750,7 +762,7 @@ const [carrera, setCarrera] = useState({
     
     }) 
   }, [valuetab.Linst, valuetab.Lcarga, valuetab.Lmax, valuetab.L4,])
-
+  
 
 
 
@@ -793,7 +805,7 @@ const [carrera, setCarrera] = useState({
   }
     
   return (
-   <div className="App" style={{backgroundColor:"black", gap: 100, display:"flex"}}>
+   <div className="App" style={{backgroundColor:"black", display:"flex"}}>
     
     <div>
       <Form onSubmit={handleSubmit}>
@@ -1055,9 +1067,10 @@ const [carrera, setCarrera] = useState({
     </div>
 
 
-    <div style={{display:"flex", columnGap:50, marginTop:28,}}>
-     <Table1>
-        <tr style={{backgroundColor: "#5B5B5B", color:"white"}}>
+    <div style={{display:"flex", columnGap:50, marginTop:28, marginLeft: 28,}}>
+     <div>
+      <Table1>
+        <tr style={{backgroundColor: "#5B5B5B", color:"white",}}>
           <Th> </Th>
           <Th>LONGITUD</Th>
           <Th>CARRERA</Th>
@@ -1069,18 +1082,18 @@ const [carrera, setCarrera] = useState({
         <tr>
           <Th2>L instalada</Th2>
           <Td>
-           <Input type="number" value={valuetab.Linst} id={"Linst"}  onChange={(e) => handleTab(e)}/>     
+           <Input8 type="number" value={valuetab.Linst} id={"Linst"}  onChange={(e) => handleTab(e)}/>     
           </Td>
           <Td>-</Td>
+          <Td>3</Td>
           <Td>{carrera.Finst}</Td>
-          <Td>456</Td>
           <Td>567</Td>
           <Td>678</Td>
         </tr>
         <tr>
           <Th2>L carga</Th2>
           <Td>
-           <Input type="number" value={valuetab.Lcarga} id={"Lcarga"}  onChange={(e) => handleTab(e)}/>
+           <Input8 type="number" value={valuetab.Lcarga} id={"Lcarga"}  onChange={(e) => handleTab(e)}/>
           </Td>
           <Td>{carrera.carrCarga}</Td>
           <Td>3</Td>
@@ -1091,7 +1104,7 @@ const [carrera, setCarrera] = useState({
         <tr>
           <Th2>L maxima</Th2>
           <Td>
-           <Input type="number" value={valuetab.Lmax} id={"Lmax"}  onChange={(e) => handleTab(e)}/>
+           <Input8 type="number" value={valuetab.Lmax} id={"Lmax"}  onChange={(e) => handleTab(e)}/>
           </Td>
           <Td>{carrera.carrMax}</Td>
           <Td>3</Td>
@@ -1102,7 +1115,7 @@ const [carrera, setCarrera] = useState({
         <tr>
           <Th2>L4</Th2>
           <Td>
-           <Input type="number" value={valuetab.L4} id={"L4"}  onChange={(e) => handleTab(e)}/>
+           <Input8 type="number" value={valuetab.L4} id={"L4"}  onChange={(e) => handleTab(e)}/>
           </Td>
           <Td>{carrera.carrL4}</Td>
           <Td>3</Td>
@@ -1120,6 +1133,8 @@ const [carrera, setCarrera] = useState({
           <Td>6</Td>
         </tr>
       </Table1> 
+     </div>
+     
       
 
       <div>
@@ -1186,12 +1201,12 @@ const [carrera, setCarrera] = useState({
     
     </div> 
     
-    <div>
+    <div styled={{width: 100,}}>
        <button onClick={TablaToler}> toler </button>
 
-
     </div>
-      
+
+    
 
    </div>   
   );
