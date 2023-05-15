@@ -588,8 +588,272 @@ function App() {
     setTablaToler({...tablaToler,
       valor: tolerancia
     })
- }, [data.d, data.Dext, grado])
+  }, [data.d, data.Dext, grado])
+
+  //Renee-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  function calculoData6() {
+    let paso1 = data5.Long1/data5.Vtas1
+    let paso2 = data5.Long2/data5.Vtas2
+    let paso3 = data5.Long3/data5.Vtas3
+    let Dm = data.Dext-data.d
+    let k1 = (78500*(Math.pow(data.d,4)))/(8*(Math.pow(Dm,3))*data5.Vtas1)
+    let k2 = (78500*(Math.pow(data.d,4)))/(8*(Math.pow(Dm,3))*data5.Vtas2)
+    let k3 = (78500*(Math.pow(data.d,4)))/(8*(Math.pow(Dm,3))*data5.Vtas3)
+    let kinv1 = Math.pow(k1,-1)
+    let kinv2 = Math.pow(k2,-1)
+    let kinv3 = Math.pow(k3,-1)
+
+    let keq1 = Math.pow(kinv1+kinv2+kinv3,-1)
+    let keq2 = Math.pow(kinv2+kinv3,-1)
+    let keq3 = Math.pow(kinv3,-1)
+
+    let xc1 = (paso1-data.d)*data.N
+    let xc2 = (paso2-data.d)*(data.N-data5.Vtas1)+paso1*data5.Vtas1-data5.Vtas1*data.d
+    let xc3 = (paso3-data.d)*(data.N-(data5.Vtas1+data5.Vtas2))+(paso1*data5.Vtas1+paso2*data5.Vtas2)-(data5.Vtas1+data5.Vtas2)*data.d
+
+    let b1 = 0
+    let b2 = (keq1-keq2)*xc1+b1
+    let b3 = (keq2-keq3)*xc2+b2
+
+    let fc1 = (keq1*xc1+b1)/9.81
+    let fc2 = (keq2*xc2+b2)/9.81
+    let fc3 = (keq3*xc3+b3)/9.81
+
+    setData6({...data6,
+      Paso1:Number(paso1.toFixed(2)),      
+      Paso2:Number(paso2.toFixed(2)),         
+      Paso3:Number(paso3.toFixed(2)),
+      K1:Number(k1.toFixed(2)),
+      K2:Number(k2.toFixed(2)),
+      K3:Number(k3.toFixed(2)),
+      Kinv1:Number(kinv1.toFixed(4)),
+      Kinv2:Number(kinv2.toFixed(4)),
+      Kinv3:Number(kinv3.toFixed(4)),
+      Keq1:Number(keq1.toFixed(2)),      
+      Keq2:Number(keq2.toFixed(2)),         
+      Keq3:Number(keq3.toFixed(2)),
+      Xc1:Number(xc1.toFixed(2)),
+      Xc2:Number(xc2.toFixed(2)),
+      Xc3:Number(xc3.toFixed(2)),
+      Fc1:Number(fc1.toFixed(2)),
+      Fc2:Number(fc2.toFixed(2)),
+      Fc3:Number(fc3.toFixed(2)),
+      b1:Number(b1.toFixed(2)),
+      b2:Number(b2.toFixed(2)),
+      b3:Number(b3.toFixed(2))
+    }) 
+  }
+
+  /*useEffect(() => {
+    console.log("use effect")
+    calculoData6()
+    
+  }, [data5.Vtas3, data.Long3])*/
+
+  useEffect(() => {
+    console.log("use effect")
+    let vtas3 = data.N-data5.Vtas1-data5.Vtas2
+    setData5({...data5,
+      Vtas3 : vtas3
+    })
+    
+    calculoData6()
+    
+  }, [data5.Vtas1,data5.Vtas2])
+
+  /*useEffect(() => {
+    console.log("use effect")
+    let long1 = Number(data5.Luz1+data.d)
+    let long2 = Number(data5.Luz2+data.d)
+    let long3 = Number(data.L0-long1-long2)
+    let luz3 = long3-Number(data.d)
+    setData5({...data5,
+      Long1 : Number(long1.toFixed(2)),
+      Long2 : Number(long2.toFixed(2)),
+      Long3 : Number(long3.toFixed(2)),
+      Luz3 : Number(luz3.toFixed(3))
+    })
+    
+    calculoData6()
+    
+  }, [data5.Luz1,data5.Luz2])*/
+
+  function handleInputData5(e){
+    setData5({...data5, [e.target.id]:e.target.value})
+  }
+
+  const addRow = () => {
+    setPuntos1([...puntos1, { id: puntos1.length + 1, Luz: "", Long: "", Vtas: "" }])
+    setPuntos2([...puntos2, { id: puntos2.length + 1, Paso: "", K: "", Kinv: "", Keq: "", Xc: "", b: "", Fc: "" }])
+  };
+
+  const deleteRow = () => {
+    if (puntos1.length>5){
+      setPuntos1(puntos1.slice(0, -1))
+      setPuntos2(puntos2.slice(0, -1))
+
+    }
+  };
+
+  function handleInputPuntos1(e){
+    const arreglo = e.target.id.split(',')
+
+    setPuntos1(puntos1.map((punto) => {
+      if (arreglo[1] != "Luz"){
+        let luz = ""
+
+        if (arreglo[1] === "Vtas") {
+          console.log("Longitud anterior")
+          console.log(puntos1[Number(arreglo[0])].Long)
+          luz = puntos1[Number(arreglo[0])-1].Long/Number(e.target.value) - Number(data.d)
+        }
+        if (arreglo[1] === "Long") {
+          console.log("N anterior")
+          console.log(puntos1[Number(arreglo[0])-1].Vtas)
+          luz = Number(e.target.value)/puntos1[Number(arreglo[0])].Vtas - Number(data.d)
+        }
+
+        if (punto.id == arreglo[0]) {
+          return { ...punto, [arreglo[1]]:e.target.value, Luz: luz };
+        }
+        return punto;
+      }
+      else {
+        let long = (Number(e.target.value)+Number(data.d))*puntos1[Number(arreglo[0])].Vtas
+        if (punto.id == arreglo[0]) {
+          return { ...punto, [arreglo[1]]:e.target.value, Long: long };
+        }
+        return punto;
+      }
+
+      
+    }));
+    console.log("puntos1")
+    console.log(puntos1)
+
+    /*let puntos = puntos1
+    for (let i = 0; i < puntos.length; i++) {
+      puntos[i].Luz = puntos[i].Long/puntos[i].Vtas - data.d
+    }
+    setPuntos1(puntos)*/
+
+  }
+
+  useEffect(() => {
+    console.log("use effect puntos1")
+
+    let d = Number(data.d)
+    let Dext = Number(data.Dext)
+    let Dm = Dext-d
+    let N = 0
+    
+    let pasos = []
+    let ks = []
+    let kinvs = []
+    let keqs = []
+    let xcs = []
+    let bs = []
+    let fcs = []
+
+    let puntosCalc = puntos1
+    
+    for (let i = 0; i < puntosCalc.length; i++) {
+      let paso = puntosCalc[i].Long/puntosCalc[i].Vtas
+      pasos.push(paso)
+
+      console.log(puntosCalc[i].Vtas)
+      let k = (78500*(Math.pow(d,4)))/(8*(Math.pow(Dm,3))*puntosCalc[i].Vtas)
+      console.log("k calculado")
+      console.log(k)
+      ks.push(k)
+
+      let kinv = Math.pow(k,-1)
+      kinvs.push(kinv)
+
+      /*if (!isNaN(puntosCalc[i].Vtas) && Number.isFinite(puntosCalc[i].Vtas) && (Number(puntosCalc[i].Vtas) != 0) && (puntosCalc[i].Vtas != "")){
+        N = N + Number(puntosCalc[i].Vtas)
+      }*/
+
+      N = N + Number(puntosCalc[i].Vtas)
+
+    }
+
+    console.log("Numero de vueltas")
+    console.log(N)
+
+    let contDec1 = kinvs.length-1 
+    let aux1 = 0
+    let keqAux = []
+    while (contDec1 >= 0) {
+      aux1 = aux1 + kinvs[contDec1]
+      keqAux.push(Math.pow(aux1,-1))
+      contDec1 = contDec1 -1
+    }
+
+    let contDec2 = keqAux.length-1
+    while (contDec2 >= 0) {
+      keqs.push(keqAux[contDec2])
+      contDec2 = contDec2 -1
+    }
+
+    let sumas = [0]
+    let sumaproductos = [0] // La suma de los productos de las vueltas y los pasos es igual a sumar las longitudes de cada punto
+    let aux2 = 0
+    let aux3 = 0
+    for (let i = 0; i < puntosCalc.length; i++) {
+      aux2 = aux2 + Number(puntosCalc[i].Vtas)
+      aux3 = aux3 + Number(puntosCalc[i].Long)
+      sumas.push(aux2)
+      sumaproductos.push(aux3)
+    }
+
+    console.log("Sumas de vueltas")
+    console.log(sumas)
+    console.log("Suma productos")
+    console.log(sumaproductos)
+
+    let xc = 0
+    let b = 0
+    for (let i = 0; i < puntosCalc.length; i++) {
+
+      if (i == 0){
+        xc = Number(((pasos[i]-d)*N).toFixed(4))
+        b = 0
+      }
+      else{
+        xc = (pasos[i]-d)*(N-sumas[i])+sumaproductos[i]-sumas[i]*d 
+        console.log("xc")
+        console.log(xc)
+        console.log("bs-1")
+        console.log(bs[i-1])
+        b = (keqs[i-1]-keqs[i])*xcs[i-1]+bs[i-1]
+      }
+      xcs.push(xc) 
+      bs.push(b)
+    }
+
+    for (let i = 0; i < keqs.length; i++){
+      let fc = Number(((keqs[i]*xcs[i]+bs[i])/9.81).toFixed(3))
+      fcs.push(fc)
+    }
+
+    let puntosFinales = []
+    for (let i = 0; i < fcs.length; i++){
+      let punto = { id: i+1, Paso: pasos[i], K: ks[i], Kinv: kinvs[i], Keq: keqs[i], Xc: xcs[i], b: bs[i], Fc: fcs[i] }
+      puntosFinales.push(punto)
+    }
+
+    console.log(pasos)
+
+    setPuntos2(puntosFinales)
+    console.log("Puntos calculados")
+    console.log(puntosFinales)
+    
+  }, [puntos1])
+
+  //Renee-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
   
+
   //Funcion para busqueda de tolerancia para Dext
   function TablaToler(){
     const dmedio = (data.Dext - data.d)
@@ -683,7 +947,7 @@ function App() {
   return (
    <div className="App" style={{backgroundColor:"black", gap: 100, display:"flex"}}>
     
-    <div>
+    <div style={{backgroundColor:"black"}}>
       <Form onSubmit={handleSubmit}>
         <div>
           <p style={{blockSize:2,marginLeft:14,fontFamily:"ABeeZee",fontSize:11, }}>Datos principales</p>
@@ -810,7 +1074,7 @@ function App() {
         </Div>
         <div style={{display: "flex",columnGap:12,width:"100%",justifyContent:"flex-end", marginRight: 8}}>
           <Button>Simular</Button>
-          <Button>Calcular</Button>
+          <Button onClick={handleButtonCalcular}>Calcular</Button>
         </div>
                                 
       </DivSimul>
@@ -943,7 +1207,7 @@ function App() {
     </div>
 
 
-    <div style={{display:"flex", columnGap:50, marginTop:28,}}>
+    <div style={{backgroundColor:"black", display:"flex", columnGap:50, marginTop:28,}}>
      <Table1>
         <tr style={{backgroundColor: "#5B5B5B", color:"white"}}>
           <Th> </Th>
@@ -1059,12 +1323,272 @@ function App() {
                 <Label>L</Label>
                 <DivCalculo id={"L"}>{data4.L}</DivCalculo>
             </Div>
-          </DivSimul>
+        </DivSimul>
 
       </div>
+
+      <Table1>
+        <tr style={{backgroundColor: "#5B5B5B", color:"white"}}>
+          <Th3>Punto</Th3>
+          <Th3>Luz</Th3>
+          <Th3>Long.</Th3>
+          <Th3>N.VTAS</Th3>
+          <Th3>Keq. (N/mm)</Th3>
+          <Th3>Xc (mm)</Th3>
+          <Th3>Fc (kg)</Th3>
+        </tr>
+        <tr>
+          <Th4>1</Th4>
+          <Td>
+            <Input value={data5.Luz1} type="number" id={"Luz1"} onChange={(e) => handleInputData5(e)}/>
+          </Td>
+          <Td>
+            <Input value={data5.Long1} type="number" id={"Long1"} onChange={(e) => handleInputData5(e)}/>
+          </Td>
+          <Td>
+            <Input value={data5.Vtas1} type="number" id={"Vtas1"} onChange={(e) => handleInputData5(e)}/>
+          </Td>
+          <Td>
+            <Label2>{data6.Keq1}</Label2>
+          </Td>
+          <Td>
+            <Label2>{data6.Xc1}</Label2>
+          </Td>
+          <Td>
+            <Label2>{data6.Fc1}</Label2>
+          </Td>
+        </tr>
+        <tr>
+          <Th4>2</Th4>
+          <Td>
+            <Input value={data5.Luz2} type="number" id={"Luz2"} onChange={(e) => handleInputData5(e)}/>
+          </Td>
+          <Td>
+            <Input value={data5.Long2} type="number" id={"Long2"} onChange={(e) => handleInputData5(e)}/>
+          </Td>
+          <Td>
+            <Input value={data5.Vtas2} type="number" id={"Vtas2"} onChange={(e) => handleInputData5(e)}/>
+          </Td>
+          <Td>
+            <Label2>{data6.Keq2}</Label2>
+          </Td>
+          <Td>
+            <Label2>{data6.Xc2}</Label2>
+          </Td>
+          <Td>
+            <Label2>{data6.Fc2}</Label2>
+          </Td>
+        </tr>
+        <tr>
+          <Th4>3</Th4>
+          <Td>
+            <Label2>{data5.Luz3}</Label2>
+          </Td>
+          <Td>
+            <Input value={data5.Long3} type="number" id={"Long3"} onChange={(e) => handleInputData5(e)}/>
+          </Td>
+          <Td>
+            <Input value={data5.Vtas3} type="number" id={"Vtas3"} onChange={(e) => handleInputData5(e)}/>
+          </Td>
+          <Td>
+            <Label2>{data6.Keq3}</Label2>
+          </Td>
+          <Td>
+            <Label2>{data6.Xc3}</Label2>
+          </Td>
+          <Td>
+            <Label2>{data6.Fc3}</Label2>
+          </Td>
+        </tr>
+        <tr>
+          <Th4>4</Th4>
+          <Td></Td>
+          <Td></Td>
+          <Td></Td>
+          <Td></Td>
+          <Td></Td>
+          <Td></Td>
+        </tr>
+        <tr>
+          <Th4>5</Th4>
+          <Td></Td>
+          <Td></Td>
+          <Td></Td>
+          <Td></Td>
+          <Td></Td>
+          <Td></Td>
+        </tr>
+      </Table1> 
+
+      <Table1>
+        <tr style={{backgroundColor: "#5B5B5B", color:"white"}}>
+          <Th3>Paso (mm)</Th3>
+          <Th3>K (N/mm)</Th3>
+          <Th3>K ^-1</Th3>
+          <Th3>b</Th3>
+          <Th3>Convencional</Th3>
+          <Th3>Dura</Th3>
+          <Th3>Blanda</Th3>
+        </tr>
+        <tr>
+          <Td>
+            <Label2>{data6.Paso1}</Label2>
+          </Td>
+          <Td>
+            <Label2>{data6.K1}</Label2>
+          </Td>
+          <Td>
+            <Label2>{data6.Kinv1}</Label2>
+          </Td>
+          <Td>
+            <Label2>{data6.b1}</Label2>
+          </Td>
+          <Td></Td>
+          <Td></Td>
+          <Td></Td>
+        </tr>
+        <tr>
+          <Td>
+            <Label2>{data6.Paso2}</Label2>
+          </Td>
+          <Td>
+            <Label2>{data6.K2}</Label2>
+          </Td>
+          <Td>
+            <Label2>{data6.Kinv2}</Label2>
+          </Td>
+          <Td>
+            <Label2>{data6.b2}</Label2>
+          </Td>
+          <Td></Td>
+          <Td></Td>
+          <Td></Td>
+        </tr>
+        <tr>
+          <Td>
+            <Label2>{data6.Paso3}</Label2>
+          </Td>
+          <Td>
+            <Label2>{data6.K3}</Label2>
+          </Td>
+          <Td>
+            <Label2>{data6.Kinv3}</Label2>
+          </Td>
+          <Td>
+            <Label2>{data6.b3}</Label2>
+          </Td>
+          <Td></Td>
+          <Td></Td>
+          <Td></Td>
+        </tr>
+        <tr>
+          <Td></Td>
+          <Td></Td>
+          <Td></Td>
+          <Td></Td>
+          <Td></Td>
+          <Td></Td>
+          <Td></Td>
+        </tr>
+        <tr>
+          <Td></Td>
+          <Td></Td>
+          <Td></Td>
+          <Td></Td>
+          <Td></Td>
+          <Td></Td>
+          <Td></Td>
+        </tr>
+      </Table1>
       
-    
     </div> 
+
+    <div style={{backgroundColor: "black"}}>
+      <table>
+        <thead>
+          <tr style={{backgroundColor: "#5B5B5B", color:"white"}}>
+            <Th3>Punto</Th3>
+            <Th3>Luz</Th3>
+            <Th3>Long</Th3>
+            <Th3>N.Vtas</Th3>
+            <Th3>Keq. (N/mm)</Th3>
+            <Th3>Xc (mm)</Th3>
+            <Th3>Fc (kg)</Th3>
+            <Th3>Paso (mm)</Th3>
+            <Th3>K (N/mm)</Th3>
+            <Th3>K^-1</Th3>
+            <Th3>b</Th3>
+          </tr>
+        </thead>
+        <tbody>
+          {puntos1.map((punto, indice) => (
+            <tr key={punto.id} style={{color:"white"}}>
+              <Th4>
+                {punto.id}
+              </Th4>
+              <Td>
+                {
+                  punto.id > 2 ? ((!isNaN(punto.Luz) && Number.isFinite(punto.Luz) && (punto.Luz != 0)) === true ? (punto.Luz).toFixed(2) : "") : <Input value={punto.Luz} type="number" id={punto.id+",Luz"} onChange={(e) => handleInputPuntos1(e)}/>
+                }
+              </Td>
+              <Td>
+                <Input value={punto.Long} type="number" id={punto.id+",Long"} onChange={(e) => handleInputPuntos1(e)}/>
+              </Td>
+              <Td>
+                <Input value={punto.Vtas} type="number" id={punto.id+",Vtas"} onChange={(e) => handleInputPuntos1(e)}/>
+              </Td>
+              <Td>
+                {
+                  (!isNaN(puntos2[indice].Keq) && Number.isFinite(puntos2[indice].Keq) && (puntos2[indice].Keq != 0)) === true ? (puntos2[indice].Keq).toFixed(3) : ""
+                }
+              </Td>
+              <Td>
+                {
+                  (!isNaN(puntos2[indice].Xc) && Number.isFinite(puntos2[indice].Xc) && (puntos2[indice].Xc != 0)) === true ? (puntos2[indice].Xc).toFixed(3) : ""
+                }
+              </Td>
+              <Td>
+                {
+                  (!isNaN(puntos2[indice].Fc) && Number.isFinite(puntos2[indice].Fc) && (puntos2[indice].Fc != 0)) === true ? (puntos2[indice].Fc).toFixed(3) : ""
+                }
+              </Td>
+              <Td>
+                {
+                  (!isNaN(puntos2[indice].Paso) && Number.isFinite(puntos2[indice].Paso) && (puntos2[indice].Paso != 0)) === true ? (puntos2[indice].Paso).toFixed(2) : ""
+                }
+              </Td>
+              <Td>
+                {
+                  (!isNaN(puntos2[indice].K) && Number.isFinite(puntos2[indice].K) && (puntos2[indice].K != 0)) === true ? (puntos2[indice].K).toFixed(3) : ""
+                }
+              </Td>
+              <Td>
+                {
+                  (!isNaN(puntos2[indice].Kinv) && Number.isFinite(puntos2[indice].Kinv) && (puntos2[indice].Kinv != 0)) === true ? (puntos2[indice].Kinv).toFixed(4) : ""
+                }
+              </Td>
+              <Td>
+                {
+                  (!isNaN(puntos2[indice].b) && Number.isFinite(puntos2[indice].b)) === true ? (puntos2[indice].b.toFixed(3)) : ""
+                }
+              </Td>
+
+
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colSpan="3">
+              <button onClick={deleteRow} disabled={data.length === 0}>
+                Eliminar última fila
+              </button>
+              <button onClick={addRow}>Agregar fila</button>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
     
     <div>
       <button onClick={Fila123}> result </button>
