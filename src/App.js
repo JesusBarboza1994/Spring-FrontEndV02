@@ -384,7 +384,15 @@ const [carrera, setCarrera] = useState({
   Fcarg: "",
   Fmax: "",
   F4: "",
-
+  TauK1: "",
+  TauK2: "",
+  TauK3: "",
+  TauK4: "",
+  TauKC: "",
+  Compres1: "",
+  Compres2: "",
+  Compres3: "",
+  Compres4: "",
 })
 
 
@@ -515,22 +523,7 @@ const [carrera, setCarrera] = useState({
     [200, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   ];
 
-  
-  //Tolerancias para Lo y F
-  // if(grado==1){
-  //   coef.Q_Long=0.63
-  // }else if(grado==2){
-  //   coef.Q_Long=1
-  // }else {
-  //   coef.Q_Long=1.6
-  // }
-  // console.log(coef.Q_Long)
-
-  // const af = 65.92*Math.pow(Number(data.d),3.3)/Math.pow(data2.Dmedio,1.6)*(-0.84*Math.pow(0.1*filas.C,3)+3.781*Math.pow(0.1*filas.C,2)-4.244*(0.1*filas.C)+2.274);
-  // const kf = -1/(3*Math.pow((Number(data.N)-1.75),2))+8/(5*(Number(data.N)-1.75))+0.803;
-  //const toler_L0 = (kf*af*Q_Long/filas.Keq3).toFixed(1);
-  //const toler_F = Q_Long*(af*kf+1.5*AG16*9.81/100)/9.81; 
-  
+   
   useEffect(() => {
     let extremo1 = type1
     let extremo2 = type2
@@ -569,9 +562,9 @@ const [carrera, setCarrera] = useState({
    const nvtas2 = 0.875;  
    const nvtas3 = Number(data.N) - (nvtas1 + nvtas2);  // Vueltas del cuerpo
    
-   const long1 = Number((Number(data.Luz2) + Number(data.d)).toFixed(2));
-   const long2 = Number((Number(data.Luz1) + Number(data.d)).toFixed(2));
-   const long3 = Number((Number(data.L0)- (long1+long2)-Number(data.d)).toFixed(2));
+   const long1 = Number(((Number(data.Luz2) + Number(data.d))*nvtas1).toFixed(1));
+   const long2 = Number(((Number(data.Luz1) + Number(data.d))*nvtas2).toFixed(1));
+   const long3 = Number((Number(data.L0) - (long1+long2)- Number(data.d)).toFixed(1));
    
    const paso1 = Number((long1/nvtas1).toFixed(2));
    const paso2 = Number((long2/nvtas2).toFixed(2));
@@ -590,11 +583,9 @@ const [carrera, setCarrera] = useState({
    const Xc3 = Number(((paso3-Number(data.d))*(Number(data.N)-(nvtas1+nvtas2))+(paso1*nvtas1+paso2*nvtas2)-(nvtas1+nvtas2)*Number(data.d)).toFixed(1));
 
    const b1 = 0;
-   const b2 = (Keq1-Keq2)*Xc1+b1;
-   const b3 = (Keq2-Keq3)*Xc2+b2;
-   console.log(b2);
-   console.log(b3);
-   
+   const b2 = Number(((Keq1-Keq2)*Xc1+b1).toFixed(1));
+   const b3 = Number(((Keq2-Keq3)*Xc2+b2).toFixed(1));
+      
    const Fc1 = Number(((Keq1*Xc1+b1)/9.81).toFixed(1));
    const Fc2 = Number(((Keq2*Xc2+b2)/9.81).toFixed(1));
    const Fc3 = Number(((Keq3*Xc3+b3)/9.81).toFixed(1));
@@ -620,6 +611,9 @@ const [carrera, setCarrera] = useState({
       Xc1: Xc1,
       Xc2: Xc2,
       Xc3: Xc3,
+      b1: b1,
+      b2: b2,
+      b3: b3,
       Fc1: Fc1,
       Fc2: Fc2,
       Fc3: Fc3,
@@ -634,19 +628,26 @@ const [carrera, setCarrera] = useState({
     }else {
       Q_Long=1.6
     }
-    console.log(Q_Long)
-
+    
     let af = 65.92*Math.pow(Number(data.d),3.3)/Math.pow(data2.Dmedio,1.6)*(-0.84*Math.pow(0.1*data2.C,3)+3.781*Math.pow(0.1*data2.C,2)-4.244*(0.1*data2.C)+2.274);
     
     let kf = -1/(3*Math.pow((Number(data.N)-1.75),2))+8/(5*(Number(data.N)-1.75))+0.803;
     
     let toler=(kf*af*Q_Long/Keq3).toFixed(1);
-    console.log(toler)
-    console.log(Keq3)
-    console.log(Xc2)
-    console.log(Xc1)
-    console.log(long2)
-    console.log(long1)
+    //console.log(toler)
+    // console.log(Keq1)
+    // console.log(Keq2)
+    // console.log(paso1)
+    // console.log(long2)
+    // console.log(long3)
+    // console.log(paso3)
+    // console.log(Xc1)
+    // console.log(Xc2)
+    // console.log(Xc3)
+    // console.log(b1)
+    // console.log(b2)
+    // console.log(b3)
+    
 
     
     let tolerancia = TablaToler()
@@ -727,26 +728,49 @@ const [carrera, setCarrera] = useState({
   
 
   useEffect(() => {
-   let s1= (data.L0-valuetab.Linst);
+   let s1=data.L0-valuetab.Linst;
    let s2=data.L0-valuetab.Lcarga;
    let s3=data.L0-valuetab.Lmax;
    let s4=data.L0-valuetab.L4;
    let sc=data.L0-valuetab.Lbloqueo;
 
-   let F1=0;
-   let Fcarg=0;
-   let Fmax=0;
-   let F4=0;
-   if (s1<filas.Xc1){
-     F1=filas.Keq1*s1+filas.b1;
-    }else if(s1<filas.Xc2){
-     F1=filas.Keq2*s1+filas.b2;
-    }else{
-     F1=filas.Keq3*s1+filas.b3;
-    }
-    
-    console.log(F1);
+   let F1=0;let F2=0;let F3=0;let F4=0;
+   let Tau1=0;let Tau2=0;let Tau3=0;
+   let Compr1=0; let Compr2=0; let Compr3=0;
 
+
+   if (s1<filas.Xc1){
+     F1=Number(((filas.Keq1*s1+filas.b1)/9.81).toFixed(1)); 
+    }else if(s1<filas.Xc2){
+     F1=Number(((filas.Keq2*s1+filas.b2)/9.81).toFixed(1));
+    }else{
+     F1=Number(((filas.Keq3*s1+filas.b3)/9.81).toFixed(1));
+    }
+
+    if (s2<filas.Xc1){
+      F2=Number(((filas.Keq1*s2+filas.b1)/9.81).toFixed(1)); 
+     }else if(s2<filas.Xc2){
+      F2=Number(((filas.Keq2*s2+filas.b2)/9.81).toFixed(1));
+     }else{
+      F2=Number(((filas.Keq3*s2+filas.b3)/9.81).toFixed(1));
+     }
+
+     if (s3<filas.Xc1){
+      F3=Number(((filas.Keq1*s3+filas.b1)/9.81).toFixed(1)); 
+     }else if(s3<filas.Xc2){
+      F3=Number(((filas.Keq2*s3+filas.b2)/9.81).toFixed(1));
+     }else{
+      F3=Number(((filas.Keq3*s3+filas.b3)/9.81).toFixed(1));
+     }
+
+    Tau1=Number(((8*data2.Dmedio*F1*9.81)/(3.14*Math.pow(data.d,3))*((4*data2.C-1)/(4*data2.C-4)+0.615/data2.C)).toFixed(1));
+    Tau2=Number(((8*data2.Dmedio*F2*9.81)/(3.14*Math.pow(data.d,3))*((4*data2.C-1)/(4*data2.C-4)+0.615/data2.C)).toFixed(1));
+    Tau3=Number(((8*data2.Dmedio*F3*9.81)/(3.14*Math.pow(data.d,3))*((4*data2.C-1)/(4*data2.C-4)+0.615/data2.C)).toFixed(1));
+
+    Compr1=Number((s1/(data.L0-valuetab.Lbloqueo)).toFixed(2))*100;
+    Compr2=Number((s2/(data.L0-valuetab.Lbloqueo)).toFixed(2))*100;
+    Compr3=Number((s3/(data.L0-valuetab.Lbloqueo)).toFixed(2))*100;
+    console.log(F3);
 
     setCarrera({...carrera,
     carrCarga : (valuetab.Linst-valuetab.Lcarga).toFixed(1),
@@ -759,6 +783,16 @@ const [carrera, setCarrera] = useState({
     // s4: (data.L0-valuetab.L4),
     // sc: (data.L0-valuetab.Lbloqueo),
     Finst: F1,
+    Fcarg: F2,
+    Fmax: F3,
+
+    TauK1: Tau1,
+    TauK2: Tau2,
+    TauK3: Tau3,
+
+    Compres1: Compr1,
+    Compres2: Compr2,
+    Compres3: Compr3,
     
     }) 
   }, [valuetab.Linst, valuetab.Lcarga, valuetab.Lmax, valuetab.L4,])
@@ -1087,8 +1121,8 @@ const [carrera, setCarrera] = useState({
           <Td>-</Td>
           <Td>3</Td>
           <Td>{carrera.Finst}</Td>
-          <Td>567</Td>
-          <Td>678</Td>
+          <Td>{carrera.TauK1}</Td>
+          <Td>{carrera.Compres1}%</Td>
         </tr>
         <tr>
           <Th2>L carga</Th2>
@@ -1097,9 +1131,9 @@ const [carrera, setCarrera] = useState({
           </Td>
           <Td>{carrera.carrCarga}</Td>
           <Td>3</Td>
-          <Td>4</Td>
-          <Td>5</Td>
-          <Td>6</Td>
+          <Td>{carrera.Fcarg}</Td>
+          <Td>{carrera.TauK2}</Td>
+          <Td>{carrera.Compres2}%</Td>
         </tr>
         <tr>
           <Th2>L maxima</Th2>
@@ -1108,9 +1142,9 @@ const [carrera, setCarrera] = useState({
           </Td>
           <Td>{carrera.carrMax}</Td>
           <Td>3</Td>
-          <Td>4</Td>
-          <Td>5</Td>
-          <Td>6</Td>
+          <Td>{carrera.Fmax}</Td>
+          <Td>{carrera.TauK3}</Td>
+          <Td>{carrera.Compres3}%</Td>
         </tr>
         <tr>
           <Th2>L4</Th2>
@@ -1130,7 +1164,7 @@ const [carrera, setCarrera] = useState({
           <Td>3</Td>
           <Td>4</Td>
           <Td>5</Td>
-          <Td>6</Td>
+          <Td>100%</Td>
         </tr>
       </Table1> 
      </div>
