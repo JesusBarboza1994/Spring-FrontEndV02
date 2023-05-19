@@ -734,9 +734,9 @@ const [carrera, setCarrera] = useState({
    let s4=data.L0-valuetab.L4;
    let sc=data.L0-valuetab.Lbloqueo;
 
-   let F1=0;let F2=0;let F3=0;let F4=0;
-   let Tau1=0;let Tau2=0;let Tau3=0;
-   let Compr1=0; let Compr2=0; let Compr3=0;
+   let F1=0; let F2=0; let F3=0; let F4=0;
+   let Tau1=0; let Tau2=0; let Tau3=0; let Tau4=0; let TauC=0;
+   let Compr1=0; let Compr2=0; let Compr3=0; let Compr4=0;
 
 
    if (s1<filas.Xc1){
@@ -763,14 +763,25 @@ const [carrera, setCarrera] = useState({
       F3=Number(((filas.Keq3*s3+filas.b3)/9.81).toFixed(1));
      }
 
+     if (s4<filas.Xc1){
+      F4=Number(((filas.Keq1*s4+filas.b1)/9.81).toFixed(1)); 
+     }else if(s4<filas.Xc2){
+      F4=Number(((filas.Keq2*s4+filas.b2)/9.81).toFixed(1));
+     }else{
+      F4=Number(((filas.Keq3*s4+filas.b3)/9.81).toFixed(1));
+     }
+
     Tau1=Number(((8*data2.Dmedio*F1*9.81)/(3.14*Math.pow(data.d,3))*((4*data2.C-1)/(4*data2.C-4)+0.615/data2.C)).toFixed(1));
     Tau2=Number(((8*data2.Dmedio*F2*9.81)/(3.14*Math.pow(data.d,3))*((4*data2.C-1)/(4*data2.C-4)+0.615/data2.C)).toFixed(1));
     Tau3=Number(((8*data2.Dmedio*F3*9.81)/(3.14*Math.pow(data.d,3))*((4*data2.C-1)/(4*data2.C-4)+0.615/data2.C)).toFixed(1));
+    Tau4=Number(((8*data2.Dmedio*F4*9.81)/(3.14*Math.pow(data.d,3))*((4*data2.C-1)/(4*data2.C-4)+0.615/data2.C)).toFixed(1));
+    TauC=Number(((8*data2.Dmedio*filas.Fc3*9.81)/(3.14*Math.pow(data.d,3))*((4*data2.C-1)/(4*data2.C-4)+0.615/data2.C)).toFixed(1));
 
     Compr1=Number((s1/(data.L0-valuetab.Lbloqueo)).toFixed(2))*100;
     Compr2=Number((s2/(data.L0-valuetab.Lbloqueo)).toFixed(2))*100;
     Compr3=Number((s3/(data.L0-valuetab.Lbloqueo)).toFixed(2))*100;
-    console.log(F3);
+    Compr4=Number((s4/(data.L0-valuetab.Lbloqueo)).toFixed(2))*100;
+    
 
     setCarrera({...carrera,
     carrCarga : (valuetab.Linst-valuetab.Lcarga).toFixed(1),
@@ -785,15 +796,19 @@ const [carrera, setCarrera] = useState({
     Finst: F1,
     Fcarg: F2,
     Fmax: F3,
+    F4: F4,
 
     TauK1: Tau1,
     TauK2: Tau2,
     TauK3: Tau3,
+    TauK4: Tau4,
+    TauKC: TauC,
 
     Compres1: Compr1,
     Compres2: Compr2,
     Compres3: Compr3,
-    
+    Compres4: Compr4,
+
     }) 
   }, [valuetab.Linst, valuetab.Lcarga, valuetab.Lmax, valuetab.L4,])
   
@@ -1119,7 +1134,7 @@ const [carrera, setCarrera] = useState({
            <Input8 type="number" value={valuetab.Linst} id={"Linst"}  onChange={(e) => handleTab(e)}/>     
           </Td>
           <Td>-</Td>
-          <Td>3</Td>
+          <Td>333</Td>
           <Td>{carrera.Finst}</Td>
           <Td>{carrera.TauK1}</Td>
           <Td>{carrera.Compres1}%</Td>
@@ -1130,7 +1145,7 @@ const [carrera, setCarrera] = useState({
            <Input8 type="number" value={valuetab.Lcarga} id={"Lcarga"}  onChange={(e) => handleTab(e)}/>
           </Td>
           <Td>{carrera.carrCarga}</Td>
-          <Td>3</Td>
+          <Td>333</Td>
           <Td>{carrera.Fcarg}</Td>
           <Td>{carrera.TauK2}</Td>
           <Td>{carrera.Compres2}%</Td>
@@ -1141,7 +1156,7 @@ const [carrera, setCarrera] = useState({
            <Input8 type="number" value={valuetab.Lmax} id={"Lmax"}  onChange={(e) => handleTab(e)}/>
           </Td>
           <Td>{carrera.carrMax}</Td>
-          <Td>3</Td>
+          <Td>333</Td>
           <Td>{carrera.Fmax}</Td>
           <Td>{carrera.TauK3}</Td>
           <Td>{carrera.Compres3}%</Td>
@@ -1152,18 +1167,18 @@ const [carrera, setCarrera] = useState({
            <Input8 type="number" value={valuetab.L4} id={"L4"}  onChange={(e) => handleTab(e)}/>
           </Td>
           <Td>{carrera.carrL4}</Td>
-          <Td>3</Td>
-          <Td>4</Td>
-          <Td>5</Td>
-          <Td>6</Td>
+          <Td>333</Td>
+          <Td>{carrera.F4}</Td>
+          <Td>{carrera.TauK4}</Td>
+          <Td>{carrera.Compres4}%</Td>
         </tr>
         <tr>
           <Th2>L bloqueo</Th2>
           <Td>{valuetab.Lbloqueo}</Td>
           <Td>{carrera.carrLc}</Td>
-          <Td>3</Td>
-          <Td>4</Td>
-          <Td>5</Td>
+          <Td>333</Td>
+          <Td>{filas.Fc3}</Td>
+          <Td>{carrera.TauKC}</Td>
           <Td>100%</Td>
         </tr>
       </Table1> 
