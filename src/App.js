@@ -153,7 +153,7 @@ const Select = styled.select`
 
 `
 
-//Renee-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//Renee-Inicio-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 const Input3 = styled.input`
   width:50px;
   background-color:black;
@@ -197,8 +197,13 @@ const Label2 = styled.label`
   line-height: 15px;
 `
 
-//Renee-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+const Tbody = styled.tbody`
+  color: white;
+  display: flex;
+  flex-direction: column-reverse;
+`
 
+//Renee-Fin-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 function App() {
     
@@ -246,60 +251,21 @@ function App() {
     L:"",        
   })
 
-  //Renee-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  const [data5, setData5] = useState({
-    Luz1:"",      
-    Luz2:"",         
-    Luz3:"",
-    Long1:"",
-    Long2:"",
-    Long3:"",
-    Vtas1:"",
-    Vtas2:"",
-    Vtas3:""        
-  })
+  //Renee-Inicio-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   const [puntos1, setPuntos1] = useState([
     { id: 1, Luz: "", Long: "", Vtas: "" },
     { id: 2, Luz: "", Long: "", Vtas: "" },
-    { id: 3, Luz: "", Long: "", Vtas: "" },
-    { id: 4, Luz: "", Long: "", Vtas: "" },
-    { id: 5, Luz: "", Long: "", Vtas: "" }
+    { id: 3, Luz: "", Long: "", Vtas: "" }
   ])
 
   const [puntos2, setPuntos2] = useState([
     { id: 1, Paso: "", K: "", Kinv: "", Keq: "", Xc: "", b: "", Fc: "" },
     { id: 2, Paso: "", K: "", Kinv: "", Keq: "", Xc: "", b: "", Fc: "" },
-    { id: 3, Paso: "", K: "", Kinv: "", Keq: "", Xc: "", b: "", Fc: "" },
-    { id: 4, Paso: "", K: "", Kinv: "", Keq: "", Xc: "", b: "", Fc: "" },
-    { id: 5, Paso: "", K: "", Kinv: "", Keq: "", Xc: "", b: "", Fc: "" }
+    { id: 3, Paso: "", K: "", Kinv: "", Keq: "", Xc: "", b: "", Fc: "" }
   ])
 
-  const [data6, setData6] = useState({
-    Paso1:"",      
-    Paso2:"",         
-    Paso3:"",
-    K1:"",
-    K2:"",
-    K3:"",
-    Kinv1:"",
-    Kinv2:"",
-    Kinv3:"",
-    Keq1:"",      
-    Keq2:"",         
-    Keq3:"",
-    Xc1:"",
-    Xc2:"",
-    Xc3:"",
-    Fc1:"",
-    Fc2:"",
-    Fc3:"",
-    b1:"",
-    b2:"",
-    b3:""
-  })
-
-  //Renee-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  //Renee-Fin-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   const [type1,setType1] = useState(["TASE","TCSE","TCE","TAE"]);
   const [type2,setType2] = useState(["TASE","TCSE","TCE","TAE"]);
@@ -395,101 +361,25 @@ const [carrera, setCarrera] = useState({
   Compres4: "",
 })
 
+      
 
-  //Renee-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  //Renee-Inicio-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  
   function handleButtonCalcular(){
-    let prueba = 2
-    switch (true){
-      case (prueba<4):
-        console.log("Menor que 4")
-        break;
-      case (prueba>4):
-        console.log("Mayor que 4")
-        break;
-      default:
-        console.log("Default")
-    }
-
-    console.log("Holaaaaaaaaa");
-    let luz1 = Number((parseFloat(data.Luz1)).toFixed(2))
-    let luz2 = Number((parseFloat(data.Luz2)).toFixed(2))
-    let long1 = Number((parseFloat(data.Luz1)+parseFloat(data.d)).toFixed(2))
-    let long2 = Number((parseFloat(data.Luz2)+parseFloat(data.d)).toFixed(2))
+    
+    let luz1 = Number((parseFloat(data.Luz2)).toFixed(2))
+    let luz2 = Number((parseFloat(data.Luz1)).toFixed(2))
+    let long1 = Number(((parseFloat(data.Luz2)+parseFloat(data.d))*0.875).toFixed(1))
+    let long2 = Number(((parseFloat(data.Luz1)+parseFloat(data.d))*0.875).toFixed(1))
     let vtas1 = 0.875
     let vtas2 = 0.875
     let vtas3 = Number((parseFloat(data.N)-2*0.875).toFixed(3))
-    let long3 = Number((parseFloat(data.L0)-long1-long2-parseFloat(data.d)).toFixed(2))
+    let long3 = Number((parseFloat(data.L0)-long1-long2-parseFloat(data.d)).toFixed(1))
     let luz3 = Number(((long3/vtas3)-parseFloat(data.d)).toFixed(2))
-    /*let luz3 = 0
-    console.log("Extremos")
-    console.log(data.Ext1)
-    console.log(data.Ext2)
-    if((data.Ext1 == "TASE" || data.Ext1 == "TCSE") && (data.Ext2 == "TASE" || data.Ext2 == "TCSE")){
-      luz3 = Number(((long3/vtas3)-parseFloat(data.d)).toFixed(2))
-    }
-    else if ((data.Ext1 == "TASE" || data.Ext1 == "TCSE") || (data.Ext2 == "TASE" || data.Ext2 == "TCSE")){
-      luz3 = Number(((long3/vtas3)-(parseFloat(data.d)/2)).toFixed(2))
-    }
-    else {
-      luz3 = Number((long3/vtas3).toFixed(2))
-    }*/
-
-    setData5({...data5,
-      Luz1 : luz1,
-      Luz2 : luz2,
-      Long1 : long1,
-      Long2 : long2,
-      Vtas1 : vtas1,
-      Vtas2 : vtas2,
-      Vtas3 : vtas3,
-      Long3 : long3,
-      Luz3 : luz3
-  
-    })
 
     let luces = [luz1, luz2, luz3]
     let longitudes = [long1, long2, long3]
     let vueltas = [vtas1, vtas2, vtas3]
-
-    let d = Number(data.d)
-    let Dext = Number(data.Dext)
-    let Dm = Dext-d
-    let N = Number(data.N)
-
-    let paso1 = long1/vtas1
-    let paso2 = long2/vtas2
-    let paso3 = long3/vtas3
-    
-    let k1 = (78500*(Math.pow(data.d,4)))/(8*(Math.pow(Dm,3))*vtas1)
-    let k2 = (78500*(Math.pow(data.d,4)))/(8*(Math.pow(Dm,3))*vtas2)
-    let k3 = (78500*(Math.pow(data.d,4)))/(8*(Math.pow(Dm,3))*vtas3)
-    let kinv1 = Math.pow(k1,-1)
-    let kinv2 = Math.pow(k2,-1)
-    let kinv3 = Math.pow(k3,-1)
-
-    let keq1 = Math.pow(kinv1+kinv2+kinv3,-1)
-    let keq2 = Math.pow(kinv2+kinv3,-1)
-    let keq3 = Math.pow(kinv3,-1)
-
-    let xc1 = (paso1-d)*N
-    let xc2 = (paso2-d)*(N-vtas1)+paso1*vtas1-vtas1*d
-    let xc3 = (paso3-d)*(N-(vtas1+vtas2))+(paso1*vtas1+paso2*vtas2)-(vtas1+vtas2)*d
-
-    let b1 = 0
-    let b2 = (keq1-keq2)*xc1+b1
-    let b3 = (keq2-keq3)*xc2+b2
-
-    let fc1 = (keq1*xc1+b1)/9.81
-    let fc2 = (keq2*xc2+b2)/9.81
-    let fc3 = (keq3*xc3+b3)/9.81
-
-    let pasos = [Number(paso1.toFixed(3)), Number(paso2.toFixed(3)), Number(paso3.toFixed(3))]
-    let ks = [Number(k1.toFixed(3)), Number(k2.toFixed(3)), Number(k3.toFixed(3))]
-    let kinvs = [Number(kinv1.toFixed(3)), Number(kinv2.toFixed(3)), Number(kinv3.toFixed(3))]
-    let keqs = [Number(keq1.toFixed(3)), Number(keq2.toFixed(3)), Number(keq3.toFixed(3))]
-    let xcs = [Number(xc1.toFixed(3)), Number(xc2.toFixed(3)), Number(xc3.toFixed(3))]
-    let bs = [Number(b1.toFixed(3)), Number(b2.toFixed(3)), Number(b3.toFixed(3))]
-    let fcs = [Number(fc1.toFixed(3)), Number(fc2.toFixed(3)), Number(fc3.toFixed(3))]
 
     setPuntos1(puntos1.map((punto, indice) => {
       if (punto.id < 4) {
@@ -499,7 +389,7 @@ const [carrera, setCarrera] = useState({
     }));
     
   }
-  //Renee-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  //Renee-Inicio-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
  //Tolerancias para Dext (DIN EN 15800)
    const tolerDiam = [
@@ -634,28 +524,211 @@ const [carrera, setCarrera] = useState({
     let kf = -1/(3*Math.pow((Number(data.N)-1.75),2))+8/(5*(Number(data.N)-1.75))+0.803;
     
     let toler=(kf*af*Q_Long/Keq3).toFixed(1);
-    //console.log(toler)
-    // console.log(Keq1)
-    // console.log(Keq2)
-    // console.log(paso1)
-    // console.log(long2)
-    // console.log(long3)
-    // console.log(paso3)
-    // console.log(Xc1)
-    // console.log(Xc2)
-    // console.log(Xc3)
-    // console.log(b1)
-    // console.log(b2)
-    // console.log(b3)
-    
 
     
     let tolerancia = TablaToler()
     setTablaToler({...tablaToler,
       valor: tolerancia
     })
+
    setCoef({...coef, toler_L0: toler })
   }, [grado])
+
+  //Renee-Inicio-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  const addRow = () => {
+    setPuntos1([...puntos1, { id: puntos1.length + 1, Luz: "", Long: "", Vtas: "" }])
+    setPuntos2([...puntos2, { id: puntos2.length + 1, Paso: "", K: "", Kinv: "", Keq: "", Xc: "", b: "", Fc: "" }])
+  };
+
+  const deleteRow = () => {
+    if (puntos1.length>3){
+      setPuntos1(puntos1.slice(0, -1))
+      setPuntos2(puntos2.slice(0, -1))
+
+    }
+  };
+
+  const orderRow = () => {
+
+    let array1 = puntos1
+    let array2 = puntos2
+    let n = puntos2.length;
+
+    // Algoritmo de burbuja
+    for (let k = 1; k < n; k++) {
+      for (let i = 0; i < (n - k); i++) {
+          if (array2[i].Paso > array2[i + 1].Paso) {
+              let aux1 = array1[i];
+              array1[i] = array1[i + 1];
+              array1[i + 1] = aux1;
+
+              let aux2 = array2[i];
+              array2[i] = array2[i + 1];
+              array2[i + 1] = aux2;
+          }
+      }
+    }
+
+    let puntos1ordenado = []
+    let puntos2ordenado = []
+
+    for (let j = 0; j < n; j++) {
+      let punto1 = { id: j + 1, Luz: array1[j].Luz, Long: array1[j].Long, Vtas: array1[j].Vtas }
+      let punto2 = { id: j + 1, Paso: array2[j].Paso, K: array2[j].K, Kinv: array2[j].Kinv, Keq: array2[j].Keq, Xc: array2[j].Xc, b: array2[j].b, Fc: array2[j].Fc }
+      puntos1ordenado.push(punto1)
+      puntos2ordenado.push(punto2)
+    }
+
+    setPuntos1(puntos1ordenado)
+    setPuntos2(puntos2ordenado)
+    calcularPuntos2()
+
+  };
+
+  function calcularPuntos2() {
+    let d = Number(data.d)
+    let Dext = Number(data.Dext)
+    let Dm = Dext-d
+    let N = 0
+    
+    let pasos = []
+    let ks = []
+    let kinvs = []
+    let keqs = []
+    let xcs = []
+    let bs = []
+    let fcs = []
+
+    let puntosCalc = puntos1
+    
+    for (let i = 0; i < puntosCalc.length; i++) {
+      let paso = puntosCalc[i].Long/puntosCalc[i].Vtas
+      pasos.push(paso)
+      
+      let k = (78500*(Math.pow(d,4)))/(8*(Math.pow(Dm,3))*puntosCalc[i].Vtas)
+      ks.push(k)
+      
+      let kinv = Math.pow(k,-1)
+      kinvs.push(kinv)
+
+      N = N + Number(puntosCalc[i].Vtas)
+    }
+
+    let contDec1 = kinvs.length-1 
+    let aux1 = 0
+    let keqAux = []
+    while (contDec1 >= 0) {
+      aux1 = aux1 + kinvs[contDec1]
+      keqAux.push(Math.pow(aux1,-1))
+      contDec1 = contDec1 -1
+    }
+
+    let contDec2 = keqAux.length-1
+    while (contDec2 >= 0) {
+      keqs.push(keqAux[contDec2])
+      contDec2 = contDec2 -1
+    }
+
+    let sumas = [0]
+    let sumaproductos = [0] // La suma de los productos de las vueltas y los pasos es igual a sumar las longitudes de cada punto
+    let aux2 = 0
+    let aux3 = 0
+    for (let i = 0; i < puntosCalc.length; i++) {
+      aux2 = aux2 + Number(puntosCalc[i].Vtas)
+      aux3 = aux3 + Number(puntosCalc[i].Long)
+      sumas.push(aux2)
+      sumaproductos.push(aux3)
+    }
+
+    let xc = 0
+    let b = 0
+    for (let i = 0; i < puntosCalc.length; i++) {
+
+      if (i == 0){
+        xc = Number(((pasos[i]-d)*N).toFixed(4))
+        b = 0
+      }
+      else{
+        xc = (pasos[i]-d)*(N-sumas[i])+sumaproductos[i]-sumas[i]*d 
+        b = (keqs[i-1]-keqs[i])*xcs[i-1]+bs[i-1]
+      }
+      xcs.push(xc) 
+      bs.push(b)
+    }
+
+    for (let i = 0; i < keqs.length; i++){
+      let fc = Number(((keqs[i]*xcs[i]+bs[i])/9.81).toFixed(3))
+      fcs.push(fc)
+    }
+
+    let puntosFinales = []
+    for (let i = 0; i < fcs.length; i++){
+      let punto = { id: i+1, Paso: pasos[i], K: ks[i], Kinv: kinvs[i], Keq: keqs[i], Xc: xcs[i], b: bs[i], Fc: fcs[i] }
+      puntosFinales.push(punto)
+    }
+
+    setPuntos2(puntosFinales)
+  }
+
+  function handleInputPuntos1(e){
+    const arreglo = e.target.id.split(',')
+    let luz = ""
+    let d = Number(data.d)
+    let sumaVtasParcial = 0;
+    let sumaLongsParcial = 0;
+    let puntos1Aux = JSON.parse(JSON.stringify(puntos1))
+    puntos1Aux.map((punto) => {
+
+      if (arreglo[1] === "Luz"){
+        let long = (Number(e.target.value)+d)*puntos1[Number(arreglo[0])-1].Vtas
+        if (punto.id == arreglo[0]) {
+          punto.Luz = Number(e.target.value)
+          punto.Long = Number(long)
+        }
+      }
+      else if (arreglo[1] === "Vtas"){
+        luz = (Number(puntos1[Number(arreglo[0])-1].Long)/Number(e.target.value)) - d
+        if (punto.id == arreglo[0]) {
+          punto.Vtas = Number(e.target.value)
+          punto.Luz = Number(luz)
+        }
+      }
+      else if (arreglo[1] === "Long"){
+        luz = Number(e.target.value)/puntos1[Number(arreglo[0])-1].Vtas - d
+        if (punto.id == arreglo[0]) {
+          punto.Long = Number(e.target.value)
+          punto.Luz = Number(luz)
+        }
+      }
+
+      if (punto.id < puntos1Aux.length) {
+        sumaVtasParcial = sumaVtasParcial + Number(punto.Vtas)
+        sumaLongsParcial = sumaLongsParcial + Number(punto.Long)
+      }
+
+    })
+
+    let vtasTotal = data.N
+    let longTotal = data.L0
+    let vtaPuntoFinal = vtasTotal - sumaVtasParcial
+    let longPuntoFinal = longTotal - sumaLongsParcial - d
+    let luzPuntoFinal = longPuntoFinal/vtaPuntoFinal - d
+
+    puntos1Aux[puntos1Aux.length-1].Vtas = vtaPuntoFinal
+    puntos1Aux[puntos1Aux.length-1].Long = longPuntoFinal
+    puntos1Aux[puntos1Aux.length-1].Luz = luzPuntoFinal
+
+    setPuntos1(puntos1Aux)
+  }
+
+  useEffect(() => {
+
+    calcularPuntos2()
+    
+  }, [puntos1])
+
+  //Renee-Fin-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   //Funcion para busqueda de tolerancia para Dext
   function TablaToler(){
@@ -856,7 +929,8 @@ const [carrera, setCarrera] = useState({
   return (
    <div className="App" style={{backgroundColor:"black", display:"flex"}}>
     
-    <div>
+    <div style={{backgroundColor:"black"}}>
+      
       <Form onSubmit={handleSubmit}>
         <div>
           <p style={{blockSize:2,marginLeft:14,fontFamily:"ABeeZee",fontSize:11, }}>Datos principales</p>
@@ -983,12 +1057,10 @@ const [carrera, setCarrera] = useState({
         </Div>
         <div style={{display: "flex",columnGap:12,width:"100%",justifyContent:"flex-end", marginRight: 8}}>
           <Button>Simular</Button>
-          <Button>Calcular</Button>
+          <Button onClick={handleButtonCalcular}>Calcular</Button>
         </div>
                                 
-      </DivSimul>
-
-      
+      </DivSimul>  
       <DivSimul>
       <Paragraph style={{width: 480}}>Parametros calculados</Paragraph>
       <Div>
@@ -1015,26 +1087,21 @@ const [carrera, setCarrera] = useState({
           <Label>Vt.red/VT</Label>
           <DivCalculo id={"Vt.red/VT"}>{data2.Vt_red_VT}</DivCalculo>
       </Div>
-
       </DivSimul>
-
       <DivSimul style={{marginBottom:10,}}>
           <div style={{display: "flex",}}>
             <Paragraph style={{marginTop:9}}>Datos principales</Paragraph>
             <Paragraph style={{marginTop:4}}>Maq.Auto<Switch onChange= {handleChange} size="small"/>Torno</Paragraph>
             <Paragraph></Paragraph>
           </div>
-        
           <Div>
             <Label>LDA</Label>
             <DivCalculo id={"LDA"}>{data3.LDA}</DivCalculo>
-          </Div>
-          
+          </Div> 
           <Div>
             <Label>LDA adic</Label>
             <DivCalculo  id={"LDA adic"}>{data3.LDA_adic}</DivCalculo> {/* condicional */}
           </Div>
-          
           <Div>
             <Label>Peso</Label>
             <DivCalculo id={"Peso"}>{data3.Peso}</DivCalculo>
@@ -1042,8 +1109,7 @@ const [carrera, setCarrera] = useState({
           <div>
             <Paragraph style={{width: 480}}>Grado tolerancias</Paragraph>
             
-          </div>
-          
+          </div>    
           <Div>
             <Label>Grado</Label>
             <Select value={grado} id={"grado"} onChange={(e) => setGrado(e.target.value)}>
@@ -1063,7 +1129,6 @@ const [carrera, setCarrera] = useState({
             <DivCalculo id={"toler_L0"}>±{coef.toler_L0}</DivCalculo>
           </Div>
       </DivSimul>
-
       <div>  
         <Paragraph style={{width: 480}}>Descripcion</Paragraph>
         <textarea style={{
@@ -1094,10 +1159,8 @@ const [carrera, setCarrera] = useState({
                       fontFamily:"ABeeZee",
                       fontSize: 12,
                       padding:10,
-                      }}placeholder="Datos adicionales"></textarea>
-        
+                      }}placeholder="Datos adicionales"></textarea>    
       </div>
-
       <DivSimul>
         <Paragraph style={{width: 480}}>Calculos teoricos</Paragraph>
         <Div>
@@ -1114,9 +1177,7 @@ const [carrera, setCarrera] = useState({
         </Div>
       </DivSimul>
     </div>
-
-
-    <div style={{display:"flex", columnGap:50, marginTop:28, marginLeft: 28,}}>
+    <div style={{backgroundColor:"black", display:"flex", columnGap:50, marginTop:28, marginLeft: 28,}}>
      <div>
       <Table1>
         <tr style={{backgroundColor: "#5B5B5B", color:"white",}}>
@@ -1183,8 +1244,6 @@ const [carrera, setCarrera] = useState({
         </tr>
       </Table1> 
      </div>
-     
-      
 
       <div>
         <div style={{display:"flex", justifyContent:"center",paddingTop:94,}}>
@@ -1224,11 +1283,8 @@ const [carrera, setCarrera] = useState({
                   <Td></Td>
                   <Td></Td>
                 </tr>
-
             </Table2>
-        </div>
-        
-        
+        </div>  
         <DivSimul> 
             <Paragraph style={{width: 480}}>Calculos reales</Paragraph>
             <Div>
@@ -1243,19 +1299,93 @@ const [carrera, setCarrera] = useState({
                 <Label>L</Label>
                 <DivCalculo id={"L"}>{data4.L}</DivCalculo>
             </Div>
-          </DivSimul>
-
-      </div>
-      
-    
+        </DivSimul>
+      </div>  
     </div> 
-    
-    <div styled={{width: 100,}}>
-       <button onClick={TablaToler}> toler </button>
 
+    <div style={{backgroundColor: "black"}}>
+      <table>
+        <thead>
+          <tr style={{backgroundColor: "#5B5B5B", color:"white"}}>
+            <Th3>Punto</Th3>
+            <Th3>Luz</Th3>
+            <Th3>Long</Th3>
+            <Th3>N.Vtas</Th3>
+            <Th3>Keq. (N/mm)</Th3>
+            <Th3>Xc (mm)</Th3>
+            <Th3>Fc (kg)</Th3>
+            <Th3>Paso (mm)</Th3>
+            <Th3>K (N/mm)</Th3>
+            <Th3>K^-1</Th3>
+            <Th3>b</Th3>
+          </tr>
+        </thead>
+        <tbody>
+          {puntos1.map((punto, indice) => (
+            <tr key={punto.id} style={{color:"white"}}>
+              <Th4>
+                {punto.id}
+              </Th4>
+              <Td>
+                {
+                  punto.id > 2 ? ((!isNaN(punto.Luz) && Number.isFinite(punto.Luz) && (punto.Luz != 0)) === true ? (punto.Luz).toFixed(2) : "") : <Input value={punto.Luz} type="number" id={punto.id+",Luz"} onChange={(e) => handleInputPuntos1(e)}/>
+                }
+              </Td>
+              <Td>
+                <Input value={punto.Long} type="number" id={punto.id+",Long"} onChange={(e) => handleInputPuntos1(e)} disabled={indice === (puntos1.length-1)}/>
+              </Td>
+              <Td>
+                <Input value={punto.Vtas} type="number" id={punto.id+",Vtas"} onChange={(e) => handleInputPuntos1(e)} disabled={indice === (puntos1.length-1)}/>
+              </Td>
+              <Td>
+                {
+                  (!isNaN(puntos2[indice].Keq) && Number.isFinite(puntos2[indice].Keq) && (puntos2[indice].Keq != 0)) === true ? (puntos2[indice].Keq).toFixed(3) : ""
+                }
+              </Td>
+              <Td>
+                {
+                  (!isNaN(puntos2[indice].Xc) && Number.isFinite(puntos2[indice].Xc) && (puntos2[indice].Xc != 0)) === true ? (puntos2[indice].Xc).toFixed(3) : ""
+                }
+              </Td>
+              <Td>
+                {
+                  (!isNaN(puntos2[indice].Fc) && Number.isFinite(puntos2[indice].Fc) && (puntos2[indice].Fc != 0)) === true ? (puntos2[indice].Fc).toFixed(3) : ""
+                }
+              </Td>
+              <Td>
+                {
+                  (!isNaN(puntos2[indice].Paso) && Number.isFinite(puntos2[indice].Paso) && (puntos2[indice].Paso != 0)) === true ? (puntos2[indice].Paso).toFixed(2) : ""
+                }
+              </Td>
+              <Td>
+                {
+                  (!isNaN(puntos2[indice].K) && Number.isFinite(puntos2[indice].K) && (puntos2[indice].K != 0)) === true ? (puntos2[indice].K).toFixed(3) : ""
+                }
+              </Td>
+              <Td>
+                {
+                  (!isNaN(puntos2[indice].Kinv) && Number.isFinite(puntos2[indice].Kinv) && (puntos2[indice].Kinv != 0)) === true ? (puntos2[indice].Kinv).toFixed(4) : ""
+                }
+              </Td>
+              <Td>
+                {
+                  (!isNaN(puntos2[indice].b) && Number.isFinite(puntos2[indice].b)) === true ? (puntos2[indice].b.toFixed(3)) : ""
+                }
+              </Td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colSpan="3">
+              <button style={{width:125, height:40, margin:"10px 14px",borderRadius:8,}} onClick={deleteRow} disabled={puntos1.length === 3}>Eliminar última fila</button>
+              <button style={{width:125, height:40, margin:"10px 14px",borderRadius:8,}} onClick={addRow}>Agregar fila</button> 
+              <button style={{width:125, height:40, margin:"10px 14px",borderRadius:8,}} onClick={orderRow}>Ordenar filas</button>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
     </div>
-
-    
 
    </div>   
   );
