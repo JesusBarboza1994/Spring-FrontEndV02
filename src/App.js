@@ -44,8 +44,6 @@ const DivCalculo = styled.div`
   font-size: 13px;
   border-style:outset;
 `
-
-
 const Label = styled.label`
   height: 20px;
   width: 65px;
@@ -58,7 +56,6 @@ const Label = styled.label`
   color: gray;
             
 `
-
 const DivSimul = styled.div`
   display:flex;
   grid-template-columns: auto, auto, auto;
@@ -70,7 +67,6 @@ const DivSimul = styled.div`
   width: 480px;
   background-color: #9656fc64;         
 `
-
 const Paragraph = styled.p`
   block-size:1px;
   margin-left:15px;
@@ -133,7 +129,6 @@ const Td = styled.td`
   border: 1px solid grey;
 
 `
-
 const Table2 = styled.table`
   width:210px;
   height:210px;
@@ -143,7 +138,6 @@ const Table2 = styled.table`
   color: grey;
 
 `
-
 const Select = styled.select`
   background-color: black;
   color: white;
@@ -162,7 +156,6 @@ const Input3 = styled.input`
   text-align: center;
   border:none;
 `
-
 const Th3 = styled.th`
   height: 80px;
   font-size: 14px;
@@ -178,7 +171,6 @@ const Th4 = styled.th`
   border: 1px solid grey;
   color: white;
 `
-
 const Input2 = styled.input`
   width:80px;
   background-color:black;
@@ -196,13 +188,11 @@ const Label2 = styled.label`
   background-color:black;
   line-height: 15px;
 `
-
 const Tbody = styled.tbody`
   color: white;
   display: flex;
   flex-direction: column-reverse;
 `
-
 //Renee-Fin-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 function App() {
@@ -215,11 +205,11 @@ function App() {
     Luz1:"",
     Dint1:"",    //diam int1
     Vtas1:"",    //vts red1
-    Ext1:"",     //extremo1
+    Ext1:"TASE",     //extremo1
     Luz2:"",
     Dint2:"",    //diam int2
     Vtas2:"",    //vts red2
-    Ext2:"",     //extremo2
+    Ext2:"TASE",     //extremo2
   })
 
   const [data1, setData1] = useState({
@@ -252,13 +242,11 @@ function App() {
   })
 
   //Renee-Inicio-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
   const [puntos1, setPuntos1] = useState([
     { id: 1, Luz: "", Long: "", Vtas: "" },
     { id: 2, Luz: "", Long: "", Vtas: "" },
     { id: 3, Luz: "", Long: "", Vtas: "" }
   ])
-
   const [puntos2, setPuntos2] = useState([
     { id: 1, Paso: "", K: "", Kinv: "", Keq: "", Xc: "", b: "", Fc: "" },
     { id: 2, Paso: "", K: "", Kinv: "", Keq: "", Xc: "", b: "", Fc: "" },
@@ -361,8 +349,6 @@ const [carrera, setCarrera] = useState({
   Compres4: "",
 })
 
-      
-
   //Renee-Inicio-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
   
   function handleButtonCalcular(){
@@ -392,7 +378,7 @@ const [carrera, setCarrera] = useState({
   //Renee-Inicio-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
  //Tolerancias para Dext (DIN EN 15800)
-   const tolerDiam = [
+  const tolerDiam = [
     [0.63, 0.05, 0.07, 0.1, 0.07, 0.1, 0.15, 0.1, 0.15, 0.2],
     [1, 0.05, 0.07, 0.1, 0.08, 0.1, 0.15, 0.15, 0.2, 0.3],
     [1.6, 0.07, 0.1, 0.15, 0.1, 0.15, 0.2, 0.2, 0.3, 0.4],
@@ -412,14 +398,14 @@ const [carrera, setCarrera] = useState({
     [160, 1.2, 1.5, 1.7, 2.1, 2.9, 3.3, 4.2, 5.7, 6.6],
     [200, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   ];
-
-   
+ 
   useEffect(() => {
     let extremo1 = type1
     let extremo2 = type2
     setData({...data,
       Ext1: extremo1, Ext2: extremo2
     })
+
   }, [type1, type2])
 
   useEffect(() => {
@@ -429,7 +415,6 @@ const [carrera, setCarrera] = useState({
       Rel_d2: ((data.Dint2 + data.d)/(data.Dext - data.d)).toFixed(2)})
 
   }, [data.d, data.Dext, data.Dint1, data.Dint2])
-
 
   useEffect(() => {
     setData2({...data2, Vt_red_VT : ((data.Vtas1+data.Vtas2)/data.N).toFixed(2) }) 
@@ -443,7 +428,6 @@ const [carrera, setCarrera] = useState({
   useEffect(() => {
     setData3({...data3, Peso : (Math.pow(data.d/12.7,2)*data3.LDA/1000).toFixed(2)}) 
   }, [data.d, data3.LDA])
-
 
   //calculo de la rigidez, fuerza y deformacion, mas la tolerancias
   useEffect(() => {
@@ -712,7 +696,16 @@ const [carrera, setCarrera] = useState({
     let vtasTotal = data.N
     let longTotal = data.L0
     let vtaPuntoFinal = vtasTotal - sumaVtasParcial
-    let longPuntoFinal = longTotal - sumaLongsParcial - d
+    let longPuntoFinal = 0 
+
+    if (((data.Ext1 === "TASE") && (data.Ext2 === "TASE")) || ((data.Ext1 === "TCSE") && (data.Ext2 === "TASE")) || ((data.Ext1 === "TASE") && (data.Ext2 === "TCSE"))) {
+      longPuntoFinal = longTotal - sumaLongsParcial - d
+    } else if (((data.Ext1 === "TAE") && (data.Ext2 === "TAE")) || ((data.Ext1 === "TCE") && (data.Ext2 === "TAE")) || ((data.Ext1 === "TAE") && (data.Ext2 === "TCE"))) {
+      longPuntoFinal = longTotal - sumaLongsParcial 
+    } else {
+      longPuntoFinal = longTotal - sumaLongsParcial - d/2
+    }
+    
     let luzPuntoFinal = longPuntoFinal/vtaPuntoFinal - d
 
     puntos1Aux[puntos1Aux.length-1].Vtas = vtaPuntoFinal
@@ -728,56 +721,92 @@ const [carrera, setCarrera] = useState({
     
   }, [puntos1])
 
+  useEffect(() => {
+
+    let d = Number(data.d)
+    let sumaVtasParcial = 0;
+    let sumaLongsParcial = 0;
+    let puntos1Aux = JSON.parse(JSON.stringify(puntos1))
+    puntos1Aux.map((punto) => {
+      if (punto.id < puntos1Aux.length) {
+        sumaVtasParcial = sumaVtasParcial + Number(punto.Vtas)
+        sumaLongsParcial = sumaLongsParcial + Number(punto.Long)
+      }
+    })
+
+    let vtasTotal = data.N
+    let longTotal = data.L0
+    let vtaPuntoFinal = vtasTotal - sumaVtasParcial
+    let longPuntoFinal = 0 
+
+    if (((data.Ext1 === "TASE") && (data.Ext2 === "TASE")) || ((data.Ext1 === "TCSE") && (data.Ext2 === "TASE")) || ((data.Ext1 === "TASE") && (data.Ext2 === "TCSE"))) {
+      longPuntoFinal = longTotal - sumaLongsParcial - d
+    } else if (((data.Ext1 === "TAE") && (data.Ext2 === "TAE")) || ((data.Ext1 === "TCE") && (data.Ext2 === "TAE")) || ((data.Ext1 === "TAE") && (data.Ext2 === "TCE"))) {
+      longPuntoFinal = longTotal - sumaLongsParcial 
+    } else {
+      longPuntoFinal = longTotal - sumaLongsParcial - d/2
+    }
+    
+    let luzPuntoFinal = longPuntoFinal/vtaPuntoFinal - d
+
+    puntos1Aux[puntos1Aux.length-1].Vtas = vtaPuntoFinal
+    puntos1Aux[puntos1Aux.length-1].Long = longPuntoFinal
+    puntos1Aux[puntos1Aux.length-1].Luz = luzPuntoFinal
+
+    setPuntos1(puntos1Aux)
+    
+  }, [data.Ext1, data.Ext2])
+
   //Renee-Fin-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   //Funcion para busqueda de tolerancia para Dext
   function TablaToler(){
-  const dmedio = (data.Dext - data.d)
-  if(dmedio === "" || dmedio <= 0) return -1;
-  const linea = tolerDiam.findIndex((_rango, indice, arreglo)=>{
+    const dmedio = (data.Dext - data.d)
+    if(dmedio === "" || dmedio <= 0) return -1;
+    const linea = tolerDiam.findIndex((_rango, indice, arreglo)=>{
       return Number(dmedio)>=arreglo[indice][0] && Number(dmedio)<=arreglo[indice+1][0]
     });
-  //console.log(linea);
+    //console.log(linea);
 
-  let C = ((data.Dext-data.d)/data.d).toFixed(2)
-  let tolerBuscada=0;
-  switch(grado){
-  case "1":
-    console.log("case1")
-    if(C>=4 && C<8){
-        tolerBuscada=tolerDiam[linea][1];
-    }else if(C>=8 && C<=14){
-        tolerBuscada=tolerDiam[linea][2];
-    }else{
-        tolerBuscada=tolerDiam[linea][3];
+    let C = ((data.Dext-data.d)/data.d).toFixed(2)
+    let tolerBuscada=0;
+    switch(grado){
+      case "1":
+        console.log("case1")
+        if(C>=4 && C<8){
+            tolerBuscada=tolerDiam[linea][1];
+        }else if(C>=8 && C<=14){
+            tolerBuscada=tolerDiam[linea][2];
+        }else{
+            tolerBuscada=tolerDiam[linea][3];
+        }
+        break;
+      case "2":
+        console.log("case2")
+        if(C>=4 && C<8){
+          tolerBuscada=tolerDiam[linea][4];
+        }else if(C>=8 && C<=14){
+          tolerBuscada=tolerDiam[linea][5];
+        }else{
+          tolerBuscada=tolerDiam[linea][6];
+        }
+        break;
+      case "3":
+        console.log("case3")
+        if(C>=4 && C<8){
+          tolerBuscada=tolerDiam[linea][7];
+        }else if(C>=8 && C<=14){
+          tolerBuscada=tolerDiam[linea][8];
+        }else{
+        tolerBuscada=tolerDiam[linea][9];
+        }
+        break;
+      default:
+        console.log("No entro a ninguno")
     }
-    break;
-  case "2":
-    console.log("case2")
-    if(C>=4 && C<8){
-      tolerBuscada=tolerDiam[linea][4];
-    }else if(C>=8 && C<=14){
-      tolerBuscada=tolerDiam[linea][5];
-    }else{
-      tolerBuscada=tolerDiam[linea][6];
-    }
-    break;
-  case "3":
-    console.log("case3")
-    if(C>=4 && C<8){
-      tolerBuscada=tolerDiam[linea][7];
-    }else if(C>=8 && C<=14){
-      tolerBuscada=tolerDiam[linea][8];
-    }else{
-    tolerBuscada=tolerDiam[linea][9];
-    }
-    break;
-  default:
-    console.log("No entro a ninguno")
- }
- //console.log(tolerBuscada);
- return tolerBuscada
-}
+    //console.log(tolerBuscada);
+    return tolerBuscada
+  }
 
   useEffect(() => {
     
@@ -799,50 +828,49 @@ const [carrera, setCarrera] = useState({
 
   }, [data.Ext1, data.Ext2])
   
-
   useEffect(() => {
-   let s1=data.L0-valuetab.Linst;
-   let s2=data.L0-valuetab.Lcarga;
-   let s3=data.L0-valuetab.Lmax;
-   let s4=data.L0-valuetab.L4;
-   let sc=data.L0-valuetab.Lbloqueo;
+    let s1=data.L0-valuetab.Linst;
+    let s2=data.L0-valuetab.Lcarga;
+    let s3=data.L0-valuetab.Lmax;
+    let s4=data.L0-valuetab.L4;
+    let sc=data.L0-valuetab.Lbloqueo;
 
-   let F1=0; let F2=0; let F3=0; let F4=0;
-   let Tau1=0; let Tau2=0; let Tau3=0; let Tau4=0; let TauC=0;
-   let Compr1=0; let Compr2=0; let Compr3=0; let Compr4=0;
+    let F1=0; let F2=0; let F3=0; let F4=0;
+    let Tau1=0; let Tau2=0; let Tau3=0; let Tau4=0; let TauC=0;
+    let Compr1=0; let Compr2=0; let Compr3=0; let Compr4=0;
 
 
-   if (s1<filas.Xc1){
-     F1=Number(((filas.Keq1*s1+filas.b1)/9.81).toFixed(1)); 
+    if (s1<filas.Xc1){
+      F1=Number(((filas.Keq1*s1+filas.b1)/9.81).toFixed(1)); 
     }else if(s1<filas.Xc2){
-     F1=Number(((filas.Keq2*s1+filas.b2)/9.81).toFixed(1));
+      F1=Number(((filas.Keq2*s1+filas.b2)/9.81).toFixed(1));
     }else{
-     F1=Number(((filas.Keq3*s1+filas.b3)/9.81).toFixed(1));
+      F1=Number(((filas.Keq3*s1+filas.b3)/9.81).toFixed(1));
     }
 
     if (s2<filas.Xc1){
       F2=Number(((filas.Keq1*s2+filas.b1)/9.81).toFixed(1)); 
-     }else if(s2<filas.Xc2){
+    }else if(s2<filas.Xc2){
       F2=Number(((filas.Keq2*s2+filas.b2)/9.81).toFixed(1));
-     }else{
+    }else{
       F2=Number(((filas.Keq3*s2+filas.b3)/9.81).toFixed(1));
-     }
+    }
 
-     if (s3<filas.Xc1){
+    if (s3<filas.Xc1){
       F3=Number(((filas.Keq1*s3+filas.b1)/9.81).toFixed(1)); 
-     }else if(s3<filas.Xc2){
+    }else if(s3<filas.Xc2){
       F3=Number(((filas.Keq2*s3+filas.b2)/9.81).toFixed(1));
-     }else{
+    }else{
       F3=Number(((filas.Keq3*s3+filas.b3)/9.81).toFixed(1));
-     }
+    }
 
-     if (s4<filas.Xc1){
+    if (s4<filas.Xc1){
       F4=Number(((filas.Keq1*s4+filas.b1)/9.81).toFixed(1)); 
-     }else if(s4<filas.Xc2){
+    }else if(s4<filas.Xc2){
       F4=Number(((filas.Keq2*s4+filas.b2)/9.81).toFixed(1));
-     }else{
+    }else{
       F4=Number(((filas.Keq3*s4+filas.b3)/9.81).toFixed(1));
-     }
+    }
 
     Tau1=Number(((8*data2.Dmedio*F1*9.81)/(3.14*Math.pow(data.d,3))*((4*data2.C-1)/(4*data2.C-4)+0.615/data2.C)).toFixed(1));
     Tau2=Number(((8*data2.Dmedio*F2*9.81)/(3.14*Math.pow(data.d,3))*((4*data2.C-1)/(4*data2.C-4)+0.615/data2.C)).toFixed(1));
@@ -854,47 +882,35 @@ const [carrera, setCarrera] = useState({
     Compr2=Number((s2/(data.L0-valuetab.Lbloqueo)).toFixed(2))*100;
     Compr3=Number((s3/(data.L0-valuetab.Lbloqueo)).toFixed(2))*100;
     Compr4=Number((s4/(data.L0-valuetab.Lbloqueo)).toFixed(2))*100;
-    
-
+  
     setCarrera({...carrera,
-    carrCarga : (valuetab.Linst-valuetab.Lcarga).toFixed(1),
-    carrMax: (valuetab.Linst-valuetab.Lmax).toFixed(1),
-    carrL4: (valuetab.Linst-valuetab.L4).toFixed(1),
-    carrLc: (valuetab.Linst-valuetab.Lbloqueo).toFixed(1),
-    // s1: (data.L0-valuetab.Linst),
-    // s2: (data.L0-valuetab.Lcarga),
-    // s3: (data.L0-valuetab.Lmax),
-    // s4: (data.L0-valuetab.L4),
-    // sc: (data.L0-valuetab.Lbloqueo),
-    Finst: F1,
-    Fcarg: F2,
-    Fmax: F3,
-    F4: F4,
-
-    TauK1: Tau1,
-    TauK2: Tau2,
-    TauK3: Tau3,
-    TauK4: Tau4,
-    TauKC: TauC,
-
-    Compres1: Compr1,
-    Compres2: Compr2,
-    Compres3: Compr3,
-    Compres4: Compr4,
-
+      carrCarga : (valuetab.Linst-valuetab.Lcarga).toFixed(1),
+      carrMax: (valuetab.Linst-valuetab.Lmax).toFixed(1),
+      carrL4: (valuetab.Linst-valuetab.L4).toFixed(1),
+      carrLc: (valuetab.Linst-valuetab.Lbloqueo).toFixed(1),
+      // s1: (data.L0-valuetab.Linst),
+      // s2: (data.L0-valuetab.Lcarga),
+      // s3: (data.L0-valuetab.Lmax),
+      // s4: (data.L0-valuetab.L4),
+      // sc: (data.L0-valuetab.Lbloqueo),
+      Finst: F1,
+      Fcarg: F2,
+      Fmax: F3,
+      F4: F4,
+      TauK1: Tau1,
+      TauK2: Tau2,
+      TauK3: Tau3,
+      TauK4: Tau4,
+      TauKC: TauC,
+      Compres1: Compr1,
+      Compres2: Compr2,
+      Compres3: Compr3,
+      Compres4: Compr4,
     }) 
   }, [valuetab.Linst, valuetab.Lcarga, valuetab.Lmax, valuetab.L4,])
-  
-
-
-
-
-  
-
  
- function handleInput(e){
+  function handleInput(e){
     setData({...data, [e.target.id]:e.target.value})
-    
   }
   function handleSubmit(e){
     e.preventDefault();
@@ -903,18 +919,14 @@ const [carrera, setCarrera] = useState({
   function handleSimulacion(e){
     setData1({...data1, [e.target.id]:e.target.value})
     console.log(data1)
-  }
-  
+  } 
   function handlePrincipal(e){
     setData3({...data3, [e.target.id]:e.target.value})
     console.log(data3)
   }
-
   function handleTab(e){
     setValuetab({...valuetab, [e.target.id]:e.target.value});
   }
- 
-
   const [boolSwitch,setBoolSwitch] = useState(false)
   function handleChange(){
     if (boolSwitch){
