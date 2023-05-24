@@ -293,7 +293,11 @@ function App() {
   
   const [grado,setGrado] = useState(1); 
   const [tablaToler,setTablaToler] = useState({
-    valor: ""
+    valor: "",
+  });
+
+  const [descrip, setDescrip] = useState({
+    descrip: "",
   });
   
   const [coef, setCoef] = useState({
@@ -441,8 +445,10 @@ const [carrera, setCarrera] = useState({
   }, [data.d, data.Dext, data.N])
 
   useEffect(() => {
-    setData3({...data3, Peso : (Math.pow(data.d/12.7,2)*data3.LDA/1000).toFixed(2)}) 
-  }, [data.d, data3.LDA])
+    setData3({...data3, Peso : (Math.pow(data.d/12.7,2)*(data3.LDA+data3.LDA_adic)/1000).toFixed(2)}) 
+  }, [data3.LDA, data3.LDA_adic])
+
+  
 
 
   //calculo de la rigidez, fuerza y deformacion, mas la tolerancias
@@ -1061,6 +1067,7 @@ const [carrera, setCarrera] = useState({
         </div>
                                 
       </DivSimul>  
+
       <DivSimul>
       <Paragraph style={{width: 480}}>Parametros calculados</Paragraph>
       <Div>
@@ -1088,6 +1095,7 @@ const [carrera, setCarrera] = useState({
           <DivCalculo id={"Vt.red/VT"}>{data2.Vt_red_VT}</DivCalculo>
       </Div>
       </DivSimul>
+      
       <DivSimul style={{marginBottom:10,}}>
           <div style={{display: "flex",}}>
             <Paragraph style={{marginTop:9}}>Datos principales</Paragraph>
@@ -1131,10 +1139,10 @@ const [carrera, setCarrera] = useState({
       </DivSimul>
       <div>  
         <Paragraph style={{width: 480}}>Descripcion</Paragraph>
-        <textarea style={{
+        <div style={{
           
                       width: 444, 
-                      height: 160, 
+                      height: 100, 
                       margin:14,
                       marginBottom: 0, 
                       border:"2px solid grey",
@@ -1146,7 +1154,8 @@ const [carrera, setCarrera] = useState({
                       fontSize: 16,
                       padding:10,
 
-                    }} placeholder="Descripcion"></textarea>
+                    }} placeholder="Descripcion"></div>
+
           <textarea style={{
                       width: 444,
                       height: 20,
