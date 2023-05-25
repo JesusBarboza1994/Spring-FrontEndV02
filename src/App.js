@@ -2,6 +2,11 @@ import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import "@fontsource/abeezee/400-italic.css";
 import { Switch, breadcrumbsClasses } from "@mui/material";
+import { SimulationData } from "./SimulationData";
+import { CalculatedParameters } from "./CalculatedParameters";
+import { WeightTolerance } from "./WeightTolerance";
+import { Textarea } from "./Textarea";
+
 
 const Form = styled.form`
   display:flex;
@@ -222,13 +227,13 @@ function App() {
     Ext2:"",     //extremo2
   })
 
-  const [data1, setData1] = useState({
+  /*const [data1, setData1] = useState({
     Mater:"",      
     x:"",         //deformacion
     grado:"",        
-  })
+  }) */
 
-  const [data2, setData2] = useState({
+  /*const [data2, setData2] = useState({
     C: "",      
     Dmedio:"",         
     f:"",      
@@ -236,14 +241,14 @@ function App() {
     Rel_d2:"",         
     Vt_red_VT:"",      
 
-  })
+  })  */
 
-  const [data3, setData3] = useState({
+  /*const [data3, setData3] = useState({
     LDA:"",      
     LDA_adic:200,         
     Peso:"",
     Dmedio:"",    
-  })
+  }) */
 
   const [data4, setData4] = useState({
     K:"",      
@@ -269,7 +274,7 @@ function App() {
 
   const [type1,setType1] = useState(["TASE","TCSE","TCE","TAE"]);
   const [type2,setType2] = useState(["TASE","TCSE","TCE","TAE"]);
-  const [mater,setMater] = useState([
+  /*const [mater,setMater] = useState([
     "SHI-180",
     "SHI-165",
     "CRSI SAE 9254(REC)",
@@ -289,25 +294,25 @@ function App() {
     "INOX CLASE A-DSR",
     "INOX CLASE B-DSR",
     "INOX SANDVIK"
-  ]);
+  ]);   */
   
-  const [grado,setGrado] = useState(1); 
+  /*const [grado,setGrado] = useState(1); 
   const [tablaToler,setTablaToler] = useState({
     valor: "",
-  });
+  });  */
 
   const [descrip, setDescrip] = useState({
     descrip: "",
   });
   
-  const [coef, setCoef] = useState({
+  /*const [coef, setCoef] = useState({
     af : 0,
     kf : 0,
     Q_Long : 0,
     toler_L0: 0,
-  });
+  });  */
 
-  const [filas, setFilas] = useState({ 
+  /*const [filas, setFilas] = useState({ 
     nvtas1: "",
     nvtas2: "",
     nvtas3: "",
@@ -329,7 +334,7 @@ function App() {
     Fc1: "",
     Fc2: "",
     Fc3: "",
-});
+});  */
  
 const [valuetab, setValuetab] = useState({
 Linst: 0,
@@ -395,7 +400,7 @@ const [carrera, setCarrera] = useState({
   }
   //Renee-Inicio-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
- //Tolerancias para Dext (DIN EN 15800)
+ /*//Tolerancias para Dext (DIN EN 15800)
    const tolerDiam = [
     [0.63, 0.05, 0.07, 0.1, 0.07, 0.1, 0.15, 0.1, 0.15, 0.2],
     [1, 0.05, 0.07, 0.1, 0.08, 0.1, 0.15, 0.15, 0.2, 0.3],
@@ -415,7 +420,7 @@ const [carrera, setCarrera] = useState({
     [125, 0.9, 1.2, 1.4, 1.8, 2.3, 2.7, 3.5, 4.6, 5.4],
     [160, 1.2, 1.5, 1.7, 2.1, 2.9, 3.3, 4.2, 5.7, 6.6],
     [200, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-  ];
+  ];  */
 
    
   useEffect(() => {
@@ -426,7 +431,7 @@ const [carrera, setCarrera] = useState({
     })
   }, [type1, type2])
 
-  useEffect(() => {
+ /* useEffect(() => {
     setData2({...data2,
       C : ((data.Dext-data.d)/data.d).toFixed(2),
       Dmedio: (data.Dext - data.d), Rel_d1 : ((data.Dint1 + data.d)/(data.Dext - data.d)).toFixed(2),
@@ -438,19 +443,19 @@ const [carrera, setCarrera] = useState({
   useEffect(() => {
     setData2({...data2, Vt_red_VT : ((data.Vtas1+data.Vtas2)/data.N).toFixed(2) }) 
 
-  }, [data.Vtas1, data.Vtas2, data.N])
+  }, [data.Vtas1, data.Vtas2, data.N]) */
 
-  useEffect(() => {
+ /* useEffect(() => {
   setData3({...data3, LDA : Math.round((data.Dext-data.d)*data.N*3.14),  Dmedio: (data.Dext - data.d)})
   }, [data.d, data.Dext, data.N])
 
   useEffect(() => {
     setData3({...data3, Peso : (Math.pow(data.d/12.7,2)*(data3.LDA+data3.LDA_adic)/1000).toFixed(2)}) 
-  }, [data3.LDA, data3.LDA_adic])
+  }, [data3.LDA, data3.LDA_adic])  */
 
   
 
-
+  /*
   //calculo de la rigidez, fuerza y deformacion, mas la tolerancias
   useEffect(() => {
    //const C = Number(((Number(data.Dext)-Number(data.d))/Number(data.d)).toFixed(2));
@@ -514,7 +519,7 @@ const [carrera, setCarrera] = useState({
       Fc2: Fc2,
       Fc3: Fc3,
           
-     })
+    })
 
     let Q_Long=0
     if(grado==1){
@@ -538,7 +543,7 @@ const [carrera, setCarrera] = useState({
     })
 
    setCoef({...coef, toler_L0: toler })
-  }, [grado])
+  }, [grado])  */
 
   //Renee-Inicio-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -736,7 +741,7 @@ const [carrera, setCarrera] = useState({
 
   //Renee-Fin-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  //Funcion para busqueda de tolerancia para Dext
+  /*//Funcion para busqueda de tolerancia para Dext
   function TablaToler(){
   const dmedio = (data.Dext - data.d)
   if(dmedio === "" || dmedio <= 0) return -1;
@@ -783,7 +788,7 @@ const [carrera, setCarrera] = useState({
  }
  //console.log(tolerBuscada);
  return tolerBuscada
-}
+}  */
 
   useEffect(() => {
     
@@ -906,10 +911,10 @@ const [carrera, setCarrera] = useState({
     e.preventDefault();
     console.log(data)
   }
-  function handleSimulacion(e){
+  /*function handleSimulacion(e){
     setData1({...data1, [e.target.id]:e.target.value})
     console.log(data1)
-  }
+  }  */
   
   function handlePrincipal(e){
     setData3({...data3, [e.target.id]:e.target.value})
@@ -921,7 +926,7 @@ const [carrera, setCarrera] = useState({
   }
  
 
-  const [boolSwitch,setBoolSwitch] = useState(false)
+  /*const [boolSwitch,setBoolSwitch] = useState(false)
   function handleChange(){
     if (boolSwitch){
        setData3({...data3, LDA_adic: 200})
@@ -930,7 +935,7 @@ const [carrera, setCarrera] = useState({
     }
     setBoolSwitch(!boolSwitch)
     
-  }
+  }  */
     
   return (
    <div className="App" style={{backgroundColor:"black", display:"flex"}}>
@@ -1017,7 +1022,8 @@ const [carrera, setCarrera] = useState({
           
       </Form>
 
-      <DivSimul>
+      <SimulationData/>
+      {/* <DivSimul>
         <div style={{display: "flex",}}>
           <Paragraph>Datos de simulacion</Paragraph>
           <Paragraph></Paragraph>
@@ -1066,9 +1072,10 @@ const [carrera, setCarrera] = useState({
           <Button onClick={handleButtonCalcular}>Calcular</Button>
         </div>
                                 
-      </DivSimul>  
+      </DivSimul>   */}
 
-      <DivSimul>
+      <CalculatedParameters/>
+      {/* <DivSimul>
       <Paragraph style={{width: 480}}>Parametros calculados</Paragraph>
       <Div>
           <Label>C</Label>              
@@ -1094,9 +1101,10 @@ const [carrera, setCarrera] = useState({
           <Label>Vt.red/VT</Label>
           <DivCalculo id={"Vt.red/VT"}>{data2.Vt_red_VT}</DivCalculo>
       </Div>
-      </DivSimul>
+      </DivSimul> */}
       
-      <DivSimul style={{marginBottom:10,}}>
+      <WeightTolerance/>
+      {/* <DivSimul style={{marginBottom:10,}}>
           <div style={{display: "flex",}}>
             <Paragraph style={{marginTop:9}}>Datos principales</Paragraph>
             <Paragraph style={{marginTop:4}}>Maq.Auto<Switch onChange= {handleChange} size="small"/>Torno</Paragraph>
@@ -1108,7 +1116,7 @@ const [carrera, setCarrera] = useState({
           </Div> 
           <Div>
             <Label>LDA adic</Label>
-            <DivCalculo  id={"LDA adic"}>{data3.LDA_adic}</DivCalculo> {/* condicional */}
+            <DivCalculo  id={"LDA adic"}>{data3.LDA_adic}</DivCalculo> {/* condicional 
           </Div>
           <Div>
             <Label>Peso</Label>
@@ -1136,8 +1144,10 @@ const [carrera, setCarrera] = useState({
             <Label>L0={data.L0} </Label>
             <DivCalculo id={"toler_L0"}>±{coef.toler_L0}</DivCalculo>
           </Div>
-      </DivSimul>
-      <div>  
+      </DivSimul> */}
+
+      <Textarea/>
+      {/* <div>  
         <Paragraph style={{width: 480}}>Descripcion</Paragraph>
         <div style={{
           
@@ -1169,7 +1179,8 @@ const [carrera, setCarrera] = useState({
                       fontSize: 12,
                       padding:10,
                       }}placeholder="Datos adicionales"></textarea>    
-      </div>
+      </div> */}
+
       <DivSimul>
         <Paragraph style={{width: 480}}>Calculos teoricos</Paragraph>
         <Div>
