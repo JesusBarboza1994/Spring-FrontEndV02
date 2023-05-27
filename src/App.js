@@ -2,6 +2,8 @@ import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import "@fontsource/abeezee/400-italic.css";
 import { Switch, breadcrumbsClasses } from "@mui/material";
+import { KLineal } from "./KLineal";
+import { red } from "@mui/material/colors";
 
 const Form = styled.form`
   display:flex;
@@ -625,6 +627,7 @@ const [carrera, setCarrera] = useState({
       Fc3: Fc3,
           
      })
+     
 
     let Q_Long=0
     if(grado==1){
@@ -745,7 +748,7 @@ const [carrera, setCarrera] = useState({
      F1=filas.Keq3*s1+filas.b3;
     }
     
-    console.log(F1);
+    console.log(filas.Xc1);
 
 
     setCarrera({...carrera,
@@ -1201,8 +1204,8 @@ const [carrera, setCarrera] = useState({
     
     </div> 
     
-    <div styled={{width: 100,}}>
-       <button onClick={TablaToler}> toler </button>
+    <div styled={{width: 100, color: red}}>
+       <button onClick={KLineal}> KLineal </button>
 
     </div>
 
