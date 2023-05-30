@@ -24,6 +24,16 @@ export function CalculatedParameters(){
         color: white;  
         width: 148px;
     `
+    const DivCalculo = styled.div`
+        width:40px;
+        height:18px;
+        color:black;
+        background-color: white;
+        margin:8px;
+        font-family:"ABeeZee";
+        font-size: 13px;
+        border-style:outset;
+    `
   const Div = styled.div`
         display:flex;
         aling-items: center;
