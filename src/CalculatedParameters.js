@@ -56,7 +56,8 @@ export function CalculatedParameters(){
         Rel_d2:"",         
         Vt_red_VT:"",      
 
-        })
+    })
+
     useEffect(() => {
      setData2({...data2,
         C : ((App.data.Dext-App.data.d)/App.data.d).toFixed(2),
@@ -190,6 +191,6 @@ export function CalculatedParameters(){
           <DivCalculo id={"Vt.red/VT"}>{data2.Vt_red_VT}</DivCalculo>
       </Div>
       </DivSimul> 
-    )
+    );
 
 }

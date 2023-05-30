@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import "@fontsource/abeezee/400-italic.css";
-import { Switch, breadcrumbsClasses } from "@mui/material";
 import { SimulationData } from "./SimulationData";
 import { CalculatedParameters } from "./CalculatedParameters";
 import { WeightTolerance } from "./WeightTolerance";
 import { Textarea } from "./Textarea";
+import { KLineal } from "./Klineal";
 
 
 const Form = styled.form`
@@ -823,43 +823,43 @@ const [carrera, setCarrera] = useState({
    let Compr1=0; let Compr2=0; let Compr3=0; let Compr4=0;
 
 
-   if (s1<filas.Xc1){
-     F1=Number(((filas.Keq1*s1+filas.b1)/9.81).toFixed(1)); 
-    }else if(s1<filas.Xc2){
-     F1=Number(((filas.Keq2*s1+filas.b2)/9.81).toFixed(1));
+   if (s1<CalculatedParameters.filas.Xc1){
+     F1=Number(((CalculatedParameters.filas.Keq1*s1+CalculatedParameters.filas.b1)/9.81).toFixed(1)); 
+    }else if(s1<CalculatedParameters.filas.Xc2){
+     F1=Number(((CalculatedParameters.filas.Keq2*s1+CalculatedParameters.filas.b2)/9.81).toFixed(1));
     }else{
-     F1=Number(((filas.Keq3*s1+filas.b3)/9.81).toFixed(1));
+     F1=Number(((CalculatedParameters.filas.Keq3*s1+CalculatedParameters.filas.b3)/9.81).toFixed(1));
     }
 
-    if (s2<filas.Xc1){
-      F2=Number(((filas.Keq1*s2+filas.b1)/9.81).toFixed(1)); 
-     }else if(s2<filas.Xc2){
-      F2=Number(((filas.Keq2*s2+filas.b2)/9.81).toFixed(1));
+    if (s2<CalculatedParameters.filas.Xc1){
+      F2=Number(((CalculatedParameters.filas.Keq1*s2+CalculatedParameters.filas.b1)/9.81).toFixed(1)); 
+     }else if(s2<CalculatedParameters.filas.Xc2){
+      F2=Number(((CalculatedParameters.filas.Keq2*s2+CalculatedParameters.filas.b2)/9.81).toFixed(1));
      }else{
-      F2=Number(((filas.Keq3*s2+filas.b3)/9.81).toFixed(1));
+      F2=Number(((CalculatedParameters.filas.Keq3*s2+CalculatedParameters.filas.b3)/9.81).toFixed(1));
      }
 
-     if (s3<filas.Xc1){
-      F3=Number(((filas.Keq1*s3+filas.b1)/9.81).toFixed(1)); 
-     }else if(s3<filas.Xc2){
-      F3=Number(((filas.Keq2*s3+filas.b2)/9.81).toFixed(1));
+     if (s3<CalculatedParameters.filas.Xc1){
+      F3=Number(((CalculatedParameters.filas.Keq1*s3+CalculatedParameters.filas.b1)/9.81).toFixed(1)); 
+     }else if(s3<CalculatedParameters.filas.Xc2){
+      F3=Number(((CalculatedParameters.filas.Keq2*s3+CalculatedParameters.filas.b2)/9.81).toFixed(1));
      }else{
-      F3=Number(((filas.Keq3*s3+filas.b3)/9.81).toFixed(1));
+      F3=Number(((CalculatedParameters.filas.Keq3*s3+CalculatedParameters.filas.b3)/9.81).toFixed(1));
      }
 
-     if (s4<filas.Xc1){
-      F4=Number(((filas.Keq1*s4+filas.b1)/9.81).toFixed(1)); 
-     }else if(s4<filas.Xc2){
-      F4=Number(((filas.Keq2*s4+filas.b2)/9.81).toFixed(1));
+     if (s4<CalculatedParameters.filas.Xc1){
+      F4=Number(((CalculatedParameters.filas.Keq1*s4+CalculatedParameters.filas.b1)/9.81).toFixed(1)); 
+     }else if(s4<CalculatedParameters.filas.Xc2){
+      F4=Number(((CalculatedParameters.filas.Keq2*s4+CalculatedParameters.filas.b2)/9.81).toFixed(1));
      }else{
-      F4=Number(((filas.Keq3*s4+filas.b3)/9.81).toFixed(1));
+      F4=Number(((CalculatedParameters.filas.Keq3*s4+CalculatedParameters.filas.b3)/9.81).toFixed(1));
      }
 
-    Tau1=Number(((8*data2.Dmedio*F1*9.81)/(3.14*Math.pow(data.d,3))*((4*data2.C-1)/(4*data2.C-4)+0.615/data2.C)).toFixed(1));
-    Tau2=Number(((8*data2.Dmedio*F2*9.81)/(3.14*Math.pow(data.d,3))*((4*data2.C-1)/(4*data2.C-4)+0.615/data2.C)).toFixed(1));
-    Tau3=Number(((8*data2.Dmedio*F3*9.81)/(3.14*Math.pow(data.d,3))*((4*data2.C-1)/(4*data2.C-4)+0.615/data2.C)).toFixed(1));
-    Tau4=Number(((8*data2.Dmedio*F4*9.81)/(3.14*Math.pow(data.d,3))*((4*data2.C-1)/(4*data2.C-4)+0.615/data2.C)).toFixed(1));
-    TauC=Number(((8*data2.Dmedio*filas.Fc3*9.81)/(3.14*Math.pow(data.d,3))*((4*data2.C-1)/(4*data2.C-4)+0.615/data2.C)).toFixed(1));
+    Tau1=Number(((8*CalculatedParameters.data2.Dmedio*F1*9.81)/(3.14*Math.pow(data.d,3))*((4*CalculatedParameters.data2.C-1)/(4*CalculatedParameters.data2.C-4)+0.615/CalculatedParameters.data2.C)).toFixed(1));
+    Tau2=Number(((8*CalculatedParameters.data2.Dmedio*F2*9.81)/(3.14*Math.pow(data.d,3))*((4*CalculatedParameters.data2.C-1)/(4*CalculatedParameters.data2.C-4)+0.615/CalculatedParameters.data2.C)).toFixed(1));
+    Tau3=Number(((8*CalculatedParameters.data2.Dmedio*F3*9.81)/(3.14*Math.pow(data.d,3))*((4*CalculatedParameters.data2.C-1)/(4*CalculatedParameters.data2.C-4)+0.615/CalculatedParameters.data2.C)).toFixed(1));
+    Tau4=Number(((8*CalculatedParameters.data2.Dmedio*F4*9.81)/(3.14*Math.pow(data.d,3))*((4*CalculatedParameters.data2.C-1)/(4*CalculatedParameters.data2.C-4)+0.615/CalculatedParameters.data2.C)).toFixed(1));
+    TauC=Number(((8*CalculatedParameters.data2.Dmedio*CalculatedParameters.filas.Fc3*9.81)/(3.14*Math.pow(data.d,3))*((4*CalculatedParameters.data2.C-1)/(4*CalculatedParameters.data2.C-4)+0.615/CalculatedParameters.data2.C)).toFixed(1));
 
     Compr1=Number((s1/(data.L0-valuetab.Lbloqueo)).toFixed(2))*100;
     Compr2=Number((s2/(data.L0-valuetab.Lbloqueo)).toFixed(2))*100;
@@ -896,7 +896,7 @@ const [carrera, setCarrera] = useState({
     }) 
   }, [valuetab.Linst, valuetab.Lcarga, valuetab.Lmax, valuetab.L4,])
   
-
+ console.log(KLineal)
 
 
 
@@ -917,8 +917,8 @@ const [carrera, setCarrera] = useState({
   }  */
   
   function handlePrincipal(e){
-    setData3({...data3, [e.target.id]:e.target.value})
-    console.log(data3)
+    WeightTolerance.setData3({...WeightTolerance.data3, [e.target.id]:e.target.value})
+    console.log(WeightTolerance.data3)
   }
 
   function handleTab(e){
@@ -1185,18 +1185,20 @@ const [carrera, setCarrera] = useState({
         <Paragraph style={{width: 480}}>Calculos teoricos</Paragraph>
         <Div>
             <Label>K</Label>
-            <DivCalculo id={"K"}>{filas.Keq3}</DivCalculo>
+            <DivCalculo id={"K"}>{CalculatedParameters.filas.Keq3}</DivCalculo>
         </Div>
         <Div>
             <Label>F</Label>
-            <DivCalculo id={"F"}>{filas.Fc3}</DivCalculo> 
+            <DivCalculo id={"F"}>{CalculatedParameters.filas.Fc3}</DivCalculo> 
         </Div>
         <Div>
             <Label>L</Label>
-            <DivCalculo id={"L"}>{filas.Xc3}</DivCalculo>
+            <DivCalculo id={"L"}>{CalculatedParameters.filas.Xc3}</DivCalculo>
         </Div>
       </DivSimul>
     </div>
+
+    
     <div style={{backgroundColor:"black", display:"flex", columnGap:50, marginTop:28, marginLeft: 28,}}>
      <div>
       <Table1>
@@ -1258,7 +1260,7 @@ const [carrera, setCarrera] = useState({
           <Td>{valuetab.Lbloqueo}</Td>
           <Td>{carrera.carrLc}</Td>
           <Td>333</Td>
-          <Td>{filas.Fc3}</Td>
+          <Td>{CalculatedParameters.filas.Fc3}</Td>
           <Td>{carrera.TauKC}</Td>
           <Td>100%</Td>
         </tr>
@@ -1305,6 +1307,7 @@ const [carrera, setCarrera] = useState({
                 </tr>
             </Table2>
         </div>  
+
         <DivSimul> 
             <Paragraph style={{width: 480}}>Calculos reales</Paragraph>
             <Div>
@@ -1405,6 +1408,10 @@ const [carrera, setCarrera] = useState({
           </tr>
         </tfoot>
       </table>
+    </div>
+
+    <div styled={{width: 100, color: "red"}}>
+      <button onClick={KLineal}> KLineal </button> 
     </div>
 
    </div>   
