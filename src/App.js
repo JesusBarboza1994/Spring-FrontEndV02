@@ -1074,7 +1074,17 @@ const [carrera, setCarrera] = useState({
                                 
       </DivSimul>   */}
 
-      <CalculatedParameters/>
+      <CalculatedParameters diam={data.d} 
+                            diamext1={data.Dext}
+                            diamint1={data.Dint1}
+                            diamint2={data.Dint2}
+                            vred1={data.Vtas1}
+                            vred2={data.Vtas2}
+                            numvts={data.N}
+                            longitud={data.L0}
+                            luz1={data.Luz1}
+                            luz2={data.Luz2}/>
+
       {/* <DivSimul>
       <Paragraph style={{width: 480}}>Parametros calculados</Paragraph>
       <Div>
@@ -1184,6 +1194,9 @@ const [carrera, setCarrera] = useState({
       <DivSimul>
         <Paragraph style={{width: 480}}>Calculos teoricos</Paragraph>
         <Div>
+          {
+            console.log(CalculatedParameters.filas)
+          }
             <Label>K</Label>
             <DivCalculo id={"K"}>{CalculatedParameters.filas.Keq3}</DivCalculo>
         </Div>

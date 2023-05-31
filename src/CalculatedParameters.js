@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import "@fontsource/abeezee/400-italic.css";
-import App from "./App";
+//import App from "./App";
 
-export function CalculatedParameters(){
+export function CalculatedParameters({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,longitud,luz1,luz2}){
  const DivSimul = styled.div`
         display:flex;
         grid-template-columns: auto, auto, auto;
@@ -70,17 +70,17 @@ export function CalculatedParameters(){
 
     useEffect(() => {
      setData2({...data2,
-        C : ((App.data.Dext-App.data.d)/App.data.d).toFixed(2),
-        Dmedio: (App.data.Dext - App.data.d), Rel_d1 : ((App.data.Dint1 + App.data.d)/(App.data.Dext - App.data.d)).toFixed(2),
-        Rel_d2: ((App.data.Dint2 + App.data.d)/(App.data.Dext - App.data.d)).toFixed(2)})
+        C : ((diamext1-diam)/diam).toFixed(2),
+        Dmedio: (diamext1 - diam), Rel_d1 : ((diamint1 + diam)/(diamext1 - diam)).toFixed(2),
+        Rel_d2: ((diamint2 + diam)/(diamext1 - diam)).toFixed(2)})
 
-    }, [App.data.d, App.data.Dext, App.data.Dint1, App.data.Dint2])
+    }, [diam, diamext1, diamint1, diamint2])
 
 
     useEffect(() => {
-     setData2({...data2, Vt_red_VT : ((App.data.Vtas1+App.data.Vtas2)/App.data.N).toFixed(2) }) 
+     setData2({...data2, Vt_red_VT : ((vred1+vred2)/numvts).toFixed(2) }) 
 
-    }, [App.data.Vtas1, App.data.Vtas2, App.data.N])
+    }, [vred1, vred2, numvts])
 
 
   const [filas, setFilas] = useState({ 
@@ -111,27 +111,27 @@ export function CalculatedParameters(){
         //const C = Number(((Number(data.Dext)-Number(data.d))/Number(data.d)).toFixed(2));
         const nvtas1 = 0.875;    //primera linea contando desde abajo por arriba (empieza con luz menor)
         const nvtas2 = 0.875;  
-        const nvtas3 = Number(App.data.N) - (nvtas1 + nvtas2);  // Vueltas del cuerpo
+        const nvtas3 = Number(numvts) - (nvtas1 + nvtas2);  // Vueltas del cuerpo
         
-        const long1 = Number(((Number(App.data.Luz2) + Number(App.data.d))*nvtas1).toFixed(1));
-        const long2 = Number(((Number(App.data.Luz1) + Number(App.data.d))*nvtas2).toFixed(1));
-        const long3 = Number((Number(App.data.L0) - (long1+long2)- Number(App.data.d)).toFixed(1));
+        const long1 = Number(((Number(luz2) + Number(diam))*nvtas1).toFixed(1));
+        const long2 = Number(((Number(luz1) + Number(diam))*nvtas2).toFixed(1));
+        const long3 = Number((Number(longitud) - (long1+long2)- Number(diam)).toFixed(1));
         
         const paso1 = Number((long1/nvtas1).toFixed(2));
         const paso2 = Number((long2/nvtas2).toFixed(2));
         const paso3 = Number((long3/nvtas3).toFixed(2));
     
-        const rigidez1 = 1/((78500*Math.pow(Number(App.data.d),4))/(8*Math.pow(Number(data2.Dmedio),3)*Number(nvtas1))); // N/mm
-        const rigidez2 = 1/((78500*Math.pow(Number(App.data.d),4))/(8*Math.pow(Number(data2.Dmedio),3)*Number(nvtas2)));
-        const rigidez3 = 1/((78500*Math.pow(Number(App.data.d),4))/(8*Math.pow(Number(data2.Dmedio),3)*Number(nvtas3)));
+        const rigidez1 = 1/((78500*Math.pow(Number(diam),4))/(8*Math.pow(Number(data2.Dmedio),3)*Number(nvtas1))); // N/mm
+        const rigidez2 = 1/((78500*Math.pow(Number(diam),4))/(8*Math.pow(Number(data2.Dmedio),3)*Number(nvtas2)));
+        const rigidez3 = 1/((78500*Math.pow(Number(diam),4))/(8*Math.pow(Number(data2.Dmedio),3)*Number(nvtas3)));
     
         const Keq1 = Number((1/(rigidez1+rigidez2+rigidez3)).toFixed(2));
         const Keq2 = Number((1/(rigidez2+rigidez3)).toFixed(2));
         const Keq3 = Number((1/rigidez3).toFixed(2));
     
-        const Xc1 = Number(((paso1-Number(App.data.d))*Number(App.data.N)).toFixed(1));
-        const Xc2 = Number(((paso2-Number(App.data.d))*(Number(App.data.N)-nvtas1)+(paso1*nvtas1)-nvtas1*Number(App.data.d)).toFixed(1));
-        const Xc3 = Number(((paso3-Number(App.data.d))*(Number(App.data.N)-(nvtas1+nvtas2))+(paso1*nvtas1+paso2*nvtas2)-(nvtas1+nvtas2)*Number(App.data.d)).toFixed(1));
+        const Xc1 = Number(((paso1-Number(diam))*Number(numvts)).toFixed(1));
+        const Xc2 = Number(((paso2-Number(diam))*(Number(numvts)-nvtas1)+(paso1*nvtas1)-nvtas1*Number(diam)).toFixed(1));
+        const Xc3 = Number(((paso3-Number(diam))*(Number(numvts)-(nvtas1+nvtas2))+(paso1*nvtas1+paso2*nvtas2)-(nvtas1+nvtas2)*Number(diam)).toFixed(1));
     
         const b1 = 0;
         const b2 = Number(((Keq1-Keq2)*Xc1+b1).toFixed(1));
@@ -171,7 +171,7 @@ export function CalculatedParameters(){
                 
         })
 
-    },[App.data.d, App.data.Dext, App.data.N, App.data.L0, App.data.Luz1, App.data.Luz2])
+    },[diam, diamext1, numvts, longitud, luz1, luz2])
 
     return(
        <DivSimul>
