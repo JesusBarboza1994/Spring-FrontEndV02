@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import "@fontsource/abeezee/400-italic.css";
+import { useAuth } from '../context/auth-context';
 
 const Td = styled.td`
   text-align: center;
@@ -34,7 +35,9 @@ const Button1 = styled.button`
 
 export default function TablaControlDeCargas(props) {
 
-    const setStateCCargas = props.setStateCC
+    const {controlCargas, setControlCargas} = useAuth();
+    
+    const fuerzas = props.Fuerzas
 
     const [puntosCC, setPuntosCC] = useState([
         { id: 1, Fuerza: "", Long: "" },
@@ -105,7 +108,7 @@ export default function TablaControlDeCargas(props) {
 
         setDefs(defsAux)
 
-        setStateCCargas(puntosCCGlob)
+        setControlCargas(puntosCCGlob)
 
     }, [puntosCC])
 

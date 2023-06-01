@@ -7,7 +7,7 @@ import TablaControlDeCargas from "./components/tablaControlDeCargas";
 //import ScatterPlot from "./components/graficaControlCargas";
 import { Scatter } from 'react-chartjs-2';
 import Chart from 'chart.js';
-import ScatterPlot from './components/scatterCargas'
+import { useAuth } from './context/auth-context';
 
 const Form = styled.form`
   display:flex;
@@ -154,21 +154,6 @@ const Select = styled.select`
 `
 
 function App() {
-    
-  const [data, setData] = useState({
-    d:"",        //alambre
-    Dext:"",     //diam ext1
-    N:"",        //vueltas totales
-    L0:"",      //longitud
-    Luz1:"",
-    Dint1:"",    //diam int1
-    Vtas1:"",    //vts red1
-    Ext1:"TASE",     //extremo1
-    Luz2:"",
-    Dint2:"",    //diam int2
-    Vtas2:"",    //vts red2
-    Ext2:"TASE",     //extremo2
-  })
 
   const [data1, setData1] = useState({
     Mater:"",      
@@ -200,16 +185,8 @@ function App() {
   })
 
   //Renee-Inicio-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  const [puntosGlob1, setPuntosGlob1] = useState([
-    { id: 1, Luz: "", Long: "", Vtas: "" },
-    { id: 2, Luz: "", Long: "", Vtas: "" },
-    { id: 3, Luz: "", Long: "", Vtas: "" }
-  ])
-  const [puntosGlob2, setPuntosGlob2] = useState([
-    { id: 1, Paso: "", K: "", Kinv: "", Keq: "", Xc: "", b: "", Fc: "" },
-    { id: 2, Paso: "", K: "", Kinv: "", Keq: "", Xc: "", b: "", Fc: "" },
-    { id: 3, Paso: "", K: "", Kinv: "", Keq: "", Xc: "", b: "", Fc: "" }
-  ])
+
+  const {data, setData, puntos1, setPuntos1, puntos2, setPuntos2, controlCargas, setControlCargas} = useAuth();
 
   const [puntosCCGrafica, setPuntosCCGrafica] = useState([
     { x: 0, y: 0},
@@ -217,16 +194,12 @@ function App() {
   ])
   const [regLinealCCGrafica, setRegLinealCCGrafica] = useState([])
 
-  const [controlCargas, setControlCargas] = useState([
-    { id: 1, Fuerza: "", Long: "", Def: "" },
-    { id: 2, Fuerza: "", Long: "", Def: "" },
-    { id: 3, Fuerza: "", Long: "", Def: "" }
-  ])
-
   const [lineaCC, setLineaCC] = useState({
     k:0,      
     b:0          
   })
+
+  const [fuerzas, setFuerzas] = useState([340.5,498.31,622.89])
 
   //Renee-Fin-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -458,7 +431,7 @@ function App() {
     console.log("kf")
     console.log(kf)
     
-    let toler=(kf*af*Q_Long/Number(puntosGlob2[2].Keq)).toFixed(1);
+    let toler=(kf*af*Q_Long/Number(puntos2[2].Keq)).toFixed(1);
 
     let tolerancia = TablaToler()
     setTablaToler({...tablaToler,
@@ -466,7 +439,7 @@ function App() {
     })
 
    setCoef({...coef, toler_L0: toler })
-  }, [grado, puntosGlob2])
+  }, [grado, puntos2])
 
   //Funcion para busqueda de tolerancia para Dext
   function TablaToler(){
@@ -1078,16 +1051,11 @@ function App() {
         </DivSimul>
       </div>  
     </div> 
-
-    <TablaDinamica medidasRes={data} extremo1={data.Ext1} extremo2={data.Ext2} setState1={setPuntosGlob1} setState2={setPuntosGlob2}/>
-    
-    
-    <TablaControlDeCargas L0={data.L0} setStateCC={setControlCargas}/>
-    <ScatterPlot data={puntosCCGrafica}/>
+    <TablaDinamica medidasRes={data} extremo1={data.Ext1} extremo2={data.Ext2}/>
+    <TablaControlDeCargas L0={data.L0} />
    </div>   
   );
 }
 
 export default App;
 
-//<ScatterPlot data={puntosCCGrafica} linea={regLinealCCGrafica}/>

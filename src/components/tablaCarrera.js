@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import "@fontsource/abeezee/400-italic.css";
+import { useAuth } from '../context/auth-context';
 
 const Td = styled.td`
   text-align: center;
@@ -35,12 +36,23 @@ const Button1 = styled.button`
 export default function TablaCarrera(props) {
 
     const setStateCCargas = props.setStateCC
+
+    const {puntos1, setPuntos1, puntos2, setPuntos2} = useAuth();
     
     const [carreras, setCarreras] = useState([
         { id: 1, Carrera: "" },
         { id: 2, Carrera: "" },
-        { id: 3, Carrera: "" }
+        { id: 3, Carrera: "" },
+        { id: 4, Carrera: "" },
+        { id: 5, Carrera: "" }
     ])
+
+    carreras[0].Carrera = props.Fuerzas[0]/props.RigidezReal
+    carreras[1].Carrera = props.Fuerzas[1]/props.RigidezReal
+    carreras[2].Carrera = props.Fuerzas[2]/props.RigidezReal
+    carreras[3].Carrera = props.Fuerzas[3]/props.RigidezReal
+
+    carreras[4].Carrera = props.data.N*props.data.d //Agregar condicional para vueltas parciales
 
     return(
         <div style={{backgroundColor: "black"}}>

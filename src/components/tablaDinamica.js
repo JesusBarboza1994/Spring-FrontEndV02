@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import "@fontsource/abeezee/400-italic.css";
-import { Switch, breadcrumbsClasses } from "@mui/material";
+import { useAuth } from '../context/auth-context';
 
 const Td = styled.td`
   text-align: center;
@@ -83,7 +83,9 @@ const Button1 = styled.button`
 
 export default function TablaDinamica(props) {
 
-    const [puntos1, setPuntos1] = useState([
+    const {data, setData, puntos1, setPuntos1, puntos2, setPuntos2} = useAuth();
+
+    /*const [puntos1, setPuntos1] = useState([
         { id: 1, Luz: "", Long: "", Vtas: "" },
         { id: 2, Luz: "", Long: "", Vtas: "" },
         { id: 3, Luz: "", Long: "", Vtas: "" }
@@ -93,29 +95,21 @@ export default function TablaDinamica(props) {
         { id: 1, Paso: "", K: "", Kinv: "", Keq: "", Xc: "", b: "", Fc: "" },
         { id: 2, Paso: "", K: "", Kinv: "", Keq: "", Xc: "", b: "", Fc: "" },
         { id: 3, Paso: "", K: "", Kinv: "", Keq: "", Xc: "", b: "", Fc: "" }
-    ])
+    ])*/
 
     const [puntos1Inv, setPuntos1Inv] = useState([])
     const [puntos2Inv, setPuntos2Inv] = useState([])
 
-    const data = props;
-
-    const setPuntos1Glob = props.setState1
-    const setPuntos2Glob = props.setState2
-
-    const [fuerzas, setFuerzas] = useState([340.5,498.31,622.89])
-    
-    function handleButtonCalcular(){
-    
-        let luz1 = Number((parseFloat(data.medidasRes.Luz2)).toFixed(2))
-        let luz2 = Number((parseFloat(data.medidasRes.Luz1)).toFixed(2))
-        let long1 = Number(((parseFloat(data.medidasRes.Luz2)+parseFloat(data.medidasRes.d))*0.875).toFixed(1))
-        let long2 = Number(((parseFloat(data.medidasRes.Luz1)+parseFloat(data.medidasRes.d))*0.875).toFixed(1))
+    function calcularPuntos1(){
+        let luz1 = Number((parseFloat(data.Luz2)).toFixed(2))
+        let luz2 = Number((parseFloat(data.Luz1)).toFixed(2))
+        let long1 = Number(((parseFloat(data.Luz2)+parseFloat(data.d))*0.875).toFixed(1))
+        let long2 = Number(((parseFloat(data.Luz1)+parseFloat(data.d))*0.875).toFixed(1))
         let vtas1 = 0.875
         let vtas2 = 0.875
-        let vtas3 = Number((parseFloat(data.medidasRes.N)-2*0.875).toFixed(3))
-        let long3 = Number((parseFloat(data.medidasRes.L0)-long1-long2-parseFloat(data.medidasRes.d)).toFixed(1))
-        let luz3 = Number(((long3/vtas3)-parseFloat(data.medidasRes.d)).toFixed(2))
+        let vtas3 = Number((parseFloat(data.N)-2*0.875).toFixed(3))
+        let long3 = Number((parseFloat(data.L0)-long1-long2-parseFloat(data.d)).toFixed(1))
+        let luz3 = Number(((long3/vtas3)-parseFloat(data.d)).toFixed(2))
     
         let luces = [luz1, luz2, luz3]
         let longitudes = [long1, long2, long3]
@@ -127,7 +121,10 @@ export default function TablaDinamica(props) {
           }
           return punto;
         }));
-        
+    }
+    
+    function handleButtonCalcular(){
+        calcularPuntos1()
     }
 
     const addRow = () => {
@@ -182,8 +179,8 @@ export default function TablaDinamica(props) {
 
     function calcularPuntos2() {
 
-        let d = Number(data.medidasRes.d)
-        let Dext = Number(data.medidasRes.Dext)
+        let d = Number(data.d)
+        let Dext = Number(data.Dext)
         let Dm = Dext-d
         let N = 0
         
@@ -266,57 +263,54 @@ export default function TablaDinamica(props) {
         setPuntos2(puntosFinales)
     }
 
-    function calcularCarreras(){
-
-    }
 
     function handleInputPuntos1(e){
 
         const arreglo = e.target.id.split(',')
         let luz = ""
-        let d = Number(data.medidasRes.d)
+        let d = Number(data.d)
         let sumaVtasParcial = 0;
         let sumaLongsParcial = 0;
         let puntos1Aux = JSON.parse(JSON.stringify(puntos1))
         puntos1Aux.map((punto) => {
 
-        if (arreglo[1] === "Luz"){
-            let long = (Number(e.target.value)+d)*puntos1[Number(arreglo[0])-1].Vtas
-            if (punto.id === Number(arreglo[0])) {
-                punto.Luz = Number(e.target.value)
-                punto.Long = Number(long)
+            if (arreglo[1] === "Luz"){
+                let long = (Number(e.target.value)+d)*puntos1[Number(arreglo[0])-1].Vtas
+                if (punto.id === Number(arreglo[0])) {
+                    punto.Luz = Number(e.target.value)
+                    punto.Long = Number(long)
+                }
             }
-        }
-        else if (arreglo[1] === "Vtas"){
-            luz = (Number(puntos1[Number(arreglo[0])-1].Long)/Number(e.target.value)) - d
-            if (punto.id === Number(arreglo[0])) {
-                punto.Vtas = Number(e.target.value)
-                punto.Luz = Number(luz)
+            else if (arreglo[1] === "Vtas"){
+                luz = (Number(puntos1[Number(arreglo[0])-1].Long)/Number(e.target.value)) - d
+                if (punto.id === Number(arreglo[0])) {
+                    punto.Vtas = Number(e.target.value)
+                    punto.Luz = Number(luz)
+                }
             }
-        }
-        else if (arreglo[1] === "Long"){
-            luz = Number(e.target.value)/puntos1[Number(arreglo[0])-1].Vtas - d
-            if (punto.id === Number(arreglo[0])) {
-                punto.Long = Number(e.target.value)
-                punto.Luz = Number(luz)
+            else if (arreglo[1] === "Long"){
+                luz = Number(e.target.value)/puntos1[Number(arreglo[0])-1].Vtas - d
+                if (punto.id === Number(arreglo[0])) {
+                    punto.Long = Number(e.target.value)
+                    punto.Luz = Number(luz)
+                }
             }
-        }
 
-        if (punto.id < puntos1Aux.length) {
-            sumaVtasParcial = sumaVtasParcial + Number(punto.Vtas)
-            sumaLongsParcial = sumaLongsParcial + Number(punto.Long)
-        }
+            if (punto.id < puntos1Aux.length) {
+                sumaVtasParcial = sumaVtasParcial + Number(punto.Vtas)
+                sumaLongsParcial = sumaLongsParcial + Number(punto.Long)
+            }
 
         })
 
-        let vtasTotal = data.medidasRes.N
-        let longTotal = data.medidasRes.L0
+        let vtasTotal = data.N
+        let longTotal = data.L0
         let vtaPuntoFinal = vtasTotal - sumaVtasParcial
         let longPuntoFinal = 0 
 
-        if (((data.medidasRes.Ext1 === "TASE") && (data.medidasRes.Ext2 === "TASE")) || ((data.medidasRes.Ext1 === "TCSE") && (data.medidasRes.Ext2 === "TASE")) || ((data.medidasRes.Ext1 === "TASE") && (data.medidasRes.Ext2 === "TCSE"))) {
+        if (((data.Ext1 === "TASE") && (data.Ext2 === "TASE")) || ((data.Ext1 === "TCSE") && (data.Ext2 === "TASE")) || ((data.Ext1 === "TASE") && (data.Ext2 === "TCSE"))) {
             longPuntoFinal = longTotal - sumaLongsParcial - d
-        } else if (((data.medidasRes.Ext1 === "TAE") && (data.medidasRes.Ext2 === "TAE")) || ((data.medidasRes.Ext1 === "TCE") && (data.medidasRes.Ext2 === "TAE")) || ((data.medidasRes.Ext1 === "TAE") && (data.medidasRes.Ext2 === "TCE"))) {
+        } else if (((data.Ext1 === "TAE") && (data.Ext2 === "TAE")) || ((data.Ext1 === "TCE") && (data.Ext2 === "TAE")) || ((data.Ext1 === "TAE") && (data.Ext2 === "TCE"))) {
             longPuntoFinal = longTotal - sumaLongsParcial 
         } else {
             longPuntoFinal = longTotal - sumaLongsParcial - d/2
@@ -341,6 +335,41 @@ export default function TablaDinamica(props) {
         setPuntos1(puntos1Aux)
     }
 
+    function calcularUltimoPunto(){
+        let d = data.d
+        let sumaVtasParcial = 0
+        let sumaLongsParcial = 0
+        let puntos1Aux = JSON.parse(JSON.stringify(puntos1))
+        puntos1Aux.map((punto) => {
+
+            if (punto.id < puntos1Aux.length) {
+                sumaVtasParcial = sumaVtasParcial + Number(punto.Vtas)
+                sumaLongsParcial = sumaLongsParcial + Number(punto.Long)
+            }
+        })
+
+        let vtasTotal = data.N
+        let longTotal = data.L0
+        let vtaPuntoFinal = vtasTotal - sumaVtasParcial
+        let longPuntoFinal = 0 
+
+        if (((data.Ext1 === "TASE") && (data.Ext2 === "TASE")) || ((data.Ext1 === "TCSE") && (data.Ext2 === "TASE")) || ((data.Ext1 === "TASE") && (data.Ext2 === "TCSE"))) {
+            longPuntoFinal = longTotal - sumaLongsParcial - d
+        } else if (((data.Ext1 === "TAE") && (data.Ext2 === "TAE")) || ((data.Ext1 === "TCE") && (data.Ext2 === "TAE")) || ((data.Ext1 === "TAE") && (data.Ext2 === "TCE"))) {
+            longPuntoFinal = longTotal - sumaLongsParcial 
+        } else {
+            longPuntoFinal = longTotal - sumaLongsParcial - d/2
+        }
+        
+        let luzPuntoFinal = longPuntoFinal/vtaPuntoFinal - d
+
+        puntos1Aux[puntos1Aux.length-1].Vtas = vtaPuntoFinal
+        puntos1Aux[puntos1Aux.length-1].Long = longPuntoFinal
+        puntos1Aux[puntos1Aux.length-1].Luz = luzPuntoFinal
+        setPuntos1(puntos1Aux)
+
+    }
+
     useEffect(() => {
 
         calcularPuntos2()
@@ -349,9 +378,14 @@ export default function TablaDinamica(props) {
         let puntosAux1 = JSON.parse(JSON.stringify(puntos1))
         let puntosInv = puntosAux.reverse()
         setPuntos1Inv(puntosInv)
-        setPuntos1Glob(puntosAux1)
         
     }, [puntos1])
+
+    useEffect(() => {
+        calcularPuntos1()
+        calcularUltimoPunto()
+        
+    }, [data])
 
     useEffect(() => {
 
@@ -359,7 +393,6 @@ export default function TablaDinamica(props) {
         let puntosAux2 = JSON.parse(JSON.stringify(puntos2))
         let puntosInv = puntosAux.reverse()
         setPuntos2Inv(puntosInv)
-        setPuntos2Glob(puntosAux2)
         
     }, [puntos2])
 
@@ -367,7 +400,7 @@ export default function TablaDinamica(props) {
 
         console.log("extremos")
 
-        let d = Number(data.medidasRes.d)
+        let d = Number(data.d)
         let sumaVtasParcial = 0;
         let sumaLongsParcial = 0;
         let puntos1Aux = JSON.parse(JSON.stringify(puntos1))
@@ -378,14 +411,14 @@ export default function TablaDinamica(props) {
         }
         })
 
-        let vtasTotal = data.medidasRes.N
-        let longTotal = data.medidasRes.L0
+        let vtasTotal = data.N
+        let longTotal = data.L0
         let vtaPuntoFinal = vtasTotal - sumaVtasParcial
         let longPuntoFinal = 0 
 
-        if (((data.medidasRes.Ext1 === "TASE") && (data.medidasRes.Ext2 === "TASE")) || ((data.medidasRes.Ext1 === "TCSE") && (data.medidasRes.Ext2 === "TASE")) || ((data.medidasRes.Ext1 === "TASE") && (data.medidasRes.Ext2 === "TCSE"))) {
+        if (((data.Ext1 === "TASE") && (data.Ext2 === "TASE")) || ((data.Ext1 === "TCSE") && (data.Ext2 === "TASE")) || ((data.Ext1 === "TASE") && (data.Ext2 === "TCSE"))) {
             longPuntoFinal = longTotal - sumaLongsParcial - d
-        } else if (((data.medidasRes.Ext1 === "TAE") && (data.medidasRes.Ext2 === "TAE")) || ((data.medidasRes.Ext1 === "TCE") && (data.medidasRes.Ext2 === "TAE")) || ((data.medidasRes.Ext1 === "TAE") && (data.medidasRes.Ext2 === "TCE"))) {
+        } else if (((data.Ext1 === "TAE") && (data.Ext2 === "TAE")) || ((data.Ext1 === "TCE") && (data.Ext2 === "TAE")) || ((data.Ext1 === "TAE") && (data.Ext2 === "TCE"))) {
             longPuntoFinal = longTotal - sumaLongsParcial 
         } else {
             longPuntoFinal = longTotal - sumaLongsParcial - d/2
@@ -403,8 +436,7 @@ export default function TablaDinamica(props) {
 
     /*function CalculoUltimoPunto(){
         console.log("extremos")
-
-        let d = Number(data.medidasRes.d)
+        let d = Number(data.d)
         let sumaVtasParcial = 0;
         let sumaLongsParcial = 0;
         let puntos1Aux = JSON.parse(JSON.stringify(puntos1))
@@ -415,14 +447,14 @@ export default function TablaDinamica(props) {
         }
         })
 
-        let vtasTotal = data.medidasRes.N
-        let longTotal = data.medidasRes.L0
+        let vtasTotal = data.N
+        let longTotal = data.L0
         let vtaPuntoFinal = vtasTotal - sumaVtasParcial
         let longPuntoFinal = 0 
 
-        if (((data.medidasRes.Ext1 === "TASE") && (data.medidasRes.Ext2 === "TASE")) || ((data.medidasRes.Ext1 === "TCSE") && (data.medidasRes.Ext2 === "TASE")) || ((data.medidasRes.Ext1 === "TASE") && (data.medidasRes.Ext2 === "TCSE"))) {
+        if (((data.Ext1 === "TASE") && (data.Ext2 === "TASE")) || ((data.Ext1 === "TCSE") && (data.Ext2 === "TASE")) || ((data.Ext1 === "TASE") && (data.Ext2 === "TCSE"))) {
             longPuntoFinal = longTotal - sumaLongsParcial - d
-        } else if (((data.medidasRes.Ext1 === "TAE") && (data.medidasRes.Ext2 === "TAE")) || ((data.medidasRes.Ext1 === "TCE") && (data.medidasRes.Ext2 === "TAE")) || ((data.medidasRes.Ext1 === "TAE") && (data.medidasRes.Ext2 === "TCE"))) {
+        } else if (((data.Ext1 === "TAE") && (data.Ext2 === "TAE")) || ((data.Ext1 === "TCE") && (data.Ext2 === "TAE")) || ((data.Ext1 === "TAE") && (data.Ext2 === "TCE"))) {
             longPuntoFinal = longTotal - sumaLongsParcial 
         } else {
             longPuntoFinal = longTotal - sumaLongsParcial - d/2
