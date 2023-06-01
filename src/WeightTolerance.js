@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import "@fontsource/abeezee/400-italic.css";
 //import App from "./App";
-import { CalculatedParameters } from "./CalculatedParameters";
+import { CalcParam } from "./CalculatedParameters";
 
 export function WeightTolerance(){
  const DivSimul = styled.div`

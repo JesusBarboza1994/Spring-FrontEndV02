@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import "@fontsource/abeezee/400-italic.css";
 //import App from "./App";
 
-export function CalculatedParameters({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,longitud,luz1,luz2}){
+export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,longitud,luz1,luz2}){
  const DivSimul = styled.div`
         display:flex;
         grid-template-columns: auto, auto, auto;
@@ -177,7 +177,8 @@ export function CalculatedParameters({diam,diamext1,diamint1,diamint2,vred1,vred
        <DivSimul>
       <Paragraph style={{width: 480}}>Parametros calculados</Paragraph>
       <Div>
-          <Label>C</Label>              
+          <Label>C</Label>  
+                   
           <DivCalculo id={"C"}> {data2.C} </DivCalculo>
       </Div>
       <Div>
@@ -200,7 +201,16 @@ export function CalculatedParameters({diam,diamext1,diamint1,diamint2,vred1,vred
           <Label>Vt.red/VT</Label>
           <DivCalculo id={"Vt.red/VT"}>{data2.Vt_red_VT}</DivCalculo>
       </Div>
+
+      {/* <Div>
+          <Label>diam</Label>  
+                   
+          <DivCalculo id={"C"}> {diam} </DivCalculo>
+      </Div> */}
+
       </DivSimul> 
+
+      
     );
 
 }

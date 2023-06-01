@@ -1,12 +1,12 @@
-import styled from "@emotion/styled";
-import { useEffect, useState } from "react";
-import { CalculatedParameters } from "./CalculatedParameters";
+// import styled from "@emotion/styled";
+// import { useEffect, useState } from "react";
+import { CalcParam } from "./CalculatedParameters";
 
 
 export function KLineal(){
      
-    const x = [CalculatedParameters.filas.Xc1,CalculatedParameters.filas.Xc2,CalculatedParameters.filas.Xc3];
-    const y = [CalculatedParameters.filas.Fc1,CalculatedParameters.filas.Fc2,CalculatedParameters.filas.Fc3];
+    const x = [CalcParam.filas.Xc1,CalcParam.filas.Xc2,CalcParam.filas.Xc3];
+    const y = [CalcParam.filas.Fc1,CalcParam.filas.Fc2,CalcParam.filas.Fc3];
     const n=3; //cantidad de elementos dentro del array
     let x2=[];
     let yx=[];
