@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import "@fontsource/abeezee/400-italic.css";
-//import App from "./App";
-import { CalcParam } from "./CalculatedParameters";
+import { useAuth } from "./context/auth-context";
+import { Switch, breadcrumbsClasses } from "@mui/material";
 
 export function WeightTolerance(){
  const DivSimul = styled.div`
@@ -56,7 +56,18 @@ export function WeightTolerance(){
         color: gray;
                     
     `
-  
+    const DivCalculo = styled.div`
+      width:40px;
+      height:18px;
+      color:black;
+      background-color: white;
+      margin:8px;
+      font-family:"ABeeZee";
+      font-size: 13px;
+      border-style:outset;
+    `
+    const {filas, setFilas, data, setData, data2, setData2} = useAuth();
+
     const [data3, setData3] = useState({
         LDA:"",      
         LDA_adic:200,         
@@ -88,11 +99,11 @@ export function WeightTolerance(){
     }
 
     useEffect(() => {
-        setData3({...data3, LDA : Math.round((App.data.Dext-App.data.d)*App.data.N*3.14),  Dmedio: (App.data.Dext - App.data.d)})
-        }, [App.data.d, App.data.Dext, App.data.N])
+        setData3({...data3, LDA : Math.round((data.Dext-data.d)*data.N*3.14),  Dmedio: (data.Dext - data.d)})
+        }, [data.d, data.Dext, data.N])
       
         useEffect(() => {
-          setData3({...data3, Peso : (Math.pow(App.data.d/12.7,2)*(data3.LDA+data3.LDA_adic)/1000).toFixed(2)}) 
+          setData3({...data3, Peso : (Math.pow(data.d/12.7,2)*(data3.LDA+data3.LDA_adic)/1000).toFixed(2)}) 
         }, [data3.LDA, data3.LDA_adic])
 
 
@@ -129,11 +140,11 @@ export function WeightTolerance(){
         Q_Long=1.6
         }
         
-        let af = 65.92*Math.pow(Number(App.data.d),3.3)/Math.pow(data2.Dmedio,1.6)*(-0.84*Math.pow(0.1*data2.C,3)+3.781*Math.pow(0.1*data2.C,2)-4.244*(0.1*data2.C)+2.274);
+        let af = 65.92*Math.pow(Number(data.d),3.3)/Math.pow(data2.Dmedio,1.6)*(-0.84*Math.pow(0.1*data2.C,3)+3.781*Math.pow(0.1*data2.C,2)-4.244*(0.1*data2.C)+2.274);
         
-        let kf = -1/(3*Math.pow((Number(App.data.N)-1.75),2))+8/(5*(Number(App.data.N)-1.75))+0.803;
+        let kf = -1/(3*Math.pow((Number(data.N)-1.75),2))+8/(5*(Number(data.N)-1.75))+0.803;
         
-        let toler=(kf*af*Q_Long/CalculatedParameters.filas.Keq3).toFixed(1);
+        let toler=(kf*af*Q_Long/filas.Keq3).toFixed(1);
 
         
         let tolerancia = TablaToler()
@@ -146,14 +157,14 @@ export function WeightTolerance(){
 
   //Funcion para busqueda de tolerancia para Dext
   function TablaToler(){
-    const dmedio = (App.data.Dext - App.data.d)
+    const dmedio = (data.Dext - data.d)
     if(dmedio === "" || dmedio <= 0) return -1;
     const linea = tolerDiam.findIndex((_rango, indice, arreglo)=>{
         return Number(dmedio)>=arreglo[indice][0] && Number(dmedio)<=arreglo[indice+1][0]
       });
     //console.log(linea);
   
-    let C = ((App.data.Dext-App.data.d)/App.data.d).toFixed(2)
+    let C = ((data.Dext-data.d)/data.d).toFixed(2)
     let tolerBuscada=0;
     switch(grado){
     case "1":
