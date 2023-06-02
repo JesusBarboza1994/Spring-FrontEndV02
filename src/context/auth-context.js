@@ -18,7 +18,7 @@ function AuthProvider({children}){
     Vtas2:"",    //vts red2
     Ext2:"TASE",     //extremo2
   })
-
+// Rigidez obtenida del control de cargas
   const [kCCargas, setkCCargas] = useState(0)
   const [bCCargas, setbCCargas] = useState(0)
   const [l4, setL4] = useState(0)
