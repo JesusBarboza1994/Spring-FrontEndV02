@@ -4,9 +4,7 @@ import "@fontsource/abeezee/400-italic.css";
 import { Switch, breadcrumbsClasses } from "@mui/material";
 import TablaDinamica from "./components/tablaDinamica";
 import TablaControlDeCargas from "./components/tablaControlDeCargas";
-//import ScatterPlot from "./components/graficaControlCargas";
-import { Scatter } from 'react-chartjs-2';
-import Chart from 'chart.js';
+import TablaCarrera from "./components/tablaCarrera";
 import { useAuth } from './context/auth-context';
 
 const Form = styled.form`
@@ -186,7 +184,7 @@ function App() {
 
   //Renee-Inicio-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  const {data, setData, puntos1, setPuntos1, puntos2, setPuntos2, controlCargas, setControlCargas} = useAuth();
+  const {data, setData, puntos1, setPuntos1, puntos2, setPuntos2, controlCargas, setControlCargas, kCCargas, setkCCargas, bCCargas, setbCCargas} = useAuth();
 
   const [puntosCCGrafica, setPuntosCCGrafica] = useState([
     { x: 0, y: 0},
@@ -623,6 +621,9 @@ function App() {
     let slope = (n * sumXY - sumX * sumY) / (n * sumXSquared - sumX ** 2);
     let intercept = (sumY - slope * sumX) / n;
 
+    setkCCargas(slope)
+    setbCCargas(intercept)
+
     let linea = {k: slope, b: intercept}
 
     console.log("data puntos")
@@ -1053,6 +1054,8 @@ function App() {
     </div> 
     <TablaDinamica medidasRes={data} extremo1={data.Ext1} extremo2={data.Ext2}/>
     <TablaControlDeCargas L0={data.L0} />
+    <TablaCarrera/>
+
    </div>   
   );
 }

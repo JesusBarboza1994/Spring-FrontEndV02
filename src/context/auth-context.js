@@ -18,6 +18,10 @@ function AuthProvider({children}){
     Vtas2:"",    //vts red2
     Ext2:"TASE",     //extremo2
   })
+
+  const [kCCargas, setkCCargas] = useState(0)
+  const [bCCargas, setbCCargas] = useState(0)
+  const [l4, setL4] = useState(0)
   
   const [puntos1, setPuntos1] = useState([
     { id: 1, Luz: "", Long: "", Vtas: "" },
@@ -46,7 +50,11 @@ function AuthProvider({children}){
       puntos2,
       setPuntos2,
       controlCargas,
-      setControlCargas
+      setControlCargas,
+      kCCargas,
+      setkCCargas,
+      bCCargas,
+      setbCCargas
     }}>
       {children}
     </AuthContext.Provider>

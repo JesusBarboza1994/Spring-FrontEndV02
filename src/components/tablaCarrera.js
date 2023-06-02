@@ -33,11 +33,9 @@ const Button1 = styled.button`
   border-radius:8px;
 `
 
-export default function TablaCarrera(props) {
+export default function TablaCarrera() {
 
-    const setStateCCargas = props.setStateCC
-
-    const {puntos1, setPuntos1, puntos2, setPuntos2} = useAuth();
+    const {data, puntos1, setPuntos1, puntos2, setPuntos2, kCCargas, bCCargas, l4} = useAuth();
     
     const [carreras, setCarreras] = useState([
         { id: 1, Carrera: "" },
@@ -47,12 +45,21 @@ export default function TablaCarrera(props) {
         { id: 5, Carrera: "" }
     ])
 
-    carreras[0].Carrera = props.Fuerzas[0]/props.RigidezReal
-    carreras[1].Carrera = props.Fuerzas[1]/props.RigidezReal
-    carreras[2].Carrera = props.Fuerzas[2]/props.RigidezReal
-    carreras[3].Carrera = props.Fuerzas[3]/props.RigidezReal
+    const [fuerzas, setFuerzas] = useState([469.7,795.5,1001.0])
 
-    carreras[4].Carrera = props.data.N*props.data.d //Agregar condicional para vueltas parciales
+    carreras[0].Carrera = ((fuerzas[0]-bCCargas)/kCCargas)
+    carreras[1].Carrera = ((fuerzas[1]-bCCargas)/kCCargas)
+    carreras[2].Carrera = ((fuerzas[2]-bCCargas)/kCCargas)
+    carreras[3].Carrera = data.L0 - l4
+
+
+    if (((data.Ext1 === "TASE") && (data.Ext2 === "TASE")) || ((data.Ext1 === "TCSE") && (data.Ext2 === "TASE")) || ((data.Ext1 === "TASE") && (data.Ext2 === "TCSE"))) {
+        carreras[4].Carrera = data.L0-((Number(data.N) +1)*Number(data.d))
+    } else if (((data.Ext1 === "TAE") && (data.Ext2 === "TAE")) || ((data.Ext1 === "TCE") && (data.Ext2 === "TAE")) || ((data.Ext1 === "TAE") && (data.Ext2 === "TCE"))) {
+        carreras[4].Carrera = data.L0-((Number(data.N) +1)*Number(data.d) - Number(data.d))  
+    } else {
+        carreras[4].Carrera = data.L0-((Number(data.N) +1)*Number(data.d) - 0.5*Number(data.d))  
+    }
 
     return(
         <div style={{backgroundColor: "black"}}>

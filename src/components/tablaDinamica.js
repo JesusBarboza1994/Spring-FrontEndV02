@@ -396,90 +396,9 @@ export default function TablaDinamica(props) {
         
     }, [puntos2])
 
-    /*useEffect(() => {
-
-        console.log("extremos")
-
-        let d = Number(data.d)
-        let sumaVtasParcial = 0;
-        let sumaLongsParcial = 0;
-        let puntos1Aux = JSON.parse(JSON.stringify(puntos1))
-        puntos1Aux.map((punto) => {
-        if (punto.id < puntos1Aux.length) {
-            sumaVtasParcial = sumaVtasParcial + Number(punto.Vtas)
-            sumaLongsParcial = sumaLongsParcial + Number(punto.Long)
-        }
-        })
-
-        let vtasTotal = data.N
-        let longTotal = data.L0
-        let vtaPuntoFinal = vtasTotal - sumaVtasParcial
-        let longPuntoFinal = 0 
-
-        if (((data.Ext1 === "TASE") && (data.Ext2 === "TASE")) || ((data.Ext1 === "TCSE") && (data.Ext2 === "TASE")) || ((data.Ext1 === "TASE") && (data.Ext2 === "TCSE"))) {
-            longPuntoFinal = longTotal - sumaLongsParcial - d
-        } else if (((data.Ext1 === "TAE") && (data.Ext2 === "TAE")) || ((data.Ext1 === "TCE") && (data.Ext2 === "TAE")) || ((data.Ext1 === "TAE") && (data.Ext2 === "TCE"))) {
-            longPuntoFinal = longTotal - sumaLongsParcial 
-        } else {
-            longPuntoFinal = longTotal - sumaLongsParcial - d/2
-        }
-        
-        let luzPuntoFinal = longPuntoFinal/vtaPuntoFinal - d
-
-        puntos1Aux[puntos1Aux.length-1].Vtas = vtaPuntoFinal
-        puntos1Aux[puntos1Aux.length-1].Long = longPuntoFinal
-        puntos1Aux[puntos1Aux.length-1].Luz = luzPuntoFinal
-
-        setPuntos1(puntos1Aux)
-        
-    }, [Ext1, Ext2])*/
-
-    /*function CalculoUltimoPunto(){
-        console.log("extremos")
-        let d = Number(data.d)
-        let sumaVtasParcial = 0;
-        let sumaLongsParcial = 0;
-        let puntos1Aux = JSON.parse(JSON.stringify(puntos1))
-        puntos1Aux.map((punto) => {
-        if (punto.id < puntos1Aux.length) {
-            sumaVtasParcial = sumaVtasParcial + Number(punto.Vtas)
-            sumaLongsParcial = sumaLongsParcial + Number(punto.Long)
-        }
-        })
-
-        let vtasTotal = data.N
-        let longTotal = data.L0
-        let vtaPuntoFinal = vtasTotal - sumaVtasParcial
-        let longPuntoFinal = 0 
-
-        if (((data.Ext1 === "TASE") && (data.Ext2 === "TASE")) || ((data.Ext1 === "TCSE") && (data.Ext2 === "TASE")) || ((data.Ext1 === "TASE") && (data.Ext2 === "TCSE"))) {
-            longPuntoFinal = longTotal - sumaLongsParcial - d
-        } else if (((data.Ext1 === "TAE") && (data.Ext2 === "TAE")) || ((data.Ext1 === "TCE") && (data.Ext2 === "TAE")) || ((data.Ext1 === "TAE") && (data.Ext2 === "TCE"))) {
-            longPuntoFinal = longTotal - sumaLongsParcial 
-        } else {
-            longPuntoFinal = longTotal - sumaLongsParcial - d/2
-        }
-        
-        let luzPuntoFinal = longPuntoFinal/vtaPuntoFinal - d
-
-        puntos1Aux[puntos1Aux.length-1].Vtas = vtaPuntoFinal
-        puntos1Aux[puntos1Aux.length-1].Long = longPuntoFinal
-        puntos1Aux[puntos1Aux.length-1].Luz = luzPuntoFinal
-
-        setPuntos1(puntos1Aux)
-    }*/
-
     return(
         <div style={{backgroundColor: "black"}}>
             <Button onClick={handleButtonCalcular}>Calcular</Button>
-            {
-                //Ext1 = medidasRes.extremo1
-                //setExt1(medidasRes.extremo1)
-            }
-            {
-                //Ext2 = medidasRes.extremo2
-                //setExt2(medidasRes.extremo2)
-            }
             <table>
                 <thead>
                     <tr style={{backgroundColor: "#5B5B5B", color:"white"}}>
