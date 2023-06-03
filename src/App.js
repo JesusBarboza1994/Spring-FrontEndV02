@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import "@fontsource/abeezee/400-italic.css";
 import { Switch, breadcrumbsClasses } from "@mui/material";
-import TablaDinamica from "./components/tablaDinamica";
+import ProcessTable from "./components/processTable";
 import TablaControlDeCargas from "./components/tablaControlDeCargas";
 import TablaCarrera from "./components/tablaCarrera";
 import { useAuth } from './context/auth-context';
@@ -184,7 +184,7 @@ function App() {
 
   //Renee-Inicio-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  const {data, setData, puntos1, setPuntos1, puntos2, setPuntos2, controlCargas, setControlCargas, kCCargas, setkCCargas, bCCargas, setbCCargas} = useAuth();
+  const {data, setData, processTableStage1, setProcessTableStage1, processTableStage2, setProcessTableStage2, controlCargas, setControlCargas, kControlCargas, setKControlCargas, bControlCargas, setBControlCargas} = useAuth();
 
   const [puntosCCGrafica, setPuntosCCGrafica] = useState([
     { x: 0, y: 0},
@@ -429,7 +429,7 @@ function App() {
     console.log("kf")
     console.log(kf)
     
-    let toler=(kf*af*Q_Long/Number(puntos2[2].Keq)).toFixed(1);
+    let toler=(kf*af*Q_Long/Number(processTableStage2[2].Keq)).toFixed(1);
 
     let tolerancia = TablaToler()
     setTablaToler({...tablaToler,
@@ -437,7 +437,7 @@ function App() {
     })
 
    setCoef({...coef, toler_L0: toler })
-  }, [grado, puntos2])
+  }, [grado, processTableStage2])
 
   //Funcion para busqueda de tolerancia para Dext
   function TablaToler(){
@@ -621,8 +621,8 @@ function App() {
     let slope = (n * sumXY - sumX * sumY) / (n * sumXSquared - sumX ** 2);
     let intercept = (sumY - slope * sumX) / n;
 
-    setkCCargas(slope)
-    setbCCargas(intercept)
+    setKControlCargas(slope)
+    setBControlCargas(intercept)
 
     let linea = {k: slope, b: intercept}
 
@@ -1052,7 +1052,7 @@ function App() {
         </DivSimul>
       </div>  
     </div> 
-    <TablaDinamica medidasRes={data} extremo1={data.Ext1} extremo2={data.Ext2}/>
+    <ProcessTable medidasRes={data} extremo1={data.Ext1} extremo2={data.Ext2}/>
     <TablaControlDeCargas L0={data.L0} />
     <TablaCarrera/>
 

@@ -35,7 +35,7 @@ const Button1 = styled.button`
 
 export default function TablaCarrera() {
 
-    const {data, puntos1, setPuntos1, puntos2, setPuntos2, kCCargas, bCCargas, l4} = useAuth();
+    const {data, processTableStage1, setProcessTableStage1, processTableStage2, setProcessTableStage2, kControlCargas, bControlCargas, l4} = useAuth();
     
     const [carreras, setCarreras] = useState([
         { id: 1, Carrera: "" },
@@ -47,9 +47,9 @@ export default function TablaCarrera() {
 
     const [fuerzas, setFuerzas] = useState([469.7,795.5,1001.0])
 
-    carreras[0].Carrera = ((fuerzas[0]-bCCargas)/kCCargas)
-    carreras[1].Carrera = ((fuerzas[1]-bCCargas)/kCCargas)
-    carreras[2].Carrera = ((fuerzas[2]-bCCargas)/kCCargas)
+    carreras[0].Carrera = ((fuerzas[0]-bControlCargas)/kControlCargas)
+    carreras[1].Carrera = ((fuerzas[1]-bControlCargas)/kControlCargas)
+    carreras[2].Carrera = ((fuerzas[2]-bControlCargas)/kControlCargas)
     carreras[3].Carrera = data.L0 - l4
 
 

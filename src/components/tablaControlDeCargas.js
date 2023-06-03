@@ -88,20 +88,19 @@ export default function TablaControlDeCargas(props) {
 
         setPuntosCC(puntosCCAux)
 
-        console.log("Nuevo puntosCC")
-        console.log(puntosCC)
     }
 
     useEffect(() => {
         
         let puntosCCGlob = []
         let defsAux = JSON.parse(JSON.stringify(defs))
+        let puntoCC = {}
         defsAux.map((punto, indice) => {
 
             punto.Def = Number(L0 - puntosCC[indice].Long)
 
             //Actualizacion de datos de variable en App.js
-            let puntoCC = { id: (indice+1), Fuerza: puntosCC[indice].Fuerza, Long: puntosCC[indice].Long, Def: punto.Def }
+            puntoCC = { id: (indice+1), Fuerza: puntosCC[indice].Fuerza, Long: puntosCC[indice].Long, Def: punto.Def }
             puntosCCGlob.push(puntoCC)
 
         })

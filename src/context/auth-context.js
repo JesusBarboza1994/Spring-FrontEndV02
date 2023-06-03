@@ -19,17 +19,17 @@ function AuthProvider({children}){
     Ext2:"TASE",     //extremo2
   })
 
-  const [kCCargas, setkCCargas] = useState(0)
-  const [bCCargas, setbCCargas] = useState(0)
+  const [kControlCargas, setKControlCargas] = useState(0)
+  const [bControlCargas, setBControlCargas] = useState(0)
   const [l4, setL4] = useState(0)
   
-  const [puntos1, setPuntos1] = useState([
+  const [processTableStage1, setProcessTableStage1] = useState([
     { id: 1, Luz: "", Long: "", Vtas: "" },
     { id: 2, Luz: "", Long: "", Vtas: "" },
     { id: 3, Luz: "", Long: "", Vtas: "" }
   ])
 
-  const [puntos2, setPuntos2] = useState([
+  const [processTableStage2, setProcessTableStage2] = useState([
     { id: 1, Paso: "", K: "", Kinv: "", Keq: "", Xc: "", b: "", Fc: "" },
     { id: 2, Paso: "", K: "", Kinv: "", Keq: "", Xc: "", b: "", Fc: "" },
     { id: 3, Paso: "", K: "", Kinv: "", Keq: "", Xc: "", b: "", Fc: "" }
@@ -45,16 +45,16 @@ function AuthProvider({children}){
     <AuthContext.Provider value={{
       data,
       setData,
-      puntos1,
-      setPuntos1,
-      puntos2,
-      setPuntos2,
+      processTableStage1,
+      setProcessTableStage1,
+      processTableStage2,
+      setProcessTableStage2,
       controlCargas,
       setControlCargas,
-      kCCargas,
-      setkCCargas,
-      bCCargas,
-      setbCCargas
+      kControlCargas,
+      setKControlCargas,
+      bControlCargas,
+      setBControlCargas
     }}>
       {children}
     </AuthContext.Provider>
