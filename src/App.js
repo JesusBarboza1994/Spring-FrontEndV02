@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import "@fontsource/abeezee/400-italic.css";
-import { SimulationData } from "./SimulationData";
-import { CalcParam } from "./CalculatedParameters";
-import { WeightTolerance } from "./WeightTolerance";
-import { Textarea } from "./Textarea";
+import { SimulationData } from "./componentes/SimulationData";
+import { CalcParam } from "./componentes/CalculatedParameters";
+import { WeightTolerance } from "./componentes/WeightTolerance";
+import { Textarea } from "./componentes/Textarea";
 //import { KLineal } from "./Klineal";
 import { useAuth } from "./context/auth-context";
 

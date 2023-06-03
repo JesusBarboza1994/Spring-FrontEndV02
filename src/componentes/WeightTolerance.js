@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import "@fontsource/abeezee/400-italic.css";
-import { useAuth } from "./context/auth-context";
+import { useAuth } from "../context/auth-context";
 import { Switch, breadcrumbsClasses } from "@mui/material";
 
 export function WeightTolerance(){
