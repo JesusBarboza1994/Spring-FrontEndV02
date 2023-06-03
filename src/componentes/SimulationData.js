@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import "@fontsource/abeezee/400-italic.css";
+import { useAuth } from "../context/auth-context";
 
 export function SimulationData(){
   
@@ -75,39 +76,31 @@ const Button = styled.button`
     color: white;
     
   `
-  const [data1, setData1] = useState({
-    Mater:"",      
-    x:"",         //deformacion
-    grado:"",        
-  })
+  const {data1, setData1} = useAuth();
 
-  const [mater,setMater] = useState([
-    "SHI-180",
-    "SHI-165",
-    "CRSI SAE 9254(REC)",
-    "CRSI SAE 9254",
-    "CRMN SAE 5160",
-    "ACC",
-    "ACC HS3 GALV",
-    "BCC CAL.8-14",
-    "CP DSR",
-    "CP-DEINFRA",
-    "FDSICR (DSR)",
-    "FTO",
-    "FTO-TWO (DSR)",
-    "HD C-DSR",
-    "HD CLASE B",
-    "HD CLASE C",
-    "INOX CLASE A-DSR",
-    "INOX CLASE B-DSR",
-    "INOX SANDVIK"
-  ]);
+  const [mater,setMater] = useState("");
+
 
   function handleSimulacion(e){
     setData1({...data1, [e.target.id]:e.target.value})
     console.log(data1)
   }
- 
+
+  function handleListaMP(e){
+    setMater(e.target.value)
+  }
+
+  useEffect(() => {
+    let material = mater
+    setData1({...data1,
+       Mater: material
+    })
+    console.log(material)
+    console.log(data1)
+
+    let mostrarMP = data1.Mater
+    console.log(mostrarMP)
+  }, [mater])
 
   return(
     <DivSimul>
@@ -119,9 +112,8 @@ const Button = styled.button`
       
         <Div style={{width:138}}>
           
-          <Select style={{color: "white",borderRadius:8,}} id={"Mater"} onChange={(e) => setMater(e.target.value)}>
-          
-            <option style={{color: "#EE7272"}}>Mater</option>
+          <Select style={{color: "white",borderRadius:8,}} id={"Mater"} value={mater} onChange={(e) => handleListaMP(e)}>
+            <option style={{color: "#EE7272"}}>Seleccionar MP</option>
             <option value="SHI-165">SHI-165</option>
             <option value="SHI-180">SHI-180</option>
             <option value="CRSI SAE 9254(REC)">CRSI SAE 9254(REC)</option>

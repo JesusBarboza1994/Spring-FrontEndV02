@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import "@fontsource/abeezee/400-italic.css";
+import { DescripcionResorte } from "./Descripcion";
 
 export function Textarea(){
    const Paragraph = styled.p`
@@ -11,6 +12,8 @@ export function Textarea(){
         color: white;  
         width: 148px;
     `
+    let descripcion = DescripcionResorte()
+
  return(
     <div>  
         <Paragraph style={{width: 480}}>Descripcion</Paragraph>
@@ -30,7 +33,7 @@ export function Textarea(){
             padding:10,
 
          }} placeholder="Descripcion">
-
+         {descripcion}
         </div>
 
         <textarea style={{

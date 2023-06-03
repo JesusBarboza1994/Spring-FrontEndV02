@@ -9,6 +9,7 @@ import { Textarea } from "./componentes/Textarea";
 import { useAuth } from "./context/auth-context";
 
 
+
 const Form = styled.form`
   display:flex;
   grid-template-columns: auto, auto, auto;
@@ -213,7 +214,7 @@ const Tbody = styled.tbody`
 
 function App() {
 
-  const {filas, setFilas, data, setData, data2, setData2} = useAuth();
+  const {filas, setFilas, data1, setData1, data, setData, data2, setData2} = useAuth();
     
   // const [data, setData] = useState({
   //   d:"",        //alambre
