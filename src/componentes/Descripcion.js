@@ -4,45 +4,7 @@ export function DescripcionResorte(){  //codifica el resorte acorde a los datos 
 
   const {data, data1,tablaToler,coef} = useAuth();
          
-  //datos necesarios de extremos para codificación (si no se quiere mantener idéntico al original se debe modificar en la pestaña seguimiento)
-    
-  /*var ext11 = Sseguimiento.getRange(21,8).getValue();      //descripción de terminales de resorte para codificar 
-  var ext12 = Sseguimiento.getRange(22,8).getValue();
-  var ext13 = Sseguimiento.getRange(21,9).getValue();
-  var ext14 = Sseguimiento.getRange(22,9).getValue();
-  var ext21 = Sseguimiento.getRange(21,12).getValue();
-  var ext22 = Sseguimiento.getRange(22,12).getValue();
-  var ext23 = Sseguimiento.getRange(21,14).getValue();
-  var ext24 = Sseguimiento.getRange(22,14).getValue();
-  
-  if(ext13 == "-"){
-    ext13 = "";                
-  }
-  if(ext14 == "-"){
-    ext14 = "";               
-  }
-  if(ext23 == "-"){
-    ext23 = "";                
-  }
-  if(ext24 == "-"){
-    ext24 = "";
-  }
-  
-  var sentN = Sseguimiento.getRange(14,3).getValue();
-  switch(sentN){
-    case "Derecha":
-      sentN = "";
-      break;
-    case "Izquierda":
-      sentN = "(IZQ)";
-      break;
-    case "Derecha e Izquierda":
-      sentN = "(DER / IZQ)";
-      break
-    case "":
-      Browser.msgBox("Seleccionar sentido de espiras")
-      break;
-  } */
+ 
   
   
   //Se convierte el numero de vueltas (v.totales: "n") a fracción en texto.
@@ -129,15 +91,7 @@ export function DescripcionResorte(){  //codifica el resorte acorde a los datos 
   //var mensaje2;  //especifica cant. de MP al momento del diseño
   var mensaje3="";  //indica si el resorte requerirá plano o no
   var mensaje4="" ////especifica dentro de los demás mensajes si es o no progresivo
-  //var cantMP;
-  /* if (transicion!=0){
-  var mensaje4="Prog."; 
-  var mensaje3="Resorte progresivo, REQUIERE PLANO"
-  }
-  if (ext13=="inclinado"|| ext14=="descentrado"||ext23=="inclinado"||ext24=="descentrado"){ 
-    var mensaje3="REQUIERE PLANO"
-  }
-  */
+ 
     
    
   if(data.Dext2 != ""){
@@ -157,84 +111,7 @@ export function DescripcionResorte(){  //codifica el resorte acorde a los datos 
       }
   }  
    
-  /*var detalleterminales1=""; //especifica descripción de tipo de terminales para extremo 1
-  var detalleterminales2=""; //especifica descripción de tipo de terminales para extremo 2
-  var incparentesis=[0,0,0,0,0,0];         //reserva el vector de valores aceptados
-  var parentesis1=[];      //reserva el tipo de terminal para los valores aceptados
-  var parentesis2=[];      //reserva el tipo de terminal para los valores aceptados
-  for (let i=0;i<6;i++){
-    if (ext12!="" && ext12!="-" && i==0){
-      incparentesis[i]=1;
-      parentesis1.push(" "+ ext12);}
-    if (ext13!="" && ext13!="-" && i==1){
-      incparentesis[i]=1;
-      parentesis1.push(" "+ ext13);}
-    if (ext14!="" && ext14!="-" && i==2){
-      incparentesis[i]=1;
-      parentesis1.push(" "+ ext14);}
-    if (ext22!="" && ext22!="-" && i==3){
-      incparentesis[i]=1;
-      parentesis2.push(" "+ ext22);}
-    if (ext23!="" && ext23!="-" && i==4){
-      incparentesis[i]=1;
-      parentesis2.push(" "+ ext23);}
-    if (ext24!="" && ext24!="-" && i==5){
-      incparentesis[i]=1;
-      parentesis2.push(" "+ ext24);} 
-  }
-    
-   
-  detalleterminales1="(" + (parentesis1.toString()).substring(1) + ")";
-  detalleterminales2="(" + (parentesis2.toString()).substring(1) + ")";
-    
-   
-    
-  if(data.Dint1 != "" && data.Dint1!=" " && data.Dint1 != "-" && n1!="" && n1!=0 && n1!=0.0){
-    if (data.Luz1 !=0 ){
-      if(data.Dint1 > data.Dext - 2*data.d ){
-      mensaje += ext11 + " L= " + data.Luz1 + "mm c/ " + n1 + "vta. amp. a " + data.Dint1 + "mm int " +  detalleterminales1 + "\n";  
-      }else{
-      mensaje += ext11 + " L= " + data.Luz1 + "mm c/ " + n1 + "vta. red. a " + data.Dint1 + "mm int " +  detalleterminales1 + "\n";  
-      }
-    } else {
-      if(data.Dint1 > data.Dext - 2*data.d ){
-      mensaje += ext11 + " c/ " + n1 + "vta. amp. a " + data.Dint1 + "mm int " + detalleterminales1 + "\n";  
-      }else{
-      mensaje += ext11 + " c/ " + n1 + "vta. red. a " + data.Dint1 + "mm int " + detalleterminales1 + "\n";  
-      }
-    }
-  }else{
-    if (data.Luz1 !=0 ){
-      mensaje += ext11 + " L= " + data.Luz1 + "mm "+ detalleterminales1+ "\n";  
-    } else {
-      mensaje += ext11 + " " + detalleterminales1+ "\n";
-    }
-  }
-   
-  if(data.Dint2 != "" && data.Dint2!=" " && data.Dint2 != "-" && n2!="" && n2!=0 && n2!=0.0){
-    if (data.Luz2 != 0){
-    if(data.Dint2 > data.Dext - 2*data.d ){
-      mensaje += ext21 + " L= " + data.Luz2 + "mm c/ " + n2 + "vta. amp. a " + data.Dint2 + "mm int " + detalleterminales2;  
-      }else{
-      mensaje += ext21 + " L= " + data.Luz2 + "mm c/ " + n2 + "vta. red. a " + data.Dint2 + "mm int " + detalleterminales2;  
-      }
-    } else {
-    if(data.Dint2 > data.Dext - 2*data.d ){
-      mensaje += ext21 + " c/ " + n2 + "vta. amp. a " + data.Dint2 + "mm int " + detalleterminales2;  
-      }else{
-      mensaje += ext21 + " c/ " + n2 + "vta. red. a " + data.Dint2 + "mm int " + detalleterminales2;  
-      }
-    }
-  }else{
-    if (data.Luz2 != 0){
-      mensaje += ext21 + " L= " + data.Luz2 + "mm " + detalleterminales2;  
-    } else {
-      mensaje += ext21 + " " + detalleterminales2;  
-    }
-  }
-   
-  //mensaje2 = cantMP + "kg de MP " + data1.Mater + " al momento del diseño";  
-  mensaje = mensaje + "\n" + mensaje3; */
+ 
 
   return mensaje
         
