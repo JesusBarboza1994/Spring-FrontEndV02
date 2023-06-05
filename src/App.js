@@ -2,10 +2,10 @@ import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import "@fontsource/abeezee/400-italic.css";
 
-import { SimulationData } from "./componentes/SimulationData";
-import { CalcParam } from "./componentes/CalculatedParameters";
-import { WeightTolerance } from "./componentes/WeightTolerance";
-import { Textarea } from "./componentes/Textarea";
+import { SimulationData } from "./components/SimulationData";
+import { CalcParam } from "./components/CalculatedParameters";
+import { WeightTolerance } from "./components/WeightTolerance";
+import { Textarea } from "./components/Textarea";
 import { Switch, breadcrumbsClasses } from "@mui/material";
 import ProcessTable from "./components/processTable";
 import TablaControlDeCargas from "./components/tablaControlDeCargas";
@@ -294,84 +294,6 @@ function App() {
     setData3({...data3, Peso : (Math.pow(data.d/12.7,2)*data3.LDA/1000).toFixed(2)}) 
   }, [data.d, data3.LDA])
 
-  //calculo de la rigidez, fuerza y deformacion, mas la tolerancias
-  /*useEffect(() => {
-
-    let Q_Long=0
-    if(grado==1){
-      Q_Long=0.63
-    }else if(grado==2){
-      Q_Long=1
-    }else {
-      Q_Long=1.6
-    }
-    
-    let af = 65.92*Math.pow(Number(data.d),3.3)/Math.pow(data2.Dmedio,1.6)*(-0.84*Math.pow(0.1*data2.C,3)+3.781*Math.pow(0.1*data2.C,2)-4.244*(0.1*data2.C)+2.274);
-    console.log("af")
-    console.log(af)
-    
-    let kf = -1/(3*Math.pow((Number(data.N)-1.75),2))+8/(5*(Number(data.N)-1.75))+0.803;
-    console.log("kf")
-    console.log(kf)
-    
-    let toler=(kf*af*Q_Long/Number(processTableStage2[2].Keq)).toFixed(1);
-
-    let tolerancia = TablaToler()
-    setTablaToler({...tablaToler,
-      valor: tolerancia
-    })
-
-   setCoef({...coef, toler_L0: toler })
-  }, [grado, processTableStage2])*/
-
-  //Funcion para busqueda de tolerancia para Dext
-  /*function TablaToler(){
-    const dmedio = (data.Dext - data.d)
-    if(dmedio === "" || dmedio <= 0) return -1;
-    const linea = tolerDiam.findIndex((_rango, indice, arreglo)=>{
-      return Number(dmedio)>=arreglo[indice][0] && Number(dmedio)<=arreglo[indice+1][0]
-    });
-    //console.log(linea);
-
-    let C = ((data.Dext-data.d)/data.d).toFixed(2)
-    let tolerBuscada=0;
-    switch(grado){
-      case "1":
-        console.log("case1")
-        if(C>=4 && C<8){
-            tolerBuscada=tolerDiam[linea][1];
-        }else if(C>=8 && C<=14){
-            tolerBuscada=tolerDiam[linea][2];
-        }else{
-            tolerBuscada=tolerDiam[linea][3];
-        }
-        break;
-      case "2":
-        console.log("case2")
-        if(C>=4 && C<8){
-          tolerBuscada=tolerDiam[linea][4];
-        }else if(C>=8 && C<=14){
-          tolerBuscada=tolerDiam[linea][5];
-        }else{
-          tolerBuscada=tolerDiam[linea][6];
-        }
-        break;
-      case "3":
-        console.log("case3")
-        if(C>=4 && C<8){
-          tolerBuscada=tolerDiam[linea][7];
-        }else if(C>=8 && C<=14){
-          tolerBuscada=tolerDiam[linea][8];
-        }else{
-        tolerBuscada=tolerDiam[linea][9];
-        }
-        break;
-      default:
-        console.log("No entro a ninguno")
-    }
-    return tolerBuscada
-  }*/
-
   useEffect(() => {
     let Lbloq=0;
     if(data.Ext1=="TASE" && data.Ext2=="TASE" || data.Ext1=="TCSE" && data.Ext2=="TCSE" || data.Ext1=="TCSE" && data.Ext2=="TASE" || data.Ext1=="TASE" && data.Ext2=="TCSE"){
@@ -546,17 +468,6 @@ function App() {
   function handleTab(e){
     setValuetab({...valuetab, [e.target.id]:e.target.value});
   }
-
-  /*const [boolSwitch,setBoolSwitch] = useState(false)
-  function handleChange(){
-    if (boolSwitch){
-       setData3({...data3, LDA_adic: 200})
-    }else{
-        setData3({...data3, LDA_adic: 400})
-    }
-    setBoolSwitch(!boolSwitch)
-    
-  }*/
 
   return (
    <div className="App" style={{backgroundColor:"black", display:"flex"}}>
