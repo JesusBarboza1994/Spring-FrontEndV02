@@ -539,12 +539,6 @@ function App() {
     e.preventDefault();
     console.log(data)
   }
-
-  function handleSimulacion(e){
-    setData1({...data1, [e.target.id]:e.target.value})
-    console.log(data1)
-  } 
-
   function handlePrincipal(e){
     WeightTolerance.setData3({...WeightTolerance.data3, [e.target.id]:e.target.value})
     console.log(WeightTolerance.data3)
@@ -553,7 +547,7 @@ function App() {
     setValuetab({...valuetab, [e.target.id]:e.target.value});
   }
 
-  const [boolSwitch,setBoolSwitch] = useState(false)
+  /*const [boolSwitch,setBoolSwitch] = useState(false)
   function handleChange(){
     if (boolSwitch){
        setData3({...data3, LDA_adic: 200})
@@ -562,7 +556,7 @@ function App() {
     }
     setBoolSwitch(!boolSwitch)
     
-  }
+  }*/
 
   return (
    <div className="App" style={{backgroundColor:"black", display:"flex"}}>
@@ -648,7 +642,6 @@ function App() {
       </Form>
 
       <SimulationData/>
-      
 
       <CalcParam diam={data.d} 
             diamext1={data.Dext}
@@ -660,8 +653,7 @@ function App() {
             longitud={data.L0}
             luz1={data.Luz1}
             luz2={data.Luz2}/>
-
-           
+       
       <WeightTolerance/>
       
       <Textarea/>
@@ -685,74 +677,73 @@ function App() {
       </DivSimul>
     </div>
 
-    
     <div style={{backgroundColor:"black", display:"flex", columnGap:50, marginTop:28, marginLeft: 28,}}>
-     <div>
-      <Table1>
-        <tr style={{backgroundColor: "#5B5B5B", color:"white",}}>
-          <Th> </Th>
-          <Th>LONGITUD</Th>
-          <Th>CARRERA</Th>
-          <Th>LL-G</Th>
-          <Th>FUERZA</Th>
-          <Th>ESFUERZO</Th>
-          <Th>%COMPRES.</Th>
-        </tr>
-        <tr>
-          <Th2>L instalada</Th2>
-          <Td>
-           <Input8 type="number" value={valuetab.Linst} id={"Linst"}  onChange={(e) => handleTab(e)}/>     
-          </Td>
-          <Td>-</Td>
-          <Td>333</Td>
-          <Td>{carrera.Finst}</Td>
-          <Td>{carrera.TauK1}</Td>
-          <Td>{carrera.Compres1}%</Td>
-        </tr>
-        <tr>
-          <Th2>L carga</Th2>
-          <Td>
-           <Input8 type="number" value={valuetab.Lcarga} id={"Lcarga"}  onChange={(e) => handleTab(e)}/>
-          </Td>
-          <Td>{carrera.carrCarga}</Td>
-          <Td>333</Td>
-          <Td>{carrera.Fcarg}</Td>
-          <Td>{carrera.TauK2}</Td>
-          <Td>{carrera.Compres2}%</Td>
-        </tr>
-        <tr>
-          <Th2>L maxima</Th2>
-          <Td>
-           <Input8 type="number" value={valuetab.Lmax} id={"Lmax"}  onChange={(e) => handleTab(e)}/>
-          </Td>
-          <Td>{carrera.carrMax}</Td>
-          <Td>333</Td>
-          <Td>{carrera.Fmax}</Td>
-          <Td>{carrera.TauK3}</Td>
-          <Td>{carrera.Compres3}%</Td>
-        </tr>
-        <tr>
-          <Th2>L4</Th2>
-          <Td>
-           <Input8 type="number" value={valuetab.L4} id={"L4"}  onChange={(e) => handleTab(e)}/>
-          </Td>
-          <Td>{carrera.carrL4}</Td>
-          <Td>333</Td>
-          <Td>{carrera.F4}</Td>
-          <Td>{carrera.TauK4}</Td>
-          <Td>{carrera.Compres4}%</Td>
-        </tr>
-        <tr>
-          <Th2>L bloqueo</Th2>
-          <Td>{valuetab.Lbloqueo}</Td>
-          <Td>{carrera.carrLc}</Td>
-          <Td>333</Td>
-          <Td>{filas.Fc3}</Td>
-          <Td>{carrera.TauKC}</Td>
-          <Td>100%</Td>
-        </tr>
-      </Table1> 
-     </div>
+      <div>
+        <Table1>
+          <tr style={{backgroundColor: "#5B5B5B", color:"white",}}>
+            <Th> </Th>
+            <Th>LONGITUD</Th>
+            <Th>CARRERA</Th>
+            <Th>LL-G</Th>
+            <Th>FUERZA</Th>
+            <Th>ESFUERZO</Th>
+            <Th>%COMPRES.</Th>
+          </tr>
+          <tr>
+            <Th2>L instalada</Th2>
+            <Td>
+            <Input8 type="number" value={valuetab.Linst} id={"Linst"}  onChange={(e) => handleTab(e)}/>     
+            </Td>
+            <Td>-</Td>
+            <Td>333</Td>
+            <Td>{carrera.Finst}</Td>
+            <Td>{carrera.TauK1}</Td>
+            <Td>{carrera.Compres1}%</Td>
+          </tr>
+          <tr>
+            <Th2>L carga</Th2>
+            <Td>
+            <Input8 type="number" value={valuetab.Lcarga} id={"Lcarga"}  onChange={(e) => handleTab(e)}/>
+            </Td>
+            <Td>{carrera.carrCarga}</Td>
+            <Td>333</Td>
+            <Td>{carrera.Fcarg}</Td>
+            <Td>{carrera.TauK2}</Td>
+            <Td>{carrera.Compres2}%</Td>
+          </tr>
+          <tr>
+            <Th2>L maxima</Th2>
+            <Td>
+            <Input8 type="number" value={valuetab.Lmax} id={"Lmax"}  onChange={(e) => handleTab(e)}/>
+            </Td>
+            <Td>{carrera.carrMax}</Td>
+            <Td>333</Td>
+            <Td>{carrera.Fmax}</Td>
+            <Td>{carrera.TauK3}</Td>
+            <Td>{carrera.Compres3}%</Td>
+          </tr>
+          <tr>
+            <Th2>L4</Th2>
+            <Td>
+            <Input8 type="number" value={valuetab.L4} id={"L4"}  onChange={(e) => handleTab(e)}/>
+            </Td>
+            <Td>{carrera.carrL4}</Td>
+            <Td>333</Td>
+            <Td>{carrera.F4}</Td>
+            <Td>{carrera.TauK4}</Td>
+            <Td>{carrera.Compres4}%</Td>
+          </tr>
+          <tr>
+            <Th2>L bloqueo</Th2>
+            <Td>{valuetab.Lbloqueo}</Td>
+            <Td>{carrera.carrLc}</Td>
+            <Td>333</Td>
+            <Td>{filas.Fc3}</Td>
+            <Td>{carrera.TauKC}</Td>
+            <Td>100%</Td>
+          </tr>
+        </Table1> 
+      </div>
 
       <div>
         <div style={{display:"flex", justifyContent:"center",paddingTop:94,}}>
@@ -794,7 +785,6 @@ function App() {
                 </tr>
           </Table2>
         </div>  
-
         <DivSimul> 
             <Paragraph style={{width: 480}}>Calculos reales</Paragraph>
             <Div>
@@ -815,7 +805,6 @@ function App() {
     <ProcessTable medidasRes={data} extremo1={data.Ext1} extremo2={data.Ext2}/>
     <TablaControlDeCargas L0={data.L0} />
     <TablaCarrera/>
-
     
    </div>   
   );
