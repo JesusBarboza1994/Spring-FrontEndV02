@@ -1,6 +1,11 @@
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import "@fontsource/abeezee/400-italic.css";
+
+import { SimulationData } from "./componentes/SimulationData";
+import { CalcParam } from "./componentes/CalculatedParameters";
+import { WeightTolerance } from "./componentes/WeightTolerance";
+import { Textarea } from "./componentes/Textarea";
 import { Switch, breadcrumbsClasses } from "@mui/material";
 import ProcessTable from "./components/processTable";
 import TablaControlDeCargas from "./components/tablaControlDeCargas";
@@ -176,6 +181,8 @@ function App() {
     Dmedio:"",    
   })
 
+  const {filas, setFilas, data1, setData1, data, setData, data2, setData2} = useAuth();
+    
   const [data4, setData4] = useState({
     K:"",      
     F:"",         
@@ -225,9 +232,8 @@ function App() {
     "INOX SANDVIK"
   ]);
   
-  const [grado,setGrado] = useState(1); 
-  const [tablaToler,setTablaToler] = useState({
-    valor: ""
+  const [descrip, setDescrip] = useState({
+    descrip: "",
   });
   
   const [coef, setCoef] = useState({
@@ -264,6 +270,33 @@ function App() {
   Lmax: 0,
   L4: 0,
   Lbloqueo: 0
+  });
+
+  const [carrera, setCarrera] = useState({
+  carrCarga: "",
+  carrMax: "",
+  carrL4: "",
+  carrLc: "",
+  s1: "",
+  s2: "",
+  s3: "",
+  s4: "",
+  sc: "",
+  Finst: "",
+  Fcarg: "",
+  Fmax: "",
+  F4: "",
+  TauK1: "",
+  TauK2: "",
+  TauK3: "",
+  TauK4: "",
+  TauKC: "",
+  Compres1: "",
+  Compres2: "",
+  Compres3: "",
+  Compres4: "",
+})
+
 
   });
 
@@ -291,28 +324,6 @@ function App() {
     Compres3: "",
     Compres4: "",
   })
-
- //Tolerancias para Dext (DIN EN 15800)
-  const tolerDiam = [
-    [0.63, 0.05, 0.07, 0.1, 0.07, 0.1, 0.15, 0.1, 0.15, 0.2],
-    [1, 0.05, 0.07, 0.1, 0.08, 0.1, 0.15, 0.15, 0.2, 0.3],
-    [1.6, 0.07, 0.1, 0.15, 0.1, 0.15, 0.2, 0.2, 0.3, 0.4],
-    [2.5, 0.1, 0.1, 0.15, 0.15, 0.2, 0.25, 0.3, 0.4, 0.5],
-    [4, 0.1, 0.15, 0.2, 0.2, 0.25, 0.3, 0.4, 0.5, 0.6],
-    [6.3, 0.15, 0.15, 0.2, 0.25, 0.3, 0.35, 0.5, 0.6, 0.7],
-    [10, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.6, 0.7, 0.8],
-    [16, 0.2, 0.25, 0.3, 0.35, 0.45, 0.5, 0.7, 0.9, 1],
-    [25, 0.25, 0.3, 0.35, 0.4, 0.5, 0.6, 0.8, 1, 1.2],
-    [31.5, 0.25, 0.3, 0.35, 0.5, 0.6, 0.7, 1, 1.2, 1.5],
-    [40, 0.3, 0.4, 0.5, 0.6, 0.8, 0.9, 1.2, 1.5, 1.8],
-    [50, 0.4, 0.5, 0.6, 0.8, 1, 1.1, 1.5, 2, 2.3],
-    [63, 0.5, 0.7, 0.8, 1, 1.2, 1.4, 1.8, 2.4, 2.8],
-    [80, 0.6, 0.8, 0.9, 1.2, 1.5, 1.7, 2.3, 3, 3.5],
-    [100, 0.7, 1, 1.1, 1.4, 1.9, 2.2, 2.8, 3.7, 4.4],
-    [125, 0.9, 1.2, 1.4, 1.8, 2.3, 2.7, 3.5, 4.6, 5.4],
-    [160, 1.2, 1.5, 1.7, 2.1, 2.9, 3.3, 4.2, 5.7, 6.6],
-    [200, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-  ];
  
   useEffect(() => {
     let extremo1 = type1
@@ -326,6 +337,7 @@ function App() {
 
   }, [type1, type2])
 
+  
   useEffect(() => {
     setData2({...data2,
       C : ((data.Dext-data.d)/data.d).toFixed(2),
@@ -484,12 +496,10 @@ function App() {
       default:
         console.log("No entro a ninguno")
     }
-    //console.log(tolerBuscada);
     return tolerBuscada
   }
 
   useEffect(() => {
-    
     let Lbloq=0;
     if(data.Ext1=="TASE" && data.Ext2=="TASE" || data.Ext1=="TCSE" && data.Ext2=="TCSE" || data.Ext1=="TCSE" && data.Ext2=="TASE" || data.Ext1=="TASE" && data.Ext2=="TCSE"){
       Lbloq=(Number(data.N)+1)*Number(data.d);
@@ -617,7 +627,7 @@ function App() {
     let sumXY = data.reduce((acc, point) => acc + point.x * point.y, 0);
     let sumXSquared = data.reduce((acc, point) => acc + point.x ** 2, 0);
     let n = data.length;
-  
+
     let slope = (n * sumXY - sumX * sumY) / (n * sumXSquared - sumX ** 2);
     let intercept = (sumY - slope * sumX) / n;
 
@@ -625,6 +635,7 @@ function App() {
     setBControlCargas(intercept)
 
     let linea = {k: slope, b: intercept}
+
 
     console.log("data puntos")
     console.log(data)
@@ -655,17 +666,20 @@ function App() {
     e.preventDefault();
     console.log(data)
   }
+
   function handleSimulacion(e){
     setData1({...data1, [e.target.id]:e.target.value})
     console.log(data1)
   } 
+
   function handlePrincipal(e){
-    setData3({...data3, [e.target.id]:e.target.value})
-    console.log(data3)
+    WeightTolerance.setData3({...WeightTolerance.data3, [e.target.id]:e.target.value})
+    console.log(WeightTolerance.data3)
   }
   function handleTab(e){
     setValuetab({...valuetab, [e.target.id]:e.target.value});
   }
+
   const [boolSwitch,setBoolSwitch] = useState(false)
   function handleChange(){
     if (boolSwitch){
@@ -677,7 +691,6 @@ function App() {
     
   }
 
-  
   return (
    <div className="App" style={{backgroundColor:"black", display:"flex"}}>
     
@@ -761,159 +774,30 @@ function App() {
           
       </Form>
 
-      <DivSimul>
-        <div style={{display: "flex",}}>
-          <Paragraph>Datos de simulacion</Paragraph>
-          <Paragraph></Paragraph>
-          <Paragraph>nodos</Paragraph>
-        </div>
+      <SimulationData/>
       
-        <Div style={{width:138}}>
-          
-          <Select style={{color: "white",borderRadius:8,}} id={"Mater"} onChange={(e) => setMater(e.target.value)}>
-          
-            <option style={{color: "#EE7272"}}>Mater</option>
-            <option value="SHI-165">SHI-165</option>
-            <option value="SHI-180">SHI-180</option>
-            <option value="CRSI SAE 9254(REC)">CRSI SAE 9254(REC)</option>
-            <option value="CRSI SAE 9254">CRSI SAE 9254</option>
-            <option value="CRMN SAE 5160">CRMN SAE 5160</option>
-            <option value="ACC">ACC</option>
-            <option value="HS3 GALV">HS3 GALV</option>
-            <option value="BCC CAL.8-14">BCC CAL.8-14</option>
-            <option value="CP DSR">CP DSR</option>
-            <option value="CP-DEINFRA">CP-DEINFRA</option>
-            <option value="FDSICR (DSR)">FDSICR (DSR)</option>
-            <option value="FTO">FTO</option>
-            <option value="FTO-TWO (DSR)">FTO-TWO (DSR)</option>
-            <option value="HD C-DSR">HD C-DSR</option>
-            <option value="HD CLASE B">HD CLASE B</option>
-            <option value="HD CLASE C">HD CLASE C</option>
-            <option value="INOX CLASE A-DSR">INOX A-DSR</option>
-            <option value="INOX CLASE B-DSR">INOX B-DSR</option>
-            <option value="INOX SANDVIK">INOX SANDVIK</option>
-                          
-          </Select>
-        </Div>
-        
-        <Div style={{marginLeft: 0}}>
-          <Label style={{color: "#EE7272"}}>x</Label>
-          <Input  value={data1.x} id={"x"} onChange={(e) => handleSimulacion(e)}/>
-        </Div>
-        
-        <Div>
-          <Label style={{color: "#EE7272"}}>grado</Label>
-          <Input  value={data1.grado} id={"grado"} onChange={(e) => handleSimulacion(e)}/>
-        </Div>
-        <div style={{display: "flex",columnGap:12,width:"100%",justifyContent:"flex-end", marginRight: 8}}>
-          <Button>Simular</Button>
-          <Button>Calcular</Button>
-        </div>
-                                
-      </DivSimul>  
-      <DivSimul>
-        <Paragraph style={{width: 480}}>Parametros calculados</Paragraph>
-        <Div>
-            <Label>C</Label>              
-            <DivCalculo id={"C"}> {data2.C} </DivCalculo>
-        </Div>
-        <Div>
-            <Label>D medio</Label>
-            <DivCalculo id={"Dmedio"}> {data2.Dmedio} </DivCalculo>
-        </Div>
-        <Div>
-            <Label>f</Label>
-            <DivCalculo id={"f"}>{data2.f}</DivCalculo>
-        </Div>
-        <Div>
-            <Label>Rel.d1</Label>
-            <DivCalculo id={"Rel.d1"}>{data2.Rel_d1}</DivCalculo>
-        </Div>
-        <Div>
-            <Label>Rel.d2</Label>
-            <DivCalculo id={"Rel.d2"}>{data2.Rel_d2}</DivCalculo>
-        </Div>
-        <Div>
-            <Label>Vt.red/VT</Label>
-            <DivCalculo id={"Vt.red/VT"}>{data2.Vt_red_VT}</DivCalculo>
-        </Div>
-      </DivSimul>
-      <DivSimul style={{marginBottom:10,}}>
-          <div style={{display: "flex",}}>
-            <Paragraph style={{marginTop:9}}>Datos principales</Paragraph>
-            <Paragraph style={{marginTop:4}}>Maq.Auto<Switch onChange= {handleChange} size="small"/>Torno</Paragraph>
-            <Paragraph></Paragraph>
-          </div>
-          <Div>
-            <Label>LDA</Label>
-            <DivCalculo id={"LDA"}>{data3.LDA}</DivCalculo>
-          </Div> 
-          <Div>
-            <Label>LDA adic</Label>
-            <DivCalculo  id={"LDA adic"}>{data3.LDA_adic}</DivCalculo> {/* condicional */}
-          </Div>
-          <Div>
-            <Label>Peso</Label>
-            <DivCalculo id={"Peso"}>{data3.Peso}</DivCalculo>
-          </Div>
-          <div>
-            <Paragraph style={{width: 480}}>Grado tolerancias</Paragraph>
-            
-          </div>    
-          <Div>
-            <Label>Grado</Label>
-            <Select value={grado} id={"grado"} onChange={(e) => setGrado(e.target.value)}>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-            </Select>
-          </Div>
 
-          <Div>
-            <Label>Dext={data.Dext}</Label>
-            <DivCalculo>±{tablaToler.valor}</DivCalculo>
-          </Div>
-          
-          <Div>
-            <Label>L0={data.L0} </Label>
-            <DivCalculo id={"toler_L0"}>±{coef.toler_L0}</DivCalculo>
-          </Div>
-      </DivSimul>
-      <div>  
-        <Paragraph style={{width: 480}}>Descripcion</Paragraph>
-        <textarea style={{
-          
-                      width: 444, 
-                      height: 160, 
-                      margin:14,
-                      marginBottom: 0, 
-                      border:"2px solid grey",
-                      borderBottom: "1px solid grey",
-                      borderColor:"grey",
-                      backgroundColor:"black",
-                      color:"grey",
-                      fontFamily:"ABeeZee",
-                      fontSize: 16,
-                      padding:10,
+      <CalcParam diam={data.d} 
+            diamext1={data.Dext}
+            diamint1={data.Dint1}
+            diamint2={data.Dint2}
+            vred1={data.Vtas1}
+            vred2={data.Vtas2}
+            numvts={data.N}
+            longitud={data.L0}
+            luz1={data.Luz1}
+            luz2={data.Luz2}/>
 
-                    }} placeholder="Descripcion"></textarea>
-          <textarea style={{
-                      width: 444,
-                      height: 20,
-                      marginLeft:14,
-                      marginTop: 0,
-                      border:"2px solid grey",
-                      borderTop:"1px solid grey",
-                      backgroundColor:"black",
-                      color:"grey",
-                      fontFamily:"ABeeZee",
-                      fontSize: 12,
-                      padding:10,
-                      }}placeholder="Datos adicionales"></textarea>    
-      </div>
+           
+      <WeightTolerance/>
+      
+      <Textarea/>
       <DivSimul>
         <Paragraph style={{width: 480}}>Calculos teoricos</Paragraph>
         <Div>
+          {
+            console.log(filas)
+          }
             <Label>K</Label>
             <DivCalculo id={"K"}>{filas.Keq3}</DivCalculo>
         </Div>
@@ -927,6 +811,8 @@ function App() {
         </Div>
       </DivSimul>
     </div>
+
+    
     <div style={{backgroundColor:"black", display:"flex", columnGap:50, marginTop:28, marginLeft: 28,}}>
      <div>
       <Table1>
@@ -1033,8 +919,9 @@ function App() {
                   <Td></Td>
                   <Td></Td>
                 </tr>
-            </Table2>
+          </Table2>
         </div>  
+
         <DivSimul> 
             <Paragraph style={{width: 480}}>Calculos reales</Paragraph>
             <Div>
@@ -1056,6 +943,7 @@ function App() {
     <TablaControlDeCargas L0={data.L0} />
     <TablaCarrera/>
 
+    
    </div>   
   );
 }
