@@ -335,7 +335,7 @@ export default function ProcessTable(props) {
 
         setProcessTableStage1(processTableStage1Aux)
     }
-
+    // comentario
     function calcularUltimoPunto(){
         let d = data.d
         let sumaVtasParcial = 0
