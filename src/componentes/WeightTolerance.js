@@ -175,6 +175,7 @@ export function WeightTolerance(){
       console.log("No entro a ninguno")
     }
     //console.log(tolerBuscada);
+   
     return tolerBuscada
   }
 

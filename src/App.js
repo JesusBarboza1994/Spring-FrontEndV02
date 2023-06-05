@@ -158,22 +158,6 @@ const Select = styled.select`
 
 function App() {
 
-  const [data1, setData1] = useState({
-    Mater:"",      
-    x:"",         //deformacion
-    grado:"",        
-  })
-
-  const [data2, setData2] = useState({
-    C: "",      
-    Dmedio:"",         
-    f:"",      
-    Rel_d1:"",      
-    Rel_d2:"",         
-    Vt_red_VT:"",      
-
-  })
-
   const [data3, setData3] = useState({
     LDA:"",      
     LDA_adic:200,         
@@ -181,7 +165,7 @@ function App() {
     Dmedio:"",    
   })
 
-  const {filas, setFilas, data1, setData1, data, setData, data2, setData2} = useAuth();
+  //const {filas, setFilas, data1, setData1, data, setData, data2, setData2} = useAuth();
     
   const [data4, setData4] = useState({
     K:"",      
@@ -191,7 +175,7 @@ function App() {
 
   //Renee-Inicio-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  const {data, setData, processTableStage1, setProcessTableStage1, processTableStage2, setProcessTableStage2, controlCargas, setControlCargas, kControlCargas, setKControlCargas, bControlCargas, setBControlCargas} = useAuth();
+  const {filas, setFilas, data1, setData1, data, setData, data2, setData2, processTableStage1, setProcessTableStage1, processTableStage2, setProcessTableStage2, controlCargas, setControlCargas, kControlCargas, setKControlCargas, bControlCargas, setBControlCargas} = useAuth();
 
   const [puntosCCGrafica, setPuntosCCGrafica] = useState([
     { x: 0, y: 0},
@@ -242,27 +226,6 @@ function App() {
     Q_Long : 0,
     toler_L0: 0,
   });
-
-  const [filas, setFilas] = useState({ 
-    nvtas1: "",
-    nvtas2: "",
-    nvtas3: "",
-    long1: "",
-    long2: "", 
-    long3: "",
-    paso1: "",
-    paso2: "",
-    paso3: "",
-    Keq1: "",
-    Keq2: "",
-    Keq3: "",
-    Xc1: "",
-    Xc2: "",
-    Xc3: "",
-    Fc1: "",
-    Fc2: "",
-    Fc3: "",
-  });
  
   const [valuetab, setValuetab] = useState({
   Linst: 0,
@@ -270,34 +233,6 @@ function App() {
   Lmax: 0,
   L4: 0,
   Lbloqueo: 0
-  });
-
-  const [carrera, setCarrera] = useState({
-  carrCarga: "",
-  carrMax: "",
-  carrL4: "",
-  carrLc: "",
-  s1: "",
-  s2: "",
-  s3: "",
-  s4: "",
-  sc: "",
-  Finst: "",
-  Fcarg: "",
-  Fmax: "",
-  F4: "",
-  TauK1: "",
-  TauK2: "",
-  TauK3: "",
-  TauK4: "",
-  TauKC: "",
-  Compres1: "",
-  Compres2: "",
-  Compres3: "",
-  Compres4: "",
-})
-
-
   });
 
   const [carrera, setCarrera] = useState({
@@ -360,69 +295,7 @@ function App() {
   }, [data.d, data3.LDA])
 
   //calculo de la rigidez, fuerza y deformacion, mas la tolerancias
-  useEffect(() => {
-   //const C = Number(((Number(data.Dext)-Number(data.d))/Number(data.d)).toFixed(2));
-   /*const nvtas1 = 0.875;    //primera linea contando desde abajo por arriba (empieza con luz menor)
-   const nvtas2 = 0.875;  
-   const nvtas3 = Number(data.N) - (nvtas1 + nvtas2);  // Vueltas del cuerpo
-   
-   const long1 = Number(((Number(data.Luz2) + Number(data.d))*nvtas1).toFixed(1));
-   const long2 = Number(((Number(data.Luz1) + Number(data.d))*nvtas2).toFixed(1));
-   const long3 = Number((Number(data.L0) - (long1+long2)- Number(data.d)).toFixed(1));
-   
-   const paso1 = Number((long1/nvtas1).toFixed(2));
-   const paso2 = Number((long2/nvtas2).toFixed(2));
-   const paso3 = Number((long3/nvtas3).toFixed(2));
-
-   const rigidez1 = 1/((78500*Math.pow(Number(data.d),4))/(8*Math.pow(Number(data2.Dmedio),3)*Number(nvtas1))); // N/mm
-   const rigidez2 = 1/((78500*Math.pow(Number(data.d),4))/(8*Math.pow(Number(data2.Dmedio),3)*Number(nvtas2)));
-   const rigidez3 = 1/((78500*Math.pow(Number(data.d),4))/(8*Math.pow(Number(data2.Dmedio),3)*Number(nvtas3)));
-
-   const Keq1 = Number((1/(rigidez1+rigidez2+rigidez3)).toFixed(2));
-   const Keq2 = Number((1/(rigidez2+rigidez3)).toFixed(2));
-   const Keq3 = Number((1/rigidez3).toFixed(2));
-
-   const Xc1 = Number(((paso1-Number(data.d))*Number(data.N)).toFixed(1));
-   const Xc2 = Number(((paso2-Number(data.d))*(Number(data.N)-nvtas1)+(paso1*nvtas1)-nvtas1*Number(data.d)).toFixed(1));
-   const Xc3 = Number(((paso3-Number(data.d))*(Number(data.N)-(nvtas1+nvtas2))+(paso1*nvtas1+paso2*nvtas2)-(nvtas1+nvtas2)*Number(data.d)).toFixed(1));
-
-   const b1 = 0;
-   const b2 = Number(((Keq1-Keq2)*Xc1+b1).toFixed(1));
-   const b3 = Number(((Keq2-Keq3)*Xc2+b2).toFixed(1));
-      
-   const Fc1 = Number(((Keq1*Xc1+b1)/9.81).toFixed(1));
-   const Fc2 = Number(((Keq2*Xc2+b2)/9.81).toFixed(1));
-   const Fc3 = Number(((Keq3*Xc3+b3)/9.81).toFixed(1));
-
-
-    setFilas({...filas,
-      
-      nvtas1: nvtas1,
-      nvtas2: nvtas2,
-      nvtas3: nvtas3,
-      long1: long1,
-      long2: long2, 
-      long3: long3,
-      paso1: paso1,
-      paso2: paso2,
-      paso3: paso3,
-      // rigidez1: rigidez1,
-      // rigidez2: rigidez2,
-      // rigidez3: rigidez3,
-      Keq1: Keq1,
-      Keq2: Keq2,
-      Keq3: Keq3,
-      Xc1: Xc1,
-      Xc2: Xc2,
-      Xc3: Xc3,
-      b1: b1,
-      b2: b2,
-      b3: b3,
-      Fc1: Fc1,
-      Fc2: Fc2,
-      Fc3: Fc3,
-          
-     })*/
+  /*useEffect(() => {
 
     let Q_Long=0
     if(grado==1){
@@ -449,10 +322,10 @@ function App() {
     })
 
    setCoef({...coef, toler_L0: toler })
-  }, [grado, processTableStage2])
+  }, [grado, processTableStage2])*/
 
   //Funcion para busqueda de tolerancia para Dext
-  function TablaToler(){
+  /*function TablaToler(){
     const dmedio = (data.Dext - data.d)
     if(dmedio === "" || dmedio <= 0) return -1;
     const linea = tolerDiam.findIndex((_rango, indice, arreglo)=>{
@@ -497,7 +370,7 @@ function App() {
         console.log("No entro a ninguno")
     }
     return tolerBuscada
-  }
+  }*/
 
   useEffect(() => {
     let Lbloq=0;
