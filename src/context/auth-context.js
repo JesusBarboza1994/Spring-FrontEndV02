@@ -3,7 +3,7 @@ import { createContext, useContext, useState } from "react";
 const AuthContext = createContext();
 
 function AuthProvider({children}){
-  //const [drill, setDrill] = useState("Hola")
+
   const [data, setData] = useState({
     d:"",        //alambre
     Dext:"",     //diam ext1
@@ -13,12 +13,13 @@ function AuthProvider({children}){
     Luz1:"",
     Dint1:"",    //diam int1
     Vtas1:"",    //vts red1
-    Ext1:"",     //extremo1
+    Ext1:"TASE",     //extremo1
     Luz2:"",
     Dint2:"",    //diam int2
     Vtas2:"",    //vts red2
-    Ext2:"",     //extremo2
-  })
+    Ext2:"TASE",//extremo2
+  })   //vts red2
+   
 
   const [data1, setData1] = useState({
     Mater:"",      
@@ -46,9 +47,6 @@ function AuthProvider({children}){
     paso1: "",
     paso2: "",
     paso3: "",
-    // rigidez1: rigidez1,
-    // rigidez2: rigidez2,
-    // rigidez3: rigidez3,
     Keq1: "",
     Keq2: "",
     Keq3: "",
@@ -70,6 +68,27 @@ function AuthProvider({children}){
        Q_Long : 0,
        toler_L0: 0,
    });
+  const [kControlCargas, setKControlCargas] = useState(0)
+  const [bControlCargas, setBControlCargas] = useState(0)
+  const [l4, setL4] = useState(0)
+  
+  const [processTableStage1, setProcessTableStage1] = useState([
+    { id: 1, Luz: "", Long: "", Vtas: "" },
+    { id: 2, Luz: "", Long: "", Vtas: "" },
+    { id: 3, Luz: "", Long: "", Vtas: "" }
+  ])
+
+  const [processTableStage2, setProcessTableStage2] = useState([
+    { id: 1, Paso: "", K: "", Kinv: "", Keq: "", Xc: "", b: "", Fc: "" },
+    { id: 2, Paso: "", K: "", Kinv: "", Keq: "", Xc: "", b: "", Fc: "" },
+    { id: 3, Paso: "", K: "", Kinv: "", Keq: "", Xc: "", b: "", Fc: "" }
+  ])
+
+  const [controlCargas, setControlCargas] = useState([
+    { id: 1, Fuerza: "", Long: "", Def: "" },
+    { id: 2, Fuerza: "", Long: "", Def: "" },
+    { id: 3, Fuerza: "", Long: "", Def: "" }
+  ])
 
   return(
     <AuthContext.Provider value={{
@@ -84,7 +103,17 @@ function AuthProvider({children}){
       tablaToler,
       setTablaToler,
       coef,
-      setCoef
+      setCoef,
+      processTableStage1,
+      setProcessTableStage1,
+      processTableStage2,
+      setProcessTableStage2,
+      controlCargas,
+      setControlCargas,
+      kControlCargas,
+      setKControlCargas,
+      bControlCargas,
+      setBControlCargas
     }}>
       {children}
     </AuthContext.Provider>
