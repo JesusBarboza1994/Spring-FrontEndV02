@@ -216,44 +216,6 @@ function App() {
 
   const {filas, setFilas, data1, setData1, data, setData, data2, setData2} = useAuth();
     
-  // const [data, setData] = useState({
-  //   d:"",        //alambre
-  //   Dext:"",     //diam ext1
-  //   N:"",        //vueltas totales
-  //   L0:"",      //longitud
-  //   Luz1:"",
-  //   Dint1:"",    //diam int1
-  //   Vtas1:"",    //vts red1
-  //   Ext1:"",     //extremo1
-  //   Luz2:"",
-  //   Dint2:"",    //diam int2
-  //   Vtas2:"",    //vts red2
-  //   Ext2:"",     //extremo2
-  // })
-
-  /*const [data1, setData1] = useState({
-    Mater:"",      
-    x:"",         //deformacion
-    grado:"",        
-  }) */
-
-  /*const [data2, setData2] = useState({
-    C: "",      
-    Dmedio:"",         
-    f:"",      
-    Rel_d1:"",      
-    Rel_d2:"",         
-    Vt_red_VT:"",      
-
-  })  */
-
-  /*const [data3, setData3] = useState({
-    LDA:"",      
-    LDA_adic:200,         
-    Peso:"",
-    Dmedio:"",    
-  }) */
-
   const [data4, setData4] = useState({
     K:"",      
     F:"",         
@@ -278,78 +240,22 @@ function App() {
 
   const [type1,setType1] = useState(["TASE","TCSE","TCE","TAE"]);
   const [type2,setType2] = useState(["TASE","TCSE","TCE","TAE"]);
-  /*const [mater,setMater] = useState([
-    "SHI-180",
-    "SHI-165",
-    "CRSI SAE 9254(REC)",
-    "CRSI SAE 9254",
-    "CRMN SAE 5160",
-    "ACC",
-    "ACC HS3 GALV",
-    "BCC CAL.8-14",
-    "CP DSR",
-    "CP-DEINFRA",
-    "FDSICR (DSR)",
-    "FTO",
-    "FTO-TWO (DSR)",
-    "HD C-DSR",
-    "HD CLASE B",
-    "HD CLASE C",
-    "INOX CLASE A-DSR",
-    "INOX CLASE B-DSR",
-    "INOX SANDVIK"
-  ]);   */
   
-  /*const [grado,setGrado] = useState(1); 
-  const [tablaToler,setTablaToler] = useState({
-    valor: "",
-  });  */
-
   const [descrip, setDescrip] = useState({
     descrip: "",
   });
   
-  /*const [coef, setCoef] = useState({
-    af : 0,
-    kf : 0,
-    Q_Long : 0,
-    toler_L0: 0,
-  });  */
+   
+  const [valuetab, setValuetab] = useState({
+  Linst: 0,
+  Lcarga: 0,
+  Lmax: 0,
+  L4: 0,
+  Lbloqueo: 0
 
-  /*const [filas, setFilas] = useState({ 
-    nvtas1: "",
-    nvtas2: "",
-    nvtas3: "",
-    long1: "",
-    long2: "", 
-    long3: "",
-    paso1: "",
-    paso2: "",
-    paso3: "",
-    // rigidez1: rigidez1,
-    // rigidez2: rigidez2,
-    // rigidez3: rigidez3,
-    Keq1: "",
-    Keq2: "",
-    Keq3: "",
-    Xc1: "",
-    Xc2: "",
-    Xc3: "",
-    Fc1: "",
-    Fc2: "",
-    Fc3: "",
-});  */
- 
-const [valuetab, setValuetab] = useState({
-Linst: 0,
-Lcarga: 0,
-Lmax: 0,
-L4: 0,
-Lbloqueo: 0
+  });
 
-});
-
-const [carrera, setCarrera] = useState({
+  const [carrera, setCarrera] = useState({
   carrCarga: "",
   carrMax: "",
   carrL4: "",
@@ -404,29 +310,7 @@ const [carrera, setCarrera] = useState({
   }
   //Renee-Inicio-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
- /*//Tolerancias para Dext (DIN EN 15800)
-   const tolerDiam = [
-    [0.63, 0.05, 0.07, 0.1, 0.07, 0.1, 0.15, 0.1, 0.15, 0.2],
-    [1, 0.05, 0.07, 0.1, 0.08, 0.1, 0.15, 0.15, 0.2, 0.3],
-    [1.6, 0.07, 0.1, 0.15, 0.1, 0.15, 0.2, 0.2, 0.3, 0.4],
-    [2.5, 0.1, 0.1, 0.15, 0.15, 0.2, 0.25, 0.3, 0.4, 0.5],
-    [4, 0.1, 0.15, 0.2, 0.2, 0.25, 0.3, 0.4, 0.5, 0.6],
-    [6.3, 0.15, 0.15, 0.2, 0.25, 0.3, 0.35, 0.5, 0.6, 0.7],
-    [10, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.6, 0.7, 0.8],
-    [16, 0.2, 0.25, 0.3, 0.35, 0.45, 0.5, 0.7, 0.9, 1],
-    [25, 0.25, 0.3, 0.35, 0.4, 0.5, 0.6, 0.8, 1, 1.2],
-    [31.5, 0.25, 0.3, 0.35, 0.5, 0.6, 0.7, 1, 1.2, 1.5],
-    [40, 0.3, 0.4, 0.5, 0.6, 0.8, 0.9, 1.2, 1.5, 1.8],
-    [50, 0.4, 0.5, 0.6, 0.8, 1, 1.1, 1.5, 2, 2.3],
-    [63, 0.5, 0.7, 0.8, 1, 1.2, 1.4, 1.8, 2.4, 2.8],
-    [80, 0.6, 0.8, 0.9, 1.2, 1.5, 1.7, 2.3, 3, 3.5],
-    [100, 0.7, 1, 1.1, 1.4, 1.9, 2.2, 2.8, 3.7, 4.4],
-    [125, 0.9, 1.2, 1.4, 1.8, 2.3, 2.7, 3.5, 4.6, 5.4],
-    [160, 1.2, 1.5, 1.7, 2.1, 2.9, 3.3, 4.2, 5.7, 6.6],
-    [200, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-  ];  */
-
-   
+ 
   useEffect(() => {
     let extremo1 = type1
     let extremo2 = type2
@@ -435,120 +319,7 @@ const [carrera, setCarrera] = useState({
     })
   }, [type1, type2])
 
- /* useEffect(() => {
-    setData2({...data2,
-      C : ((data.Dext-data.d)/data.d).toFixed(2),
-      Dmedio: (data.Dext - data.d), Rel_d1 : ((data.Dint1 + data.d)/(data.Dext - data.d)).toFixed(2),
-      Rel_d2: ((data.Dint2 + data.d)/(data.Dext - data.d)).toFixed(2)})
-
-  }, [data.d, data.Dext, data.Dint1, data.Dint2])
-
-
-  useEffect(() => {
-    setData2({...data2, Vt_red_VT : ((data.Vtas1+data.Vtas2)/data.N).toFixed(2) }) 
-
-  }, [data.Vtas1, data.Vtas2, data.N]) */
-
- /* useEffect(() => {
-  setData3({...data3, LDA : Math.round((data.Dext-data.d)*data.N*3.14),  Dmedio: (data.Dext - data.d)})
-  }, [data.d, data.Dext, data.N])
-
-  useEffect(() => {
-    setData3({...data3, Peso : (Math.pow(data.d/12.7,2)*(data3.LDA+data3.LDA_adic)/1000).toFixed(2)}) 
-  }, [data3.LDA, data3.LDA_adic])  */
-
-  
-
-  /*
-  //calculo de la rigidez, fuerza y deformacion, mas la tolerancias
-  useEffect(() => {
-   //const C = Number(((Number(data.Dext)-Number(data.d))/Number(data.d)).toFixed(2));
-   const nvtas1 = 0.875;    //primera linea contando desde abajo por arriba (empieza con luz menor)
-   const nvtas2 = 0.875;  
-   const nvtas3 = Number(data.N) - (nvtas1 + nvtas2);  // Vueltas del cuerpo
-   
-   const long1 = Number(((Number(data.Luz2) + Number(data.d))*nvtas1).toFixed(1));
-   const long2 = Number(((Number(data.Luz1) + Number(data.d))*nvtas2).toFixed(1));
-   const long3 = Number((Number(data.L0) - (long1+long2)- Number(data.d)).toFixed(1));
-   
-   const paso1 = Number((long1/nvtas1).toFixed(2));
-   const paso2 = Number((long2/nvtas2).toFixed(2));
-   const paso3 = Number((long3/nvtas3).toFixed(2));
-
-   const rigidez1 = 1/((78500*Math.pow(Number(data.d),4))/(8*Math.pow(Number(data2.Dmedio),3)*Number(nvtas1))); // N/mm
-   const rigidez2 = 1/((78500*Math.pow(Number(data.d),4))/(8*Math.pow(Number(data2.Dmedio),3)*Number(nvtas2)));
-   const rigidez3 = 1/((78500*Math.pow(Number(data.d),4))/(8*Math.pow(Number(data2.Dmedio),3)*Number(nvtas3)));
-
-   const Keq1 = Number((1/(rigidez1+rigidez2+rigidez3)).toFixed(2));
-   const Keq2 = Number((1/(rigidez2+rigidez3)).toFixed(2));
-   const Keq3 = Number((1/rigidez3).toFixed(2));
-
-   const Xc1 = Number(((paso1-Number(data.d))*Number(data.N)).toFixed(1));
-   const Xc2 = Number(((paso2-Number(data.d))*(Number(data.N)-nvtas1)+(paso1*nvtas1)-nvtas1*Number(data.d)).toFixed(1));
-   const Xc3 = Number(((paso3-Number(data.d))*(Number(data.N)-(nvtas1+nvtas2))+(paso1*nvtas1+paso2*nvtas2)-(nvtas1+nvtas2)*Number(data.d)).toFixed(1));
-
-   const b1 = 0;
-   const b2 = Number(((Keq1-Keq2)*Xc1+b1).toFixed(1));
-   const b3 = Number(((Keq2-Keq3)*Xc2+b2).toFixed(1));
-      
-   const Fc1 = Number(((Keq1*Xc1+b1)/9.81).toFixed(1));
-   const Fc2 = Number(((Keq2*Xc2+b2)/9.81).toFixed(1));
-   const Fc3 = Number(((Keq3*Xc3+b3)/9.81).toFixed(1));
-
-
-    setFilas({...filas,
-      
-      nvtas1: nvtas1,
-      nvtas2: nvtas2,
-      nvtas3: nvtas3,
-      long1: long1,
-      long2: long2, 
-      long3: long3,
-      paso1: paso1,
-      paso2: paso2,
-      paso3: paso3,
-      // rigidez1: rigidez1,
-      // rigidez2: rigidez2,
-      // rigidez3: rigidez3,
-      Keq1: Keq1,
-      Keq2: Keq2,
-      Keq3: Keq3,
-      Xc1: Xc1,
-      Xc2: Xc2,
-      Xc3: Xc3,
-      b1: b1,
-      b2: b2,
-      b3: b3,
-      Fc1: Fc1,
-      Fc2: Fc2,
-      Fc3: Fc3,
-          
-    })
-
-    let Q_Long=0
-    if(grado==1){
-      Q_Long=0.63
-    }else if(grado==2){
-      Q_Long=1
-    }else {
-      Q_Long=1.6
-    }
-    
-    let af = 65.92*Math.pow(Number(data.d),3.3)/Math.pow(data2.Dmedio,1.6)*(-0.84*Math.pow(0.1*data2.C,3)+3.781*Math.pow(0.1*data2.C,2)-4.244*(0.1*data2.C)+2.274);
-    
-    let kf = -1/(3*Math.pow((Number(data.N)-1.75),2))+8/(5*(Number(data.N)-1.75))+0.803;
-    
-    let toler=(kf*af*Q_Long/Keq3).toFixed(1);
-
-    
-    let tolerancia = TablaToler()
-    setTablaToler({...tablaToler,
-      valor: tolerancia
-    })
-
-   setCoef({...coef, toler_L0: toler })
-  }, [grado])  */
-
+ 
   //Renee-Inicio-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   const addRow = () => {
@@ -745,55 +516,6 @@ const [carrera, setCarrera] = useState({
 
   //Renee-Fin-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  /*//Funcion para busqueda de tolerancia para Dext
-  function TablaToler(){
-  const dmedio = (data.Dext - data.d)
-  if(dmedio === "" || dmedio <= 0) return -1;
-  const linea = tolerDiam.findIndex((_rango, indice, arreglo)=>{
-      return Number(dmedio)>=arreglo[indice][0] && Number(dmedio)<=arreglo[indice+1][0]
-    });
-  //console.log(linea);
-
-  let C = ((data.Dext-data.d)/data.d).toFixed(2)
-  let tolerBuscada=0;
-  switch(grado){
-  case "1":
-    console.log("case1")
-    if(C>=4 && C<8){
-        tolerBuscada=tolerDiam[linea][1];
-    }else if(C>=8 && C<=14){
-        tolerBuscada=tolerDiam[linea][2];
-    }else{
-        tolerBuscada=tolerDiam[linea][3];
-    }
-    break;
-  case "2":
-    console.log("case2")
-    if(C>=4 && C<8){
-      tolerBuscada=tolerDiam[linea][4];
-    }else if(C>=8 && C<=14){
-      tolerBuscada=tolerDiam[linea][5];
-    }else{
-      tolerBuscada=tolerDiam[linea][6];
-    }
-    break;
-  case "3":
-    console.log("case3")
-    if(C>=4 && C<8){
-      tolerBuscada=tolerDiam[linea][7];
-    }else if(C>=8 && C<=14){
-      tolerBuscada=tolerDiam[linea][8];
-    }else{
-    tolerBuscada=tolerDiam[linea][9];
-    }
-    break;
-  default:
-    console.log("No entro a ninguno")
- }
- //console.log(tolerBuscada);
- return tolerBuscada
-}  */
-
   useEffect(() => {
     
     let Lbloq=0;
@@ -915,11 +637,7 @@ const [carrera, setCarrera] = useState({
     e.preventDefault();
     console.log(data)
   }
-  /*function handleSimulacion(e){
-    setData1({...data1, [e.target.id]:e.target.value})
-    console.log(data1)
-  }  */
-  
+    
   function handlePrincipal(e){
     WeightTolerance.setData3({...WeightTolerance.data3, [e.target.id]:e.target.value})
     console.log(WeightTolerance.data3)
@@ -929,17 +647,6 @@ const [carrera, setCarrera] = useState({
     setValuetab({...valuetab, [e.target.id]:e.target.value});
   }
  
-
-  /*const [boolSwitch,setBoolSwitch] = useState(false)
-  function handleChange(){
-    if (boolSwitch){
-       setData3({...data3, LDA_adic: 200})
-    }else{
-        setData3({...data3, LDA_adic: 400})
-    }
-    setBoolSwitch(!boolSwitch)
-    
-  }  */
     
   return (
    <div className="App" style={{backgroundColor:"black", display:"flex"}}>
@@ -1027,174 +734,24 @@ const [carrera, setCarrera] = useState({
       </Form>
 
       <SimulationData/>
-      {/* <DivSimul>
-        <div style={{display: "flex",}}>
-          <Paragraph>Datos de simulacion</Paragraph>
-          <Paragraph></Paragraph>
-          <Paragraph>nodos</Paragraph>
-        </div>
       
-        <Div style={{width:138}}>
-          
-          <Select style={{color: "white",borderRadius:8,}} id={"Mater"} onChange={(e) => setMater(e.target.value)}>
-          
-            <option style={{color: "#EE7272"}}>Mater</option>
-            <option value="SHI-165">SHI-165</option>
-            <option value="SHI-180">SHI-180</option>
-            <option value="CRSI SAE 9254(REC)">CRSI SAE 9254(REC)</option>
-            <option value="CRSI SAE 9254">CRSI SAE 9254</option>
-            <option value="CRMN SAE 5160">CRMN SAE 5160</option>
-            <option value="ACC">ACC</option>
-            <option value="HS3 GALV">HS3 GALV</option>
-            <option value="BCC CAL.8-14">BCC CAL.8-14</option>
-            <option value="CP DSR">CP DSR</option>
-            <option value="CP-DEINFRA">CP-DEINFRA</option>
-            <option value="FDSICR (DSR)">FDSICR (DSR)</option>
-            <option value="FTO">FTO</option>
-            <option value="FTO-TWO (DSR)">FTO-TWO (DSR)</option>
-            <option value="HD C-DSR">HD C-DSR</option>
-            <option value="HD CLASE B">HD CLASE B</option>
-            <option value="HD CLASE C">HD CLASE C</option>
-            <option value="INOX CLASE A-DSR">INOX A-DSR</option>
-            <option value="INOX CLASE B-DSR">INOX B-DSR</option>
-            <option value="INOX SANDVIK">INOX SANDVIK</option>
-                          
-          </Select>
-        </Div>
-        
-        <Div style={{marginLeft: 0}}>
-          <Label style={{color: "#EE7272"}}>x</Label>
-          <Input  value={data1.x} id={"x"} onChange={(e) => handleSimulacion(e)}/>
-        </Div>
-        
-        <Div>
-          <Label style={{color: "#EE7272"}}>grado</Label>
-          <Input  value={data1.grado} id={"grado"} onChange={(e) => handleSimulacion(e)}/>
-        </Div>
-        <div style={{display: "flex",columnGap:12,width:"100%",justifyContent:"flex-end", marginRight: 8}}>
-          <Button>Simular</Button>
-          <Button onClick={handleButtonCalcular}>Calcular</Button>
-        </div>
-                                
-      </DivSimul>   */}
 
       <CalcParam diam={data.d} 
-                            diamext1={data.Dext}
-                            diamint1={data.Dint1}
-                            diamint2={data.Dint2}
-                            vred1={data.Vtas1}
-                            vred2={data.Vtas2}
-                            numvts={data.N}
-                            longitud={data.L0}
-                            luz1={data.Luz1}
-                            luz2={data.Luz2}/>
+            diamext1={data.Dext}
+            diamint1={data.Dint1}
+            diamint2={data.Dint2}
+            vred1={data.Vtas1}
+            vred2={data.Vtas2}
+            numvts={data.N}
+            longitud={data.L0}
+            luz1={data.Luz1}
+            luz2={data.Luz2}/>
 
-      {/* <DivSimul>
-      <Paragraph style={{width: 480}}>Parametros calculados</Paragraph>
-      <Div>
-          <Label>C</Label>              
-          <DivCalculo id={"C"}> {data2.C} </DivCalculo>
-      </Div>
-      <Div>
-          <Label>D medio</Label>
-          <DivCalculo id={"Dmedio"}> {data2.Dmedio} </DivCalculo>
-      </Div>
-      <Div>
-          <Label>f</Label>
-          <DivCalculo id={"f"}>{data2.f}</DivCalculo>
-      </Div>
-      <Div>
-          <Label>Rel.d1</Label>
-          <DivCalculo id={"Rel.d1"}>{data2.Rel_d1}</DivCalculo>
-      </Div>
-      <Div>
-          <Label>Rel.d2</Label>
-          <DivCalculo id={"Rel.d2"}>{data2.Rel_d2}</DivCalculo>
-      </Div>
-      <Div>
-          <Label>Vt.red/VT</Label>
-          <DivCalculo id={"Vt.red/VT"}>{data2.Vt_red_VT}</DivCalculo>
-      </Div>
-      </DivSimul> */}
-      
+           
       <WeightTolerance/>
-      {/* <DivSimul style={{marginBottom:10,}}>
-          <div style={{display: "flex",}}>
-            <Paragraph style={{marginTop:9}}>Datos principales</Paragraph>
-            <Paragraph style={{marginTop:4}}>Maq.Auto<Switch onChange= {handleChange} size="small"/>Torno</Paragraph>
-            <Paragraph></Paragraph>
-          </div>
-          <Div>
-            <Label>LDA</Label>
-            <DivCalculo id={"LDA"}>{data3.LDA}</DivCalculo>
-          </Div> 
-          <Div>
-            <Label>LDA adic</Label>
-            <DivCalculo  id={"LDA adic"}>{data3.LDA_adic}</DivCalculo> {/* condicional 
-          </Div>
-          <Div>
-            <Label>Peso</Label>
-            <DivCalculo id={"Peso"}>{data3.Peso}</DivCalculo>
-          </Div>
-          <div>
-            <Paragraph style={{width: 480}}>Grado tolerancias</Paragraph>
-            
-          </div>    
-          <Div>
-            <Label>Grado</Label>
-            <Select value={grado} id={"grado"} onChange={(e) => setGrado(e.target.value)}>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-            </Select>
-          </Div>
-
-          <Div>
-            <Label>Dext={data.Dext}</Label>
-            <DivCalculo>±{tablaToler.valor}</DivCalculo>
-          </Div>
-          
-          <Div>
-            <Label>L0={data.L0} </Label>
-            <DivCalculo id={"toler_L0"}>±{coef.toler_L0}</DivCalculo>
-          </Div>
-      </DivSimul> */}
-
+      
       <Textarea/>
-      {/* <div>  
-        <Paragraph style={{width: 480}}>Descripcion</Paragraph>
-        <div style={{
-          
-                      width: 444, 
-                      height: 100, 
-                      margin:14,
-                      marginBottom: 0, 
-                      border:"2px solid grey",
-                      borderBottom: "1px solid grey",
-                      borderColor:"grey",
-                      backgroundColor:"black",
-                      color:"grey",
-                      fontFamily:"ABeeZee",
-                      fontSize: 16,
-                      padding:10,
-
-                    }} placeholder="Descripcion"></div>
-
-          <textarea style={{
-                      width: 444,
-                      height: 20,
-                      marginLeft:14,
-                      marginTop: 0,
-                      border:"2px solid grey",
-                      borderTop:"1px solid grey",
-                      backgroundColor:"black",
-                      color:"grey",
-                      fontFamily:"ABeeZee",
-                      fontSize: 12,
-                      padding:10,
-                      }}placeholder="Datos adicionales"></textarea>    
-      </div> */}
-
+      
       <DivSimul>
         <Paragraph style={{width: 480}}>Calculos teoricos</Paragraph>
         <Div>
@@ -1322,7 +879,7 @@ const [carrera, setCarrera] = useState({
                   <Td></Td>
                   <Td></Td>
                 </tr>
-            </Table2>
+          </Table2>
         </div>  
 
         <DivSimul> 
