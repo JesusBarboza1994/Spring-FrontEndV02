@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import "@fontsource/abeezee/400-italic.css";
 import { useAuth } from "../context/auth-context";
+import { isNullLiteral } from "@babel/types";
 
 export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,longitud,luz1,luz2}){
  const DivSimul = styled.div`
@@ -13,7 +14,9 @@ export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,lo
         margin-bottom:30px;
         margin-top: 10px;
         width: 480px;
-        background-color: #9656fc64;         
+        //background-color: #9656fc64;  
+        background-color:#5B5B5B;
+        border-radius:8px;        
     `
   const Paragraph = styled.p`
         block-size:1px;
@@ -71,16 +74,18 @@ export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,lo
     useEffect(() => {
      setData2({...data2,
         C : ((diamext1-diam)/diam).toFixed(2),
-        Dmedio: (diamext1 - diam), Rel_d1 : ((diamint1 + diam)/(diamext1 - diam)).toFixed(2),
-        Rel_d2: ((diamint2 + diam)/(diamext1 - diam)).toFixed(2)})
+        Dmedio: (diamext1 - diam), 
+        Rel_d1 : ((diamint1 + diam)/(diamext1 - diam)).toFixed(2),
+        Rel_d2: ((diamint2 + diam)/(diamext1 - diam)).toFixed(2),
+        Vt_red_VT : ((vred1+vred2)/numvts).toFixed(2)})
 
-    }, [diam, diamext1, diamint1, diamint2])
+    }, [diam, diamext1, diamint1, diamint2, vred1, vred2, numvts])
 
 
-    useEffect(() => {
-     setData2({...data2, Vt_red_VT : ((vred1+vred2)/numvts).toFixed(2) }) 
+    // useEffect(() => {
+    //  setData2({...data2, Vt_red_VT : ((vred1+vred2)/numvts).toFixed(2) }) 
 
-    }, [vred1, vred2, numvts])
+    // }, [vred1, vred2, numvts])
 
     const {filas, setFilas, data2, setData2} = useAuth();
 
@@ -180,35 +185,30 @@ export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,lo
       <Div>
           <Label>C</Label>  
                    
-          <DivCalculo id={"C"}> {data2.C} </DivCalculo>
+          <DivCalculo id={"C"}> {(!isNaN(data2.C) && Number.isFinite(data2.C) ) === true ? (data2.C).toFixed(2) : ""} </DivCalculo>
       </Div>
       <Div>
           <Label>D medio</Label>
-          <DivCalculo id={"Dmedio"}> {data2.Dmedio} </DivCalculo>
+          <DivCalculo id={"Dmedio"}> {(!isNaN(data2.Dmedio) && Number.isFinite(data2.Dmedio) && isNullLiteral(data2.Dmedio)) === true ? (data2.Dmedio).toFixed(1) : ""} </DivCalculo>
       </Div>
       <Div>
           <Label>f</Label>
-          <DivCalculo id={"f"}>{data2.f}</DivCalculo>
+          <DivCalculo id={"f"}>{(!isNaN(data2.f) && Number.isFinite(data2.f) ) === true ? (data2.f).toFixed(1) : ""}</DivCalculo>
       </Div>
       <Div>
           <Label>Rel.d1</Label>
-          <DivCalculo id={"Rel.d1"}>{data2.Rel_d1}</DivCalculo>
+          <DivCalculo id={"Rel.d1"}>{(!isNaN(data2.Rel_d1) && Number.isFinite(data2.Rel_d1) ) === true ? (data2.Rel_d1).toFixed(1) : ""}</DivCalculo>
       </Div>
       <Div>
           <Label>Rel.d2</Label>
-          <DivCalculo id={"Rel.d2"}>{data2.Rel_d2}</DivCalculo>
+          <DivCalculo id={"Rel.d2"}>{(!isNaN(data2.Rel_d2) && Number.isFinite(data2.Rel_d2) ) === true ? (data2.Rel_d2).toFixed(1) : ""}</DivCalculo>
       </Div>
       <Div>
           <Label>Vt.red/VT</Label>
-          <DivCalculo id={"Vt.red/VT"}>{data2.Vt_red_VT}</DivCalculo>
+          <DivCalculo id={"Vt.red/VT"}>{(!isNaN(data2.Vt_red_VT) && Number.isFinite(data2.Vt_red_VT) ) === true ? (data2.Vt_red_VT).toFixed(1) : ""}</DivCalculo>
       </Div>
 
-      {/* <Div>
-          <Label>diam</Label>  
-                   
-          <DivCalculo id={"C"}> {diam} </DivCalculo>
-      </Div> */}
-
+      
       </DivSimul> 
 
       

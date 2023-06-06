@@ -18,7 +18,7 @@ const Form = styled.form`
   gap:6px;
   
   width: 480px;
-  background: #9656fc64;
+  //background: #9656fc64;
   color:white;
 `
 const Div = styled.div`
@@ -74,7 +74,9 @@ const DivSimul = styled.div`
   margin-bottom:30px;
   margin-top: 10px;
   width: 480px;
-  background-color: #9656fc64;         
+  //background-color: #9656fc64;  
+  background-color:#5B5B5B;
+  border-radius:8px;        
 `
 const Paragraph = styled.p`
   block-size:1px;
@@ -160,7 +162,7 @@ function App() {
 
   const [data3, setData3] = useState({
     LDA:"",      
-    LDA_adic:200,         
+    LDA_adic:"",         
     Peso:"",
     Dmedio:"",    
   })

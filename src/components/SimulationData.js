@@ -14,7 +14,9 @@ export function SimulationData(){
     margin-bottom:30px;
     margin-top: 10px;
     width: 480px;
-    background-color: #9656fc64;         
+    //background-color: #9656fc64;   
+    background-color:#5B5B5B;
+    border-radius:8px;      
   `
  const Paragraph = styled.p`
     block-size:1px;
