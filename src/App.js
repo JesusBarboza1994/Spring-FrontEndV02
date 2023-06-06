@@ -2,10 +2,10 @@ import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import "@fontsource/abeezee/400-italic.css";
 
-import { SimulationData } from "./componentes/SimulationData";
-import { CalcParam } from "./componentes/CalculatedParameters";
-import { WeightTolerance } from "./componentes/WeightTolerance";
-import { Textarea } from "./componentes/Textarea";
+import { SimulationData } from "./components/SimulationData";
+import { CalcParam } from "./components/CalculatedParameters";
+import { WeightTolerance } from "./components/WeightTolerance";
+import { Textarea } from "./components/Textarea";
 import { Switch, breadcrumbsClasses } from "@mui/material";
 import ProcessTable from "./components/processTable";
 import TablaControlDeCargas from "./components/tablaControlDeCargas";
@@ -158,22 +158,6 @@ const Select = styled.select`
 
 function App() {
 
-  const [data1, setData1] = useState({
-    Mater:"",      
-    x:"",         //deformacion
-    grado:"",        
-  })
-
-  const [data2, setData2] = useState({
-    C: "",      
-    Dmedio:"",         
-    f:"",      
-    Rel_d1:"",      
-    Rel_d2:"",         
-    Vt_red_VT:"",      
-
-  })
-
   const [data3, setData3] = useState({
     LDA:"",      
     LDA_adic:200,         
@@ -181,7 +165,7 @@ function App() {
     Dmedio:"",    
   })
 
-  const {filas, setFilas, data1, setData1, data, setData, data2, setData2} = useAuth();
+  //const {filas, setFilas, data1, setData1, data, setData, data2, setData2} = useAuth();
     
   const [data4, setData4] = useState({
     K:"",      
@@ -191,7 +175,7 @@ function App() {
 
   //Renee-Inicio-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  const {data, setData, processTableStage1, setProcessTableStage1, processTableStage2, setProcessTableStage2, controlCargas, setControlCargas, kControlCargas, setKControlCargas, bControlCargas, setBControlCargas} = useAuth();
+  const {filas, setFilas, data1, setData1, data, setData, data2, setData2, processTableStage1, setProcessTableStage1, processTableStage2, setProcessTableStage2, controlCargas, setControlCargas, kControlCargas, setKControlCargas, bControlCargas, setBControlCargas} = useAuth();
 
   const [puntosCCGrafica, setPuntosCCGrafica] = useState([
     { x: 0, y: 0},
@@ -242,27 +226,6 @@ function App() {
     Q_Long : 0,
     toler_L0: 0,
   });
-
-  const [filas, setFilas] = useState({ 
-    nvtas1: "",
-    nvtas2: "",
-    nvtas3: "",
-    long1: "",
-    long2: "", 
-    long3: "",
-    paso1: "",
-    paso2: "",
-    paso3: "",
-    Keq1: "",
-    Keq2: "",
-    Keq3: "",
-    Xc1: "",
-    Xc2: "",
-    Xc3: "",
-    Fc1: "",
-    Fc2: "",
-    Fc3: "",
-  });
  
   const [valuetab, setValuetab] = useState({
   Linst: 0,
@@ -270,34 +233,6 @@ function App() {
   Lmax: 0,
   L4: 0,
   Lbloqueo: 0
-  });
-
-  const [carrera, setCarrera] = useState({
-  carrCarga: "",
-  carrMax: "",
-  carrL4: "",
-  carrLc: "",
-  s1: "",
-  s2: "",
-  s3: "",
-  s4: "",
-  sc: "",
-  Finst: "",
-  Fcarg: "",
-  Fmax: "",
-  F4: "",
-  TauK1: "",
-  TauK2: "",
-  TauK3: "",
-  TauK4: "",
-  TauKC: "",
-  Compres1: "",
-  Compres2: "",
-  Compres3: "",
-  Compres4: "",
-})
-
-
   });
 
   const [carrera, setCarrera] = useState({
@@ -358,146 +293,6 @@ function App() {
   useEffect(() => {
     setData3({...data3, Peso : (Math.pow(data.d/12.7,2)*data3.LDA/1000).toFixed(2)}) 
   }, [data.d, data3.LDA])
-
-  //calculo de la rigidez, fuerza y deformacion, mas la tolerancias
-  useEffect(() => {
-   //const C = Number(((Number(data.Dext)-Number(data.d))/Number(data.d)).toFixed(2));
-   /*const nvtas1 = 0.875;    //primera linea contando desde abajo por arriba (empieza con luz menor)
-   const nvtas2 = 0.875;  
-   const nvtas3 = Number(data.N) - (nvtas1 + nvtas2);  // Vueltas del cuerpo
-   
-   const long1 = Number(((Number(data.Luz2) + Number(data.d))*nvtas1).toFixed(1));
-   const long2 = Number(((Number(data.Luz1) + Number(data.d))*nvtas2).toFixed(1));
-   const long3 = Number((Number(data.L0) - (long1+long2)- Number(data.d)).toFixed(1));
-   
-   const paso1 = Number((long1/nvtas1).toFixed(2));
-   const paso2 = Number((long2/nvtas2).toFixed(2));
-   const paso3 = Number((long3/nvtas3).toFixed(2));
-
-   const rigidez1 = 1/((78500*Math.pow(Number(data.d),4))/(8*Math.pow(Number(data2.Dmedio),3)*Number(nvtas1))); // N/mm
-   const rigidez2 = 1/((78500*Math.pow(Number(data.d),4))/(8*Math.pow(Number(data2.Dmedio),3)*Number(nvtas2)));
-   const rigidez3 = 1/((78500*Math.pow(Number(data.d),4))/(8*Math.pow(Number(data2.Dmedio),3)*Number(nvtas3)));
-
-   const Keq1 = Number((1/(rigidez1+rigidez2+rigidez3)).toFixed(2));
-   const Keq2 = Number((1/(rigidez2+rigidez3)).toFixed(2));
-   const Keq3 = Number((1/rigidez3).toFixed(2));
-
-   const Xc1 = Number(((paso1-Number(data.d))*Number(data.N)).toFixed(1));
-   const Xc2 = Number(((paso2-Number(data.d))*(Number(data.N)-nvtas1)+(paso1*nvtas1)-nvtas1*Number(data.d)).toFixed(1));
-   const Xc3 = Number(((paso3-Number(data.d))*(Number(data.N)-(nvtas1+nvtas2))+(paso1*nvtas1+paso2*nvtas2)-(nvtas1+nvtas2)*Number(data.d)).toFixed(1));
-
-   const b1 = 0;
-   const b2 = Number(((Keq1-Keq2)*Xc1+b1).toFixed(1));
-   const b3 = Number(((Keq2-Keq3)*Xc2+b2).toFixed(1));
-      
-   const Fc1 = Number(((Keq1*Xc1+b1)/9.81).toFixed(1));
-   const Fc2 = Number(((Keq2*Xc2+b2)/9.81).toFixed(1));
-   const Fc3 = Number(((Keq3*Xc3+b3)/9.81).toFixed(1));
-
-
-    setFilas({...filas,
-      
-      nvtas1: nvtas1,
-      nvtas2: nvtas2,
-      nvtas3: nvtas3,
-      long1: long1,
-      long2: long2, 
-      long3: long3,
-      paso1: paso1,
-      paso2: paso2,
-      paso3: paso3,
-      // rigidez1: rigidez1,
-      // rigidez2: rigidez2,
-      // rigidez3: rigidez3,
-      Keq1: Keq1,
-      Keq2: Keq2,
-      Keq3: Keq3,
-      Xc1: Xc1,
-      Xc2: Xc2,
-      Xc3: Xc3,
-      b1: b1,
-      b2: b2,
-      b3: b3,
-      Fc1: Fc1,
-      Fc2: Fc2,
-      Fc3: Fc3,
-          
-     })*/
-
-    let Q_Long=0
-    if(grado==1){
-      Q_Long=0.63
-    }else if(grado==2){
-      Q_Long=1
-    }else {
-      Q_Long=1.6
-    }
-    
-    let af = 65.92*Math.pow(Number(data.d),3.3)/Math.pow(data2.Dmedio,1.6)*(-0.84*Math.pow(0.1*data2.C,3)+3.781*Math.pow(0.1*data2.C,2)-4.244*(0.1*data2.C)+2.274);
-    console.log("af")
-    console.log(af)
-    
-    let kf = -1/(3*Math.pow((Number(data.N)-1.75),2))+8/(5*(Number(data.N)-1.75))+0.803;
-    console.log("kf")
-    console.log(kf)
-    
-    let toler=(kf*af*Q_Long/Number(processTableStage2[2].Keq)).toFixed(1);
-
-    let tolerancia = TablaToler()
-    setTablaToler({...tablaToler,
-      valor: tolerancia
-    })
-
-   setCoef({...coef, toler_L0: toler })
-  }, [grado, processTableStage2])
-
-  //Funcion para busqueda de tolerancia para Dext
-  function TablaToler(){
-    const dmedio = (data.Dext - data.d)
-    if(dmedio === "" || dmedio <= 0) return -1;
-    const linea = tolerDiam.findIndex((_rango, indice, arreglo)=>{
-      return Number(dmedio)>=arreglo[indice][0] && Number(dmedio)<=arreglo[indice+1][0]
-    });
-    //console.log(linea);
-
-    let C = ((data.Dext-data.d)/data.d).toFixed(2)
-    let tolerBuscada=0;
-    switch(grado){
-      case "1":
-        console.log("case1")
-        if(C>=4 && C<8){
-            tolerBuscada=tolerDiam[linea][1];
-        }else if(C>=8 && C<=14){
-            tolerBuscada=tolerDiam[linea][2];
-        }else{
-            tolerBuscada=tolerDiam[linea][3];
-        }
-        break;
-      case "2":
-        console.log("case2")
-        if(C>=4 && C<8){
-          tolerBuscada=tolerDiam[linea][4];
-        }else if(C>=8 && C<=14){
-          tolerBuscada=tolerDiam[linea][5];
-        }else{
-          tolerBuscada=tolerDiam[linea][6];
-        }
-        break;
-      case "3":
-        console.log("case3")
-        if(C>=4 && C<8){
-          tolerBuscada=tolerDiam[linea][7];
-        }else if(C>=8 && C<=14){
-          tolerBuscada=tolerDiam[linea][8];
-        }else{
-        tolerBuscada=tolerDiam[linea][9];
-        }
-        break;
-      default:
-        console.log("No entro a ninguno")
-    }
-    return tolerBuscada
-  }
 
   useEffect(() => {
     let Lbloq=0;
@@ -666,29 +461,12 @@ function App() {
     e.preventDefault();
     console.log(data)
   }
-
-  function handleSimulacion(e){
-    setData1({...data1, [e.target.id]:e.target.value})
-    console.log(data1)
-  } 
-
   function handlePrincipal(e){
     WeightTolerance.setData3({...WeightTolerance.data3, [e.target.id]:e.target.value})
     console.log(WeightTolerance.data3)
   }
   function handleTab(e){
     setValuetab({...valuetab, [e.target.id]:e.target.value});
-  }
-
-  const [boolSwitch,setBoolSwitch] = useState(false)
-  function handleChange(){
-    if (boolSwitch){
-       setData3({...data3, LDA_adic: 200})
-    }else{
-        setData3({...data3, LDA_adic: 400})
-    }
-    setBoolSwitch(!boolSwitch)
-    
   }
 
   return (
@@ -775,7 +553,6 @@ function App() {
       </Form>
 
       <SimulationData/>
-      
 
       <CalcParam diam={data.d} 
             diamext1={data.Dext}
@@ -787,8 +564,7 @@ function App() {
             longitud={data.L0}
             luz1={data.Luz1}
             luz2={data.Luz2}/>
-
-           
+       
       <WeightTolerance/>
       
       <Textarea/>
@@ -812,74 +588,73 @@ function App() {
       </DivSimul>
     </div>
 
-    
     <div style={{backgroundColor:"black", display:"flex", columnGap:50, marginTop:28, marginLeft: 28,}}>
-     <div>
-      <Table1>
-        <tr style={{backgroundColor: "#5B5B5B", color:"white",}}>
-          <Th> </Th>
-          <Th>LONGITUD</Th>
-          <Th>CARRERA</Th>
-          <Th>LL-G</Th>
-          <Th>FUERZA</Th>
-          <Th>ESFUERZO</Th>
-          <Th>%COMPRES.</Th>
-        </tr>
-        <tr>
-          <Th2>L instalada</Th2>
-          <Td>
-           <Input8 type="number" value={valuetab.Linst} id={"Linst"}  onChange={(e) => handleTab(e)}/>     
-          </Td>
-          <Td>-</Td>
-          <Td>333</Td>
-          <Td>{carrera.Finst}</Td>
-          <Td>{carrera.TauK1}</Td>
-          <Td>{carrera.Compres1}%</Td>
-        </tr>
-        <tr>
-          <Th2>L carga</Th2>
-          <Td>
-           <Input8 type="number" value={valuetab.Lcarga} id={"Lcarga"}  onChange={(e) => handleTab(e)}/>
-          </Td>
-          <Td>{carrera.carrCarga}</Td>
-          <Td>333</Td>
-          <Td>{carrera.Fcarg}</Td>
-          <Td>{carrera.TauK2}</Td>
-          <Td>{carrera.Compres2}%</Td>
-        </tr>
-        <tr>
-          <Th2>L maxima</Th2>
-          <Td>
-           <Input8 type="number" value={valuetab.Lmax} id={"Lmax"}  onChange={(e) => handleTab(e)}/>
-          </Td>
-          <Td>{carrera.carrMax}</Td>
-          <Td>333</Td>
-          <Td>{carrera.Fmax}</Td>
-          <Td>{carrera.TauK3}</Td>
-          <Td>{carrera.Compres3}%</Td>
-        </tr>
-        <tr>
-          <Th2>L4</Th2>
-          <Td>
-           <Input8 type="number" value={valuetab.L4} id={"L4"}  onChange={(e) => handleTab(e)}/>
-          </Td>
-          <Td>{carrera.carrL4}</Td>
-          <Td>333</Td>
-          <Td>{carrera.F4}</Td>
-          <Td>{carrera.TauK4}</Td>
-          <Td>{carrera.Compres4}%</Td>
-        </tr>
-        <tr>
-          <Th2>L bloqueo</Th2>
-          <Td>{valuetab.Lbloqueo}</Td>
-          <Td>{carrera.carrLc}</Td>
-          <Td>333</Td>
-          <Td>{filas.Fc3}</Td>
-          <Td>{carrera.TauKC}</Td>
-          <Td>100%</Td>
-        </tr>
-      </Table1> 
-     </div>
+      <div>
+        <Table1>
+          <tr style={{backgroundColor: "#5B5B5B", color:"white",}}>
+            <Th> </Th>
+            <Th>LONGITUD</Th>
+            <Th>CARRERA</Th>
+            <Th>LL-G</Th>
+            <Th>FUERZA</Th>
+            <Th>ESFUERZO</Th>
+            <Th>%COMPRES.</Th>
+          </tr>
+          <tr>
+            <Th2>L instalada</Th2>
+            <Td>
+            <Input8 type="number" value={valuetab.Linst} id={"Linst"}  onChange={(e) => handleTab(e)}/>     
+            </Td>
+            <Td>-</Td>
+            <Td>333</Td>
+            <Td>{carrera.Finst}</Td>
+            <Td>{carrera.TauK1}</Td>
+            <Td>{carrera.Compres1}%</Td>
+          </tr>
+          <tr>
+            <Th2>L carga</Th2>
+            <Td>
+            <Input8 type="number" value={valuetab.Lcarga} id={"Lcarga"}  onChange={(e) => handleTab(e)}/>
+            </Td>
+            <Td>{carrera.carrCarga}</Td>
+            <Td>333</Td>
+            <Td>{carrera.Fcarg}</Td>
+            <Td>{carrera.TauK2}</Td>
+            <Td>{carrera.Compres2}%</Td>
+          </tr>
+          <tr>
+            <Th2>L maxima</Th2>
+            <Td>
+            <Input8 type="number" value={valuetab.Lmax} id={"Lmax"}  onChange={(e) => handleTab(e)}/>
+            </Td>
+            <Td>{carrera.carrMax}</Td>
+            <Td>333</Td>
+            <Td>{carrera.Fmax}</Td>
+            <Td>{carrera.TauK3}</Td>
+            <Td>{carrera.Compres3}%</Td>
+          </tr>
+          <tr>
+            <Th2>L4</Th2>
+            <Td>
+            <Input8 type="number" value={valuetab.L4} id={"L4"}  onChange={(e) => handleTab(e)}/>
+            </Td>
+            <Td>{carrera.carrL4}</Td>
+            <Td>333</Td>
+            <Td>{carrera.F4}</Td>
+            <Td>{carrera.TauK4}</Td>
+            <Td>{carrera.Compres4}%</Td>
+          </tr>
+          <tr>
+            <Th2>L bloqueo</Th2>
+            <Td>{valuetab.Lbloqueo}</Td>
+            <Td>{carrera.carrLc}</Td>
+            <Td>333</Td>
+            <Td>{filas.Fc3}</Td>
+            <Td>{carrera.TauKC}</Td>
+            <Td>100%</Td>
+          </tr>
+        </Table1> 
+      </div>
 
       <div>
         <div style={{display:"flex", justifyContent:"center",paddingTop:94,}}>
@@ -921,7 +696,6 @@ function App() {
                 </tr>
           </Table2>
         </div>  
-
         <DivSimul> 
             <Paragraph style={{width: 480}}>Calculos reales</Paragraph>
             <Div>
@@ -942,7 +716,6 @@ function App() {
     <ProcessTable medidasRes={data} extremo1={data.Ext1} extremo2={data.Ext2}/>
     <TablaControlDeCargas L0={data.L0} />
     <TablaCarrera/>
-
     
    </div>   
   );

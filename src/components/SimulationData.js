@@ -80,7 +80,6 @@ const Button = styled.button`
 
   const [mater,setMater] = useState("");
 
-
   function handleSimulacion(e){
     setData1({...data1, [e.target.id]:e.target.value})
     console.log(data1)
