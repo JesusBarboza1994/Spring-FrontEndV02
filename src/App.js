@@ -11,6 +11,7 @@ import ProcessTable from "./components/processTable";
 import TablaControlDeCargas from "./components/tablaControlDeCargas";
 import TablaCarrera from "./components/tablaCarrera";
 import { useAuth } from './context/auth-context';
+import { isNullLiteral } from "@babel/types";
 
 const Form = styled.form`
   display:flex;
@@ -573,19 +574,16 @@ function App() {
       <DivSimul>
         <Paragraph style={{width: 480}}>Calculos teoricos</Paragraph>
         <Div>
-          {
-            console.log(filas)
-          }
             <Label>K</Label>
-            <DivCalculo id={"K"}>{filas.Keq3}</DivCalculo>
+            <DivCalculo id={"K"}>{(!isNaN(filas.Keq3) && Number.isFinite(filas.Keq3) ) === true ? (filas.Keq3).toFixed(2) : ""}</DivCalculo>
         </Div>
         <Div>
             <Label>F</Label>
-            <DivCalculo id={"F"}>{filas.Fc3}</DivCalculo> 
+            <DivCalculo id={"F"}>{(!isNaN(filas.Fc3) && Number.isFinite(filas.Fc3) ) === true ? (filas.Fc3).toFixed(1) : ""}</DivCalculo> 
         </Div>
         <Div>
             <Label>L</Label>
-            <DivCalculo id={"L"}>{filas.Xc3}</DivCalculo>
+            <DivCalculo id={"L"}>{(!isNaN(filas.Xc3) && Number.isFinite(filas.Xc3) && isNullLiteral(filas.Xc3)) === true ? (filas.Xc3).toFixed(1) : ""}</DivCalculo>
         </Div>
       </DivSimul>
     </div>

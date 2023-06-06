@@ -225,7 +225,7 @@ export function WeightTolerance(){
       </Div>
       <Div>
         <Label>Peso</Label>
-        <DivCalculo id={"Peso"}>{(!isNaN(data3.Peso) && Number.isFinite(data3.Peso) ) === true ? (data3.Peso).toFixed(2) : ""}</DivCalculo>
+        <DivCalculo id={"Peso"}>{(!isNaN(data3.Peso)) === true ? (data3.Peso) : ""}</DivCalculo>
       </Div>
       <div>
         <Paragraph style={{width: 480}}>Grado tolerancias</Paragraph>
@@ -241,13 +241,13 @@ export function WeightTolerance(){
       </Div>
 
       <Div>
-        <Label>Dext=  ±{data.Dext}</Label>
-        <DivCalculo>{(!isNaN(tablaToler.valor) && isNullableTypeAnnotation(tablaToler.valor) ) === true ? (tablaToler.valor) : ""}</DivCalculo>
+        <Label>Dext={data.Dext}±</Label>
+        <DivCalculo>{!isNaN(tablaToler.valor) === true ? (tablaToler.valor) : ""}</DivCalculo>
       </Div>
       
       <Div>
-        <Label>L0=  ±{data.L0} </Label>
-        <DivCalculo id={"toler_L0"}>{(!isNaN(coef.toler_L0) && Number.isFinite(coef.toler_L0) ) === true ? (coef.toler_L0) : ""}</DivCalculo>
+        <Label>L0={data.L0}± </Label>
+        <DivCalculo id={"toler_L0"}>{!isNaN(coef.toler_L0) === true ? (coef.toler_L0) : ""}</DivCalculo>
       </Div>
    </DivSimul>
   )
