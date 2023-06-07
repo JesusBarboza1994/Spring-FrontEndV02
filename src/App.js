@@ -122,18 +122,18 @@ const Th = styled.th`
   height: 170px;
   writing-mode: vertical-lr;
   text-orientation: upright;
-  font-size: 14px;
+  font-size: 13px;
   border: 1px solid grey;
   
 `
 const Th2 = styled.th`
   width: 120px;
   text-align: left;
-  font-size: 14px;
+  font-size: 13px;
   letter-spacing: 1px;
-  padding:10px;
+  padding: 10px;
   border: 1px solid grey;
-  color: white;
+  color: grey;
 `
 const Td = styled.td`
   text-align: center;
@@ -499,7 +499,8 @@ function App() {
             <button style={{width:125,
                             height:40,
                             margin:"10px 14px",
-                            borderRadius:8,}}>Enviar</button>
+                            borderRadius:8, 
+                            backgroundColor: "#fc1221c5", color: "white"}}>Enviar</button>
         </div>
 
         <div>
@@ -658,7 +659,7 @@ function App() {
 
       <div>
         <div style={{display:"flex", justifyContent:"center",paddingTop:94,}}>
-          <Table2 >
+          {/* <Table2 >
                 <tr style={{height:30,backgroundColor: "#5B5B5B", color:"white"}}>
                   <th> F </th>
                   <th> L </th>
@@ -694,7 +695,8 @@ function App() {
                   <Td></Td>
                   <Td></Td>
                 </tr>
-          </Table2>
+          </Table2> */}
+          <TablaControlDeCargas L0={data.L0} />
         </div>  
         <DivSimul> 
             <Paragraph style={{width: 480}}>Calculos reales</Paragraph>
@@ -714,8 +716,8 @@ function App() {
       </div>  
     </div> 
     <ProcessTable medidasRes={data} extremo1={data.Ext1} extremo2={data.Ext2}/>
-    <TablaControlDeCargas L0={data.L0} />
-    <TablaCarrera/>
+    
+    {/* <TablaCarrera/> */}
     
    </div>   
   );

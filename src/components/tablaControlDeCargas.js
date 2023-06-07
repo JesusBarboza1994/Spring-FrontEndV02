@@ -5,8 +5,10 @@ import { useAuth } from '../context/auth-context';
 
 const Td = styled.td`
   text-align: center;
-  width: 40px;
+  width: 30px;
   border: 1px solid grey;
+  font-family:"ABeeZee";
+  
 
 `
 const Input = styled.input`
@@ -22,8 +24,10 @@ const Input = styled.input`
 `
 const Th3 = styled.th`
   height: 80px;
-  font-size: 14px;
+  font-size: 13px;
   border: 1px solid grey;
+  font-family:"ABeeZee";
+  
   
 `
 const Button1 = styled.button`
@@ -115,7 +119,7 @@ export default function TablaControlDeCargas(props) {
         <div style={{backgroundColor: "black"}}>
             <table>
                 <thead>
-                    <tr style={{backgroundColor: "#5B5B5B", color:"white"}}>
+                    <tr style={{backgroundColor: "#5B5B5B", color:"white",}}>
                         <Th3>Punto</Th3>
                         <Th3>Fuerza (kg)</Th3>
                         <Th3>Longitud (mm)</Th3>
@@ -136,19 +140,19 @@ export default function TablaControlDeCargas(props) {
                             </Td>
                             <Td>
                                 {
-                                    (!isNaN(defs[indice].Def) && Number.isFinite(defs[indice].Def)) === true ? (defs[indice].Def).toFixed(3) : ""
+                                    (!isNaN(defs[indice].Def) && Number.isFinite(defs[indice].Def)) === true ? (defs[indice].Def).toFixed(1) : ""
                                 }
                             </Td>
                         </tr>
                     ))}
                 </tbody>
                 <tfoot>
-                    <tr>
-                        <td colSpan="3" align="center">
+                    
+                        <div style={{display: "flex", }}  >
                             <Button1 onClick={deleteRow} disabled={puntosCC.length === 3}>Eliminar última fila</Button1>
                             <Button1 onClick={addRow}>Agregar fila</Button1> 
-                        </td>
-                    </tr>
+                        </div>
+                    
                 </tfoot>
             </table>
         </div>
