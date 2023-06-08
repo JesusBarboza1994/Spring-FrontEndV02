@@ -76,8 +76,14 @@ const Button = styled.button`
     color: white;
     
   `
-  const {data1, setData1} = useAuth();
 
+  //NUEVO---------------------------------------------------------------------------------------------------------------------------------------------------------
+  const {data1, setData1, stateButtonCalculateProcessTable, setStateButtonCalculateProcessTable} = useAuth();
+
+  const iniciarFuncion = () => {
+    setStateButtonCalculateProcessTable(true);
+  };
+  //NUEVO----------------------------------------------------------------------------------------------------------------------------------------------------------
   const [mater,setMater] = useState("");
 
   function handleSimulacion(e){
@@ -147,7 +153,7 @@ const Button = styled.button`
         </Div>
         <div style={{display: "flex",columnGap:12,width:"100%",justifyContent:"flex-end", marginRight: 8}}>
           <Button>Simular</Button>
-          <Button>Calcular</Button>
+          <Button onClick={iniciarFuncion}>Calcular</Button>
         </div>
                                 
       </DivSimul>
