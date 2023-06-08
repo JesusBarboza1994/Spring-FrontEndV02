@@ -11,7 +11,7 @@ export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,lo
         flex-wrap: wrap;
         column-gap:8px;
         row-gap:none;
-        margin-bottom:30px;
+        margin-bottom:20px;
         margin-top: 10px;
         width: 480px;
         //background-color: #9656fc64;  
@@ -185,27 +185,27 @@ export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,lo
       <Div>
           <Label>C</Label>  
                    
-          <DivCalculo id={"C"}> {(!isNaN(data2.C) && Number.isFinite(data2.C) ) === true ? (data2.C).toFixed(2) : ""} </DivCalculo>
+          <DivCalculo id={"C"}> {(!isNaN(data2.C) && isNullLiteral(data2.C) ) === true ? (data2.C).toFixed(2) : ""} </DivCalculo>
       </Div>
       <Div>
           <Label>D medio</Label>
-          <DivCalculo id={"Dmedio"}> {(!isNaN(data2.Dmedio) && Number.isFinite(data2.Dmedio) && isNullLiteral(data2.Dmedio)) === true ? (data2.Dmedio).toFixed(1) : ""} </DivCalculo>
+          <DivCalculo id={"Dmedio"}> {(!isNaN(data2.Dmedio) && isNullLiteral(data2.Dmedio)) === true ? (data2.Dmedio).toFixed(1) : ""} </DivCalculo>
       </Div>
       <Div>
           <Label>f</Label>
-          <DivCalculo id={"f"}>{(!isNaN(data2.f) && Number.isFinite(data2.f) ) === true ? (data2.f).toFixed(1) : ""}</DivCalculo>
+          <DivCalculo id={"f"}>{(!isNaN(data2.f) && isNullLiteral(data2.f) ) === true ? (data2.f).toFixed(1) : ""}</DivCalculo>
       </Div>
       <Div>
           <Label>Rel.d1</Label>
-          <DivCalculo id={"Rel.d1"}>{(!isNaN(data2.Rel_d1) && Number.isFinite(data2.Rel_d1) ) === true ? (data2.Rel_d1).toFixed(1) : ""}</DivCalculo>
+          <DivCalculo id={"Rel.d1"}>{(!isNaN(data2.Rel_d1) && isNullLiteral(data2.Rel_d1) ) === true ? (data2.Rel_d1).toFixed(1) : ""}</DivCalculo>
       </Div>
       <Div>
           <Label>Rel.d2</Label>
-          <DivCalculo id={"Rel.d2"}>{(!isNaN(data2.Rel_d2) && Number.isFinite(data2.Rel_d2) ) === true ? (data2.Rel_d2).toFixed(1) : ""}</DivCalculo>
+          <DivCalculo id={"Rel.d2"}>{(!isNaN(data2.Rel_d2) && isNullLiteral(data2.Rel_d2) ) === true ? (data2.Rel_d2).toFixed(1) : ""}</DivCalculo>
       </Div>
       <Div>
           <Label>Vt.red/VT</Label>
-          <DivCalculo id={"Vt.red/VT"}>{(!isNaN(data2.Vt_red_VT) && Number.isFinite(data2.Vt_red_VT) ) === true ? (data2.Vt_red_VT).toFixed(1) : ""}</DivCalculo>
+          <DivCalculo id={"Vt.red/VT"}>{(!isNaN(data2.Vt_red_VT) && isNullLiteral(data2.Vt_red_VT) ) === true ? (data2.Vt_red_VT).toFixed(1) : ""}</DivCalculo>
       </Div>
 
       

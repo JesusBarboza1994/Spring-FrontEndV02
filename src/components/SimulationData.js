@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import "@fontsource/abeezee/400-italic.css";
 import { useAuth } from "../context/auth-context";
+//import { CalculateOrReset3Points } from "./processTable"
 
 export function SimulationData(){
   
@@ -11,7 +12,7 @@ export function SimulationData(){
     flex-wrap: wrap;
     column-gap:8px;
     row-gap:none;
-    margin-bottom:30px;
+    margin-bottom:20px;
     margin-top: 10px;
     width: 480px;
     //background-color: #9656fc64;   

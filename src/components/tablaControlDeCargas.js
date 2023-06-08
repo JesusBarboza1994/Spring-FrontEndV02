@@ -3,13 +3,20 @@ import { useEffect, useState } from "react";
 import "@fontsource/abeezee/400-italic.css";
 import { useAuth } from '../context/auth-context';
 
+const Table2 = styled.table`
+    
+  font-family: "ABeeZee";
+  border: 2px solid grey;
+  border-collapse: collapse;
+  color: grey;
+
+`
+
 const Td = styled.td`
   text-align: center;
-  width: 30px;
+  width: 40px;
   border: 1px solid grey;
-  font-family:"ABeeZee";
-  
-
+    
 `
 const Input = styled.input`
   width:50px;
@@ -23,17 +30,19 @@ const Input = styled.input`
      
 `
 const Th3 = styled.th`
-  height: 80px;
-  font-size: 13px;
+  height: 70px;
+  font-size: 14px;
   border: 1px solid grey;
   font-family:"ABeeZee";
-  
+  letter-spacing: 1px;
+  padding-left: 5px;
+  padding-right:5px;
   
 `
 const Button1 = styled.button`
   width:125px;
   height:40px;
-  margin:10px 14px;
+  margin:10px 12px;
   border-radius:8px;
 `
 
@@ -117,7 +126,7 @@ export default function TablaControlDeCargas(props) {
 
     return(
         <div style={{backgroundColor: "black"}}>
-            <table>
+            <Table2>
                 <thead>
                     <tr style={{backgroundColor: "#5B5B5B", color:"white",}}>
                         <Th3>Punto</Th3>
@@ -128,7 +137,7 @@ export default function TablaControlDeCargas(props) {
                 </thead>
                 <tbody>
                     {puntosCC.map((punto, indice) => (
-                        <tr key={punto.id} style={{color:"white"}}>
+                        <tr key={punto.id} style={{color:"grey"}}>
                             <Td>
                                 {punto.id}
                             </Td>
@@ -146,15 +155,12 @@ export default function TablaControlDeCargas(props) {
                         </tr>
                     ))}
                 </tbody>
-                <tfoot>
-                    
-                        <div style={{display: "flex", }}  >
-                            <Button1 onClick={deleteRow} disabled={puntosCC.length === 3}>Eliminar última fila</Button1>
-                            <Button1 onClick={addRow}>Agregar fila</Button1> 
-                        </div>
-                    
-                </tfoot>
-            </table>
+               
+            </Table2>
+            <div style={{display: "flex"}}  >
+                <Button1 onClick={deleteRow} disabled={puntosCC.length === 3}>Eliminar última fila</Button1>
+                <Button1 onClick={addRow}>Agregar fila</Button1> 
+            </div>
         </div>
     )
   }

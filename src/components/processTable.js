@@ -3,6 +3,16 @@ import { useEffect, useState } from "react";
 import "@fontsource/abeezee/400-italic.css";
 import { useAuth } from '../context/auth-context';
 
+const Table2 = styled.table`
+    
+  font-family: "ABeeZee";
+  border: 2px solid grey;
+  border-collapse: collapse;
+  color: grey;
+  margin-top: 40px;
+
+`
+
 const Td = styled.td`
   text-align: center;
   width: 40px;
@@ -29,9 +39,13 @@ const Input3 = styled.input`
   border:none;
 `
 const Th3 = styled.th`
-  height: 80px;
+  height: 70px;
   font-size: 14px;
   border: 1px solid grey;
+  font-family:"ABeeZee";
+  letter-spacing: 1px;
+  padding-left: 5px;
+  padding-right:5px;
   
 `
 const Th4 = styled.th`
@@ -399,8 +413,8 @@ export default function ProcessTable(props) {
 
     return(
         <div style={{backgroundColor: "black"}}>
-            <Button onClick={CalculateOrReset3Points}>Calcular</Button>
-            <table>
+            {/* <Button onClick={CalculateOrReset3Points}>Calcular</Button> */}
+            <Table2>
                 <thead>
                     <tr style={{backgroundColor: "#5B5B5B", color:"white"}}>
                         <Th3>Punto</Th3>
@@ -411,14 +425,14 @@ export default function ProcessTable(props) {
                         <Th3>Xc (mm)</Th3>
                         <Th3>Fc (kg)</Th3>
                         <Th3>Paso (mm)</Th3>
-                        <Th3>K (N/mm)</Th3>
+                        {/* <Th3>K (N/mm)</Th3>
                         <Th3>K^-1</Th3>
-                        <Th3>b</Th3>
+                        <Th3>b</Th3> */}
                     </tr>
                 </thead>
                 <tbody>
                     {processTableStage1Inv.map((punto, indice) => (
-                        <tr key={punto.id} style={{color:"white"}}>
+                        <tr key={punto.id} style={{color:"grey"}}>
                             <Td>
                                 {punto.id}
                             </Td>
@@ -455,7 +469,7 @@ export default function ProcessTable(props) {
                                     (!isNaN(processTableStage2Inv[indice].Paso) && Number.isFinite(processTableStage2Inv[indice].Paso) && (processTableStage2Inv[indice].Paso !== 0)) === true ? (processTableStage2Inv[indice].Paso).toFixed(2) : ""
                                 }
                             </Td>
-                            <Td>
+                            {/* <Td>
                                 {
                                     (!isNaN(processTableStage2Inv[indice].K) && Number.isFinite(processTableStage2Inv[indice].K) && (processTableStage2Inv[indice].K !== 0)) === true ? (processTableStage2Inv[indice].K).toFixed(3) : ""
                                 }
@@ -469,20 +483,18 @@ export default function ProcessTable(props) {
                                 {
                                     (!isNaN(processTableStage2Inv[indice].b) && Number.isFinite(processTableStage2Inv[indice].b)) === true ? (processTableStage2Inv[indice].b.toFixed(3)) : ""
                                 }
-                            </Td>
+                            </Td> */}
                         </tr>
                     ))}
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <td colSpan="11" align="center">
-                            <Button1 onClick={deleteRow} disabled={processTableStage1.length === 3}>Eliminar última fila</Button1>
-                            <Button1 onClick={addRow}>Agregar fila</Button1> 
-                            <Button1 onClick={orderRow}>Ordenar filas</Button1>
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
+                                         
+                      
+            </Table2>
+            <div style={{display: "flex"}}  >
+              <Button1 onClick={deleteRow} disabled={processTableStage1.length === 3}>Eliminar última fila</Button1>
+              <Button1 onClick={addRow}>Agregar fila</Button1> 
+              <Button1 onClick={orderRow}>Ordenar filas</Button1>  
+            </div>
         </div>
     )
   }

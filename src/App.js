@@ -99,37 +99,41 @@ const Button = styled.button`
 `
 const Table1 = styled.table`
   width: 520px;
-  height:380px;
+  //height:270px;
   font-family: "ABeeZee";
-  border: 2px solid grey;
   border-collapse: collapse;
   color: grey;
-      
+  border: 2px solid grey;
+  //border-radius: 8px;
+          
 `
+
 const Input8 = styled.input`
   width:50px;
   height:18px;
   color:black;
   background-color: #cadefc;
-  margin:5px;
+  margin:8px;
   font-family:"ABeeZee";
   font-size: 13px;
   border-style:inset;
      
 `
 const Th = styled.th`
-  width: 100px;
-  height: 170px;
-  writing-mode: vertical-lr;
-  text-orientation: upright;
-  font-size: 13px;
+  width: 110px;
+  height: 70px;
+  //writing-mode: vertical-lr;
+  //text-orientation: upright;
+  font-size: 14px;
   border: 1px solid grey;
+  letter-spacing: 1px;
+  //border-radius: 8px;
   
 `
 const Th2 = styled.th`
-  width: 120px;
+  width: 150px;
   text-align: left;
-  font-size: 13px;
+  font-size: 14px;
   letter-spacing: 1px;
   padding: 10px;
   border: 1px solid grey;
@@ -139,17 +143,18 @@ const Td = styled.td`
   text-align: center;
   width: 40px;
   border: 1px solid grey;
+  
 
 `
-const Table2 = styled.table`
-  width:210px;
-  height:210px;
-  font-family: "ABeeZee";
-  border: 2px solid grey;
-  border-collapse: collapse;
-  color: grey;
+// const Table2 = styled.table`
+//   width:210px;
+//   height:210px;
+//   font-family: "ABeeZee";
+//   border: 2px solid grey;
+//   border-collapse: collapse;
+//   color: grey;
 
-`
+// `
 const Select = styled.select`
   background-color: black;
   color: white;
@@ -594,12 +599,12 @@ function App() {
         <Table1>
           <tr style={{backgroundColor: "#5B5B5B", color:"white",}}>
             <Th> </Th>
-            <Th>LONGITUD</Th>
-            <Th>CARRERA</Th>
+            <Th>Longitud</Th>
+            <Th>Carrera</Th>
             <Th>LL-G</Th>
-            <Th>FUERZA</Th>
-            <Th>ESFUERZO</Th>
-            <Th>%COMPRES.</Th>
+            <Th>Fuerza</Th>
+            <Th>Esfuerzo</Th>
+            <Th>% Compres.</Th>
           </tr>
           <tr>
             <Th2>L instalada</Th2>
@@ -607,7 +612,7 @@ function App() {
             <Input8 type="number" value={valuetab.Linst} id={"Linst"}  onChange={(e) => handleTab(e)}/>     
             </Td>
             <Td>-</Td>
-            <Td>333</Td>
+            <Td> -- </Td>
             <Td>{carrera.Finst}</Td>
             <Td>{carrera.TauK1}</Td>
             <Td>{carrera.Compres1}%</Td>
@@ -618,7 +623,7 @@ function App() {
             <Input8 type="number" value={valuetab.Lcarga} id={"Lcarga"}  onChange={(e) => handleTab(e)}/>
             </Td>
             <Td>{carrera.carrCarga}</Td>
-            <Td>333</Td>
+            <Td> -- </Td>
             <Td>{carrera.Fcarg}</Td>
             <Td>{carrera.TauK2}</Td>
             <Td>{carrera.Compres2}%</Td>
@@ -629,7 +634,7 @@ function App() {
             <Input8 type="number" value={valuetab.Lmax} id={"Lmax"}  onChange={(e) => handleTab(e)}/>
             </Td>
             <Td>{carrera.carrMax}</Td>
-            <Td>333</Td>
+            <Td> -- </Td>
             <Td>{carrera.Fmax}</Td>
             <Td>{carrera.TauK3}</Td>
             <Td>{carrera.Compres3}%</Td>
@@ -640,7 +645,7 @@ function App() {
             <Input8 type="number" value={valuetab.L4} id={"L4"}  onChange={(e) => handleTab(e)}/>
             </Td>
             <Td>{carrera.carrL4}</Td>
-            <Td>333</Td>
+            <Td> -- </Td>
             <Td>{carrera.F4}</Td>
             <Td>{carrera.TauK4}</Td>
             <Td>{carrera.Compres4}%</Td>
@@ -649,16 +654,18 @@ function App() {
             <Th2>L bloqueo</Th2>
             <Td>{valuetab.Lbloqueo}</Td>
             <Td>{carrera.carrLc}</Td>
-            <Td>333</Td>
+            <Td> -- </Td>
             <Td>{filas.Fc3}</Td>
             <Td>{carrera.TauKC}</Td>
             <Td>100%</Td>
           </tr>
         </Table1> 
+        <ProcessTable medidasRes={data} extremo1={data.Ext1} extremo2={data.Ext2}/>
       </div>
 
       <div>
-        <div style={{display:"flex", justifyContent:"center",paddingTop:94,}}>
+                    
+        <div style={{display:"flex", justifyContent:"center",}}>
           {/* <Table2 >
                 <tr style={{height:30,backgroundColor: "#5B5B5B", color:"white"}}>
                   <th> F </th>
@@ -697,7 +704,8 @@ function App() {
                 </tr>
           </Table2> */}
           <TablaControlDeCargas L0={data.L0} />
-        </div>  
+        </div>
+
         <DivSimul> 
             <Paragraph style={{width: 480}}>Calculos reales</Paragraph>
             <Div>
@@ -713,10 +721,10 @@ function App() {
                 <DivCalculo id={"L"}>{data4.L}</DivCalculo>
             </Div>
         </DivSimul>
+
       </div>  
     </div> 
-    <ProcessTable medidasRes={data} extremo1={data.Ext1} extremo2={data.Ext2}/>
-    
+        
     {/* <TablaCarrera/> */}
     
    </div>   
