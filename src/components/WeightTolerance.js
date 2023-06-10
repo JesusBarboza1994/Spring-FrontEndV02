@@ -242,7 +242,9 @@ export function WeightTolerance(){
 
       <Div>
         <Label>Dext={data.Dext}±</Label>
-        <DivCalculo>{!isNaN(tablaToler.valor) === true ? (tablaToler.valor) : ""}</DivCalculo>
+        <DivCalculo>
+          {(!isNaN(tablaToler.valor) && (tablaToler.valor > 0)) === true ? (tablaToler.valor) : ""}
+        </DivCalculo>
       </Div>
       
       <Div>
