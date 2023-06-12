@@ -1,8 +1,9 @@
+import { useEffect } from "react";
 import { useAuth } from "../context/auth-context";
 
 export function DescripcionResorte(){  //codifica el resorte acorde a los datos presentados en la hoja de diseño
 
-  const {data, data1,tablaToler,coef} = useAuth();
+  const {data, data1,tablaToler,coef, descrip, setDescrip,grado} = useAuth();
          
  
   
@@ -92,7 +93,7 @@ export function DescripcionResorte(){  //codifica el resorte acorde a los datos 
   var mensaje3="";  //indica si el resorte requerirá plano o no
   var mensaje4="" ////especifica dentro de los demás mensajes si es o no progresivo
  
-    
+  
    
   if(data.Dext2 != ""){
     mensaje = "Res Susp. " + data1.Mater + " " + data.d  + " x " + data.Dext + " - " + data.Dext2 + " x " + data.L0 + " " + "(+/-" + coef.toler_L0 + ")"+ " x " + n + "\n";
@@ -110,9 +111,15 @@ export function DescripcionResorte(){  //codifica el resorte acorde a los datos 
       mensaje = "Res Susp. " + mensaje4 + data1.Mater + " "  + data.d  + " x " + data.Dext + + " " + "(+/-" + tablaToler.valor + ")" + " x " + data.L0 + " " + "(+/-" + coef.toler_L0 + ")" + " x " + n  +"\n";  
       }
   }  
-   
- 
+  useEffect(() => {
 
-  return mensaje
+  if(data.d >0 && data.Dext >0 && data.N >0 && data.L0 >0)
+    
+  setDescrip({...descrip, descrip: mensaje })
+          
+ }, [grado])
+
+
+  //return mensaje
         
 }

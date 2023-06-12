@@ -69,7 +69,7 @@ export function WeightTolerance(){
     font-size: 13px;
     border-style:outset;
   `
-  const {filas, setFilas, data, setData, data2, setData2, tablaToler, setTablaToler, coef, setCoef} = useAuth();
+  const {filas, setFilas, data, setData, data2, setData2, tablaToler, setTablaToler, coef, setCoef, grado, setGrado} = useAuth();
 
   const [data3, setData3] = useState({
       LDA:"",      
@@ -78,7 +78,7 @@ export function WeightTolerance(){
       Dmedio:"",    
   });
 
-  const [grado,setGrado] = useState(1); 
+  //const [grado,setGrado] = useState(1); 
   /*const [tablaToler,setTablaToler] = useState({
     valor: "",
   });
@@ -106,10 +106,10 @@ export function WeightTolerance(){
   }, [data.d, data.Dext, data.N])
     
   useEffect(() => {
-    setData3({...data3, Peso : (Math.pow(data.d/12.7,2)*(data3.LDA+data3.LDA_adic)/1000).toFixed(2)}) 
+    setData3({...data3, Peso : Number(Math.pow(data.d/12.7,2)*(data3.LDA+data3.LDA_adic)/1000).toFixed(2)}) 
   }, [data3.LDA, data3.LDA_adic])
 
-
+  
   //Tolerancias para Dext (DIN EN 15800)
   const tolerDiam = [
     [0.63, 0.05, 0.07, 0.1, 0.07, 0.1, 0.15, 0.1, 0.15, 0.2],
@@ -225,7 +225,7 @@ export function WeightTolerance(){
       </Div>
       <Div>
         <Label>Peso</Label>
-        <DivCalculo id={"Peso"}>{(!isNaN(data3.Peso)) === true ? (data3.Peso) : ""}</DivCalculo>
+        <DivCalculo id={"Peso"}>{(!isNaN(data3.Peso) && (data3.Peso > 0)) === true ? (data3.Peso) : ""}</DivCalculo>
       </Div>
       <div>
         <Paragraph style={{width: 480}}>Grado tolerancias</Paragraph>

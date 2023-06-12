@@ -192,13 +192,13 @@ export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,lo
           <Label>C</Label>  
                    
           <DivCalculo id={"C"}>
-            {(!isNaN(data2.C) && (data2.C != 0)) === true ? (Number(data2.C)).toFixed(2): ""}
+            {(!isNaN(data2.C) && (data2.C > 0) ) === true ? (Number(data2.C)).toFixed(1): ""}
           </DivCalculo>
       </Div>
       <Div>
           <Label>D medio</Label>
           <DivCalculo id={"Dmedio"}>
-             {(!isNaN(data2.Dmedio) && (data2.Dmedio != 0)) === true ? Number((data2.Dmedio)) : ""}
+             {(!isNaN(data2.Dmedio) && (data2.Dmedio > 0)) === true ? Number((data2.Dmedio)) : ""}
           </DivCalculo>
       </Div>
       <Div>
@@ -208,19 +208,19 @@ export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,lo
       <Div>
           <Label>Rel.d1</Label>
           <DivCalculo id={"Rel.d1"}>
-            {(!isNaN(data2.Rel_d1) && (data2.Rel_d1 != 0)) === true ? Number((data2.Rel_d1)) : ""}
+            {(!isNaN(data2.Rel_d1) && (data2.Rel_d1 > 0) && Number.isFinite(data2.Rel_d1)) === true ? (Number(data2.Rel_d1)).toFixed(1) : ""}
           </DivCalculo>
       </Div>
       <Div>
           <Label>Rel.d2</Label>
           <DivCalculo id={"Rel.d2"}>
-            {(!isNaN(data2.Rel_d2) && (data2.Rel_d2 != 0)) === true ? Number((data2.Rel_d2)) : ""}
+            {(!isNaN(data2.Rel_d2) && (data2.Rel_d2 > 0) && Number.isFinite(data2.Rel_d2)) === true ? (Number(data2.Rel_d2)).toFixed(1) : ""}
           </DivCalculo>
       </Div>
       <Div>
           <Label>Vt.red/VT</Label>
           <DivCalculo id={"Vt.red/VT"}>
-            {(!isNaN(data2.Vt_red_VT) && (data2.Vt_red_VT != 0)) === true ? Number((data2.Vt_red_VT)) : ""}
+            {(!isNaN(data2.Vt_red_VT) && (data2.Vt_red_VT > 0) && Number.isFinite(data2.Vt_red_VT)) === true ? Number((data2.Vt_red_VT)) : ""}
           </DivCalculo>
       </Div>
 
