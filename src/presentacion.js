@@ -1,4 +1,5 @@
 export default function Presentacion({nombre, profesion, pos}){
+  console.log("asfdasfdsfs")
   return(
     <div>
       <h1 style={{color:"red"}}>Hola {nombre}</h1>
