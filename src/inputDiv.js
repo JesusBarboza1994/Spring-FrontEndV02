@@ -31,6 +31,7 @@ const Label = styled.label`
   line-height: 25px;
 `
 export default function InputDiv({data, nombre}){
+  console.log("hey")
     return(
         <Div>
             <Label>{nombre}</Label>
