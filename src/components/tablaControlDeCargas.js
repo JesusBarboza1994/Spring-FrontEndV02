@@ -2,27 +2,28 @@ import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import "@fontsource/abeezee/400-italic.css";
 import { useAuth } from '../context/auth-context';
+import { colors } from "../styles/colors";
 
 const Table2 = styled.table`
     
   font-family: "ABeeZee";
-  border: 2px solid grey;
+  border: 2px solid ${colors.grey};
   border-collapse: collapse;
-  color: grey;
+  color: ${colors.grey};
 
 `
 
 const Td = styled.td`
   text-align: center;
   width: 40px;
-  border: 1px solid grey;
+  border: 1px solid ${colors.grey};
     
 `
 const Input = styled.input`
   width:50px;
   height:18px;
-  color:black;
-  background-color: #adc5fff1;
+  color:${colors.black};
+  background-color: ${colors.purple};
   margin:8px;
   font-family:"ABeeZee";
   font-size: 13px;
@@ -32,7 +33,7 @@ const Input = styled.input`
 const Th3 = styled.th`
   height: 70px;
   font-size: 14px;
-  border: 1px solid grey;
+  border: 1px solid ${colors.grey};
   font-family:"ABeeZee";
   letter-spacing: 1px;
   padding-left: 5px;
@@ -125,10 +126,10 @@ export default function TablaControlDeCargas(props) {
     }, [puntosCC])
 
     return(
-        <div style={{backgroundColor: "black"}}>
+        <div style={{backgroundColor: colors.black}}>
             <Table2>
                 <thead>
-                    <tr style={{backgroundColor: "#5B5B5B", color:"white",}}>
+                    <tr style={{backgroundColor: colors.gray, color:colors.white,}}>
                         <Th3>Punto</Th3>
                         <Th3>Fuerza (kg)</Th3>
                         <Th3>Longitud (mm)</Th3>
@@ -137,7 +138,7 @@ export default function TablaControlDeCargas(props) {
                 </thead>
                 <tbody>
                     {puntosCC.map((punto, indice) => (
-                        <tr key={punto.id} style={{color:"grey"}}>
+                        <tr key={punto.id} style={{color:colors.grey}}>
                             <Td>
                                 {punto.id}
                             </Td>

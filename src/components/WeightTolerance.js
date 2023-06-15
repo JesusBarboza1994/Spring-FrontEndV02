@@ -4,6 +4,7 @@ import "@fontsource/abeezee/400-italic.css";
 import { useAuth } from "../context/auth-context";
 import { Switch, breadcrumbsClasses } from "@mui/material";
 import { isNullableTypeAnnotation } from "@babel/types";
+import { colors } from "../styles/colors";
 
 export function WeightTolerance(){
  const DivSimul = styled.div`
@@ -16,7 +17,7 @@ export function WeightTolerance(){
     margin-top: 10px;
     width: 480px;
     //background-color: #9656fc64;  
-    background-color:#5B5B5B;
+    background-color: ${colors.gray};
     border-radius:8px;        
   `
  const Paragraph = styled.p`
@@ -25,7 +26,7 @@ export function WeightTolerance(){
     margin-bottom: 8px;
     font-family:"ABeeZee";
     font-size:11px;
-    color: white;  
+    color: ${colors.white};  
     width: 148px;
   `
  const Div = styled.div`
@@ -34,14 +35,14 @@ export function WeightTolerance(){
     width:125px;
     height:40px;
     margin:6px 12px;
-    background: black;
+    background: ${colors.black};
     border:2px solid gray;
     border-radius:8px;
         
   `
  const Select = styled.select`
-    background-color: black;
-    color: white;
+    background-color: ${colors.black};
+    color: ${colors.white};
     font-family:"ABeeZee";
     font-size: 13px;
     border: 0px;
@@ -51,19 +52,19 @@ export function WeightTolerance(){
     height: 20px;
     width: 65px;
     display:block;
-    background-color:black;
+    background-color:${colors.black};
     margin-top:12px;
     margin-left: 8px;
     font-family:"ABeeZee";
     font-size: 13px;
-    color: gray;
+    color: ${colors.gray};
                     
   `
   const DivCalculo = styled.div`
     width:40px;
     height:18px;
-    color:black;
-    background-color: white;
+    color:${colors.black};
+    background-color: ${colors.white};
     margin:8px;
     font-family:"ABeeZee";
     font-size: 13px;

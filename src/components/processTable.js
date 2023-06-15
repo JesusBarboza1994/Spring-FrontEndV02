@@ -2,13 +2,14 @@ import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import "@fontsource/abeezee/400-italic.css";
 import { useAuth } from '../context/auth-context';
+import { colors } from "../styles/colors";
 
 const Table2 = styled.table`
     
   font-family: "ABeeZee";
-  border: 2px solid grey;
+  border: 2px solid ${colors.grey};
   border-collapse: collapse;
-  color: grey;
+  color: ${colors.grey};
   margin-top: 40px;
 
 `
@@ -16,14 +17,14 @@ const Table2 = styled.table`
 const Td = styled.td`
   text-align: center;
   width: 40px;
-  border: 1px solid grey;
+  border: 1px solid ${colors.grey};
 
 `
 const Input = styled.input`
   width:50px;
   height:18px;
-  color:black;
-  background-color: #adc5fff1;
+  color:${colors.black};
+  background-color: ${colors.purple};
   margin:8px;
   font-family:"ABeeZee";
   font-size: 13px;
@@ -32,8 +33,8 @@ const Input = styled.input`
 `
 const Input3 = styled.input`
   width:50px;
-  background-color:black;
-  color: white;
+  background-color:${colors.black};
+  color: ${colors.white};
   margin:5px;
   text-align: center;
   border:none;
@@ -55,27 +56,27 @@ const Th4 = styled.th`
   letter-spacing: 1px;
   padding:10px;
   border: 1px solid grey;
-  color: white;
+  color: ${colors.white};
 `
 const Input2 = styled.input`
   width:80px;
-  background-color:black;
-  color: gray;
+  background-color:${colors.black};
+  color: ${colors.gray};
   margin:5px;
   text-align: center;
   border:none;
 `
 const Label2 = styled.label`
-  color: white;
+  color: ${colors.white};
   margin: 5px;
   height:15px;
   display: block;
   width: 40px;
-  background-color:black;
+  background-color:${colors.black};
   line-height: 15px;
 `
 const Tbody = styled.tbody`
-  color: white;
+  color: ${colors.white};
   display: flex;
   flex-direction: column-reverse;
 `
@@ -84,8 +85,8 @@ const Button = styled.button`
   height:40px;
   margin:3px 12px;
   border-radius:8px;
-  background-color: #fc1221c5;
-  color: white;
+  background-color: ${colors.back};
+  color: ${colors.white};
   
 `
 const Button1 = styled.button`
@@ -412,11 +413,11 @@ export default function ProcessTable(props) {
     }, [processTableStage2])
 
     return(
-        <div style={{backgroundColor: "black"}}>
+        <div style={{backgroundColor: colors.black}}>
             {/* <Button onClick={CalculateOrReset3Points}>Calcular</Button> */}
             <Table2>
                 <thead>
-                    <tr style={{backgroundColor: "#5B5B5B", color:"white"}}>
+                    <tr style={{backgroundColor: colors.gray, color:colors.white}}>
                         <Th3>Punto</Th3>
                         <Th3>Luz</Th3>
                         <Th3>Long</Th3>

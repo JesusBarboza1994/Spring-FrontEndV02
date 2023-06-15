@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import "@fontsource/abeezee/400-italic.css";
 import { useAuth } from "../context/auth-context";
 import { isNullLiteral } from "@babel/types";
+import { colors } from "../styles/colors";
 
 export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,longitud,luz1,luz2}){
  const DivSimul = styled.div`
@@ -15,7 +16,7 @@ export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,lo
         margin-top: 10px;
         width: 480px;
         //background-color: #9656fc64;  
-        background-color:#5B5B5B;
+        background-color: ${colors.gray};
         border-radius:8px;        
     `
   const Paragraph = styled.p`
@@ -24,14 +25,14 @@ export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,lo
         margin-bottom: 8px;
         font-family:"ABeeZee";
         font-size:11px;
-        color: white;  
+        color: ${colors.white};  
         width: 148px;
     `
     const DivCalculo = styled.div`
         width:40px;
         height:18px;
-        color:black;
-        background-color: white;
+        color:${colors.black};
+        background-color: ${colors.white};
         margin:8px;
         font-family:"ABeeZee";
         font-size: 13px;
@@ -43,8 +44,8 @@ export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,lo
         width:125px;
         height:40px;
         margin:6px 12px;
-        background: black;
-        border:2px solid gray;
+        background: ${colors.black};
+        border:2px solid ${colors.gray};
         border-radius:8px;
         
     `
@@ -52,12 +53,12 @@ export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,lo
         height: 20px;
         width: 65px;
         display:block;
-        background-color:black;
+        background-color:${colors.black};
         margin-top:12px;
         margin-left: 8px;
         font-family:"ABeeZee";
         font-size: 13px;
-        color: gray;
+        color: ${colors.gray};
                 
     `
   
