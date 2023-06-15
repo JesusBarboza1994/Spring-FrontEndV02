@@ -1,3 +1,4 @@
+import { grey } from "@mui/material/colors";
 import { useAuth } from "../context/auth-context";
 
 export const colors = {
@@ -27,6 +28,8 @@ export const colors = {
   gray: "#5B5B5B",
   purple: "#adc5fff1",
   back: "#fc1221c5",
+  grey: grey,
+  red: "#EE7272",
 };
 
 export const ColorStyle = (dark) =>{
