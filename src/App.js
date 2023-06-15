@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import "@fontsource/abeezee/400-italic.css";
+//import "@fontsource/inter.css";
 
 import { SimulationData } from "./components/SimulationData";
 import { CalcParam } from "./components/CalculatedParameters";
@@ -27,7 +28,7 @@ const Div = styled.div`
   aling-items: center;
   width:125px;
   height:40px;
-  margin:6px 12px;
+  margin:8px 12px;
   background: black;
   border:2px solid gray;
   border-radius:8px;
@@ -36,12 +37,13 @@ const Div = styled.div`
 const Input = styled.input`
   width:40px;
   height:18px;
-  color:black;
-  background-color: #adc5fff1;
+  color:white;
+  background-color: black;
   margin:8px;
   font-family:"ABeeZee";
-  font-size: 13px;
+  font-size: 12px;
   border-style:inset;
+  border-radius: 4px;
      
 `
 const DivCalculo = styled.div`
@@ -98,7 +100,7 @@ const Button = styled.button`
   
 `
 const Table1 = styled.table`
-  width: 520px;
+  width: 500px;
   //height:270px;
   font-family: "ABeeZee";
   border-collapse: collapse;
@@ -109,14 +111,15 @@ const Table1 = styled.table`
 `
 
 const Input8 = styled.input`
-  width:50px;
+  width:45px;
   height:18px;
   color:black;
   background-color: #cadefc;
   margin:8px;
   font-family:"ABeeZee";
-  font-size: 13px;
+  font-size: 12px;
   border-style:inset;
+  border-radius: 4px;
      
 `
 const Th = styled.th`
@@ -478,10 +481,10 @@ function App() {
   }
 
   return (
-   <div className="App" style={{backgroundColor:"black", display:"flex"}}>
+   <div className="App" style={{backgroundColor:"#1A1A1A", display:"flex"}}>
     
-    <div style={{backgroundColor:"black"}}>
-      
+    <div style={{backgroundColor:"#363636"}}>
+      <h1 style={{fontSize:22, paddingLeft: 16, fontFamily:"Inter", color:"white"}}> Diseño de Resortes</h1>
       <Form onSubmit={handleSubmit}>
         <div>
           <p style={{blockSize:2,marginLeft:14,fontFamily:"ABeeZee",fontSize:11, }}>Datos principales</p>
@@ -501,11 +504,11 @@ function App() {
               <Label>L0</Label>
               <Input  value={data.L0} type="number" id={"L0"} onChange={(e) => handleInput(e)}/>
             </Div>
-            <button style={{width:125,
+            {/* <button style={{width:125,
                             height:40,
                             margin:"10px 14px",
                             borderRadius:8, 
-                            backgroundColor: "#fc1221c5", color: "white"}}>Enviar</button>
+                            backgroundColor: "#fc1221c5", color: "white"}}>Enviar</button> */}
         </div>
 
         <div>
@@ -594,20 +597,20 @@ function App() {
       </DivSimul>
     </div>
 
-    <div style={{backgroundColor:"black", display:"flex", columnGap:50, marginTop:28, marginLeft: 28,}}>
+    <div style={{backgroundColor:"black", display:"flex", columnGap:50, marginTop:48, marginLeft: 28,}}>
       <div>
         <Table1>
           <tr style={{backgroundColor: "#5B5B5B", color:"white",}}>
             <Th> </Th>
-            <Th>Longitud</Th>
-            <Th>Carrera</Th>
-            <Th>LL-G</Th>
-            <Th>Fuerza</Th>
-            <Th>Esfuerzo</Th>
-            <Th>% Compres.</Th>
+            <Th>Long (mm)</Th>
+            <Th>X (mm)</Th>
+            <Th>LL-G (mm)</Th>
+            <Th>Fuerza (kg)</Th>
+            <Th>Esf (MPa)</Th>
+            <Th>Compr. (%)</Th>
           </tr>
           <tr>
-            <Th2>L instalada</Th2>
+            <Th2>L inst</Th2>
             <Td>
             <Input8 type="number" value={valuetab.Linst} id={"Linst"}  onChange={(e) => handleTab(e)}/>     
             </Td>
@@ -629,7 +632,7 @@ function App() {
             <Td>{carrera.Compres2}%</Td>
           </tr>
           <tr>
-            <Th2>L maxima</Th2>
+            <Th2>L max</Th2>
             <Td>
             <Input8 type="number" value={valuetab.Lmax} id={"Lmax"}  onChange={(e) => handleTab(e)}/>
             </Td>
@@ -651,7 +654,7 @@ function App() {
             <Td>{carrera.Compres4}%</Td>
           </tr>
           <tr>
-            <Th2>L bloqueo</Th2>
+            <Th2>L bloq</Th2>
             <Td>{valuetab.Lbloqueo}</Td>
             <Td>{carrera.carrLc}</Td>
             <Td> -- </Td>
