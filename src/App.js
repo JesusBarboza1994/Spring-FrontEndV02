@@ -13,6 +13,7 @@ import TablaCarrera from "./components/tablaCarrera";
 import LongTable from "./components/longTable";
 import ProbarFuerza from "./components/probarFuerza";
 import {MyResponsiveScatterPlot} from "./components/graphScatter";
+import ScatterPlot from "./components/grafico";
 
 import { useAuth } from './context/auth-context';
 
@@ -312,10 +313,10 @@ function App() {
     let slope = (n * sumXY - sumX * sumY) / (n * sumXSquared - sumX ** 2);
     let intercept = (sumY - slope * sumX) / n;
 
-    setKControlCargas(slope)
-    setBControlCargas(intercept)
+    setKControlCargas(parseFloat(slope))
+    setBControlCargas(parseFloat(intercept))
 
-    let linea = {k: slope, b: intercept}
+    let linea = {k: parseFloat(slope), b: parseFloat(intercept)}
 
 
     console.log("data puntos")
@@ -550,10 +551,8 @@ function App() {
     <ProcessTable medidasRes={data} extremo1={data.Ext1} extremo2={data.Ext2}/>
     <TablaControlDeCargas L0={data.L0} />
     <ProbarFuerza/>
-    <div style={{height:"700px", width:"1000px"}}>
-      <h1 style={{width:"700px"}}>hey</h1>
-      <MyResponsiveScatterPlot data={dataAux2} />
-    </div>
+    
+    <ScatterPlot puntos={puntosCCGrafica} slope={lineaCC.slope} intercept={lineaCC.b}/>
     
     
     
@@ -564,3 +563,9 @@ function App() {
 
 export default App;
 
+/*
+<div style={{height:"700px", width:"1000px"}}>
+      <h1 style={{width:"700px"}}>hey</h1>
+      <MyResponsiveScatterPlot data={dataAux2} />
+    </div>
+*/

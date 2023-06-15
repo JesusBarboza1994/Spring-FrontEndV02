@@ -89,6 +89,27 @@ const Button1 = styled.button`
   margin:10px 14px;
   border-radius:8px;
 `
+const Button2 = styled.button`
+  width:80px;
+  height:80px;
+  font-size:14px;
+  border: none;
+  background-color: #5B5B5B;
+  font-family: "ABeeZee";
+  font-weight: bold;
+  color:white
+`
+
+const Button3 = styled.button`
+  width:20px;
+  height:80px;
+  font-size:14px;
+  border: none;
+  background-color: #5B5B5B;
+  font-family: "ABeeZee";
+  font-weight: bold;
+  color:white
+`
 
 /*export function calcularprocessTableStage1(){
         
@@ -132,6 +153,14 @@ export default function ProcessTable(props) {
 
     const [processTableStage1Inv, setProcessTableStage1Inv] = useState([])
     const [processTableStage2Inv, setProcessTableStage2Inv] = useState([])
+
+    const [pasoVisible, setPasoVisible] = useState(true)
+    const [kEqVisible, setKEqVisible] = useState(true)
+    const [xcVisible, setXcVisible] = useState(true)
+    const [fcVisible, setFcVisible] = useState(true)
+    const [kVisible, setKVisible] = useState(true)
+    const [kInvVisible, setKInvVisible] = useState(true)
+    const [bVisible, setBVisible] = useState(true)
 
     function calcularprocessTableStage1(){
         
@@ -451,6 +480,76 @@ export default function ProcessTable(props) {
         
     }, [processTableStage2])
 
+    function visibleColumnPaso(){
+        if (pasoVisible == true){
+            setPasoVisible(false)
+        }
+        else{
+            setPasoVisible(true)
+        }
+
+    }
+
+    function visibleColumnKeq(){
+        if (kEqVisible == true){
+            setKEqVisible(false)
+        }
+        else{
+            setKEqVisible(true)
+        }
+
+    }
+
+    function visibleColumnXc(){
+        if (xcVisible == true){
+            setXcVisible(false)
+        }
+        else{
+            setXcVisible(true)
+        }
+
+    }
+
+    function visibleColumnFc(){
+        if (fcVisible == true){
+            setFcVisible(false)
+        }
+        else{
+            setFcVisible(true)
+        }
+
+    }
+
+    function visibleColumnK(){
+        if (kVisible == true){
+            setKVisible(false)
+        }
+        else{
+            setKVisible(true)
+        }
+
+    }
+
+    function visibleColumnKInv(){
+        if (kInvVisible == true){
+            setKInvVisible(false)
+        }
+        else{
+            setKInvVisible(true)
+        }
+
+    }
+    
+    function visibleColumnB(){
+        if (bVisible == true){
+            setBVisible(false)
+        }
+        else{
+            setBVisible(true)
+        }
+
+    }
+
     return(
         <div style={{backgroundColor: "black"}}>
             <Button onClick={CalculateOrReset3Points}>Calcular</Button>
@@ -461,13 +560,41 @@ export default function ProcessTable(props) {
                         <Th3>Luz</Th3>
                         <Th3>Long</Th3>
                         <Th3>N.Vtas</Th3>
-                        <Th3>Keq. (N/mm)</Th3>
-                        <Th3>Xc (mm)</Th3>
-                        <Th3>Fc (kg)</Th3>
-                        <Th3>Paso (mm)</Th3>
-                        <Th3>K (N/mm)</Th3>
-                        <Th3>K^-1</Th3>
-                        <Th3>b</Th3>
+                        <Th3>
+                            {
+                                pasoVisible ? <Button2 onClick={visibleColumnPaso}>Paso (mm)</Button2> : <Button3 onClick={visibleColumnPaso}>+</Button3>
+                            }
+                        </Th3>
+                        <Th3>
+                            {
+                                kEqVisible ? <Button2 onClick={visibleColumnKeq}>Keq. (N/mm)</Button2> : <Button3 onClick={visibleColumnKeq}>+</Button3>
+                            }
+                        </Th3>
+                        <Th3>  
+                            {
+                                xcVisible ? <Button2 onClick={visibleColumnXc}>Xc (mm)</Button2> : <Button3 onClick={visibleColumnXc}>+</Button3>
+                            }
+                        </Th3>
+                        <Th3>
+                            {
+                                fcVisible ? <Button2 onClick={visibleColumnFc}>Fc (kg)</Button2> : <Button3 onClick={visibleColumnFc}>+</Button3>
+                            }
+                        </Th3>
+                        <Th3>
+                            {
+                                kVisible ? <Button2 onClick={visibleColumnK}>K (N/mm)</Button2> : <Button3 onClick={visibleColumnK}>+</Button3>
+                            }
+                        </Th3>
+                        <Th3>
+                            {
+                                kInvVisible ? <Button2 onClick={visibleColumnKInv}>K^-1</Button2> : <Button3 onClick={visibleColumnKInv}>+</Button3>
+                            }
+                        </Th3>
+                        <Th3>
+                            {
+                                bVisible ? <Button2 onClick={visibleColumnB}>b</Button2> : <Button3 onClick={visibleColumnB}>+</Button3>
+                            }
+                        </Th3>
                     </tr>
                 </thead>
                 <tbody>
@@ -491,37 +618,37 @@ export default function ProcessTable(props) {
                             </Td>
                             <Td>
                                 {
-                                    (!isNaN(processTableStage2Inv[indice].Paso) && Number.isFinite(processTableStage2Inv[indice].Paso) && (processTableStage2Inv[indice].Paso !== 0)) === true ? (processTableStage2Inv[indice].Paso).toFixed(2) : ""
+                                    pasoVisible ? ((!isNaN(processTableStage2Inv[indice].Paso) && Number.isFinite(processTableStage2Inv[indice].Paso) && (processTableStage2Inv[indice].Paso !== 0)) === true ? (processTableStage2Inv[indice].Paso).toFixed(2) : "") : null
                                 }
                             </Td>
                             <Td>
                                 {
-                                    (!isNaN(processTableStage2Inv[indice].Keq) && Number.isFinite(processTableStage2Inv[indice].Keq) && (processTableStage2Inv[indice].Keq !== 0)) === true ? (processTableStage2Inv[indice].Keq).toFixed(3) : ""
+                                    kEqVisible ? ((!isNaN(processTableStage2Inv[indice].Keq) && Number.isFinite(processTableStage2Inv[indice].Keq) && (processTableStage2Inv[indice].Keq !== 0)) === true ? (processTableStage2Inv[indice].Keq).toFixed(3) : "") : null
                                 }
                             </Td>
                             <Td>
                                 {
-                                    (!isNaN(processTableStage2Inv[indice].Xc) && Number.isFinite(processTableStage2Inv[indice].Xc) ) === true ? (processTableStage2Inv[indice].Xc).toFixed(3) : ""
+                                    xcVisible ? ((!isNaN(processTableStage2Inv[indice].Xc) && Number.isFinite(processTableStage2Inv[indice].Xc) ) === true ? (processTableStage2Inv[indice].Xc).toFixed(3) : "") : null
                                 }
                             </Td>
                             <Td>
                                 {
-                                    (!isNaN(processTableStage2Inv[indice].Fc) && Number.isFinite(processTableStage2Inv[indice].Fc) ) === true ? (processTableStage2Inv[indice].Fc).toFixed(3) : ""
+                                    fcVisible ? ((!isNaN(processTableStage2Inv[indice].Fc) && Number.isFinite(processTableStage2Inv[indice].Fc) ) === true ? (processTableStage2Inv[indice].Fc).toFixed(3) : "") : null
                                 }
                             </Td>
                             <Td>
                                 {
-                                    (!isNaN(processTableStage2Inv[indice].K) && Number.isFinite(processTableStage2Inv[indice].K) && (processTableStage2Inv[indice].K !== 0)) === true ? (processTableStage2Inv[indice].K).toFixed(3) : ""
+                                    kVisible ? ((!isNaN(processTableStage2Inv[indice].K) && Number.isFinite(processTableStage2Inv[indice].K) && (processTableStage2Inv[indice].K !== 0)) === true ? (processTableStage2Inv[indice].K).toFixed(3) : "") : null
                                 }
                             </Td>
                             <Td>
                                 {
-                                    (!isNaN(processTableStage2Inv[indice].Kinv) && Number.isFinite(processTableStage2Inv[indice].Kinv) && (processTableStage2Inv[indice].Kinv !== 0)) === true ? (processTableStage2Inv[indice].Kinv).toFixed(4) : ""
+                                    kInvVisible ? ((!isNaN(processTableStage2Inv[indice].Kinv) && Number.isFinite(processTableStage2Inv[indice].Kinv) && (processTableStage2Inv[indice].Kinv !== 0)) === true ? (processTableStage2Inv[indice].Kinv).toFixed(4) : "") : null
                                 }
                             </Td>
                             <Td>
                                 {
-                                    (!isNaN(processTableStage2Inv[indice].b) && Number.isFinite(processTableStage2Inv[indice].b)) === true ? (processTableStage2Inv[indice].b.toFixed(3)) : ""
+                                    bVisible ? ((!isNaN(processTableStage2Inv[indice].b) && Number.isFinite(processTableStage2Inv[indice].b)) === true ? (processTableStage2Inv[indice].b.toFixed(3)) : "") : null
                                 }
                             </Td>
                         </tr>
