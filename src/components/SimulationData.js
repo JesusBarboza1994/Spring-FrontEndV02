@@ -2,6 +2,8 @@ import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import "@fontsource/abeezee/400-italic.css";
 import { useAuth } from "../context/auth-context";
+import { colors } from "../styles/colors";
+//import { CalculateOrReset3Points } from "./processTable"
 
 export function SimulationData(){
   
@@ -11,10 +13,12 @@ export function SimulationData(){
     flex-wrap: wrap;
     column-gap:8px;
     row-gap:none;
-    margin-bottom:30px;
+    margin-bottom:20px;
     margin-top: 10px;
     width: 480px;
-    background-color: #9656fc64;         
+    //background-color: #9656fc64;   
+    background-color:${colors.gray}; 
+    border-radius:8px;      
   `
  const Paragraph = styled.p`
     block-size:1px;
@@ -22,7 +26,7 @@ export function SimulationData(){
     margin-bottom: 8px;
     font-family:"ABeeZee";
     font-size:11px;
-    color: white;  
+    color: ${colors.white};  
     width: 148px;
   `
  const Div = styled.div`
@@ -31,14 +35,14 @@ export function SimulationData(){
     width:125px;
     height:40px;
     margin:6px 12px;
-    background: black;
-    border:2px solid gray;
+    background: ${colors.black};
+    border:2px solid ${colors.gray}; 
     border-radius:8px;
     
   `
  const Select = styled.select`
-    background-color: black;
-    color: white;
+    background-color: ${colors.black};
+    color: ${colors.white};
     font-family:"ABeeZee";
     font-size: 13px;
     border: 0px;
@@ -48,7 +52,7 @@ export function SimulationData(){
     height: 20px;
     width: 65px;
     display:block;
-    background-color:black;
+    background-color:${colors.black};
     margin-top:12px;
     margin-left: 8px;
     font-family:"ABeeZee";
@@ -59,8 +63,8 @@ export function SimulationData(){
   const Input = styled.input`
     width:40px;
     height:18px;
-    color:black;
-    background-color: #adc5fff1;
+    color:${colors.black};
+    background-color: ${colors.purple};
     margin:8px;
     font-family:"ABeeZee";
     font-size: 13px;
@@ -72,8 +76,8 @@ const Button = styled.button`
     height:40px;
     margin:3px 12px;
     border-radius:8px;
-    background-color: #fc1221c5;
-    color: white;
+    background-color: ${colors.back};
+    color: ${colors.white};
     
   `
   const {data1, setData1} = useAuth();
@@ -137,12 +141,12 @@ const Button = styled.button`
         </Div>
         
         <Div style={{marginLeft: 0}}>
-          <Label style={{color: "#EE7272"}}>x</Label>
+          <Label style={{color: colors.red}}>x</Label>
           <Input  value={data1.x} id={"x"} onChange={(e) => handleSimulacion(e)}/>
         </Div>
         
         <Div>
-          <Label style={{color: "#EE7272"}}>grado</Label>
+          <Label style={{color: colors.red}}>grado</Label>
           <Input  value={data1.grado} id={"grado"} onChange={(e) => handleSimulacion(e)}/>
         </Div>
         <div style={{display: "flex",columnGap:12,width:"100%",justifyContent:"flex-end", marginRight: 8}}>

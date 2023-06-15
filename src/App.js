@@ -11,6 +11,7 @@ import ProcessTable from "./components/processTable";
 import TablaControlDeCargas from "./components/tablaControlDeCargas";
 import TablaCarrera from "./components/tablaCarrera";
 import { useAuth } from './context/auth-context';
+import { isNullLiteral } from "@babel/types";
 
 const Form = styled.form`
   display:flex;
@@ -18,7 +19,7 @@ const Form = styled.form`
   gap:6px;
   
   width: 480px;
-  background: #9656fc64;
+  //background: #9656fc64;
   color:white;
 `
 const Div = styled.div`
@@ -74,7 +75,9 @@ const DivSimul = styled.div`
   margin-bottom:30px;
   margin-top: 10px;
   width: 480px;
-  background-color: #9656fc64;         
+  //background-color: #9656fc64;  
+  background-color:#5B5B5B;
+  border-radius:8px;        
 `
 const Paragraph = styled.p`
   block-size:1px;
@@ -96,57 +99,62 @@ const Button = styled.button`
 `
 const Table1 = styled.table`
   width: 520px;
-  height:380px;
+  //height:270px;
   font-family: "ABeeZee";
-  border: 2px solid grey;
   border-collapse: collapse;
   color: grey;
-      
+  border: 2px solid grey;
+  //border-radius: 8px;
+          
 `
+
 const Input8 = styled.input`
   width:50px;
   height:18px;
   color:black;
   background-color: #cadefc;
-  margin:5px;
+  margin:8px;
   font-family:"ABeeZee";
   font-size: 13px;
   border-style:inset;
      
 `
 const Th = styled.th`
-  width: 100px;
-  height: 170px;
-  writing-mode: vertical-lr;
-  text-orientation: upright;
+  width: 110px;
+  height: 70px;
+  //writing-mode: vertical-lr;
+  //text-orientation: upright;
   font-size: 14px;
   border: 1px solid grey;
+  letter-spacing: 1px;
+  //border-radius: 8px;
   
 `
 const Th2 = styled.th`
-  width: 120px;
+  width: 150px;
   text-align: left;
   font-size: 14px;
   letter-spacing: 1px;
-  padding:10px;
+  padding: 10px;
   border: 1px solid grey;
-  color: white;
+  color: grey;
 `
 const Td = styled.td`
   text-align: center;
   width: 40px;
   border: 1px solid grey;
+  
 
 `
-const Table2 = styled.table`
-  width:210px;
-  height:210px;
-  font-family: "ABeeZee";
-  border: 2px solid grey;
-  border-collapse: collapse;
-  color: grey;
+// const Table2 = styled.table`
+//   width:210px;
+//   height:210px;
+//   font-family: "ABeeZee";
+//   border: 2px solid grey;
+//   border-collapse: collapse;
+//   color: grey;
 
-`
+// `
 const Select = styled.select`
   background-color: black;
   color: white;
@@ -160,7 +168,7 @@ function App() {
 
   const [data3, setData3] = useState({
     LDA:"",      
-    LDA_adic:200,         
+    LDA_adic:"",         
     Peso:"",
     Dmedio:"",    
   })
@@ -496,7 +504,8 @@ function App() {
             <button style={{width:125,
                             height:40,
                             margin:"10px 14px",
-                            borderRadius:8,}}>Enviar</button>
+                            borderRadius:8, 
+                            backgroundColor: "#fc1221c5", color: "white"}}>Enviar</button>
         </div>
 
         <div>
@@ -571,19 +580,16 @@ function App() {
       <DivSimul>
         <Paragraph style={{width: 480}}>Calculos teoricos</Paragraph>
         <Div>
-          {
-            console.log(filas)
-          }
             <Label>K</Label>
-            <DivCalculo id={"K"}>{filas.Keq3}</DivCalculo>
+            <DivCalculo id={"K"}>{(!isNaN(filas.Keq3) && Number.isFinite(filas.Keq3) ) === true ? (filas.Keq3).toFixed(2) : ""}</DivCalculo>
         </Div>
         <Div>
             <Label>F</Label>
-            <DivCalculo id={"F"}>{filas.Fc3}</DivCalculo> 
+            <DivCalculo id={"F"}>{(!isNaN(filas.Fc3) && Number.isFinite(filas.Fc3) ) === true ? (filas.Fc3).toFixed(1) : ""}</DivCalculo> 
         </Div>
         <Div>
             <Label>L</Label>
-            <DivCalculo id={"L"}>{filas.Xc3}</DivCalculo>
+            <DivCalculo id={"L"}>{(!isNaN(filas.Xc3) && Number.isFinite(filas.Xc3) && isNullLiteral(filas.Xc3)) === true ? (filas.Xc3).toFixed(1) : ""}</DivCalculo>
         </Div>
       </DivSimul>
     </div>
@@ -593,12 +599,12 @@ function App() {
         <Table1>
           <tr style={{backgroundColor: "#5B5B5B", color:"white",}}>
             <Th> </Th>
-            <Th>LONGITUD</Th>
-            <Th>CARRERA</Th>
+            <Th>Longitud</Th>
+            <Th>Carrera</Th>
             <Th>LL-G</Th>
-            <Th>FUERZA</Th>
-            <Th>ESFUERZO</Th>
-            <Th>%COMPRES.</Th>
+            <Th>Fuerza</Th>
+            <Th>Esfuerzo</Th>
+            <Th>% Compres.</Th>
           </tr>
           <tr>
             <Th2>L instalada</Th2>
@@ -606,7 +612,7 @@ function App() {
             <Input8 type="number" value={valuetab.Linst} id={"Linst"}  onChange={(e) => handleTab(e)}/>     
             </Td>
             <Td>-</Td>
-            <Td>333</Td>
+            <Td> -- </Td>
             <Td>{carrera.Finst}</Td>
             <Td>{carrera.TauK1}</Td>
             <Td>{carrera.Compres1}%</Td>
@@ -617,7 +623,7 @@ function App() {
             <Input8 type="number" value={valuetab.Lcarga} id={"Lcarga"}  onChange={(e) => handleTab(e)}/>
             </Td>
             <Td>{carrera.carrCarga}</Td>
-            <Td>333</Td>
+            <Td> -- </Td>
             <Td>{carrera.Fcarg}</Td>
             <Td>{carrera.TauK2}</Td>
             <Td>{carrera.Compres2}%</Td>
@@ -628,7 +634,7 @@ function App() {
             <Input8 type="number" value={valuetab.Lmax} id={"Lmax"}  onChange={(e) => handleTab(e)}/>
             </Td>
             <Td>{carrera.carrMax}</Td>
-            <Td>333</Td>
+            <Td> -- </Td>
             <Td>{carrera.Fmax}</Td>
             <Td>{carrera.TauK3}</Td>
             <Td>{carrera.Compres3}%</Td>
@@ -639,7 +645,7 @@ function App() {
             <Input8 type="number" value={valuetab.L4} id={"L4"}  onChange={(e) => handleTab(e)}/>
             </Td>
             <Td>{carrera.carrL4}</Td>
-            <Td>333</Td>
+            <Td> -- </Td>
             <Td>{carrera.F4}</Td>
             <Td>{carrera.TauK4}</Td>
             <Td>{carrera.Compres4}%</Td>
@@ -648,17 +654,19 @@ function App() {
             <Th2>L bloqueo</Th2>
             <Td>{valuetab.Lbloqueo}</Td>
             <Td>{carrera.carrLc}</Td>
-            <Td>333</Td>
+            <Td> -- </Td>
             <Td>{filas.Fc3}</Td>
             <Td>{carrera.TauKC}</Td>
             <Td>100%</Td>
           </tr>
         </Table1> 
+        <ProcessTable medidasRes={data} extremo1={data.Ext1} extremo2={data.Ext2}/>
       </div>
 
       <div>
-        <div style={{display:"flex", justifyContent:"center",paddingTop:94,}}>
-          <Table2 >
+                    
+        <div style={{display:"flex", justifyContent:"center",}}>
+          {/* <Table2 >
                 <tr style={{height:30,backgroundColor: "#5B5B5B", color:"white"}}>
                   <th> F </th>
                   <th> L </th>
@@ -694,8 +702,10 @@ function App() {
                   <Td></Td>
                   <Td></Td>
                 </tr>
-          </Table2>
-        </div>  
+          </Table2> */}
+          <TablaControlDeCargas L0={data.L0} />
+        </div>
+
         <DivSimul> 
             <Paragraph style={{width: 480}}>Calculos reales</Paragraph>
             <Div>
@@ -711,11 +721,11 @@ function App() {
                 <DivCalculo id={"L"}>{data4.L}</DivCalculo>
             </Div>
         </DivSimul>
+
       </div>  
     </div> 
-    <ProcessTable medidasRes={data} extremo1={data.Ext1} extremo2={data.Ext2}/>
-    <TablaControlDeCargas L0={data.L0} />
-    <TablaCarrera/>
+        
+    {/* <TablaCarrera/> */}
     
    </div>   
   );
