@@ -7,7 +7,7 @@ Chart.register(LinearScale);
 Chart.register(PointElement);
 Chart.register(LineElement);
 
-export default function ScatterPlot ({puntos, slope, intercept}) {
+export default function GraficoControlCargas ({puntos, slope, intercept}) {
 
   let datos = JSON.parse(JSON.stringify(puntos))
   // Datos de ejemplo con coordenadas
@@ -52,9 +52,17 @@ export default function ScatterPlot ({puntos, slope, intercept}) {
     },
   };
 
+  console.log(Number(slope))
+
   return(
-    <div>
-        <Line data={data} options={options} />;
+    <div style={{height:"380px", width:"600px", backgroundColor:'white'}}>
+        <h2 style={{textAlign:'center'}}>Gráfico Control de Cargas</h2>
+        <h3 style={{textAlign:'center'}}>
+            {
+                (!isNaN(slope) && Number.isFinite(slope) && !isNaN(intercept) && Number.isFinite(intercept)) === true ? ("k = "+(Number(slope)).toFixed(2)+", b = "+(Number(intercept)).toFixed(2)) : ("k = , b = ")
+            }
+        </h3>
+        <Scatter data={data} options={options} />
     </div>
   ) 
 }

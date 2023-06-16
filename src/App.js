@@ -13,7 +13,7 @@ import TablaCarrera from "./components/tablaCarrera";
 import LongTable from "./components/longTable";
 import ProbarFuerza from "./components/probarFuerza";
 import {MyResponsiveScatterPlot} from "./components/graphScatter";
-import ScatterPlot from "./components/grafico";
+import GraficoControlCargas from "./components/graficoControlCargas";
 
 import { useAuth } from './context/auth-context';
 
@@ -548,15 +548,16 @@ function App() {
         </DivSimul>
       </div>  
     </div> 
+    
     <ProcessTable medidasRes={data} extremo1={data.Ext1} extremo2={data.Ext2}/>
-    <TablaControlDeCargas L0={data.L0} />
-    <ProbarFuerza/>
-    
-    <ScatterPlot puntos={puntosCCGrafica} slope={lineaCC.slope} intercept={lineaCC.b}/>
-    
-    
-    
-    
+      
+    <div style={{backgroundColor:'black'}}>
+      <TablaControlDeCargas L0={data.L0} />
+      <ProbarFuerza/>
+    </div>
+     
+    <GraficoControlCargas puntos={puntosCCGrafica} slope={lineaCC.k} intercept={lineaCC.b}/>
+     
    </div>   
   );
 }
