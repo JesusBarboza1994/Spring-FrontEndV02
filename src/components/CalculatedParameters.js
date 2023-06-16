@@ -9,40 +9,46 @@ export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,lo
         display:flex;
         grid-template-columns: auto, auto, auto;
         flex-wrap: wrap;
-        column-gap:8px;
+        justify-content: center;
+        //column-gap:8px;
         row-gap:none;
         margin-bottom:20px;
         margin-top: 10px;
-        width: 480px;
-        //background-color: #9656fc64;  
-        background-color:#5B5B5B;
+        margin-left: 30px;
+        width: 500px;
+        height: 140px;
+        background-color: #363636;  
         border-radius:8px;        
     `
   const Paragraph = styled.p`
         block-size:1px;
-        margin-left:15px;
-        margin-bottom: 8px;
+        margin-left:30px;
+        margin-bottom: 10px;
         font-family:"ABeeZee";
-        font-size:11px;
+        font-size:12px;
         color: white;  
         width: 148px;
     `
     const DivCalculo = styled.div`
         width:40px;
         height:18px;
-        color:black;
-        background-color: white;
+        color:white;
+        background-color: black;
         margin:8px;
         font-family:"ABeeZee";
-        font-size: 13px;
+        font-size: 12px;
+        border-radius: 4px;
+        border: 2px grey;
         border-style:outset;
+        
+
     `
   const Div = styled.div`
         display:flex;
         aling-items: center;
         width:125px;
         height:40px;
-        margin:6px 12px;
+        margin:6px 16px 6px 16px;
         background: black;
         border:2px solid gray;
         border-radius:8px;

@@ -17,9 +17,10 @@ import { isNullLiteral } from "@babel/types";
 const Form = styled.form`
   display:flex;
   grid-template-columns: auto, auto, auto;
-  gap:6px;
+  justify-content: center;
+  //gap:6px;
   
-  width: 480px;
+  width: 500px;
   //background: #9656fc64;
   color:white;
 `
@@ -28,7 +29,7 @@ const Div = styled.div`
   aling-items: center;
   width:125px;
   height:40px;
-  margin:8px 12px;
+  margin:6px 16px 6px 16px;
   background: black;
   border:2px solid gray;
   border-radius:8px;
@@ -49,8 +50,8 @@ const Input = styled.input`
 const DivCalculo = styled.div`
   width:40px;
   height:18px;
-  color:black;
-  background-color: white;
+  color:white;
+  background-color: black;
   margin:8px;
   font-family:"ABeeZee";
   font-size: 13px;
@@ -68,25 +69,44 @@ const Label = styled.label`
   color: gray;
             
 `
+const DivSimulForm = styled.div`
+  display:flex;
+  grid-template-columns: auto, auto, auto;
+  flex-wrap: wrap;
+  justify-content: center;
+  //column-gap:8px;
+  row-gap:none;
+  margin-bottom:20px;
+  margin-top: 10px;
+  margin-left: 30px;
+  width: 500px;
+  height: 230px;
+  background-color: #363636;  
+  border-radius:8px;     
+
+`
 const DivSimul = styled.div`
   display:flex;
   grid-template-columns: auto, auto, auto;
   flex-wrap: wrap;
-  column-gap:8px;
+  justify-content: center;
+  //column-gap:8px;
   row-gap:none;
-  margin-bottom:30px;
+  margin-bottom:20px;
   margin-top: 10px;
-  width: 480px;
-  //background-color: #9656fc64;  
-  background-color:#5B5B5B;
+  margin-left: 30px;
+  width: 500px;
+  height: 140px;
+  background-color: #363636;  
   border-radius:8px;        
 `
+
 const Paragraph = styled.p`
   block-size:1px;
-  margin-left:15px;
-  margin-bottom: 8px;
+  margin-left:30px;
+  margin-bottom: 10px;
   font-family:"ABeeZee";
-  font-size:11px;
+  font-size:12px;
   color: white;  
   width: 148px;
 `
@@ -100,7 +120,7 @@ const Button = styled.button`
   
 `
 const Table1 = styled.table`
-  width: 500px;
+  width:500px;
   //height:270px;
   font-family: "ABeeZee";
   border-collapse: collapse;
@@ -111,10 +131,10 @@ const Table1 = styled.table`
 `
 
 const Input8 = styled.input`
-  width:45px;
+  width:42px;
   height:18px;
-  color:black;
-  background-color: #cadefc;
+  color:white;
+  background-color: black;
   margin:8px;
   font-family:"ABeeZee";
   font-size: 12px;
@@ -123,7 +143,7 @@ const Input8 = styled.input`
      
 `
 const Th = styled.th`
-  width: 110px;
+  width: 180px;
   height: 70px;
   //writing-mode: vertical-lr;
   //text-orientation: upright;
@@ -134,7 +154,8 @@ const Th = styled.th`
   
 `
 const Th2 = styled.th`
-  width: 150px;
+  width: 200px;
+  height: 20px;
   text-align: left;
   font-size: 14px;
   letter-spacing: 1px;
@@ -144,7 +165,7 @@ const Th2 = styled.th`
 `
 const Td = styled.td`
   text-align: center;
-  width: 40px;
+  //width: 55px;
   border: 1px solid grey;
   
 
@@ -483,86 +504,88 @@ function App() {
   return (
    <div className="App" style={{backgroundColor:"#1A1A1A", display:"flex"}}>
     
-    <div style={{backgroundColor:"#363636"}}>
-      <h1 style={{fontSize:22, paddingLeft: 16, fontFamily:"Inter", color:"white"}}> Diseño de Resortes</h1>
-      <Form onSubmit={handleSubmit}>
-        <div>
-          <p style={{blockSize:2,marginLeft:14,fontFamily:"ABeeZee",fontSize:11, }}>Datos principales</p>
-            <Div>
-              <Label>d</Label>
-              <Input  value={data.d} type="number" id={"d"} onChange={(e) => handleInput(e)}/>
-            </Div>
-            <Div>
-              <Label>Dext</Label>
-              <Input  value={data.Dext} type="number" id={"Dext"} onChange={(e) => handleInput(e)}/>
-            </Div>
-            <Div>
-              <Label>N</Label>
-              <Input  value={data.N} type="number" id={"N"} onChange={(e) => handleInput(e)}/>
-            </Div>
-            <Div>
-              <Label>L0</Label>
-              <Input  value={data.L0} type="number" id={"L0"} onChange={(e) => handleInput(e)}/>
-            </Div>
-            {/* <button style={{width:125,
-                            height:40,
-                            margin:"10px 14px",
-                            borderRadius:8, 
-                            backgroundColor: "#fc1221c5", color: "white"}}>Enviar</button> */}
-        </div>
+    <div>
+      <h1 style={{fontSize:22, marginLeft: 30, fontFamily:"Inter", color:"white"}}> Diseño de Resortes</h1>
+      <DivSimulForm>
+        <Form onSubmit={handleSubmit}>
+          <div>
+            <p style={{marginLeft:18,marginBottom: 6,fontFamily:"ABeeZee",fontSize:12, }}>Datos principales</p>
+              <Div>
+                <Label>d</Label>
+                <Input  value={data.d} type="number" id={"d"} onChange={(e) => handleInput(e)}/>
+              </Div>
+              <Div>
+                <Label>Dext</Label>
+                <Input  value={data.Dext} type="number" id={"Dext"} onChange={(e) => handleInput(e)}/>
+              </Div>
+              <Div>
+                <Label>N</Label>
+                <Input  value={data.N} type="number" id={"N"} onChange={(e) => handleInput(e)}/>
+              </Div>
+              <Div>
+                <Label>L0</Label>
+                <Input  value={data.L0} type="number" id={"L0"} onChange={(e) => handleInput(e)}/>
+              </Div>
+              {/* <button style={{width:125,
+                              height:40,
+                              margin:"10px 14px",
+                              borderRadius:8, 
+                              backgroundColor: "#fc1221c5", color: "white"}}>Enviar</button> */}
+          </div>
 
-        <div>
-          <p style={{blockSize:2,marginLeft:14,fontFamily:"ABeeZee",fontSize:11, }}>Extremo 1</p>
-            <Div>
-              <Label>Luz1</Label>
-              <Input  value={data.Luz1} type="number" id={"Luz1"} onChange={(e) => handleInput(e)}/>
-            </Div>
-            <Div>
-              <Label>Dint1</Label>
-              <Input  value={data.Dint1} type="number" id={"Dint1"} onChange={(e) => handleInput(e)}/>
-            </Div>
-            <Div>
-              <Label>Vtas1</Label>
-              <Input  value={data.Vtas1} type="number" id={"Vtas1"} onChange={(e) => handleInput(e)}/>
-            </Div>
-            <Div>
-              <Label>Ext1</Label>
-              <Select value={type1} id={"Ext1"} onChange={(e) => setType1(e.target.value)}>
-                
-                <option value="TASE">TASE</option>
-                <option value="TCSE">TCSE</option>
-                <option value="TCE">TCE</option>
-                <option value="TAE">TAE</option>
-              </Select>
-            </Div>
-        </div>
-        
-        <div>
-          <p style={{blockSize:2,marginLeft:14,fontFamily:"ABeeZee",fontSize:11, }}>Extremo 2</p>
-            <Div>
-              <Label>Luz2</Label>
-              <Input  value={data.Luz2} type="number" id={"Luz2"} onChange={(e) => handleInput(e)}/>
-            </Div>
-            <Div>
-              <Label>Dint2</Label>
-              <Input  value={data.Dint2} type="number" id={"Dint2"} onChange={(e) => handleInput(e)}/>
-            </Div>
-            <Div>
-              <Label>Vtas2</Label>
-              <Input  value={data.Vtas2} type="number" id={"Vtas2"} onChange={(e) => handleInput(e)}/>
-            </Div>
-            <Div>
-              <Label>Ext2</Label>
-              <Select  value={type2} id={"Ext2"} onChange={(e) => setType2(e.target.value)}>
-                <option value="TASE">TASE</option>
-                <option value="TCSE">TCSE</option>
-                <option value="TCE">TCE</option>
-                <option value="TAE">TAE</option>
-              </Select>
-            </Div>
-        </div>
+          <div>
+            <p style={{marginLeft:18,marginBottom: 6,fontFamily:"ABeeZee",fontSize:12,}}>Extremo 1</p>
+              <Div>
+                <Label>Luz1</Label>
+                <Input  value={data.Luz1} type="number" id={"Luz1"} onChange={(e) => handleInput(e)}/>
+              </Div>
+              <Div>
+                <Label>Dint1</Label>
+                <Input  value={data.Dint1} type="number" id={"Dint1"} onChange={(e) => handleInput(e)}/>
+              </Div>
+              <Div>
+                <Label>Vtas1</Label>
+                <Input  value={data.Vtas1} type="number" id={"Vtas1"} onChange={(e) => handleInput(e)}/>
+              </Div>
+              <Div>
+                <Label>Ext1</Label>
+                <Select value={type1} id={"Ext1"} onChange={(e) => setType1(e.target.value)}>
+                  
+                  <option value="TASE">TASE</option>
+                  <option value="TCSE">TCSE</option>
+                  <option value="TCE">TCE</option>
+                  <option value="TAE">TAE</option>
+                </Select>
+              </Div>
+          </div>
           
-      </Form>
+          <div>
+            <p style={{marginLeft:18,marginBottom: 6,fontFamily:"ABeeZee",fontSize:12,}}>Extremo 2</p>
+              <Div>
+                <Label>Luz2</Label>
+                <Input  value={data.Luz2} type="number" id={"Luz2"} onChange={(e) => handleInput(e)}/>
+              </Div>
+              <Div>
+                <Label>Dint2</Label>
+                <Input  value={data.Dint2} type="number" id={"Dint2"} onChange={(e) => handleInput(e)}/>
+              </Div>
+              <Div>
+                <Label>Vtas2</Label>
+                <Input  value={data.Vtas2} type="number" id={"Vtas2"} onChange={(e) => handleInput(e)}/>
+              </Div>
+              <Div>
+                <Label>Ext2</Label>
+                <Select  value={type2} id={"Ext2"} onChange={(e) => setType2(e.target.value)}>
+                  <option value="TASE">TASE</option>
+                  <option value="TCSE">TCSE</option>
+                  <option value="TCE">TCE</option>
+                  <option value="TAE">TAE</option>
+                </Select>
+              </Div>
+          </div>
+            
+        </Form>
+      </DivSimulForm>
 
       <SimulationData/>
 

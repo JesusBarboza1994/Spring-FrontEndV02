@@ -10,21 +10,23 @@ export function SimulationData(){
     display:flex;
     grid-template-columns: auto, auto, auto;
     flex-wrap: wrap;
-    column-gap:8px;
+    justify-content: center;
+    //column-gap:8px;
     row-gap:none;
     margin-bottom:20px;
     margin-top: 10px;
-    width: 480px;
-    //background-color: #9656fc64;   
-    background-color:#5B5B5B;
+    margin-left: 30px;
+    width: 500px;
+    height: 140px;
+    background-color: #363636;
     border-radius:8px;      
   `
  const Paragraph = styled.p`
     block-size:1px;
-    margin-left:15px;
-    margin-bottom: 8px;
+    margin-left:30px;
+    margin-bottom: 10px;
     font-family:"ABeeZee";
-    font-size:11px;
+    font-size:12px;
     color: white;  
     width: 148px;
   `
@@ -33,7 +35,7 @@ export function SimulationData(){
     aling-items: center;
     width:125px;
     height:40px;
-    margin:6px 12px;
+    margin:6px 16px 6px 16px;
     background: black;
     border:2px solid gray;
     border-radius:8px;
@@ -62,11 +64,12 @@ export function SimulationData(){
   const Input = styled.input`
     width:40px;
     height:18px;
-    color:black;
-    background-color: #adc5fff1;
+    color:white;
+    background-color: black;
     margin:8px;
     font-family:"ABeeZee";
-    font-size: 13px;
+    font-size: 12px;
+    border-radius: 4px;
     border-style:inset;
       
   `
@@ -106,7 +109,7 @@ const Button = styled.button`
 
   return(
     <DivSimul>
-        <div style={{display: "flex",}}>
+        <div style={{display: "flex", marginLeft: 30,}}>
           <Paragraph>Datos de simulacion</Paragraph>
           <Paragraph></Paragraph>
           <Paragraph>nodos</Paragraph>
@@ -148,8 +151,9 @@ const Button = styled.button`
           <Label style={{color: "#EE7272"}}>grado</Label>
           <Input  value={data1.grado} id={"grado"} onChange={(e) => handleSimulacion(e)}/>
         </Div>
-        <div style={{display: "flex",columnGap:12,width:"100%",justifyContent:"flex-end", marginRight: 8}}>
+        <div style={{display: "flex",columnGap:170,width:"100%", marginLeft: 16}}>
           <Button>Simular</Button>
+          
           <Button>Calcular</Button>
         </div>
                                 
