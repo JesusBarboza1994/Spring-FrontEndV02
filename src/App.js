@@ -18,10 +18,8 @@ const Form = styled.form`
   display:flex;
   grid-template-columns: auto, auto, auto;
   justify-content: center;
-  //gap:6px;
-  
+  row-gap: 6px;
   width: 500px;
-  //background: #9656fc64;
   color:white;
 `
 const Div = styled.div`
@@ -29,7 +27,7 @@ const Div = styled.div`
   aling-items: center;
   width:125px;
   height:40px;
-  margin:6px 16px 6px 16px;
+  margin:6px 16px 14px 16px;
   background: black;
   border:2px solid gray;
   border-radius:8px;
@@ -80,7 +78,7 @@ const DivSimulForm = styled.div`
   margin-top: 10px;
   margin-left: 30px;
   width: 500px;
-  height: 230px;
+  height: 255px;
   background-color: #363636;  
   border-radius:8px;     
 
@@ -168,7 +166,6 @@ const Td = styled.td`
   //width: 55px;
   border: 1px solid grey;
   
-
 `
 // const Table2 = styled.table`
 //   width:210px;
@@ -187,6 +184,16 @@ const Select = styled.select`
   border: 0px;
 
 `
+const Canvas = styled.canvas`
+ background-color: white;
+ width: 500px;
+ height: 300px;
+ margin-bottom:20px;
+ margin-top: 10px;
+ margin-left: 30px;
+ border-radius: 8px;
+`
+
 
 function App() {
 
@@ -603,21 +610,7 @@ function App() {
       <WeightTolerance/>
       
       <Textarea/>
-      <DivSimul>
-        <Paragraph style={{width: 480}}>Calculos teoricos</Paragraph>
-        <Div>
-            <Label>K</Label>
-            <DivCalculo id={"K"}>{(!isNaN(filas.Keq3) && Number.isFinite(filas.Keq3) ) === true ? (filas.Keq3).toFixed(2) : ""}</DivCalculo>
-        </Div>
-        <Div>
-            <Label>F</Label>
-            <DivCalculo id={"F"}>{(!isNaN(filas.Fc3) && Number.isFinite(filas.Fc3) ) === true ? (filas.Fc3).toFixed(1) : ""}</DivCalculo> 
-        </Div>
-        <Div>
-            <Label>L</Label>
-            <DivCalculo id={"L"}>{(!isNaN(filas.Xc3) && Number.isFinite(filas.Xc3) && isNullLiteral(filas.Xc3)) === true ? (filas.Xc3).toFixed(1) : ""}</DivCalculo>
-        </Div>
-      </DivSimul>
+      <Canvas/>
     </div>
 
     <div style={{backgroundColor:"black", display:"flex", columnGap:50, marginTop:48, marginLeft: 28,}}>
@@ -686,52 +679,31 @@ function App() {
             <Td>100%</Td>
           </tr>
         </Table1> 
-        <ProcessTable medidasRes={data} extremo1={data.Ext1} extremo2={data.Ext2}/>
+        <TablaControlDeCargas L0={data.L0} />
       </div>
 
       <div>
                     
         <div style={{display:"flex", justifyContent:"center",}}>
-          {/* <Table2 >
-                <tr style={{height:30,backgroundColor: "#5B5B5B", color:"white"}}>
-                  <th> F </th>
-                  <th> L </th>
-                  <th> d </th>
-                </tr>
-                <tr>
-                  <Td>123</Td>
-                  <Td></Td>
-                  <Td></Td>
-                </tr>
-                <tr>
-                  <Td>123</Td>
-                  <Td></Td>
-                  <Td></Td>
-                </tr>
-                <tr>
-                  <Td>123</Td>
-                  <Td></Td>
-                  <Td></Td>
-                </tr>
-                <tr>
-                  <Td>123</Td>
-                  <Td></Td>
-                  <Td></Td>
-                </tr>
-                <tr>
-                  <Td>123</Td>
-                  <Td></Td>
-                  <Td></Td>
-                </tr>
-                <tr>
-                  <Td>123</Td>
-                  <Td></Td>
-                  <Td></Td>
-                </tr>
-          </Table2> */}
-          <TablaControlDeCargas L0={data.L0} />
+            
+            <ProcessTable medidasRes={data} extremo1={data.Ext1} extremo2={data.Ext2}/>
         </div>
 
+        <DivSimul>
+        <Paragraph style={{width: 480}}>Calculos teoricos</Paragraph>
+        <Div>
+            <Label>K</Label>
+            <DivCalculo id={"K"}>{(!isNaN(filas.Keq3) && Number.isFinite(filas.Keq3) ) === true ? (filas.Keq3).toFixed(2) : ""}</DivCalculo>
+        </Div>
+        <Div>
+            <Label>F</Label>
+            <DivCalculo id={"F"}>{(!isNaN(filas.Fc3) && Number.isFinite(filas.Fc3) ) === true ? (filas.Fc3).toFixed(1) : ""}</DivCalculo> 
+        </Div>
+        <Div>
+            <Label>L</Label>
+            <DivCalculo id={"L"}>{(!isNaN(filas.Xc3) && Number.isFinite(filas.Xc3) && isNullLiteral(filas.Xc3)) === true ? (filas.Xc3).toFixed(1) : ""}</DivCalculo>
+        </Div>
+       </DivSimul>
         <DivSimul> 
             <Paragraph style={{width: 480}}>Calculos reales</Paragraph>
             <Div>

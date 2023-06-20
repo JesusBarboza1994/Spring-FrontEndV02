@@ -28,7 +28,7 @@ export function SimulationData(){
     font-family:"ABeeZee";
     font-size:12px;
     color: white;  
-    width: 148px;
+    width: 138px;
   `
  const Div = styled.div`
     display:flex;
@@ -109,10 +109,10 @@ const Button = styled.button`
 
   return(
     <DivSimul>
-        <div style={{display: "flex", marginLeft: 30,}}>
+        <div style={{display: "flex",}}>
           <Paragraph>Datos de simulacion</Paragraph>
           <Paragraph></Paragraph>
-          <Paragraph>nodos</Paragraph>
+          <Paragraph style={{textAlign: "center",}}>nodos</Paragraph>
         </div>
       
         <Div style={{width:138}}>
