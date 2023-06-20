@@ -2,18 +2,28 @@ import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import "@fontsource/abeezee/400-italic.css";
 import { useAuth } from '../context/auth-context';
+import { colors } from "../styles/colors";
+
+const Table2 = styled.table`
+    
+  font-family: "ABeeZee";
+  border: 2px solid ${colors.grey};
+  border-collapse: collapse;
+  color: ${colors.grey};
+
+`
 
 const Td = styled.td`
   text-align: center;
   width: 40px;
-  border: 1px solid grey;
-
+  border: 1px solid ${colors.grey};
+    
 `
 const Input = styled.input`
   width:50px;
   height:18px;
-  color:black;
-  background-color: #adc5fff1;
+  color:${colors.black};
+  background-color: ${colors.purple};
   margin:8px;
   font-family:"ABeeZee";
   font-size: 13px;
@@ -21,15 +31,19 @@ const Input = styled.input`
      
 `
 const Th3 = styled.th`
-  height: 80px;
+  height: 70px;
   font-size: 14px;
-  border: 1px solid grey;
+  border: 1px solid ${colors.grey};
+  font-family:"ABeeZee";
+  letter-spacing: 1px;
+  padding-left: 5px;
+  padding-right:5px;
   
 `
 const Button1 = styled.button`
   width:125px;
   height:40px;
-  margin:10px 14px;
+  margin:10px 12px;
   border-radius:8px;
 `
 
@@ -111,10 +125,10 @@ export default function TablaControlDeCargas(props) {
     }, [puntosCC])
 
     return(
-        <div style={{backgroundColor: "black"}}>
-            <table>
+        <div style={{backgroundColor: colors.black}}>
+            <Table2>
                 <thead>
-                    <tr style={{backgroundColor: "#5B5B5B", color:"white"}}>
+                    <tr style={{backgroundColor: colors.gray, color:colors.white,}}>
                         <Th3>Punto</Th3>
                         <Th3>Fuerza (kg)</Th3>
                         <Th3>Longitud (mm)</Th3>
@@ -123,7 +137,7 @@ export default function TablaControlDeCargas(props) {
                 </thead>
                 <tbody>
                     {puntosCC.map((punto, indice) => (
-                        <tr key={punto.id} style={{color:"white"}}>
+                        <tr key={punto.id} style={{color:colors.grey}}>
                             <Td>
                                 {punto.id}
                             </Td>
@@ -135,21 +149,18 @@ export default function TablaControlDeCargas(props) {
                             </Td>
                             <Td>
                                 {
-                                    (!isNaN(defs[indice].Def) && Number.isFinite(defs[indice].Def)) === true ? (defs[indice].Def).toFixed(3) : ""
+                                    (!isNaN(defs[indice].Def) && Number.isFinite(defs[indice].Def)) === true ? (defs[indice].Def).toFixed(1) : ""
                                 }
                             </Td>
                         </tr>
                     ))}
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <td colSpan="3" align="center">
-                            <Button1 onClick={deleteRow} disabled={puntosCC.length === 3}>Eliminar última fila</Button1>
-                            <Button1 onClick={addRow}>Agregar fila</Button1> 
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
+               
+            </Table2>
+            <div style={{display: "flex"}}  >
+                <Button1 onClick={deleteRow} disabled={puntosCC.length === 3}>Eliminar última fila</Button1>
+                <Button1 onClick={addRow}>Agregar fila</Button1> 
+            </div>
         </div>
     )
   }

@@ -2,18 +2,19 @@ import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import "@fontsource/abeezee/400-italic.css";
 import { useAuth } from '../context/auth-context';
+import { colors } from "../styles/colors";
 
 const Td = styled.td`
   text-align: center;
   width: 40px;
-  border: 1px solid grey;
+  border: 1px solid ${colors.grey};
 
 `
 const Input = styled.input`
   width:50px;
   height:18px;
-  color:black;
-  background-color: #adc5fff1;
+  color:${colors.black};
+  background-color: ${colors.purple};
   margin:8px;
   font-family:"ABeeZee";
   font-size: 13px;
@@ -23,7 +24,7 @@ const Input = styled.input`
 const Th3 = styled.th`
   height: 80px;
   font-size: 14px;
-  border: 1px solid grey;
+  border: 1px solid ${colors.grey};
   
 `
 const Button1 = styled.button`
@@ -62,10 +63,10 @@ export default function TablaCarrera() {
     }
 
     return(
-        <div style={{backgroundColor: "black"}}>
+        <div style={{backgroundColor: colors.black}}>
             <table>
                 <thead>
-                    <tr style={{backgroundColor: "#5B5B5B", color:"white"}}>
+                    <tr style={{backgroundColor: colors.gray, color:colors.white}}>
                         <td colSpan="2" align="center">
                             <Th3>Carrera (mm)</Th3>
                         </td>
@@ -73,7 +74,7 @@ export default function TablaCarrera() {
                 </thead>
                 <tbody>
                     {carreras.map((punto, indice) => (
-                        <tr key={punto.id} style={{color:"white"}}>
+                        <tr key={punto.id} style={{color:colors.white}}>
                             <Td>
                                 {"S"+(punto.id)}
                             </Td>

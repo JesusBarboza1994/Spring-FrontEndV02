@@ -28,7 +28,7 @@ function AuthProvider({children}){
   })
 
   const [data2, setData2] = useState({
-    C: "",      
+    C: 0,      
     Dmedio:"",         
     f:"",      
     Rel_d1:"",      
