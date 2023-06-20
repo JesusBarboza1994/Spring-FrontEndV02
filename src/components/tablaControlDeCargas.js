@@ -73,7 +73,6 @@ export default function TablaControlDeCargas(props) {
         puntosCCAux.map((punto) => {
 
             if (arreglo[1] === "Fuerza"){
-                console.log("mod de fuerza")
                 if (punto.id === Number(arreglo[0])) {
                     punto.Fuerza = Number(e.target.value)
                 }

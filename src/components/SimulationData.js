@@ -78,7 +78,7 @@ const Button = styled.button`
   `
 
   //NUEVO---------------------------------------------------------------------------------------------------------------------------------------------------------
-  const {data1, setData1, stateButtonCalculateProcessTable, setStateButtonCalculateProcessTable} = useAuth();
+  const {data1, setData1, setStateButtonCalculateProcessTable} = useAuth();
 
   const iniciarFuncion = () => {
     setStateButtonCalculateProcessTable(true);

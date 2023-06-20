@@ -12,7 +12,6 @@ import TablaControlDeCargas from "./components/tablaControlDeCargas";
 import TablaCarrera from "./components/tablaCarrera";
 import LongTable from "./components/longTable";
 import ProbarFuerza from "./components/probarFuerza";
-import {MyResponsiveScatterPlot} from "./components/graphScatter";
 import GraficoControlCargas from "./components/graficoControlCargas";
 
 import { useAuth } from './context/auth-context';
@@ -169,8 +168,6 @@ function App() {
     Peso:"",
     Dmedio:"",    
   })
-
-  //const {filas, setFilas, data1, setData1, data, setData, data2, setData2} = useAuth();
     
   const [data4, setData4] = useState({
     K:"",      
@@ -180,8 +177,7 @@ function App() {
 
   //Renee-Inicio-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  const {filas, data, setData, data2, setData2, controlCargas, 
-    setControlCargas, kControlCargas, setKControlCargas, bControlCargas, setBControlCargas} = useAuth();
+  const {filas, data, setData, data2, setData2, controlCargas, setKControlCargas, setBControlCargas} = useAuth();
 
   const [puntosCCGrafica, setPuntosCCGrafica] = useState([
     { x: 0, y: 0},
@@ -191,10 +187,9 @@ function App() {
 
   const [lineaCC, setLineaCC] = useState({
     k:0,      
-    b:0          
+    b:0,
+    r2:0          
   })
-
-  const [fuerzas, setFuerzas] = useState([340.5,498.31,622.89])
 
   //Renee-Fin-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -232,11 +227,6 @@ function App() {
     Q_Long : 0,
     toler_L0: 0,
   });
-
-  const [pointsScatter, setPointsScatter] = useState({
-    id:"Forces",
-    data:[]
-  })
  
   useEffect(() => {
     let extremo1 = type1
@@ -244,9 +234,6 @@ function App() {
     setData({...data,
       Ext1: extremo1, Ext2: extremo2
     })
-
-    console.log("Extremos actualizados")
-    console.log(data)
 
   }, [type1, type2])
 
@@ -294,20 +281,12 @@ function App() {
 
   }, [controlCargas])
 
-  useEffect(() => {
-
-    setPointsScatter([{
-      "id":"Forces",
-      "data":puntosCCGrafica
-    }])
-
-  }, [puntosCCGrafica])
-
   function calculateLinearRegression(data) {
     let sumX = data.reduce((acc, point) => acc + point.x, 0);
     let sumY = data.reduce((acc, point) => acc + point.y, 0);
     let sumXY = data.reduce((acc, point) => acc + point.x * point.y, 0);
     let sumXSquared = data.reduce((acc, point) => acc + point.x ** 2, 0);
+    let sumYSquared = data.reduce((acc, point) => acc + point.y ** 2, 0);
     let n = data.length;
 
     let slope = (n * sumXY - sumX * sumY) / (n * sumXSquared - sumX ** 2);
@@ -316,24 +295,23 @@ function App() {
     setKControlCargas(parseFloat(slope))
     setBControlCargas(parseFloat(intercept))
 
-    let linea = {k: parseFloat(slope), b: parseFloat(intercept)}
-
-
-    console.log("data puntos")
-    console.log(data)
-
-    setLineaCC(linea)
-    console.log("RegresionLineal")
-    console.log(lineaCC)
-    console.log(linea)
-  
     let regressionLine = data.map(point => ({
       x: point.x,
       y: slope * point.x + intercept,
     }));
 
-    console.log("regressionLine")
-    console.log(regressionLine)
+    // Cálculo del R-cuadrado
+    let yMean = sumY / n;
+    let regressionSumSquares = regressionLine.reduce(
+      (acc, point) => acc + (point.y - yMean) ** 2,
+      0
+    );
+    let totalSumSquares = sumYSquared - (sumY ** 2) / n;
+    let rSquared = 1 - regressionSumSquares / totalSumSquares;
+
+    let linea = {k: parseFloat(slope), b: parseFloat(intercept), r2: parseFloat(rSquared)}
+
+    setLineaCC(linea)
   
     return regressionLine;
   }
@@ -353,21 +331,6 @@ function App() {
     console.log(WeightTolerance.data3)
   }
   
-  const dataAux1 = [
-    {"x": 20, "y": 100},
-    {"x": 40, "y": 200},
-    {"x": 60, "y": 300},
-    {"x": 80, "y": 400},
-    {"x": 100,"y": 500}
-  ]
-
-  const dataAux2 = [
-    {
-      "id": "group A",
-      "data": dataAux1
-    }
-  ]
-
   return (
    <div className="App" style={{backgroundColor:"black", display:"flex"}}>
     
@@ -471,9 +434,6 @@ function App() {
       <DivSimul>
         <Paragraph style={{width: 480}}>Calculos teoricos</Paragraph>
         <Div>
-          {
-            console.log(filas)
-          }
             <Label>K</Label>
             <DivCalculo id={"K"}>{filas.Keq3}</DivCalculo>
         </Div>
@@ -556,17 +516,10 @@ function App() {
       <ProbarFuerza/>
     </div>
      
-    <GraficoControlCargas puntos={puntosCCGrafica} slope={lineaCC.k} intercept={lineaCC.b}/>
+    <GraficoControlCargas puntos={puntosCCGrafica} slope={lineaCC.k} intercept={lineaCC.b} rSquared={lineaCC.r2}/>
      
    </div>   
   );
 }
 
 export default App;
-
-/*
-<div style={{height:"700px", width:"1000px"}}>
-      <h1 style={{width:"700px"}}>hey</h1>
-      <MyResponsiveScatterPlot data={dataAux2} />
-    </div>
-*/

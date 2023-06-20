@@ -552,7 +552,6 @@ export default function ProcessTable(props) {
 
     return(
         <div style={{backgroundColor: "black"}}>
-            <Button onClick={CalculateOrReset3Points}>Calcular</Button>
             <Table1>
                 <thead>
                     <tr style={{backgroundColor: "#5B5B5B", color:"white"}}>

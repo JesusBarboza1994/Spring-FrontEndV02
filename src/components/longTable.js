@@ -116,8 +116,6 @@ export default function LongTable() {
     }  
     
     useEffect(() => {
-        console.log("Lmedio")
-        console.log(Lmedio)
         let s1=data.L0-inputLongTable[0];
         let s2=data.L0-inputLongTable[1];
         let s3=data.L0-inputLongTable[2];

@@ -5,13 +5,13 @@ import { useAuth } from '../context/auth-context';
 
 const DivSimul = styled.div`
   display:flex;
-  grid-template-columns: auto, auto, auto;
+  flex-direction: column;
   flex-wrap: wrap;
   column-gap:8px;
   row-gap:none;
   margin-bottom:30px;
   margin-top: 10px;
-  width: 480px;
+  width: 310px;
   background-color: #9656fc64;  
 `   
 const Paragraph = styled.p`
@@ -92,7 +92,8 @@ export default function ProbarFuerza() {
         <div style={{backgroundColor: "black"}}>
             
             <DivSimul> 
-                <Paragraph style={{width: 480}}>Calculos reales</Paragraph>
+                <Paragraph style={{width: '80px'}}>Calculos reales</Paragraph>
+                <div style={{display: 'flex'}}>
                     <Div>
                         <Label>F</Label>
                         <Input8 type="number" value={inputFuerza} onChange={(e) => handleInputFuerza(e)}/>
@@ -101,10 +102,8 @@ export default function ProbarFuerza() {
                         <Label>L</Label>
                         <DivCalculo id={"L"}>{long}</DivCalculo>
                     </Div>
-                    <Div>
-                        <Label>d</Label>
-                        <DivCalculo id={"d"}>{def}</DivCalculo>
-                    </Div>
+                </div>
+                    
             </DivSimul>
 
         </div>
