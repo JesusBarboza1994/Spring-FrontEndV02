@@ -309,7 +309,7 @@ function App() {
     let totalSumSquares = sumYSquared - (sumY ** 2) / n;
     let rSquared = 1 - regressionSumSquares / totalSumSquares;
 
-    let linea = {k: parseFloat(slope), b: parseFloat(intercept), r2: parseFloat(rSquared)}
+    let linea = {k: parseFloat(slope), b: parseFloat(intercept), r2: parseFloat(1-rSquared)}
 
     setLineaCC(linea)
   

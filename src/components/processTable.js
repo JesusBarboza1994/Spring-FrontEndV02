@@ -586,11 +586,6 @@ export default function ProcessTable(props) {
                         </Th3>
                         <Th3>
                             {
-                                kInvVisible ? <Button2 onClick={visibleColumnKInv}>K^-1</Button2> : <Button3 onClick={visibleColumnKInv}>+</Button3>
-                            }
-                        </Th3>
-                        <Th3>
-                            {
                                 bVisible ? <Button2 onClick={visibleColumnB}>b</Button2> : <Button3 onClick={visibleColumnB}>+</Button3>
                             }
                         </Th3>
@@ -622,32 +617,27 @@ export default function ProcessTable(props) {
                             </Td>
                             <Td>
                                 {
-                                    kEqVisible ? ((!isNaN(processTableStage2Inv[indice].Keq) && Number.isFinite(processTableStage2Inv[indice].Keq) && (processTableStage2Inv[indice].Keq !== 0)) === true ? (processTableStage2Inv[indice].Keq).toFixed(3) : "") : null
+                                    kEqVisible ? ((!isNaN(processTableStage2Inv[indice].Keq) && Number.isFinite(processTableStage2Inv[indice].Keq) && (processTableStage2Inv[indice].Keq !== 0)) === true ? (processTableStage2Inv[indice].Keq).toFixed(2) : "") : null
                                 }
                             </Td>
                             <Td>
                                 {
-                                    xcVisible ? ((!isNaN(processTableStage2Inv[indice].Xc) && Number.isFinite(processTableStage2Inv[indice].Xc) ) === true ? (processTableStage2Inv[indice].Xc).toFixed(3) : "") : null
+                                    xcVisible ? ((!isNaN(processTableStage2Inv[indice].Xc) && Number.isFinite(processTableStage2Inv[indice].Xc) ) === true ? (processTableStage2Inv[indice].Xc).toFixed(2) : "") : null
                                 }
                             </Td>
                             <Td>
                                 {
-                                    fcVisible ? ((!isNaN(processTableStage2Inv[indice].Fc) && Number.isFinite(processTableStage2Inv[indice].Fc) ) === true ? (processTableStage2Inv[indice].Fc).toFixed(3) : "") : null
+                                    fcVisible ? ((!isNaN(processTableStage2Inv[indice].Fc) && Number.isFinite(processTableStage2Inv[indice].Fc) ) === true ? (processTableStage2Inv[indice].Fc).toFixed(2) : "") : null
                                 }
                             </Td>
                             <Td>
                                 {
-                                    kVisible ? ((!isNaN(processTableStage2Inv[indice].K) && Number.isFinite(processTableStage2Inv[indice].K) && (processTableStage2Inv[indice].K !== 0)) === true ? (processTableStage2Inv[indice].K).toFixed(3) : "") : null
+                                    kVisible ? ((!isNaN(processTableStage2Inv[indice].K) && Number.isFinite(processTableStage2Inv[indice].K) && (processTableStage2Inv[indice].K !== 0)) === true ? (processTableStage2Inv[indice].K).toFixed(2) : "") : null
                                 }
                             </Td>
                             <Td>
                                 {
-                                    kInvVisible ? ((!isNaN(processTableStage2Inv[indice].Kinv) && Number.isFinite(processTableStage2Inv[indice].Kinv) && (processTableStage2Inv[indice].Kinv !== 0)) === true ? (processTableStage2Inv[indice].Kinv).toFixed(4) : "") : null
-                                }
-                            </Td>
-                            <Td>
-                                {
-                                    bVisible ? ((!isNaN(processTableStage2Inv[indice].b) && Number.isFinite(processTableStage2Inv[indice].b)) === true ? (processTableStage2Inv[indice].b.toFixed(3)) : "") : null
+                                    bVisible ? ((!isNaN(processTableStage2Inv[indice].b) && Number.isFinite(processTableStage2Inv[indice].b)) === true ? (processTableStage2Inv[indice].b.toFixed(2)) : "") : null
                                 }
                             </Td>
                         </tr>
