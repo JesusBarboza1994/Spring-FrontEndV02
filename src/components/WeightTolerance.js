@@ -15,7 +15,7 @@ export function WeightTolerance(){
     row-gap:none;
     margin-bottom:20px;
     margin-top: 10px;
-    margin-left: 30px;
+    margin-left: 50px;
     width: 500px;
     height: 160px;
     background-color: #363636;

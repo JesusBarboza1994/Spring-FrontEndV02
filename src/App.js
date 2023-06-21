@@ -76,7 +76,7 @@ const DivSimulForm = styled.div`
   row-gap:none;
   margin-bottom:20px;
   margin-top: 10px;
-  margin-left: 30px;
+  margin-left: 50px;
   width: 500px;
   height: 255px;
   background-color: #363636;  
@@ -118,6 +118,7 @@ const Button = styled.button`
   
 `
 const Table1 = styled.table`
+  background-color: black; 
   width:500px;
   //height:270px;
   font-family: "ABeeZee";
@@ -189,8 +190,8 @@ const Canvas = styled.canvas`
  width: 500px;
  height: 300px;
  margin-bottom:20px;
- margin-top: 10px;
- margin-left: 30px;
+ margin-top: 30px;
+ margin-left: 50px;
  border-radius: 8px;
 `
 
@@ -512,7 +513,7 @@ function App() {
    <div className="App" style={{backgroundColor:"#1A1A1A", display:"flex"}}>
     
     <div>
-      <h1 style={{fontSize:22, marginLeft: 30, fontFamily:"Inter", color:"white"}}> Diseño de Resortes</h1>
+      <h1 style={{fontSize:22, marginLeft: 50, fontFamily:"Inter", color:"white"}}> Diseño de Resortes</h1>
       <DivSimulForm>
         <Form onSubmit={handleSubmit}>
           <div>
@@ -613,17 +614,17 @@ function App() {
       <Canvas/>
     </div>
 
-    <div style={{backgroundColor:"black", display:"flex", columnGap:50, marginTop:48, marginLeft: 28,}}>
+    <div style={{display:"flex", marginTop:58, marginLeft: 50,}}>
       <div>
         <Table1>
           <tr style={{backgroundColor: "#5B5B5B", color:"white",}}>
             <Th> </Th>
-            <Th>Long (mm)</Th>
-            <Th>X (mm)</Th>
-            <Th>LL-G (mm)</Th>
-            <Th>Fuerza (kg)</Th>
-            <Th>Esf (MPa)</Th>
-            <Th>Compr. (%)</Th>
+            <Th style={{width: 90}}>Long (mm)</Th>
+            <Th style={{width: 80}}>X (mm)</Th>
+            <Th style={{width: 80}}>LL-G (mm)</Th>
+            <Th style={{width: 90}}>Fuerza (kg)</Th>
+            <Th style={{width: 90}}>Esf (MPa)</Th>
+            <Th style={{width: 60}}>Compr. (%)</Th>
           </tr>
           <tr>
             <Th2>L inst</Th2>
@@ -631,7 +632,7 @@ function App() {
             <Input8 type="number" value={valuetab.Linst} id={"Linst"}  onChange={(e) => handleTab(e)}/>     
             </Td>
             <Td>-</Td>
-            <Td> -- </Td>
+            <Td> 000.0 </Td>
             <Td>{carrera.Finst}</Td>
             <Td>{carrera.TauK1}</Td>
             <Td>{carrera.Compres1}%</Td>
@@ -681,47 +682,48 @@ function App() {
         </Table1> 
         <TablaControlDeCargas L0={data.L0} />
       </div>
+      
+    </div> 
 
+    <div style={{display:"flex", marginTop:58, marginLeft: 50,}}>        
       <div>
-                    
-        <div style={{display:"flex", justifyContent:"center",}}>
-            
-            <ProcessTable medidasRes={data} extremo1={data.Ext1} extremo2={data.Ext2}/>
-        </div>
+        <ProcessTable medidasRes={data} extremo1={data.Ext1} extremo2={data.Ext2}/>
+        <Canvas/>
 
-        <DivSimul>
-        <Paragraph style={{width: 480}}>Calculos teoricos</Paragraph>
-        <Div>
-            <Label>K</Label>
-            <DivCalculo id={"K"}>{(!isNaN(filas.Keq3) && Number.isFinite(filas.Keq3) ) === true ? (filas.Keq3).toFixed(2) : ""}</DivCalculo>
-        </Div>
-        <Div>
-            <Label>F</Label>
-            <DivCalculo id={"F"}>{(!isNaN(filas.Fc3) && Number.isFinite(filas.Fc3) ) === true ? (filas.Fc3).toFixed(1) : ""}</DivCalculo> 
-        </Div>
-        <Div>
-            <Label>L</Label>
-            <DivCalculo id={"L"}>{(!isNaN(filas.Xc3) && Number.isFinite(filas.Xc3) && isNullLiteral(filas.Xc3)) === true ? (filas.Xc3).toFixed(1) : ""}</DivCalculo>
-        </Div>
-       </DivSimul>
-        <DivSimul> 
-            <Paragraph style={{width: 480}}>Calculos reales</Paragraph>
-            <Div>
-                <Label>K</Label>
-                <DivCalculo id={"K"}>{data4.K}</DivCalculo>
-            </Div>
-            <Div>
-                <Label>F</Label>
-                <DivCalculo id={"F"}>{data4.F}</DivCalculo>
-            </Div>
-            <Div>
-                <Label>L</Label>
-                <DivCalculo id={"L"}>{data4.L}</DivCalculo>
-            </Div>
+        {/* <DivSimul>
+          <Paragraph style={{width: 480}}>Calculos teoricos</Paragraph>
+          <Div>
+              <Label>K</Label>
+              <DivCalculo id={"K"}>{(!isNaN(filas.Keq3) && Number.isFinite(filas.Keq3) ) === true ? (filas.Keq3).toFixed(2) : ""}</DivCalculo>
+          </Div>
+          <Div>
+              <Label>F</Label>
+              <DivCalculo id={"F"}>{(!isNaN(filas.Fc3) && Number.isFinite(filas.Fc3) ) === true ? (filas.Fc3).toFixed(1) : ""}</DivCalculo> 
+          </Div>
+          <Div>
+              <Label>L</Label>
+              <DivCalculo id={"L"}>{(!isNaN(filas.Xc3) && Number.isFinite(filas.Xc3) && isNullLiteral(filas.Xc3)) === true ? (filas.Xc3).toFixed(1) : ""}</DivCalculo>
+          </Div>
         </DivSimul>
 
-      </div>  
-    </div> 
+        <DivSimul> 
+          <Paragraph style={{width: 480}}>Calculos reales</Paragraph>
+          <Div>
+              <Label>K</Label>
+              <DivCalculo id={"K"}>{data4.K}</DivCalculo>
+          </Div>
+          <Div>
+              <Label>F</Label>
+              <DivCalculo id={"F"}>{data4.F}</DivCalculo>
+          </Div>
+          <Div>
+              <Label>L</Label>
+              <DivCalculo id={"L"}>{data4.L}</DivCalculo>
+          </Div>
+        </DivSimul> */}
+      </div>
+
+    </div>  
         
     {/* <TablaCarrera/> */}
     

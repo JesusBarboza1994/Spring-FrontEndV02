@@ -21,7 +21,7 @@ export function Textarea(){
           
             width: 480, 
             height: 100, 
-            marginLeft:30,
+            marginLeft:50,
             marginBottom: 0, 
             border:"2px solid grey",
             borderRadius:8, 
@@ -39,8 +39,8 @@ export function Textarea(){
 
         <textarea style={{
             width: 480,
-            height: 20,
-            marginLeft:30,
+            height: 40,
+            marginLeft:50,
             marginTop: 0,
             border:"2px solid grey",
             borderRadius:8,
@@ -49,7 +49,7 @@ export function Textarea(){
             color:"grey",
             fontFamily:"ABeeZee",
             fontSize: 12,
-            paddingLeft:30,
+            paddingLeft:20,
             }}placeholder="Datos adicionales">
         </textarea>    
     </div>  
