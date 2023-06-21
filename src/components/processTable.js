@@ -643,7 +643,7 @@ export default function ProcessTable(props) {
                                     xcVisible ? ((!isNaN(processTableStage2Inv[indice].Xc) && Number.isFinite(processTableStage2Inv[indice].Xc) ) === true ? (processTableStage2Inv[indice].Xc).toFixed(2) : "") : null
                                 }
                             </Td>
-                            {/* <Td>
+                            <Td>
                                 {
                                     fcVisible ? ((!isNaN(processTableStage2Inv[indice].Fc) && Number.isFinite(processTableStage2Inv[indice].Fc) ) === true ? (processTableStage2Inv[indice].Fc).toFixed(2) : "") : null
                                 }
@@ -657,7 +657,7 @@ export default function ProcessTable(props) {
                                 {
                                     bVisible ? ((!isNaN(processTableStage2Inv[indice].b) && Number.isFinite(processTableStage2Inv[indice].b)) === true ? (processTableStage2Inv[indice].b.toFixed(2)) : "") : null
                                 }
-                            </Td> */}
+                            </Td>
                         </tr>
                     ))}
                 </tbody>

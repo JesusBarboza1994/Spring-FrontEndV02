@@ -419,7 +419,7 @@ function App() {
       <div>
         <div style={{display:"flex", justifyContent:"center",paddingTop:94,}}>
           <LongTable/>
-          <Table2 >
+          {/* <Table2 >
                 <tr style={{height:30,backgroundColor: "#5B5B5B", color:"white"}}>
                   <th> F </th>
                   <th> L </th>
