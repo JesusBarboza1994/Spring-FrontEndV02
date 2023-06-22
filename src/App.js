@@ -185,6 +185,11 @@ const Select = styled.select`
   border: 0px;
 
 `
+const H2 = styled.h2`
+  color: white;
+  font-size: 22px;
+`
+
 const Canvas = styled.canvas`
  background-color: white;
  width: 500px;
@@ -688,7 +693,15 @@ function App() {
     <div style={{display:"flex", marginTop:58, marginLeft: 50,}}>        
       <div>
         <ProcessTable medidasRes={data} extremo1={data.Ext1} extremo2={data.Ext2}/>
-        <Canvas/>
+        
+        <H2 style={{marginTop:40,}}>Caracteristica del Resorte</H2>
+        <canvas style={{
+           width: 500,
+           height: 400, 
+           background: "white",
+           borderRadius: 8,
+          //  marginTop: 30,
+            }}></canvas>
 
         {/* <DivSimul>
           <Paragraph style={{width: 480}}>Calculos teoricos</Paragraph>

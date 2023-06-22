@@ -5,6 +5,7 @@ import { useAuth } from '../context/auth-context';
 
 const Table2 = styled.table`
   width:500px; 
+  background-color: black;
   font-family: "ABeeZee";
   border: 2px solid grey;
   border-collapse: collapse;
@@ -414,7 +415,7 @@ export default function ProcessTable(props) {
     }, [processTableStage2])
 
     return(
-        <div style={{backgroundColor: "black"}}>
+        <div>
             {/* <Button onClick={CalculateOrReset3Points}>Calcular</Button> */}
             <Table2>
                 <thead>
@@ -492,7 +493,7 @@ export default function ProcessTable(props) {
                                          
                       
             </Table2>
-            <div style={{display: "flex", justifyContent: "center",}}  >
+            <div style={{width: 500, display: "flex", justifyContent: "center",}}  >
               <Button1 onClick={deleteRow} disabled={processTableStage1.length === 3}>Eliminar última fila</Button1>
               <Button1 onClick={addRow}>Agregar fila</Button1> 
               <Button1 onClick={orderRow}>Ordenar filas</Button1>  

@@ -6,6 +6,7 @@ import { useAuth } from '../context/auth-context';
 const Table2 = styled.table`
   width: 220px;  
   margin:20px 0px;
+  background: black;
   font-family: "ABeeZee";
   border: 2px solid grey;
   border-collapse: collapse;
@@ -15,6 +16,7 @@ const Table2 = styled.table`
 const Table3 = styled.table`
   width: 220px;  
   margin:20px 0px;
+  background: black;
   font-family: "ABeeZee";
   border: 2px solid grey;
   border-collapse: collapse;
@@ -48,6 +50,10 @@ const Th3 = styled.th`
   padding-left: 5px;
   padding-right:5px;
   
+`
+const H2 = styled.h2`
+  color: white;
+  font-size: 22px;
 `
 const Button1 = styled.button`
   width:100px;
@@ -136,8 +142,9 @@ export default function TablaControlDeCargas(props) {
     }, [puntosCC])
 
     return(
-        <div style={{display: "flex", backgroundColor: "black", gap: 60,}}>
+        <div style={{display: "flex", gap: 60,}}>
             <div>
+                <H2>Cargas reales</H2>
                 <Table2>
                     <thead>
                         <tr style={{backgroundColor: "#5B5B5B", color:"white",}}>
@@ -178,6 +185,7 @@ export default function TablaControlDeCargas(props) {
             
             
             <div>
+             <H2>Cargas simuladas</H2>
              <Table3>
                 <thead>
                     <tr style={{backgroundColor: "#5B5B5B", color:"white",}}>
