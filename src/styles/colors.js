@@ -29,7 +29,7 @@ export const colors = {
   purple: "#adc5fff1",
   back: "#fc1221c5",
   grey: grey,
-  red: "#EE7272",
+  red: "#C1312D",
 };
 
 export const ColorStyle = (dark) =>{

@@ -641,16 +641,13 @@ function App() {
             height: 400, 
             background: "white",
             borderRadius: 8,
-            }}>
+            }}> 
 
           </canvas>
-        </div>
-
-        <div style={{backgroundColor:'black'}}>
-          <TablaControlDeCargas L0={data.L0} />
-          <ProbarFuerza/>
           <GraficoControlCargas puntos={puntosCCGrafica} slope={lineaCC.k} intercept={lineaCC.b} rSquared={lineaCC.r2}/>
         </div>
+
+        
       </div> 
       
      

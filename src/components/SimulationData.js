@@ -79,6 +79,8 @@ const Button = styled.button`
     height:40px;
     margin:3px 12px;
     border-radius:8px;
+    font-family:"ABeeZee";
+    letter-spacing: 1px;
     background-color: ${colors.red};
     color: ${colors.white};
     
