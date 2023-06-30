@@ -1,8 +1,9 @@
+import { useEffect } from "react";
 import { useAuth } from "../context/auth-context";
 
 export function DescripcionResorte(){  //codifica el resorte acorde a los datos presentados en la hoja de diseño
 
-  const {data, data1,tablaToler,coef} = useAuth();
+  const {data, data1,tablaToler,coef, descrip, setDescrip,grado} = useAuth();
          
  
   
@@ -111,8 +112,15 @@ export function DescripcionResorte(){  //codifica el resorte acorde a los datos 
       }
   }  
    
- 
+  useEffect(() => {
 
-  return mensaje
+    if(data.d >0 && data.Dext >0 && data.N >0 && data.L0 >0)
+      
+    setDescrip({...descrip, descrip: mensaje })
+            
+  }, [grado])
+  
+
+  //return mensaje
         
 }

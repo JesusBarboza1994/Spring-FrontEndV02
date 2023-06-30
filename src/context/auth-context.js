@@ -60,14 +60,20 @@ function AuthProvider({children}){
 
   const [tablaToler,setTablaToler] = useState({
     valor: "",
-   });
+  });
 
-   const [coef, setCoef] = useState({
-       af : 0,
-       kf : 0,
-       Q_Long : 0,
-       toler_L0: 0,
-   });
+  const [coef, setCoef] = useState({
+    af : 0,
+    kf : 0,
+    Q_Long : 0,
+    toler_L0: 0,
+  });
+
+  const [descrip, setDescrip] = useState({
+    descrip: "",
+  });
+  const [grado,setGrado] = useState(1); 
+  
   const [kControlCargas, setKControlCargas] = useState(0)
   const [bControlCargas, setBControlCargas] = useState(0)
   const [l4, setL4] = useState(0)
@@ -106,6 +112,10 @@ function AuthProvider({children}){
       setTablaToler,
       coef,
       setCoef,
+      descrip,
+      setDescrip,
+      grado,
+      setGrado,
       processTableStage1,
       setProcessTableStage1,
       processTableStage2,

@@ -6,10 +6,10 @@ import { colors } from "../styles/colors";
 export function Textarea(){
    const Paragraph = styled.p`
         block-size:1px;
-        margin-left:15px;
-        margin-bottom: 8px;
+        margin-left: 60px;
+        margin-bottom: 20px;
         font-family:"ABeeZee";
-        font-size:11px;
+        font-size:12px;
         color: ${colors.white};  
         width: 148px;
     `
@@ -20,17 +20,18 @@ export function Textarea(){
         <Paragraph style={{width: 480}}>Descripcion</Paragraph>
         <div style={{
           
-            width: 444, 
+            width: 480, 
             height: 100, 
-            margin:14,
-            marginBottom: 0, 
+            marginLeft:50,
+            marginBottom: 0,  
             border:"2px solid grey",
+            borderRadius:8,
             borderBottom: "1px solid grey",
             borderColor:colors.grey,
             backgroundColor:colors.black,
             color:colors.grey,
             fontFamily:"ABeeZee",
-            fontSize: 16,
+            fontSize: 14,
             padding:10,
 
          }} placeholder="Descripcion">
@@ -38,17 +39,18 @@ export function Textarea(){
         </div>
 
         <textarea style={{
-            width: 444,
-            height: 20,
-            marginLeft:14,
+            width: 480,
+            height: 40,
+            marginLeft:50,
             marginTop: 0,
             border:"2px solid grey",
+            borderRadius:8,
             borderTop:"1px solid grey",
             backgroundColor:colors.black,
             color:colors.grey,
             fontFamily:"ABeeZee",
             fontSize: 12,
-            padding:10,
+            padding:20,
             }}placeholder="Datos adicionales">
         </textarea>    
     </div>  

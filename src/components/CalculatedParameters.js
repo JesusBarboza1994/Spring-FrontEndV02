@@ -14,28 +14,31 @@ export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,lo
         row-gap:none;
         margin-bottom:20px;
         margin-top: 10px;
-        width: 480px;
+        width: 500px;
+        height: 140px;
         //background-color: #9656fc64;  
         background-color: ${colors.gray};
         border-radius:8px;        
     `
   const Paragraph = styled.p`
         block-size:1px;
-        margin-left:15px;
-        margin-bottom: 8px;
+        margin-left:30px;
+        margin-bottom: 10px;
         font-family:"ABeeZee";
-        font-size:11px;
+        font-size:12px;
         color: ${colors.white};  
         width: 148px;
     `
     const DivCalculo = styled.div`
         width:40px;
         height:18px;
-        color:${colors.black};
-        background-color: ${colors.white};
+        color:${colors.white};
+        background-color: ${colors.black};
         margin:8px;
         font-family:"ABeeZee";
-        font-size: 13px;
+        font-size: 12px;
+        border-radius: 4px;
+        border: 2px grey;
         border-style:outset;
     `
   const Div = styled.div`
@@ -43,7 +46,7 @@ export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,lo
         aling-items: center;
         width:125px;
         height:40px;
-        margin:6px 12px;
+        margin:6px 16px 6px 16px;
         background: ${colors.black};
         border:2px solid ${colors.gray};
         border-radius:8px;
@@ -193,7 +196,7 @@ export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,lo
           <Label>C</Label>  
                    
           <DivCalculo id={"C"}>
-            {(!isNaN(data2.C) && (data2.C != 0)) === true ? (Number(data2.C)).toFixed(2): ""}
+            {(!isNaN(data2.C) && (data2.C != 0)) === true ? (Number(data2.C)).toFixed(1): ""}
           </DivCalculo>
       </Div>
       <Div>
@@ -209,19 +212,19 @@ export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,lo
       <Div>
           <Label>Rel.d1</Label>
           <DivCalculo id={"Rel.d1"}>
-            {(!isNaN(data2.Rel_d1) && (data2.Rel_d1 != 0)) === true ? Number((data2.Rel_d1)) : ""}
+            {(!isNaN(data2.Rel_d1) && (data2.Rel_d1 > 0) && Number.isFinite(data2.Rel_d1)) === true ? (Number(data2.Rel_d1)).toFixed(1) : ""}
           </DivCalculo>
       </Div>
       <Div>
           <Label>Rel.d2</Label>
           <DivCalculo id={"Rel.d2"}>
-            {(!isNaN(data2.Rel_d2) && (data2.Rel_d2 != 0)) === true ? Number((data2.Rel_d2)) : ""}
+            {(!isNaN(data2.Rel_d2) && (data2.Rel_d2 > 0) && Number.isFinite(data2.Rel_d2)) === true ? (Number(data2.Rel_d2)).toFixed(1) : ""}
           </DivCalculo>
       </Div>
       <Div>
           <Label>Vt.red/VT</Label>
           <DivCalculo id={"Vt.red/VT"}>
-            {(!isNaN(data2.Vt_red_VT) && (data2.Vt_red_VT != 0)) === true ? Number((data2.Vt_red_VT)) : ""}
+            {(!isNaN(data2.Vt_red_VT) && (data2.Vt_red_VT > 0) && Number.isFinite(data2.Vt_red_VT)) === true ? Number((data2.Vt_red_VT)) : ""}
           </DivCalculo>
       </Div>
 

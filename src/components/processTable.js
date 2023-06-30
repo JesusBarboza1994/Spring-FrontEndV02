@@ -5,39 +5,32 @@ import { useAuth } from '../context/auth-context';
 import { colors } from "../styles/colors";
 
 const Table2 = styled.table`
-    
+  width:500px; 
+  background-color: black; 
   font-family: "ABeeZee";
   border: 2px solid ${colors.grey};
   border-collapse: collapse;
   color: ${colors.grey};
-  margin-top: 40px;
+  //margin-top: 40px;
 
 `
 
 const Td = styled.td`
   text-align: center;
-  width: 40px;
+  //width: 40px;
   border: 1px solid ${colors.grey};
 
 `
-const Table1 = styled.table`
-  width: 520px;
-  height:380px;
-  font-family: "ABeeZee";
-  border: 2px solid grey;
-  border-collapse: collapse;
-  color: grey;
-      
-`
 const Input = styled.input`
-  width:50px;
+  width:42px;
   height:18px;
-  color:${colors.black};
-  background-color: ${colors.purple};
+  color:${colors.white};
+  background-color: ${colors.black};
   margin:8px;
   font-family:"ABeeZee";
-  font-size: 13px;
+  font-size: 12px;
   border-style:inset;
+  border-radius: 4px;
      
 `
 const Input3 = styled.input`
@@ -94,14 +87,14 @@ const Button = styled.button`
   height:40px;
   margin:3px 12px;
   border-radius:8px;
-  background-color: ${colors.back};
+  background-color: ${colors.black};
   color: ${colors.white};
   
 `
 const Button1 = styled.button`
   width:125px;
   height:40px;
-  margin:10px 14px;
+  margin:20px 0px 0px 20px;
   border-radius:8px;
 `
 const Button2 = styled.button`
@@ -125,42 +118,6 @@ const Button3 = styled.button`
   font-weight: bold;
   color:white
 `
-
-/*export function calcularprocessTableStage1(){
-        
-    const {data, setData, processTableStage1, setProcessTableStage1, processTableStage2, setProcessTableStage2} = useAuth();
-
-    let long1 = (Number(data.Luz2)+Number(data.d))*0.875
-    let long2 = (Number(data.Luz1)+Number(data.d))*0.875
-    let luz1 = long1/0.875 - Number(data.d)
-    let luz2 = long2/0.875 - Number(data.d)
-    let vtas1 = 0.875
-    let vtas2 = 0.875
-    
-    let longLineaMedia = Number(data.L0)
-    if (((data.Ext1 === "TASE") && (data.Ext2 === "TASE")) || ((data.Ext1 === "TCSE") && (data.Ext2 === "TASE")) || ((data.Ext1 === "TASE") && (data.Ext2 === "TCSE"))) {
-        longLineaMedia = Number(data.L0) - Number(data.d)
-    } else if (((data.Ext1 === "TAE") && (data.Ext2 === "TAE")) || ((data.Ext1 === "TCE") && (data.Ext2 === "TAE")) || ((data.Ext1 === "TAE") && (data.Ext2 === "TCE"))) {
-        longLineaMedia = Number(data.L0) 
-    } else {
-        longLineaMedia = Number(data.L0) - Number(data.d)/2
-    }
-
-    let vtas3 = Number(data.N)-2*0.875
-    let long3 = longLineaMedia-long1-long2-Number(data.d)
-    let luz3 = (long3/vtas3)-Number(data.d)
-
-    let luces = [luz1, luz2, luz3]
-    let longitudes = [long1, long2, long3]
-    let vueltas = [vtas1, vtas2, vtas3]
-
-    setProcessTableStage1(processTableStage1.map((punto, indice) => {
-      if (punto.id < 4) {
-        return { ...punto, Luz: luces[indice], Long: longitudes[indice], Vtas: vueltas[indice] };
-      }
-      return punto;
-    }));
-}*/
 
 export default function ProcessTable(props) {
 
@@ -612,20 +569,20 @@ export default function ProcessTable(props) {
                 <tbody>
                     {processTableStage1Inv.map((punto, indice) => (
                         <tr key={punto.id} style={{color:"grey"}}>
-                            <Td>
+                             <Td style={{width: 40}}>
                                 {punto.id}
                             </Td>
-                            <Td>
+                            <Td style={{width: 65}}>
                                 {
                                     punto.id > 2 ? ((!isNaN(punto.Luz) && Number.isFinite(punto.Luz) && (punto.Luz !== 0)) === true ? (punto.Luz).toFixed(2) : "") : <Input value={punto.Luz} type="number" id={punto.id+",Luz"} onChange={(e) => handleInputProcessTableStage1(e)} disabled={indice === (0)}/>
                                 }
                             </Td>
-                            <Td>
+                            <Td style={{width: 65}}>
                                 {
                                     punto.id < 3 ? ((!isNaN(punto.Long) && Number.isFinite(punto.Long) && (punto.Long !== 0)) === true ? (punto.Long).toFixed(2) : "") : <Input value={punto.Long} type="number" id={punto.id+",Long"} onChange={(e) => handleInputProcessTableStage1(e)} disabled={indice === (0)}/>
                                 }
                             </Td>
-                            <Td>
+                            <Td style={{width: 65}}>
                                 <Input value={punto.Vtas} type="number" id={punto.id+",Vtas"} onChange={(e) => handleInputProcessTableStage1(e)} disabled={indice === (0)}/>
                             </Td>
                             <Td>
@@ -633,17 +590,17 @@ export default function ProcessTable(props) {
                                     pasoVisible ? ((!isNaN(processTableStage2Inv[indice].Paso) && Number.isFinite(processTableStage2Inv[indice].Paso) && (processTableStage2Inv[indice].Paso !== 0)) === true ? (processTableStage2Inv[indice].Paso).toFixed(2) : "") : null
                                 }
                             </Td>
-                            <Td>
+                            <Td style={{width: 60}}>
                                 {
                                     kEqVisible ? ((!isNaN(processTableStage2Inv[indice].Keq) && Number.isFinite(processTableStage2Inv[indice].Keq) && (processTableStage2Inv[indice].Keq !== 0)) === true ? (processTableStage2Inv[indice].Keq).toFixed(2) : "") : null
                                 }
                             </Td>
-                            <Td>
+                            <Td style={{width: 60}}>
                                 {
                                     xcVisible ? ((!isNaN(processTableStage2Inv[indice].Xc) && Number.isFinite(processTableStage2Inv[indice].Xc) ) === true ? (processTableStage2Inv[indice].Xc).toFixed(2) : "") : null
                                 }
                             </Td>
-                            <Td>
+                            <Td style={{width: 60}}>
                                 {
                                     fcVisible ? ((!isNaN(processTableStage2Inv[indice].Fc) && Number.isFinite(processTableStage2Inv[indice].Fc) ) === true ? (processTableStage2Inv[indice].Fc).toFixed(2) : "") : null
                                 }
@@ -664,7 +621,7 @@ export default function ProcessTable(props) {
                                          
                       
             </Table2>
-            <div style={{display: "flex"}}  >
+            <div style={{width: 500, display: "flex", justifyContent: "center",}}>
               <Button1 onClick={deleteRow} disabled={processTableStage1.length === 3}>Eliminar última fila</Button1>
               <Button1 onClick={addRow}>Agregar fila</Button1> 
               <Button1 onClick={orderRow}>Ordenar filas</Button1>  
