@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import "@fontsource/abeezee/400-italic.css";
+//import "@fontsource/inter.css";
 
 import { SimulationData } from "./components/SimulationData";
 import { CalcParam } from "./components/CalculatedParameters";
@@ -21,10 +22,9 @@ import { isNullLiteral } from "@babel/types";
 const Form = styled.form`
   display:flex;
   grid-template-columns: auto, auto, auto;
-  gap:6px;
-  
-  width: 480px;
-  //background: #9656fc64;
+  justify-content: center;
+  row-gap: 6px;
+  width: 500px;
   color:white;
 `
 const Div = styled.div`
@@ -32,7 +32,7 @@ const Div = styled.div`
   aling-items: center;
   width:125px;
   height:40px;
-  margin:6px 12px;
+  margin:6px 16px 14px 16px;
   background: black;
   border:2px solid gray;
   border-radius:8px;
@@ -41,19 +41,20 @@ const Div = styled.div`
 const Input = styled.input`
   width:40px;
   height:18px;
-  color:black;
-  background-color: #adc5fff1;
+  color:white;
+  background-color: black;
   margin:8px;
   font-family:"ABeeZee";
-  font-size: 13px;
+  font-size: 12px;
   border-style:inset;
+  border-radius: 4px;
      
 `
 const DivCalculo = styled.div`
   width:40px;
   height:18px;
-  color:black;
-  background-color: white;
+  color:white;
+  background-color: black;
   margin:8px;
   font-family:"ABeeZee";
   font-size: 13px;
@@ -71,25 +72,44 @@ const Label = styled.label`
   color: gray;
             
 `
+const DivSimulForm = styled.div`
+  display:flex;
+  grid-template-columns: auto, auto, auto;
+  flex-wrap: wrap;
+  justify-content: center;
+  //column-gap:8px;
+  row-gap:none;
+  margin-bottom:20px;
+  margin-top: 10px;
+  margin-left: 50px;
+  width: 500px;
+  height: 255px;
+  background-color: #363636;  
+  border-radius:8px;     
+
+`
 const DivSimul = styled.div`
   display:flex;
   grid-template-columns: auto, auto, auto;
   flex-wrap: wrap;
-  column-gap:8px;
+  justify-content: center;
+  //column-gap:8px;
   row-gap:none;
-  margin-bottom:30px;
+  margin-bottom:20px;
   margin-top: 10px;
-  width: 480px;
-  //background-color: #9656fc64;  
-  background-color:#5B5B5B;
+  margin-left: 30px;
+  width: 500px;
+  height: 140px;
+  background-color: #363636;  
   border-radius:8px;        
 `
+
 const Paragraph = styled.p`
   block-size:1px;
-  margin-left:15px;
-  margin-bottom: 8px;
+  margin-left:30px;
+  margin-bottom: 10px;
   font-family:"ABeeZee";
-  font-size:11px;
+  font-size:12px;
   color: white;  
   width: 148px;
 `
@@ -103,7 +123,8 @@ const Button = styled.button`
   
 `
 const Table1 = styled.table`
-  width: 520px;
+  background-color: black; 
+  width:500px;
   //height:270px;
   font-family: "ABeeZee";
   border-collapse: collapse;
@@ -114,18 +135,19 @@ const Table1 = styled.table`
 `
 
 const Input8 = styled.input`
-  width:50px;
+  width:42px;
   height:18px;
-  color:black;
-  background-color: #cadefc;
+  color:white;
+  background-color: black;
   margin:8px;
   font-family:"ABeeZee";
-  font-size: 13px;
+  font-size: 12px;
   border-style:inset;
+  border-radius: 4px;
      
 `
 const Th = styled.th`
-  width: 110px;
+  width: 180px;
   height: 70px;
   //writing-mode: vertical-lr;
   //text-orientation: upright;
@@ -136,7 +158,8 @@ const Th = styled.th`
   
 `
 const Th2 = styled.th`
-  width: 150px;
+  width: 200px;
+  height: 20px;
   text-align: left;
   font-size: 14px;
   letter-spacing: 1px;
@@ -146,10 +169,9 @@ const Th2 = styled.th`
 `
 const Td = styled.td`
   text-align: center;
-  width: 40px;
+  //width: 55px;
   border: 1px solid grey;
   
-
 `
 // const Table2 = styled.table`
 //   width:210px;
@@ -168,6 +190,21 @@ const Select = styled.select`
   border: 0px;
 
 `
+const H2 = styled.h2`
+  color: white;
+  font-size: 22px;
+`
+
+const Canvas = styled.canvas`
+ background-color: white;
+ width: 500px;
+ height: 300px;
+ margin-bottom:20px;
+ margin-top: 30px;
+ margin-left: 50px;
+ border-radius: 8px;
+`
+
 
 function App() {
 
@@ -297,88 +334,90 @@ function App() {
   }
   
   return (
-   <div className="App" style={{backgroundColor:"black", display:"flex"}}>
+   <div className="App" style={{backgroundColor:"#1A1A1A", display:"flex"}}>
     
-    <div style={{backgroundColor:"black"}}>
-      
-      <Form onSubmit={handleSubmit}>
-        <div>
-          <p style={{blockSize:2,marginLeft:14,fontFamily:"ABeeZee",fontSize:11, }}>Datos principales</p>
-            <Div>
-              <Label>d</Label>
-              <Input  value={data.d} type="number" id={"d"} onChange={(e) => handleInput(e)}/>
-            </Div>
-            <Div>
-              <Label>Dext</Label>
-              <Input  value={data.Dext} type="number" id={"Dext"} onChange={(e) => handleInput(e)}/>
-            </Div>
-            <Div>
-              <Label>N</Label>
-              <Input  value={data.N} type="number" id={"N"} onChange={(e) => handleInput(e)}/>
-            </Div>
-            <Div>
-              <Label>L0</Label>
-              <Input  value={data.L0} type="number" id={"L0"} onChange={(e) => handleInput(e)}/>
-            </Div>
-            <button style={{width:125,
-                            height:40,
-                            margin:"10px 14px",
-                            borderRadius:8, 
-                            backgroundColor: "#fc1221c5", color: "white"}}>Enviar</button>
-        </div>
+    <div>
+      <h1 style={{fontSize:22, marginLeft: 50, fontFamily:"Inter", color:"white"}}> Diseño de Resortes</h1>
+      <DivSimulForm>
+        <Form onSubmit={handleSubmit}>
+          <div>
+            <p style={{marginLeft:18,marginBottom: 6,fontFamily:"ABeeZee",fontSize:12, }}>Datos principales</p>
+              <Div>
+                <Label>d</Label>
+                <Input  value={data.d} type="number" id={"d"} onChange={(e) => handleInput(e)}/>
+              </Div>
+              <Div>
+                <Label>Dext</Label>
+                <Input  value={data.Dext} type="number" id={"Dext"} onChange={(e) => handleInput(e)}/>
+              </Div>
+              <Div>
+                <Label>N</Label>
+                <Input  value={data.N} type="number" id={"N"} onChange={(e) => handleInput(e)}/>
+              </Div>
+              <Div>
+                <Label>L0</Label>
+                <Input  value={data.L0} type="number" id={"L0"} onChange={(e) => handleInput(e)}/>
+              </Div>
+              {/* <button style={{width:125,
+                              height:40,
+                              margin:"10px 14px",
+                              borderRadius:8, 
+                              backgroundColor: "#fc1221c5", color: "white"}}>Enviar</button> */}
+          </div>
 
-        <div>
-          <p style={{blockSize:2,marginLeft:14,fontFamily:"ABeeZee",fontSize:11, }}>Extremo 1</p>
-            <Div>
-              <Label>Luz1</Label>
-              <Input  value={data.Luz1} type="number" id={"Luz1"} onChange={(e) => handleInput(e)}/>
-            </Div>
-            <Div>
-              <Label>Dint1</Label>
-              <Input  value={data.Dint1} type="number" id={"Dint1"} onChange={(e) => handleInput(e)}/>
-            </Div>
-            <Div>
-              <Label>Vtas1</Label>
-              <Input  value={data.Vtas1} type="number" id={"Vtas1"} onChange={(e) => handleInput(e)}/>
-            </Div>
-            <Div>
-              <Label>Ext1</Label>
-              <Select value={type1} id={"Ext1"} onChange={(e) => setType1(e.target.value)}>
-                
-                <option value="TASE">TASE</option>
-                <option value="TCSE">TCSE</option>
-                <option value="TCE">TCE</option>
-                <option value="TAE">TAE</option>
-              </Select>
-            </Div>
-        </div>
-        
-        <div>
-          <p style={{blockSize:2,marginLeft:14,fontFamily:"ABeeZee",fontSize:11, }}>Extremo 2</p>
-            <Div>
-              <Label>Luz2</Label>
-              <Input  value={data.Luz2} type="number" id={"Luz2"} onChange={(e) => handleInput(e)}/>
-            </Div>
-            <Div>
-              <Label>Dint2</Label>
-              <Input  value={data.Dint2} type="number" id={"Dint2"} onChange={(e) => handleInput(e)}/>
-            </Div>
-            <Div>
-              <Label>Vtas2</Label>
-              <Input  value={data.Vtas2} type="number" id={"Vtas2"} onChange={(e) => handleInput(e)}/>
-            </Div>
-            <Div>
-              <Label>Ext2</Label>
-              <Select  value={type2} id={"Ext2"} onChange={(e) => setType2(e.target.value)}>
-                <option value="TASE">TASE</option>
-                <option value="TCSE">TCSE</option>
-                <option value="TCE">TCE</option>
-                <option value="TAE">TAE</option>
-              </Select>
-            </Div>
-        </div>
+          <div>
+            <p style={{marginLeft:18,marginBottom: 6,fontFamily:"ABeeZee",fontSize:12,}}>Extremo 1</p>
+              <Div>
+                <Label>Luz1</Label>
+                <Input  value={data.Luz1} type="number" id={"Luz1"} onChange={(e) => handleInput(e)}/>
+              </Div>
+              <Div>
+                <Label>Dint1</Label>
+                <Input  value={data.Dint1} type="number" id={"Dint1"} onChange={(e) => handleInput(e)}/>
+              </Div>
+              <Div>
+                <Label>Vtas1</Label>
+                <Input  value={data.Vtas1} type="number" id={"Vtas1"} onChange={(e) => handleInput(e)}/>
+              </Div>
+              <Div>
+                <Label>Ext1</Label>
+                <Select value={type1} id={"Ext1"} onChange={(e) => setType1(e.target.value)}>
+                  
+                  <option value="TASE">TASE</option>
+                  <option value="TCSE">TCSE</option>
+                  <option value="TCE">TCE</option>
+                  <option value="TAE">TAE</option>
+                </Select>
+              </Div>
+          </div>
           
-      </Form>
+          <div>
+            <p style={{marginLeft:18,marginBottom: 6,fontFamily:"ABeeZee",fontSize:12,}}>Extremo 2</p>
+              <Div>
+                <Label>Luz2</Label>
+                <Input  value={data.Luz2} type="number" id={"Luz2"} onChange={(e) => handleInput(e)}/>
+              </Div>
+              <Div>
+                <Label>Dint2</Label>
+                <Input  value={data.Dint2} type="number" id={"Dint2"} onChange={(e) => handleInput(e)}/>
+              </Div>
+              <Div>
+                <Label>Vtas2</Label>
+                <Input  value={data.Vtas2} type="number" id={"Vtas2"} onChange={(e) => handleInput(e)}/>
+              </Div>
+              <Div>
+                <Label>Ext2</Label>
+                <Select  value={type2} id={"Ext2"} onChange={(e) => setType2(e.target.value)}>
+                  <option value="TASE">TASE</option>
+                  <option value="TCSE">TCSE</option>
+                  <option value="TCE">TCE</option>
+                  <option value="TAE">TAE</option>
+                </Select>
+              </Div>
+          </div>
+            
+        </Form>
+      </DivSimulForm>
 
       <SimulationData/>
 
@@ -396,6 +435,80 @@ function App() {
       <WeightTolerance/>
       
       <Textarea/>
+
+      <Canvas/>
+    </div>
+
+    <div style={{display:"flex", marginTop:58, marginLeft: 50,}}>
+      <div>
+        <Table1>
+          <tr style={{backgroundColor: "#5B5B5B", color:"white",}}>
+            <Th> </Th>
+            <Th style={{width: 90}}>Long (mm)</Th>
+            <Th style={{width: 80}}>X (mm)</Th>
+            <Th style={{width: 80}}>LL-G (mm)</Th>
+            <Th style={{width: 90}}>Fuerza (kg)</Th>
+            <Th style={{width: 90}}>Esf (MPa)</Th>
+            <Th style={{width: 60}}>Compr. (%)</Th>
+          </tr>
+          <tr>
+            <Th2>L inst</Th2>
+            <Td>
+            <Input8 type="number" value={valuetab.Linst} id={"Linst"}  onChange={(e) => handleTab(e)}/>     
+            </Td>
+            <Td>-</Td>
+            <Td> 000.0 </Td>
+            <Td>{carrera.Finst}</Td>
+            <Td>{carrera.TauK1}</Td>
+            <Td>{carrera.Compres1}%</Td>
+          </tr>
+          <tr>
+            <Th2>L carga</Th2>
+            <Td>
+            <Input8 type="number" value={valuetab.Lcarga} id={"Lcarga"}  onChange={(e) => handleTab(e)}/>
+            </Td>
+            <Td>{carrera.carrCarga}</Td>
+            <Td> -- </Td>
+            <Td>{carrera.Fcarg}</Td>
+            <Td>{carrera.TauK2}</Td>
+            <Td>{carrera.Compres2}%</Td>
+          </tr>
+          <tr>
+            <Th2>L max</Th2>
+            <Td>
+            <Input8 type="number" value={valuetab.Lmax} id={"Lmax"}  onChange={(e) => handleTab(e)}/>
+            </Td>
+            <Td>{carrera.carrMax}</Td>
+            <Td> -- </Td>
+            <Td>{carrera.Fmax}</Td>
+            <Td>{carrera.TauK3}</Td>
+            <Td>{carrera.Compres3}%</Td>
+          </tr>
+          <tr>
+            <Th2>L4</Th2>
+            <Td>
+            <Input8 type="number" value={valuetab.L4} id={"L4"}  onChange={(e) => handleTab(e)}/>
+            </Td>
+            <Td>{carrera.carrL4}</Td>
+            <Td> -- </Td>
+            <Td>{carrera.F4}</Td>
+            <Td>{carrera.TauK4}</Td>
+            <Td>{carrera.Compres4}%</Td>
+          </tr>
+          <tr>
+            <Th2>L bloq</Th2>
+            <Td>{valuetab.Lbloqueo}</Td>
+            <Td>{carrera.carrLc}</Td>
+            <Td> -- </Td>
+            <Td>{filas.Fc3}</Td>
+            <Td>{carrera.TauKC}</Td>
+            <Td>100%</Td>
+          </tr>
+        </Table1> 
+        <TablaControlDeCargas L0={data.L0} />
+      </div>
+      
+    </div> 
 
       <DivSimul>
         <Paragraph style={{width: 480}}>Calculos teoricos</Paragraph>
@@ -416,67 +529,41 @@ function App() {
 
     <div style={{backgroundColor:"black", display:"flex", columnGap:50, marginTop:28, marginLeft: 28,}}>
 
+
+    <div style={{display:"flex", marginTop:58, marginLeft: 50,}}>        
       <div>
-        <div style={{display:"flex", justifyContent:"center",paddingTop:94,}}>
-          <LongTable/>
-          {/* <Table2 >
-                <tr style={{height:30,backgroundColor: "#5B5B5B", color:"white"}}>
-                  <th> F </th>
-                  <th> L </th>
-                  <th> d </th>
-                </tr>
-                <tr>
-                  <Td>123</Td>
-                  <Td></Td>
-                  <Td></Td>
-                </tr>
-                <tr>
-                  <Td>123</Td>
-                  <Td></Td>
-                  <Td></Td>
-                </tr>
-                <tr>
-                  <Td>123</Td>
-                  <Td></Td>
-                  <Td></Td>
-                </tr>
-                <tr>
-                  <Td>123</Td>
-                  <Td></Td>
-                  <Td></Td>
-                </tr>
-                <tr>
-                  <Td>123</Td>
-                  <Td></Td>
-                  <Td></Td>
-                </tr>
-                <tr>
-                  <Td>123</Td>
-                  <Td></Td>
-                  <Td></Td>
-                </tr>
-          </Table2> */}
+        <ProcessTable medidasRes={data} extremo1={data.Ext1} extremo2={data.Ext2}/>
+        
+        <H2 style={{marginTop:40,}}>Caracteristica del Resorte</H2>
+        <canvas style={{
+           width: 500,
+           height: 400, 
+           background: "white",
+           borderRadius: 8,
+          //  marginTop: 30,
+            }}></canvas>
+
+        
           <TablaControlDeCargas L0={data.L0} />
         </div>
 
         <DivSimul> 
-            <Paragraph style={{width: 480}}>Calculos reales</Paragraph>
-            <Div>
-                <Label>K</Label>
-                <DivCalculo id={"K"}>{data4.K}</DivCalculo>
-            </Div>
-            <Div>
-                <Label>F</Label>
-                <DivCalculo id={"F"}>{data4.F}</DivCalculo>
-            </Div>
-            <Div>
-                <Label>L</Label>
-                <DivCalculo id={"L"}>{data4.L}</DivCalculo>
-            </Div>
-        </DivSimul>
+          <Paragraph style={{width: 480}}>Calculos reales</Paragraph>
+          <Div>
+              <Label>K</Label>
+              <DivCalculo id={"K"}>{data4.K}</DivCalculo>
+          </Div>
+          <Div>
+              <Label>F</Label>
+              <DivCalculo id={"F"}>{data4.F}</DivCalculo>
+          </Div>
+          <Div>
+              <Label>L</Label>
+              <DivCalculo id={"L"}>{data4.L}</DivCalculo>
+          </Div>
+        </DivSimul> */}
+      </div>
 
-      </div>  
-    </div> 
     
     <ProcessTable medidasRes={data} extremo1={data.Ext1} extremo2={data.Ext2}/>
       

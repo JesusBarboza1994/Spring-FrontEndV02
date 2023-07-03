@@ -5,7 +5,19 @@ import { useAuth } from '../context/auth-context';
 import { colors } from "../styles/colors";
 
 const Table2 = styled.table`
-    
+  width: 220px;  
+  margin:20px 0px;
+  background: black;
+  font-family: "ABeeZee";
+  border: 2px solid grey;
+  border-collapse: collapse;
+  color: grey;
+
+`
+const Table3 = styled.table`
+  width: 220px;  
+  margin:20px 0px;
+  background: black;
   font-family: "ABeeZee";
   border: 2px solid ${colors.grey};
   border-collapse: collapse;
@@ -20,15 +32,15 @@ const Td = styled.td`
     
 `
 const Input = styled.input`
-  width:50px;
+  width:42px;
   height:18px;
   color:${colors.black};
   background-color: ${colors.purple};
   margin:8px;
   font-family:"ABeeZee";
-  font-size: 13px;
+  font-size: 12px;
   border-style:inset;
-     
+  border-radius: 4px;   
 `
 const Th3 = styled.th`
   height: 70px;
@@ -40,11 +52,16 @@ const Th3 = styled.th`
   padding-right:5px;
   
 `
+const H2 = styled.h2`
+  color: white;
+  font-size: 22px;
+`
 const Button1 = styled.button`
-  width:125px;
+  width:100px;
   height:40px;
-  margin:10px 12px;
+  margin:0px 0px 0px 10px;
   border-radius:8px;
+
 `
 
 export default function TablaControlDeCargas(props) {
@@ -125,6 +142,7 @@ export default function TablaControlDeCargas(props) {
     }, [puntosCC])
 
     return(
+
         <div style={{backgroundColor: colors.black}}>
             <Table2>
                 <thead>
@@ -142,10 +160,10 @@ export default function TablaControlDeCargas(props) {
                                 {punto.id}
                             </Td>
                             <Td>
-                                <Input value={punto.Carga} type="number" id={punto.id+",Fuerza"} onChange={(e) => handleInputControlCargas(e)}/>
+                                <div id={punto.id+",Fuerza"}>{punto.Carga}</div>
                             </Td>
                             <Td>
-                                <Input value={punto.Longitud} type="number" id={punto.id+",Long"} onChange={(e) => handleInputControlCargas(e)}/>
+                                <div id={punto.id+",Long"}>{punto.Longitud}</div>
                             </Td>
                             <Td>
                                 {
@@ -156,11 +174,9 @@ export default function TablaControlDeCargas(props) {
                     ))}
                 </tbody>
                
-            </Table2>
-            <div style={{display: "flex"}}  >
-                <Button1 onClick={deleteRow} disabled={puntosCC.length === 3}>Eliminar última fila</Button1>
-                <Button1 onClick={addRow}>Agregar fila</Button1> 
+             </Table3>
             </div>
+            
         </div>
     )
   }

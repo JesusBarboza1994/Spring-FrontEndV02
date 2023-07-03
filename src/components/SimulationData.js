@@ -11,30 +11,32 @@ export function SimulationData(){
     display:flex;
     grid-template-columns: auto, auto, auto;
     flex-wrap: wrap;
-    column-gap:8px;
+    justify-content: center;
+    //column-gap:8px;
     row-gap:none;
     margin-bottom:20px;
     margin-top: 10px;
-    width: 480px;
-    //background-color: #9656fc64;   
+    margin-left: 50px;
+    width: 500px;
+    height: 140px; 
     background-color:${colors.gray}; 
     border-radius:8px;      
   `
  const Paragraph = styled.p`
     block-size:1px;
-    margin-left:15px;
-    margin-bottom: 8px;
+    margin-left:30px;
+    margin-bottom: 10px;
     font-family:"ABeeZee";
-    font-size:11px;
+    font-size:12px;
+    width: 138px;
     color: ${colors.white};  
-    width: 148px;
   `
  const Div = styled.div`
     display:flex;
     aling-items: center;
     width:125px;
     height:40px;
-    margin:6px 12px;
+    margin:6px 16px 6px 16px;
     background: ${colors.black};
     border:2px solid ${colors.gray}; 
     border-radius:8px;
@@ -67,7 +69,8 @@ export function SimulationData(){
     background-color: ${colors.purple};
     margin:8px;
     font-family:"ABeeZee";
-    font-size: 13px;
+    font-size: 12px;
+    border-radius: 4px;
     border-style:inset;
       
   `
@@ -116,7 +119,7 @@ const Button = styled.button`
         <div style={{display: "flex",}}>
           <Paragraph>Datos de simulacion</Paragraph>
           <Paragraph></Paragraph>
-          <Paragraph>nodos</Paragraph>
+          <Paragraph style={{textAlign: "center",}}>nodos</Paragraph>
         </div>
       
         <Div style={{width:138}}>
@@ -155,9 +158,10 @@ const Button = styled.button`
           <Label style={{color: colors.red}}>grado</Label>
           <Input  value={data1.grado} id={"grado"} onChange={(e) => handleSimulacion(e)}/>
         </Div>
-        <div style={{display: "flex",columnGap:12,width:"100%",justifyContent:"flex-end", marginRight: 8}}>
+        <div style={{display: "flex",columnGap:170,width:"100%", marginLeft: 16}}>
           <Button>Simular</Button>
           <Button onClick={iniciarFuncion}>Calcular</Button>
+
         </div>
                                 
       </DivSimul>

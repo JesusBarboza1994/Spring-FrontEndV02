@@ -11,21 +11,23 @@ export function WeightTolerance(){
     display:flex;
     grid-template-columns: auto, auto, auto;
     flex-wrap: wrap;
-    column-gap:8px;
+    justify-content: center;
+    //column-gap:8px;
     row-gap:none;
-    margin-bottom:30px;
+    margin-bottom:20px;
     margin-top: 10px;
-    width: 480px;
-    //background-color: #9656fc64;  
+    margin-left: 50px;
+    width: 500px;
+    height: 160px;
     background-color: ${colors.gray};
     border-radius:8px;        
   `
  const Paragraph = styled.p`
     block-size:1px;
-    margin-left:15px;
-    margin-bottom: 8px;
+    //margin-left: 36px;
+    margin-bottom: 12px;
     font-family:"ABeeZee";
-    font-size:11px;
+    font-size:12px;
     color: ${colors.white};  
     width: 148px;
   `
@@ -34,7 +36,7 @@ export function WeightTolerance(){
     aling-items: center;
     width:125px;
     height:40px;
-    margin:6px 12px;
+    margin:6px 16px 6px 16px;
     background: ${colors.black};
     border:2px solid gray;
     border-radius:8px;
@@ -67,10 +69,25 @@ export function WeightTolerance(){
     background-color: ${colors.white};
     margin:8px;
     font-family:"ABeeZee";
-    font-size: 13px;
+    font-size: 12px;
+    border-radius: 4px;
+    border: 2px grey;
     border-style:outset;
   `
-  const {filas, setFilas, data, setData, data2, setData2, tablaToler, setTablaToler, coef, setCoef} = useAuth();
+  const InputLDA = styled.input`
+  width:40px;
+  height:18px;
+  color:white;
+  background-color: black;
+  margin:8px;
+  font-family:"ABeeZee";
+  font-size: 12px;
+  border-radius: 4px;
+  border: 2px grey;
+  border-style:outset;
+`
+
+  const {filas, setFilas, data, setData, data2, setData2, tablaToler, setTablaToler, coef, setCoef, grado, setGrado} = useAuth();
 
   const [data3, setData3] = useState({
       LDA:"",      
@@ -79,7 +96,7 @@ export function WeightTolerance(){
       Dmedio:"",    
   });
 
-  const [grado,setGrado] = useState(1); 
+  //const [grado,setGrado] = useState(1); 
   /*const [tablaToler,setTablaToler] = useState({
     valor: "",
   });
@@ -101,16 +118,21 @@ export function WeightTolerance(){
       setBoolSwitch(!boolSwitch)
       
   }
+  
+  function handleLDA_adic(e){
+   setData3({...data3, LDA_adic : e.target.value})
+  }
+
 
   useEffect(() => {
     setData3({...data3, LDA : Math.round((data.Dext-data.d)*data.N*3.14),  Dmedio: (data.Dext - data.d)})
   }, [data.d, data.Dext, data.N])
     
   useEffect(() => {
-    setData3({...data3, Peso : (Math.pow(data.d/12.7,2)*(data3.LDA+data3.LDA_adic)/1000).toFixed(2)}) 
+    setData3({...data3, Peso : Number(Math.pow(data.d/12.7,2)*(data3.LDA+data3.LDA_adic)/1000).toFixed(2)}) 
   }, [data3.LDA, data3.LDA_adic])
 
-
+  
   //Tolerancias para Dext (DIN EN 15800)
   const tolerDiam = [
     [0.63, 0.05, 0.07, 0.1, 0.07, 0.1, 0.15, 0.1, 0.15, 0.2],
@@ -212,8 +234,8 @@ export function WeightTolerance(){
  return(
     <DivSimul style={{marginBottom:10,}}>
       <div style={{display: "flex",}}>
-        <Paragraph style={{marginTop:9}}>Datos principales</Paragraph>
-        <Paragraph style={{marginTop:4}}>Maq.Auto<Switch onChange= {handleChange} size="small"/>Torno</Paragraph>
+        <Paragraph style={{marginTop:12,}}>Datos produccion</Paragraph>
+        <Paragraph style={{marginTop:6, textAlign: "center"}}>Maq.Auto<Switch onChange= {handleChange} size="small"/>Torno</Paragraph>
         <Paragraph></Paragraph>
       </div>
       <Div>
@@ -222,14 +244,14 @@ export function WeightTolerance(){
       </Div> 
       <Div>
         <Label>LDA adic</Label>
-        <DivCalculo  id={"LDA adic"}>{data3.LDA_adic}</DivCalculo> 
+        <InputLDA value={data3.LDA_adic} type="number" id={"LDA adic"} onChange={(e) => handleLDA_adic(e)}/> 
       </Div>
       <Div>
         <Label>Peso</Label>
-        <DivCalculo id={"Peso"}>{(!isNaN(data3.Peso)) === true ? (data3.Peso) : ""}</DivCalculo>
+        <DivCalculo id={"Peso"}>{(!isNaN(data3.Peso) && (data3.Peso > 0)) === true ? (data3.Peso) : ""}</DivCalculo>
       </Div>
       <div>
-        <Paragraph style={{width: 480}}>Grado tolerancias</Paragraph>
+        <Paragraph style={{width: 480, marginTop: 7, paddingLeft: 34,}}>Grado tolerancias</Paragraph>
         
       </div>    
       <Div>
