@@ -67,8 +67,6 @@ const Button1 = styled.button`
 export default function TablaControlDeCargas(props) {
 
     const {controlCargas, setControlCargas} = useAuth();
-    
-    const fuerzas = props.Fuerzas
 
     const [puntosCC, setPuntosCC] = useState([
         { id: 1, Fuerza: "", Long: "" },
@@ -160,10 +158,10 @@ export default function TablaControlDeCargas(props) {
                                 {punto.id}
                             </Td>
                             <Td>
-                                <div id={punto.id+",Fuerza"}>{punto.Carga}</div>
+                                <Input value={punto.Carga} type="number" id={punto.id+",Fuerza"} onChange={(e) => handleInputControlCargas(e)}/>
                             </Td>
                             <Td>
-                                <div id={punto.id+",Long"}>{punto.Longitud}</div>
+                                <Input value={punto.Longitud} type="number" id={punto.id+",Long"} onChange={(e) => handleInputControlCargas(e)}/>
                             </Td>
                             <Td>
                                 {
@@ -174,9 +172,11 @@ export default function TablaControlDeCargas(props) {
                     ))}
                 </tbody>
                
-             </Table3>
+            </Table2>
+            <div style={{display: "flex"}}  >
+                <Button1 onClick={deleteRow} disabled={puntosCC.length === 3}>Eliminar última fila</Button1>
+                <Button1 onClick={addRow}>Agregar fila</Button1> 
             </div>
-            
         </div>
     )
   }

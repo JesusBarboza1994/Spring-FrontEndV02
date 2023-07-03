@@ -315,7 +315,11 @@ function App() {
 
   }, [controlCargas])
 
+  useEffect(() => {
+    setKControlCargas(Number(lineaCC.k))
+    setBControlCargas(Number(lineaCC.b))
 
+  }, [lineaCC])
   
 
   //Renee-Fin-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -334,7 +338,7 @@ function App() {
   }
   
   return (
-   <div className="App" style={{backgroundColor:"#1A1A1A", display:"flex"}}>
+  <div className="App" style={{backgroundColor:"#1A1A1A", display:"flex"}}>
     
     <div>
       <h1 style={{fontSize:22, marginLeft: 50, fontFamily:"Inter", color:"white"}}> Diseño de Resortes</h1>
@@ -358,11 +362,7 @@ function App() {
                 <Label>L0</Label>
                 <Input  value={data.L0} type="number" id={"L0"} onChange={(e) => handleInput(e)}/>
               </Div>
-              {/* <button style={{width:125,
-                              height:40,
-                              margin:"10px 14px",
-                              borderRadius:8, 
-                              backgroundColor: "#fc1221c5", color: "white"}}>Enviar</button> */}
+              
           </div>
 
           <div>
@@ -382,7 +382,6 @@ function App() {
               <Div>
                 <Label>Ext1</Label>
                 <Select value={type1} id={"Ext1"} onChange={(e) => setType1(e.target.value)}>
-                  
                   <option value="TASE">TASE</option>
                   <option value="TCSE">TCSE</option>
                   <option value="TCE">TCE</option>
@@ -441,96 +440,17 @@ function App() {
 
     <div style={{display:"flex", marginTop:58, marginLeft: 50,}}>
       <div>
-        <Table1>
-          <tr style={{backgroundColor: "#5B5B5B", color:"white",}}>
-            <Th> </Th>
-            <Th style={{width: 90}}>Long (mm)</Th>
-            <Th style={{width: 80}}>X (mm)</Th>
-            <Th style={{width: 80}}>LL-G (mm)</Th>
-            <Th style={{width: 90}}>Fuerza (kg)</Th>
-            <Th style={{width: 90}}>Esf (MPa)</Th>
-            <Th style={{width: 60}}>Compr. (%)</Th>
-          </tr>
-          <tr>
-            <Th2>L inst</Th2>
-            <Td>
-            <Input8 type="number" value={valuetab.Linst} id={"Linst"}  onChange={(e) => handleTab(e)}/>     
-            </Td>
-            <Td>-</Td>
-            <Td> 000.0 </Td>
-            <Td>{carrera.Finst}</Td>
-            <Td>{carrera.TauK1}</Td>
-            <Td>{carrera.Compres1}%</Td>
-          </tr>
-          <tr>
-            <Th2>L carga</Th2>
-            <Td>
-            <Input8 type="number" value={valuetab.Lcarga} id={"Lcarga"}  onChange={(e) => handleTab(e)}/>
-            </Td>
-            <Td>{carrera.carrCarga}</Td>
-            <Td> -- </Td>
-            <Td>{carrera.Fcarg}</Td>
-            <Td>{carrera.TauK2}</Td>
-            <Td>{carrera.Compres2}%</Td>
-          </tr>
-          <tr>
-            <Th2>L max</Th2>
-            <Td>
-            <Input8 type="number" value={valuetab.Lmax} id={"Lmax"}  onChange={(e) => handleTab(e)}/>
-            </Td>
-            <Td>{carrera.carrMax}</Td>
-            <Td> -- </Td>
-            <Td>{carrera.Fmax}</Td>
-            <Td>{carrera.TauK3}</Td>
-            <Td>{carrera.Compres3}%</Td>
-          </tr>
-          <tr>
-            <Th2>L4</Th2>
-            <Td>
-            <Input8 type="number" value={valuetab.L4} id={"L4"}  onChange={(e) => handleTab(e)}/>
-            </Td>
-            <Td>{carrera.carrL4}</Td>
-            <Td> -- </Td>
-            <Td>{carrera.F4}</Td>
-            <Td>{carrera.TauK4}</Td>
-            <Td>{carrera.Compres4}%</Td>
-          </tr>
-          <tr>
-            <Th2>L bloq</Th2>
-            <Td>{valuetab.Lbloqueo}</Td>
-            <Td>{carrera.carrLc}</Td>
-            <Td> -- </Td>
-            <Td>{filas.Fc3}</Td>
-            <Td>{carrera.TauKC}</Td>
-            <Td>100%</Td>
-          </tr>
-        </Table1> 
+        <LongTable/>
         <TablaControlDeCargas L0={data.L0} />
+        <ProbarFuerza/>
       </div>
       
     </div> 
 
-      <DivSimul>
-        <Paragraph style={{width: 480}}>Calculos teoricos</Paragraph>
-        <Div>
-            <Label>K</Label>
-            <DivCalculo id={"K"}>{(!isNaN(filas.Keq3) && Number.isFinite(filas.Keq3) ) === true ? (filas.Keq3).toFixed(2) : ""}</DivCalculo>
-        </Div>
-        <Div>
-            <Label>F</Label>
-            <DivCalculo id={"F"}>{(!isNaN(filas.Fc3) && Number.isFinite(filas.Fc3) ) === true ? (filas.Fc3).toFixed(1) : ""}</DivCalculo> 
-        </Div>
-        <Div>
-            <Label>L</Label>
-            <DivCalculo id={"L"}>{(!isNaN(filas.Xc3) && Number.isFinite(filas.Xc3) && isNullLiteral(filas.Xc3)) === true ? (filas.Xc3).toFixed(1) : ""}</DivCalculo>
-        </Div>
-      </DivSimul>
-    </div>
-
-    <div style={{backgroundColor:"black", display:"flex", columnGap:50, marginTop:28, marginLeft: 28,}}>
+    <div style={{backgroundColor:"black", display:"flex", columnGap:50, marginTop:28, marginLeft: 28}}>
 
 
-    <div style={{display:"flex", marginTop:58, marginLeft: 50,}}>        
+    <div style={{display:"flex", marginTop:58, marginLeft: 50}}>        
       <div>
         <ProcessTable medidasRes={data} extremo1={data.Ext1} extremo2={data.Ext2}/>
         
@@ -541,40 +461,24 @@ function App() {
            background: "white",
            borderRadius: 8,
           //  marginTop: 30,
-            }}></canvas>
+            }}>
+              <GraficoControlCargas puntos={puntosCCGrafica} slope={lineaCC.k} intercept={lineaCC.b} rSquared={lineaCC.r2}/>
 
-        
-          <TablaControlDeCargas L0={data.L0} />
-        </div>
+        </canvas>
 
-        <DivSimul> 
-          <Paragraph style={{width: 480}}>Calculos reales</Paragraph>
-          <Div>
-              <Label>K</Label>
-              <DivCalculo id={"K"}>{data4.K}</DivCalculo>
-          </Div>
-          <Div>
-              <Label>F</Label>
-              <DivCalculo id={"F"}>{data4.F}</DivCalculo>
-          </Div>
-          <Div>
-              <Label>L</Label>
-              <DivCalculo id={"L"}>{data4.L}</DivCalculo>
-          </Div>
-        </DivSimul> */}
+        <GraficoControlCargas puntos={puntosCCGrafica} slope={lineaCC.k} intercept={lineaCC.b} rSquared={lineaCC.r2}/>
+
       </div>
 
-    
-    <ProcessTable medidasRes={data} extremo1={data.Ext1} extremo2={data.Ext2}/>
-      
-    <div style={{backgroundColor:'black'}}>
-      <TablaControlDeCargas L0={data.L0} />
-      <ProbarFuerza/>
     </div>
      
-    <GraficoControlCargas puntos={puntosCCGrafica} slope={lineaCC.k} intercept={lineaCC.b} rSquared={lineaCC.r2}/>
+    
      
-   </div>   
+   </div> 
+   
+  </div>
+
+
   );
 }
 
