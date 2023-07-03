@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import "@fontsource/abeezee/400-italic.css";
 import { useAuth } from "../context/auth-context";
 import { isNullLiteral } from "@babel/types";
+import { colors } from "../styles/colors";
 
 export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,longitud,luz1,luz2}){
  const DivSimul = styled.div`
@@ -17,7 +18,7 @@ export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,lo
         margin-left: 50px;
         width: 500px;
         height: 140px;
-        background-color: #363636;  
+        background-color: ${colors.gray};
         border-radius:8px;        
     `
   const Paragraph = styled.p`
@@ -26,14 +27,14 @@ export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,lo
         margin-bottom: 10px;
         font-family:"ABeeZee";
         font-size:12px;
-        color: white;  
+        color: ${colors.white};  
         width: 148px;
     `
     const DivCalculo = styled.div`
         width:40px;
         height:18px;
-        color:white;
-        background-color: black;
+        color:${colors.black};
+        background-color: ${colors.white};
         margin:8px;
         font-family:"ABeeZee";
         font-size: 12px;
@@ -48,9 +49,8 @@ export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,lo
         aling-items: center;
         width:125px;
         height:40px;
-        margin:6px 16px 6px 16px;
-        background: black;
-        border:2px solid gray;
+        background: ${colors.black};
+        border:2px solid ${colors.gray};
         border-radius:8px;
         
     `
@@ -58,24 +58,14 @@ export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,lo
         height: 20px;
         width: 65px;
         display:block;
-        background-color:black;
+        background-color:${colors.black};
         margin-top:12px;
         margin-left: 8px;
         font-family:"ABeeZee";
         font-size: 13px;
-        color: gray;
+        color: ${colors.gray};
                 
     `
-  
-//   const [data2, setData2] = useState({
-//         C: "",      
-//         Dmedio:"",         
-//         f:"",      
-//         Rel_d1:"",      
-//         Rel_d2:"",         
-//         Vt_red_VT:"",      
-
-//     })
 
     useEffect(() => {
 
@@ -100,32 +90,7 @@ export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,lo
 
     const {filas, setFilas, data2, setData2} = useAuth();
 
-//   const [filas, setFilas] = useState({ 
-//         nvtas1: "",
-//         nvtas2: "",
-//         nvtas3: "",
-//         long1: "",
-//         long2: "", 
-//         long3: "",
-//         paso1: "",
-//         paso2: "",
-//         paso3: "",
-//         // rigidez1: rigidez1,
-//         // rigidez2: rigidez2,
-//         // rigidez3: rigidez3,
-//         Keq1: "",
-//         Keq2: "",
-//         Keq3: "",
-//         Xc1: "",
-//         Xc2: "",
-//         Xc3: "",
-//         Fc1: "",
-//         Fc2: "",
-//         Fc3: "",
-//     });
-
     useEffect(() => {
-        //const C = Number(((Number(data.Dext)-Number(data.d))/Number(data.d)).toFixed(2));
         const nvtas1 = 0.875;    //primera linea contando desde abajo por arriba (empieza con luz menor)
         const nvtas2 = 0.875;  
         const nvtas3 = Number(numvts) - (nvtas1 + nvtas2);  // Vueltas del cuerpo
@@ -170,9 +135,6 @@ export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,lo
             paso1: paso1,
             paso2: paso2,
             paso3: paso3,
-            // rigidez1: rigidez1,
-            // rigidez2: rigidez2,
-            // rigidez3: rigidez3,
             Keq1: Keq1,
             Keq2: Keq2,
             Keq3: Keq3,

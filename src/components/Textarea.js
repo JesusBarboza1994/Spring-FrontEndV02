@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import "@fontsource/abeezee/400-italic.css";
 import { DescripcionResorte } from "./Descripcion";
+import { colors } from "../styles/colors";
 
 export function Textarea(){
    const Paragraph = styled.p`
@@ -9,7 +10,7 @@ export function Textarea(){
         margin-bottom: 20px;
         font-family:"ABeeZee";
         font-size:12px;
-        color: white;  
+        color: ${colors.white};  
         width: 148px;
     `
     let descripcion = DescripcionResorte()
@@ -26,9 +27,9 @@ export function Textarea(){
             border:"2px solid grey",
             borderRadius:8, 
             borderBottom: "1px solid grey",
-            borderColor:"grey",
-            backgroundColor:"black",
-            color:"grey",
+            borderColor:colors.grey,
+            backgroundColor:colors.black,
+            color:colors.grey,
             fontFamily:"ABeeZee",
             fontSize: 14,
             padding:10,
@@ -45,8 +46,8 @@ export function Textarea(){
             border:"2px solid grey",
             borderRadius:8,
             borderTop:"1px solid grey",
-            backgroundColor:"black",
-            color:"grey",
+            backgroundColor:colors.black,
+            color:colors.grey,
             fontFamily:"ABeeZee",
             fontSize: 12,
             paddingLeft:20,

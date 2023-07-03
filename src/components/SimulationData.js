@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import "@fontsource/abeezee/400-italic.css";
 import { useAuth } from "../context/auth-context";
+import { colors } from "../styles/colors";
 //import { CalculateOrReset3Points } from "./processTable"
 
 export function SimulationData(){
@@ -17,8 +18,8 @@ export function SimulationData(){
     margin-top: 10px;
     margin-left: 50px;
     width: 500px;
-    height: 140px;
-    background-color: #363636;
+    height: 140px; 
+    background-color:${colors.gray}; 
     border-radius:8px;      
   `
  const Paragraph = styled.p`
@@ -27,8 +28,8 @@ export function SimulationData(){
     margin-bottom: 10px;
     font-family:"ABeeZee";
     font-size:12px;
-    color: white;  
     width: 138px;
+    color: ${colors.white};  
   `
  const Div = styled.div`
     display:flex;
@@ -36,14 +37,14 @@ export function SimulationData(){
     width:125px;
     height:40px;
     margin:6px 16px 6px 16px;
-    background: black;
-    border:2px solid gray;
+    background: ${colors.black};
+    border:2px solid ${colors.gray}; 
     border-radius:8px;
     
   `
  const Select = styled.select`
-    background-color: black;
-    color: white;
+    background-color: ${colors.black};
+    color: ${colors.white};
     font-family:"ABeeZee";
     font-size: 13px;
     border: 0px;
@@ -53,7 +54,7 @@ export function SimulationData(){
     height: 20px;
     width: 65px;
     display:block;
-    background-color:black;
+    background-color:${colors.black};
     margin-top:12px;
     margin-left: 8px;
     font-family:"ABeeZee";
@@ -64,8 +65,8 @@ export function SimulationData(){
   const Input = styled.input`
     width:40px;
     height:18px;
-    color:white;
-    background-color: black;
+    color:${colors.black};
+    background-color: ${colors.purple};
     margin:8px;
     font-family:"ABeeZee";
     font-size: 12px;
@@ -78,12 +79,18 @@ const Button = styled.button`
     height:40px;
     margin:3px 12px;
     border-radius:8px;
-    background-color: #fc1221c5;
-    color: white;
+    background-color: ${colors.back};
+    color: ${colors.white};
     
   `
-  const {data1, setData1} = useAuth();
 
+  //NUEVO---------------------------------------------------------------------------------------------------------------------------------------------------------
+  const {data1, setData1, setStateButtonCalculateProcessTable} = useAuth();
+
+  const iniciarFuncion = () => {
+    setStateButtonCalculateProcessTable(true);
+  };
+  //NUEVO----------------------------------------------------------------------------------------------------------------------------------------------------------
   const [mater,setMater] = useState("");
 
   function handleSimulacion(e){
@@ -143,18 +150,18 @@ const Button = styled.button`
         </Div>
         
         <Div style={{marginLeft: 0}}>
-          <Label style={{color: "#EE7272"}}>x</Label>
+          <Label style={{color: colors.red}}>x</Label>
           <Input  value={data1.x} id={"x"} onChange={(e) => handleSimulacion(e)}/>
         </Div>
         
         <Div>
-          <Label style={{color: "#EE7272"}}>grado</Label>
+          <Label style={{color: colors.red}}>grado</Label>
           <Input  value={data1.grado} id={"grado"} onChange={(e) => handleSimulacion(e)}/>
         </Div>
         <div style={{display: "flex",columnGap:170,width:"100%", marginLeft: 16}}>
           <Button>Simular</Button>
-          
-          <Button>Calcular</Button>
+          <Button onClick={iniciarFuncion}>Calcular</Button>
+
         </div>
                                 
       </DivSimul>

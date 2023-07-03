@@ -96,6 +96,8 @@ function AuthProvider({children}){
     { id: 3, Fuerza: "", Long: "", Def: "" }
   ])
 
+  const [stateButtonCalculateProcessTable, setStateButtonCalculateProcessTable] = useState(false);
+
   return(
     <AuthContext.Provider value={{
       filas,
@@ -123,8 +125,9 @@ function AuthProvider({children}){
       kControlCargas,
       setKControlCargas,
       bControlCargas,
-      setBControlCargas
-
+      setBControlCargas,
+      stateButtonCalculateProcessTable,
+      setStateButtonCalculateProcessTable
     }}>
       {children}
     </AuthContext.Provider>

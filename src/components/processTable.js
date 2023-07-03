@@ -2,30 +2,38 @@ import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import "@fontsource/abeezee/400-italic.css";
 import { useAuth } from '../context/auth-context';
+import { colors } from "../styles/colors";
 
 const Table2 = styled.table`
   width:500px; 
   background-color: black;
   font-family: "ABeeZee";
-  border: 2px solid grey;
+  border: 2px solid ${colors.grey};
   border-collapse: collapse;
-  color: grey;
   border: 2px solid grey;
-  //margin-top: 40px;
+  color: ${colors.grey};
 
 `
 
 const Td = styled.td`
   text-align: center;
-  //width: 40px;
-  border: 1px solid grey;
+  border: 1px solid ${colors.grey};
 
+`
+const Table1 = styled.table`
+  width: 520px;
+  height:380px;
+  font-family: "ABeeZee";
+  border: 2px solid grey;
+  border-collapse: collapse;
+  color: grey;
+      
 `
 const Input = styled.input`
   width:42px;
   height:18px;
-  color:white;
-  background-color: black;
+  color:${colors.black};
+  background-color: ${colors.purple};
   margin:8px;
   font-family:"ABeeZee";
   font-size: 12px;
@@ -34,8 +42,8 @@ const Input = styled.input`
 `
 const Input3 = styled.input`
   width:50px;
-  background-color:black;
-  color: white;
+  background-color:${colors.black};
+  color: ${colors.white};
   margin:5px;
   text-align: center;
   border:none;
@@ -57,27 +65,27 @@ const Th4 = styled.th`
   letter-spacing: 1px;
   padding:10px;
   border: 1px solid grey;
-  color: white;
+  color: ${colors.white};
 `
 const Input2 = styled.input`
   width:80px;
-  background-color:black;
-  color: gray;
+  background-color:${colors.black};
+  color: ${colors.gray};
   margin:5px;
   text-align: center;
   border:none;
 `
 const Label2 = styled.label`
-  color: white;
+  color: ${colors.white};
   margin: 5px;
   height:15px;
   display: block;
   width: 40px;
-  background-color:black;
+  background-color:${colors.black};
   line-height: 15px;
 `
 const Tbody = styled.tbody`
-  color: white;
+  color: ${colors.white};
   display: flex;
   flex-direction: column-reverse;
 `
@@ -86,8 +94,8 @@ const Button = styled.button`
   height:40px;
   margin:3px 12px;
   border-radius:8px;
-  background-color: #fc1221c5;
-  color: white;
+  background-color: ${colors.back};
+  color: ${colors.white};
   
 `
 const Button1 = styled.button`
@@ -97,13 +105,78 @@ const Button1 = styled.button`
   border-radius:8px;
   
 `
+const Button2 = styled.button`
+  width:80px;
+  height:80px;
+  font-size:14px;
+  border: none;
+  background-color: #5B5B5B;
+  font-family: "ABeeZee";
+  font-weight: bold;
+  color:white
+`
+
+const Button3 = styled.button`
+  width:20px;
+  height:80px;
+  font-size:14px;
+  border: none;
+  background-color: #5B5B5B;
+  font-family: "ABeeZee";
+  font-weight: bold;
+  color:white
+`
+
+/*export function calcularprocessTableStage1(){
+        
+    const {data, setData, processTableStage1, setProcessTableStage1, processTableStage2, setProcessTableStage2} = useAuth();
+
+    let long1 = (Number(data.Luz2)+Number(data.d))*0.875
+    let long2 = (Number(data.Luz1)+Number(data.d))*0.875
+    let luz1 = long1/0.875 - Number(data.d)
+    let luz2 = long2/0.875 - Number(data.d)
+    let vtas1 = 0.875
+    let vtas2 = 0.875
+    
+    let longLineaMedia = Number(data.L0)
+    if (((data.Ext1 === "TASE") && (data.Ext2 === "TASE")) || ((data.Ext1 === "TCSE") && (data.Ext2 === "TASE")) || ((data.Ext1 === "TASE") && (data.Ext2 === "TCSE"))) {
+        longLineaMedia = Number(data.L0) - Number(data.d)
+    } else if (((data.Ext1 === "TAE") && (data.Ext2 === "TAE")) || ((data.Ext1 === "TCE") && (data.Ext2 === "TAE")) || ((data.Ext1 === "TAE") && (data.Ext2 === "TCE"))) {
+        longLineaMedia = Number(data.L0) 
+    } else {
+        longLineaMedia = Number(data.L0) - Number(data.d)/2
+    }
+
+    let vtas3 = Number(data.N)-2*0.875
+    let long3 = longLineaMedia-long1-long2-Number(data.d)
+    let luz3 = (long3/vtas3)-Number(data.d)
+
+    let luces = [luz1, luz2, luz3]
+    let longitudes = [long1, long2, long3]
+    let vueltas = [vtas1, vtas2, vtas3]
+
+    setProcessTableStage1(processTableStage1.map((punto, indice) => {
+      if (punto.id < 4) {
+        return { ...punto, Luz: luces[indice], Long: longitudes[indice], Vtas: vueltas[indice] };
+      }
+      return punto;
+    }));
+}*/
 
 export default function ProcessTable(props) {
 
-    const {data, setData, processTableStage1, setProcessTableStage1, processTableStage2, setProcessTableStage2} = useAuth();
+    const {data, setData, processTableStage1, setProcessTableStage1, processTableStage2, setProcessTableStage2, stateButtonCalculateProcessTable, setStateButtonCalculateProcessTable} = useAuth();
 
     const [processTableStage1Inv, setProcessTableStage1Inv] = useState([])
     const [processTableStage2Inv, setProcessTableStage2Inv] = useState([])
+
+    const [pasoVisible, setPasoVisible] = useState(true)
+    const [kEqVisible, setKEqVisible] = useState(true)
+    const [xcVisible, setXcVisible] = useState(true)
+    const [fcVisible, setFcVisible] = useState(true)
+    const [kVisible, setKVisible] = useState(true)
+    const [kInvVisible, setKInvVisible] = useState(true)
+    const [bVisible, setBVisible] = useState(true)
 
     function calcularprocessTableStage1(){
         
@@ -139,6 +212,15 @@ export default function ProcessTable(props) {
         }));
     }
     
+    //NUEVO---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    if (stateButtonCalculateProcessTable == true){
+        calcularprocessTableStage1()
+        setStateButtonCalculateProcessTable(false)
+    }
+
+    //NUEVO---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
     function CalculateOrReset3Points(){
         calcularprocessTableStage1()
     }
@@ -414,23 +496,117 @@ export default function ProcessTable(props) {
         
     }, [processTableStage2])
 
+    function visibleColumnPaso(){
+        if (pasoVisible == true){
+            setPasoVisible(false)
+        }
+        else{
+            setPasoVisible(true)
+        }
+
+    }
+
+    function visibleColumnKeq(){
+        if (kEqVisible == true){
+            setKEqVisible(false)
+        }
+        else{
+            setKEqVisible(true)
+        }
+
+    }
+
+    function visibleColumnXc(){
+        if (xcVisible == true){
+            setXcVisible(false)
+        }
+        else{
+            setXcVisible(true)
+        }
+
+    }
+
+    function visibleColumnFc(){
+        if (fcVisible == true){
+            setFcVisible(false)
+        }
+        else{
+            setFcVisible(true)
+        }
+
+    }
+
+    function visibleColumnK(){
+        if (kVisible == true){
+            setKVisible(false)
+        }
+        else{
+            setKVisible(true)
+        }
+
+    }
+
+    function visibleColumnKInv(){
+        if (kInvVisible == true){
+            setKInvVisible(false)
+        }
+        else{
+            setKInvVisible(true)
+        }
+
+    }
+    
+    function visibleColumnB(){
+        if (bVisible == true){
+            setBVisible(false)
+        }
+        else{
+            setBVisible(true)
+        }
+
+    }
+
     return(
-        <div>
+
+        <div style={{backgroundColor: colors.black}}>
             {/* <Button onClick={CalculateOrReset3Points}>Calcular</Button> */}
             <Table2>
                 <thead>
-                    <tr style={{backgroundColor: "#5B5B5B", color:"white"}}>
-                        <Th3>N°</Th3>
-                        <Th3>Luz (mm)</Th3>
-                        <Th3>Long (mm)</Th3>
-                        <Th3>N°Vtas</Th3>
-                        <Th3>Keq.(N/mm)</Th3>
-                        <Th3>Xc (mm)</Th3>
-                        <Th3>Fc (kg)</Th3>
-                        <Th3>Paso (mm)</Th3>
-                        {/* <Th3>K (N/mm)</Th3>
-                        <Th3>K^-1</Th3>
-                        <Th3>b</Th3> */}
+                    <tr style={{backgroundColor: colors.gray, color:colors.white}}>
+                        <Th3>Punto</Th3>
+                        <Th3>Luz</Th3>
+                        <Th3>Long</Th3>
+                        <Th3>N.Vtas</Th3>
+                        <Th3>
+                            {
+                                pasoVisible ? <Button2 onClick={visibleColumnPaso}>Paso (mm)</Button2> : <Button3 onClick={visibleColumnPaso}>+</Button3>
+                            }
+                        </Th3>
+                        <Th3>
+                            {
+                                kEqVisible ? <Button2 onClick={visibleColumnKeq}>Keq. (N/mm)</Button2> : <Button3 onClick={visibleColumnKeq}>+</Button3>
+                            }
+                        </Th3>
+                        <Th3>  
+                            {
+                                xcVisible ? <Button2 onClick={visibleColumnXc}>Xc (mm)</Button2> : <Button3 onClick={visibleColumnXc}>+</Button3>
+                            }
+                        </Th3>
+                        <Th3>
+                            {
+                                fcVisible ? <Button2 onClick={visibleColumnFc}>Fc (kg)</Button2> : <Button3 onClick={visibleColumnFc}>+</Button3>
+                            }
+                        </Th3>
+                        <Th3>
+                            {
+                                kVisible ? <Button2 onClick={visibleColumnK}>K (N/mm)</Button2> : <Button3 onClick={visibleColumnK}>+</Button3>
+                            }
+                        </Th3>
+                        <Th3>
+                            {
+                                bVisible ? <Button2 onClick={visibleColumnB}>b</Button2> : <Button3 onClick={visibleColumnB}>+</Button3>
+                            }
+                        </Th3>
                     </tr>
                 </thead>
                 <tbody>
@@ -454,39 +630,34 @@ export default function ProcessTable(props) {
                             </Td>
                             <Td style={{width: 60}}>
                                 {
-                                    (!isNaN(processTableStage2Inv[indice].Keq) && Number.isFinite(processTableStage2Inv[indice].Keq) && (processTableStage2Inv[indice].Keq !== 0)) === true ? (processTableStage2Inv[indice].Keq).toFixed(3) : ""
+                                    pasoVisible ? ((!isNaN(processTableStage2Inv[indice].Paso) && Number.isFinite(processTableStage2Inv[indice].Paso) && (processTableStage2Inv[indice].Paso !== 0)) === true ? (processTableStage2Inv[indice].Paso).toFixed(2) : "") : null
                                 }
                             </Td>
                             <Td style={{width: 60}}>
                                 {
-                                    (!isNaN(processTableStage2Inv[indice].Xc) && Number.isFinite(processTableStage2Inv[indice].Xc) ) === true ? (processTableStage2Inv[indice].Xc).toFixed(3) : ""
+                                    kEqVisible ? ((!isNaN(processTableStage2Inv[indice].Keq) && Number.isFinite(processTableStage2Inv[indice].Keq) && (processTableStage2Inv[indice].Keq !== 0)) === true ? (processTableStage2Inv[indice].Keq).toFixed(2) : "") : null
                                 }
                             </Td>
                             <Td style={{width: 60}}>
                                 {
-                                    (!isNaN(processTableStage2Inv[indice].Fc) && Number.isFinite(processTableStage2Inv[indice].Fc) ) === true ? (processTableStage2Inv[indice].Fc).toFixed(3) : ""
+                                    xcVisible ? ((!isNaN(processTableStage2Inv[indice].Xc) && Number.isFinite(processTableStage2Inv[indice].Xc) ) === true ? (processTableStage2Inv[indice].Xc).toFixed(2) : "") : null
                                 }
                             </Td>
                             <Td>
                                 {
-                                    (!isNaN(processTableStage2Inv[indice].Paso) && Number.isFinite(processTableStage2Inv[indice].Paso) && (processTableStage2Inv[indice].Paso !== 0)) === true ? (processTableStage2Inv[indice].Paso).toFixed(2) : ""
-                                }
-                            </Td>
-                            {/* <Td>
-                                {
-                                    (!isNaN(processTableStage2Inv[indice].K) && Number.isFinite(processTableStage2Inv[indice].K) && (processTableStage2Inv[indice].K !== 0)) === true ? (processTableStage2Inv[indice].K).toFixed(3) : ""
+                                    fcVisible ? ((!isNaN(processTableStage2Inv[indice].Fc) && Number.isFinite(processTableStage2Inv[indice].Fc) ) === true ? (processTableStage2Inv[indice].Fc).toFixed(2) : "") : null
                                 }
                             </Td>
                             <Td>
                                 {
-                                    (!isNaN(processTableStage2Inv[indice].Kinv) && Number.isFinite(processTableStage2Inv[indice].Kinv) && (processTableStage2Inv[indice].Kinv !== 0)) === true ? (processTableStage2Inv[indice].Kinv).toFixed(4) : ""
+                                    kVisible ? ((!isNaN(processTableStage2Inv[indice].K) && Number.isFinite(processTableStage2Inv[indice].K) && (processTableStage2Inv[indice].K !== 0)) === true ? (processTableStage2Inv[indice].K).toFixed(2) : "") : null
                                 }
                             </Td>
                             <Td>
                                 {
-                                    (!isNaN(processTableStage2Inv[indice].b) && Number.isFinite(processTableStage2Inv[indice].b)) === true ? (processTableStage2Inv[indice].b.toFixed(3)) : ""
+                                    bVisible ? ((!isNaN(processTableStage2Inv[indice].b) && Number.isFinite(processTableStage2Inv[indice].b)) === true ? (processTableStage2Inv[indice].b.toFixed(2)) : "") : null
                                 }
-                            </Td> */}
+                            </Td>
                         </tr>
                     ))}
                 </tbody>
