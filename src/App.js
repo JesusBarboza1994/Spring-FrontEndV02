@@ -462,8 +462,7 @@ function App() {
            borderRadius: 8,
           //  marginTop: 30,
             }}>
-              <GraficoControlCargas puntos={puntosCCGrafica} slope={lineaCC.k} intercept={lineaCC.b} rSquared={lineaCC.r2}/>
-
+              
         </canvas>
 
         <GraficoControlCargas puntos={puntosCCGrafica} slope={lineaCC.k} intercept={lineaCC.b} rSquared={lineaCC.r2}/>
