@@ -174,9 +174,9 @@ export default function ProcessTable(props) {
     const [kEqVisible, setKEqVisible] = useState(true)
     const [xcVisible, setXcVisible] = useState(true)
     const [fcVisible, setFcVisible] = useState(true)
-    const [kVisible, setKVisible] = useState(true)
+    const [kVisible, setKVisible] = useState(false)
     const [kInvVisible, setKInvVisible] = useState(true)
-    const [bVisible, setBVisible] = useState(true)
+    const [bVisible, setBVisible] = useState(false)
 
     function calcularprocessTableStage1(){
         
