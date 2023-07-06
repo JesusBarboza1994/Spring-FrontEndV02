@@ -16,7 +16,7 @@ export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,lo
         margin-top: 10px;
         margin-left: 50px;
         width: 500px;
-        height: 140px;
+        height: 146px;
         background-color: ${colors.gray};
         border-radius:8px;        
     `

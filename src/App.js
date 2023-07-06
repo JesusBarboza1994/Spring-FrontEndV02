@@ -202,8 +202,11 @@ const H1 = styled.h1`
 `
 
 const H2 = styled.h2`
-  color: white;
-  font-size: 22px;
+color: white;
+font-size: 18px;
+margin-top: 40px;
+font-family:"Inter";
+font-style: italic;
 `
 
 const Canvas = styled.canvas`
@@ -211,7 +214,7 @@ const Canvas = styled.canvas`
  width: 500px;
  height: 300px;
  margin-bottom:20px;
- margin-top: 30px;
+ margin-top: 20px;
  margin-left: 50px;
  border-radius: 8px;
 `
@@ -445,13 +448,14 @@ function App() {
       <WeightTolerance/>
       
       <Textarea/>
-
+      <H1>Simulacion</H1>
       <Canvas/>
     </div>
 
     <div style={{display:"flex", marginTop:58, marginLeft: 50,}}>
       <div>
         <LongTable/>
+        <H2>Cargas reales</H2>
         <TablaControlDeCargas L0={data.L0} />
         <ProbarFuerza/>
       </div>

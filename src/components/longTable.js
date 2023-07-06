@@ -4,21 +4,21 @@ import "@fontsource/abeezee/400-italic.css";
 import { useAuth } from '../context/auth-context';
 
 const Td = styled.td`
+  height: 36px;
   text-align: center;
-  width: 40px;
   border: 1px solid grey;
-
+  font-size: 13px;
 `
 const Input = styled.input`
   width:50px;
   height:18px;
-  color:black;
-  background-color: #adc5fff1;
+  color: white;
+  background-color: black;
   margin:8px;
   font-family:"ABeeZee";
-  font-size: 13px;
+  font-size: 12px;
   border-style:inset;
-     
+  border-radius: 4px;  
 `
 const Th3 = styled.th`
   height: 80px;
@@ -27,41 +27,44 @@ const Th3 = styled.th`
   
 `
 const Th = styled.th`
-  width: 100px;
-  height: 170px;
-  writing-mode: vertical-lr;
-  text-orientation: upright;
-  font-size: 14px;
-  border: 1px solid grey;
+    width: 180px;
+    height: 70px;
+    //writing-mode: vertical-lr;
+    //text-orientation: upright;
+    font-size: 14px;
+    border: 1px solid grey;
+    letter-spacing: 1px;
   
 `
-const Input8 = styled.input`
-  width:50px;
+const Input1 = styled.input`
+  width:42px;
   height:18px;
-  color:black;
-  background-color: #cadefc;
+  color: white;
+  background-color: black;
   margin:5px;
   font-family:"ABeeZee";
   font-size: 13px;
   border-style:inset;
-     
+  border-radius: 4px;  
 `
 const Th2 = styled.th`
-  width: 120px;
-  text-align: left;
-  font-size: 14px;
-  letter-spacing: 1px;
-  padding:10px;
-  border: 1px solid grey;
-  color: white;
+width: 200px;
+height: 20px;
+text-align: left;
+font-size: 14px;
+letter-spacing: 1px;
+padding: 10px;
+border: 1px solid grey;
+color: grey;
 `
 const Table1 = styled.table`
-  width: 520px;
-  height:380px;
-  font-family: "ABeeZee";
-  border: 2px solid grey;
-  border-collapse: collapse;
-  color: grey;
+background-color: black; 
+width:500px;
+//height:270px;
+font-family: "ABeeZee";
+border-collapse: collapse;
+color: grey;
+border: 2px solid grey;
       
 `
 
@@ -177,12 +180,12 @@ export default function LongTable() {
                 <thead>
                     <tr style={{backgroundColor: "#5B5B5B", color:"white",}}>
                         <Th> </Th>
-                        <Th>LONGITUD</Th>
-                        <Th>CARRERA</Th>
-                        <Th>LL-G</Th>
-                        <Th>FUERZA</Th>
-                        <Th>ESFUERZO</Th>
-                        <Th>%COMPRES.</Th>
+                        <Th style={{width: 90}}>Long (mm)</Th>
+                        <Th style={{width: 80}}>X (mm)</Th>
+                        <Th style={{width: 80}}>LL-G (mm)</Th>
+                        <Th style={{width: 90}}>Fuerza (kg)</Th>
+                        <Th style={{width: 90}}>Esf (MPa)</Th>
+                        <Th style={{width: 60}}>Compr. (%)</Th>
                     </tr>
                 </thead>
                 <tbody>
@@ -193,7 +196,7 @@ export default function LongTable() {
                             </Td>
                             <Td>
                             {
-                                indice > 3 ? ((!isNaN(inputLongTable[indice]) && Number.isFinite(inputLongTable[indice]) && (inputLongTable[indice] !== 0)) === true ? (inputLongTable[indice]).toFixed(2) : "") : <Input8 type="number" value={inputLongTable[indice]} id={indice} onChange={(e) => handleTab(e)}/>
+                                indice > 3 ? ((!isNaN(inputLongTable[indice]) && Number.isFinite(inputLongTable[indice]) && (inputLongTable[indice] !== 0)) === true ? (inputLongTable[indice]).toFixed(2) : "") : <Input1 type="number" value={inputLongTable[indice]} id={indice} onChange={(e) => handleTab(e)}/>
                             }
                             </Td>
                             <Td>

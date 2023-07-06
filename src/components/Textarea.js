@@ -6,7 +6,7 @@ import { colors } from "../styles/colors";
 export function Textarea(){
    const Paragraph = styled.p`
         block-size:1px;
-        margin-left: 60px;
+        margin-left: 84px;
         margin-bottom: 20px;
         font-family:"ABeeZee";
         font-size:12px;
@@ -20,7 +20,7 @@ export function Textarea(){
         <Paragraph style={{width: 480}}>Descripcion</Paragraph>
         <div style={{
           
-            width: 480, 
+            width: 500, 
             height: 100, 
             marginLeft:50,
             marginBottom: 0, 
@@ -39,7 +39,7 @@ export function Textarea(){
         </div>
 
         <textarea style={{
-            width: 480,
+            width: 500,
             height: 40,
             marginLeft:50,
             marginTop: 0,
@@ -50,7 +50,7 @@ export function Textarea(){
             color:colors.grey,
             fontFamily:"ABeeZee",
             fontSize: 12,
-            paddingLeft:20,
+            paddingLeft:30,
             }}placeholder="Datos adicionales">
         </textarea>    
     </div>  

@@ -6,7 +6,7 @@ import { colors } from "../styles/colors";
 
 const Table2 = styled.table`
   width: 220px;  
-  margin:20px 0px;
+  margin:10px 0px;
   background: black;
   font-family: "ABeeZee";
   border: 2px solid grey;
@@ -34,8 +34,8 @@ const Td = styled.td`
 const Input = styled.input`
   width:42px;
   height:18px;
-  color:${colors.black};
-  background-color: ${colors.purple};
+  color:${colors.white};
+  background-color: ${colors.black};
   margin:8px;
   font-family:"ABeeZee";
   font-size: 12px;
@@ -60,8 +60,12 @@ const Button1 = styled.button`
   width:100px;
   height:40px;
   margin:0px 0px 0px 10px;
-  border-radius:8px;
-
+  background-color: #363636; 
+  border-radius: 6px;
+  font-family:"ABeeZee";
+  letter-spacing: 1px;
+  font-size: 12px;
+  color: white;
 `
 
 export default function TablaControlDeCargas(props) {
@@ -145,10 +149,10 @@ export default function TablaControlDeCargas(props) {
             <Table2>
                 <thead>
                     <tr style={{backgroundColor: colors.gray, color:colors.white,}}>
-                        <Th3>Punto</Th3>
-                        <Th3>Fuerza (kg)</Th3>
-                        <Th3>Longitud (mm)</Th3>
-                        <Th3>Deformación (mm)</Th3>
+                    <Th3>N°</Th3>
+                     <Th3>F (kg)</Th3>
+                     <Th3>L (mm)</Th3>
+                     <Th3>x (mm)</Th3>
                     </tr>
                 </thead>
                 <tbody>
