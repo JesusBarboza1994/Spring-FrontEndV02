@@ -24,8 +24,8 @@ export function WeightTolerance(){
   `
  const Paragraph = styled.p`
     block-size:1px;
-    //margin-left: 36px;
-    margin-bottom: 12px;
+    //margin-left: 30px;
+    margin-bottom: 20px;
     font-family:"ABeeZee";
     font-size:12px;
     color: ${colors.white};  
@@ -36,7 +36,7 @@ export function WeightTolerance(){
     aling-items: center;
     width:125px;
     height:40px;
-    margin:6px 16px 6px 16px;
+    margin:3px 16px 8px 16px;
     background: ${colors.black};
     border:2px solid gray;
     border-radius:8px;
@@ -55,19 +55,19 @@ export function WeightTolerance(){
     width: 65px;
     display:block;
     background-color:${colors.black};
-    margin-top:12px;
-    margin-left: 8px;
+    margin-top:8px;
+    margin-left: 10px;
     font-family:"ABeeZee";
     font-size: 13px;
-    color: ${colors.gray};
+    color: ${colors.grey};
                     
   `
   const DivCalculo = styled.div`
     width:40px;
     height:18px;
-    color:${colors.black};
-    background-color: ${colors.white};
-    margin:8px;
+    color:${colors.white};
+    background-color: ${colors.black};
+    margin:9px;
     font-family:"ABeeZee";
     font-size: 12px;
     border-radius: 4px;
@@ -79,7 +79,7 @@ export function WeightTolerance(){
   height:18px;
   color:white;
   background-color: black;
-  margin:8px;
+  margin:9px;
   font-family:"ABeeZee";
   font-size: 12px;
   border-radius: 4px;
@@ -234,8 +234,8 @@ export function WeightTolerance(){
  return(
     <DivSimul style={{marginBottom:10,}}>
       <div style={{display: "flex",}}>
-        <Paragraph style={{marginTop:12,}}>Datos produccion</Paragraph>
-        <Paragraph style={{marginTop:6, textAlign: "center"}}>Maq.Auto<Switch onChange= {handleChange} size="small"/>Torno</Paragraph>
+        <Paragraph style={{marginTop:8, marginLeft: 12,}}>Datos produccion</Paragraph>
+        <Paragraph style={{marginTop:8, textAlign: "center"}}>Maq.Auto<Switch onChange= {handleChange} size="small"/>Torno</Paragraph>
         <Paragraph></Paragraph>
       </div>
       <Div>
@@ -251,7 +251,7 @@ export function WeightTolerance(){
         <DivCalculo id={"Peso"}>{(!isNaN(data3.Peso) && (data3.Peso > 0)) === true ? (data3.Peso) : ""}</DivCalculo>
       </Div>
       <div>
-        <Paragraph style={{width: 480, marginTop: 7, paddingLeft: 34,}}>Grado tolerancias</Paragraph>
+        <Paragraph style={{width: 480, marginLeft: 48, }}>Grado tolerancias</Paragraph>
         
       </div>    
       <Div>

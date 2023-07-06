@@ -24,11 +24,12 @@ export function SimulationData(){
   `
  const Paragraph = styled.p`
     block-size:1px;
+    margin-top: 5px;
     margin-left:30px;
     margin-bottom: 10px;
     font-family:"ABeeZee";
     font-size:12px;
-    width: 138px;
+    width: 133px;
     color: ${colors.white};  
   `
  const Div = styled.div`
@@ -36,9 +37,9 @@ export function SimulationData(){
     aling-items: center;
     width:125px;
     height:40px;
-    margin:6px 16px 6px 16px;
+    margin:8px 16px 6px 16px;
     background: ${colors.black};
-    border:2px solid ${colors.gray}; 
+    border:2px solid ${colors.grey}; 
     border-radius:8px;
     
   `
@@ -52,22 +53,22 @@ export function SimulationData(){
   `
   const Label = styled.label`
     height: 20px;
-    width: 65px;
+    width: 60px;
     display:block;
     background-color:${colors.black};
-    margin-top:12px;
-    margin-left: 8px;
+    margin-top:8px;
+    margin-left: 10px;
     font-family:"ABeeZee";
     font-size: 13px;
-    color: gray;
+    color: grey;
               
   `
   const Input = styled.input`
     width:40px;
     height:18px;
-    color:${colors.black};
-    background-color: ${colors.purple};
-    margin:8px;
+    color:${colors.white};
+    background-color: ${colors.black};
+    margin:9px;
     font-family:"ABeeZee";
     font-size: 12px;
     border-radius: 4px;
@@ -80,8 +81,10 @@ const Button = styled.button`
     margin:3px 12px;
     border-radius:8px;
     background-color: ${colors.back};
+    font-family:"ABeeZee";
+    font-size: 13px;
+    letter-spacing: 1px;
     color: ${colors.white};
-    
   `
 
   //NUEVO---------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -124,8 +127,8 @@ const Button = styled.button`
       
         <Div style={{width:138}}>
           
-          <Select style={{color: "white",borderRadius:8,}} id={"Mater"} value={mater} onChange={(e) => handleListaMP(e)}>
-            <option style={{color: "#EE7272"}}>Seleccionar MP</option>
+          <Select style={{borderRadius:8,}} id={"Mater"} value={mater} onChange={(e) => handleListaMP(e)}>
+            <option>Seleccionar MP</option>
             <option value="SHI-165">SHI-165</option>
             <option value="SHI-180">SHI-180</option>
             <option value="CRSI SAE 9254(REC)">CRSI SAE 9254(REC)</option>
@@ -150,15 +153,15 @@ const Button = styled.button`
         </Div>
         
         <Div style={{marginLeft: 0}}>
-          <Label style={{color: colors.red}}>x</Label>
+          <Label style={{color: colors.white}}>x</Label>
           <Input  value={data1.x} id={"x"} onChange={(e) => handleSimulacion(e)}/>
         </Div>
         
         <Div>
-          <Label style={{color: colors.red}}>grado</Label>
+          <Label style={{color: colors.white}}>grado</Label>
           <Input  value={data1.grado} id={"grado"} onChange={(e) => handleSimulacion(e)}/>
         </Div>
-        <div style={{display: "flex",columnGap:170,width:"100%", marginLeft: 16}}>
+        <div style={{display: "flex",columnGap:164,width:"100%", marginLeft: 20}}>
           <Button>Simular</Button>
           <Button onClick={iniciarFuncion}>Calcular</Button>
 

@@ -23,12 +23,13 @@ export const colors = {
     800: "#292524",
     900: "#1C1917",
   },
-  black: "#171717",
+  blackfondo: "#171717",
+  black: "black",
   white: "#FFFFFF",
-  gray: "#5B5B5B",
+  gray: "#363636",
   purple: "#adc5fff1",
   back: "#fc1221c5",
-  grey: grey,
+  grey: "grey",
   red: "#EE7272",
 };
 

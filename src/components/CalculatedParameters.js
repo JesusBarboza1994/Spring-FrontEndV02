@@ -11,7 +11,6 @@ export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,lo
         grid-template-columns: auto, auto, auto;
         flex-wrap: wrap;
         justify-content: center;
-        //column-gap:8px;
         row-gap:none;
         margin-bottom:20px;
         margin-top: 10px;
@@ -23,8 +22,9 @@ export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,lo
     `
   const Paragraph = styled.p`
         block-size:1px;
-        margin-left:30px;
-        margin-bottom: 10px;
+        margin-left:34px;
+        margin-bottom: 20px;
+        margin-top: 8px;
         font-family:"ABeeZee";
         font-size:12px;
         color: ${colors.white};  
@@ -33,9 +33,9 @@ export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,lo
     const DivCalculo = styled.div`
         width:40px;
         height:18px;
-        color:${colors.black};
-        background-color: ${colors.white};
-        margin:8px;
+        color:${colors.white};
+        background-color: ${colors.black};
+        margin:9px;
         font-family:"ABeeZee";
         font-size: 12px;
         border-radius: 4px;
@@ -49,8 +49,9 @@ export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,lo
         aling-items: center;
         width:125px;
         height:40px;
+        margin:3px 16px 8px 16px;
         background: ${colors.black};
-        border:2px solid ${colors.gray};
+        border:2px solid ${colors.grey};
         border-radius:8px;
         
     `
@@ -59,11 +60,11 @@ export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,lo
         width: 65px;
         display:block;
         background-color:${colors.black};
-        margin-top:12px;
-        margin-left: 8px;
+        margin-top:8px;
+        margin-left: 10px;
         font-family:"ABeeZee";
         font-size: 13px;
-        color: ${colors.gray};
+        color: ${colors.grey};
                 
     `
 

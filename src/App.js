@@ -1,8 +1,7 @@
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import "@fontsource/abeezee/400-italic.css";
-//import "@fontsource/inter.css";
-
+import "@fontsource/inter";
 import { SimulationData } from "./components/SimulationData";
 import { CalcParam } from "./components/CalculatedParameters";
 import { WeightTolerance } from "./components/WeightTolerance";
@@ -18,6 +17,7 @@ import GraficoControlCargas from "./components/graficoControlCargas";
 import { useAuth } from './context/auth-context';
 import { calculateLinearRegression, generatePointForChart } from "./utils/chart-utils";
 import { isNullLiteral } from "@babel/types";
+import { colors } from "./styles/colors";
 
 const Form = styled.form`
   display:flex;
@@ -32,7 +32,7 @@ const Div = styled.div`
   aling-items: center;
   width:125px;
   height:40px;
-  margin:6px 16px 14px 16px;
+  margin:3px 16px 14px 16px;
   background: black;
   border:2px solid gray;
   border-radius:8px;
@@ -43,17 +43,18 @@ const Input = styled.input`
   height:18px;
   color:white;
   background-color: black;
-  margin:8px;
+  margin: 9px;
   font-family:"ABeeZee";
   font-size: 12px;
   border-style:inset;
   border-radius: 4px;
+  text-align: left;
      
 `
 const DivCalculo = styled.div`
   width:40px;
   height:18px;
-  color:white;
+  color: white;
   background-color: black;
   margin:8px;
   font-family:"ABeeZee";
@@ -62,14 +63,14 @@ const DivCalculo = styled.div`
 `
 const Label = styled.label`
   height: 20px;
-  width: 65px;
+  width: 60px;
   display:block;
   background-color:black;
-  margin-top:12px;
-  margin-left: 8px;
+  margin-top:8px;
+  margin-left: 10px;
   font-family:"ABeeZee";
   font-size: 13px;
-  color: gray;
+  color: ${colors.grey};
             
 `
 const DivSimulForm = styled.div`
@@ -77,7 +78,6 @@ const DivSimulForm = styled.div`
   grid-template-columns: auto, auto, auto;
   flex-wrap: wrap;
   justify-content: center;
-  //column-gap:8px;
   row-gap:none;
   margin-bottom:20px;
   margin-top: 10px;
@@ -188,8 +188,19 @@ const Select = styled.select`
   font-family:"ABeeZee";
   font-size: 13px;
   border: 0px;
+  margin-left: 0px;
 
 `
+const H1 = styled.h1`
+ 
+ color: white;
+ font-size: 22px;
+ margin-left: 50px;
+ margin-top: 20px;
+ font-family:"Inter";
+ font-style: italic;
+`
+
 const H2 = styled.h2`
   color: white;
   font-size: 22px;
@@ -341,11 +352,11 @@ function App() {
   <div className="App" style={{backgroundColor:"#1A1A1A", display:"flex"}}>
     
     <div>
-      <h1 style={{fontSize:22, marginLeft: 50, fontFamily:"Inter", color:"white"}}> Diseño de Resortes</h1>
+      <H1> Diseño de Resortes</H1>
       <DivSimulForm>
         <Form onSubmit={handleSubmit}>
           <div>
-            <p style={{marginLeft:18,marginBottom: 6,fontFamily:"ABeeZee",fontSize:12, }}>Datos principales</p>
+            <p style={{marginLeft:18,marginTop: 5, fontFamily:"ABeeZee",fontSize:12, }}>Datos principales</p>
               <Div>
                 <Label>d</Label>
                 <Input  value={data.d} type="number" id={"d"} onChange={(e) => handleInput(e)}/>
@@ -366,7 +377,7 @@ function App() {
           </div>
 
           <div>
-            <p style={{marginLeft:18,marginBottom: 6,fontFamily:"ABeeZee",fontSize:12,}}>Extremo 1</p>
+            <p style={{marginLeft:18,marginTop: 5, fontFamily:"ABeeZee",fontSize:12,}}>Extremo 1</p>
               <Div>
                 <Label>Luz1</Label>
                 <Input  value={data.Luz1} type="number" id={"Luz1"} onChange={(e) => handleInput(e)}/>
@@ -391,7 +402,7 @@ function App() {
           </div>
           
           <div>
-            <p style={{marginLeft:18,marginBottom: 6,fontFamily:"ABeeZee",fontSize:12,}}>Extremo 2</p>
+            <p style={{marginLeft:18,marginTop: 5, fontFamily:"ABeeZee",fontSize:12,}}>Extremo 2</p>
               <Div>
                 <Label>Luz2</Label>
                 <Input  value={data.Luz2} type="number" id={"Luz2"} onChange={(e) => handleInput(e)}/>
