@@ -174,7 +174,7 @@ export default function LongTable() {
     }, [inputLongTable[0], inputLongTable[1], inputLongTable[2], inputLongTable[3]])
 
     return(
-        <div style={{backgroundColor: "black"}}>
+        <div>
             
             <Table1>
                 <thead>

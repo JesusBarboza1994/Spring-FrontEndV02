@@ -455,9 +455,21 @@ function App() {
     <div style={{display:"flex", marginTop:58, marginLeft: 50,}}>
       <div>
         <LongTable/>
-        <H2>Cargas reales</H2>
-        <TablaControlDeCargas L0={data.L0} />
-        <ProbarFuerza/>
+        <div style={{display:"flex", gap: 156,}}>
+         <H2>Cargas reales</H2>
+         <H2>Cargas simuladas</H2>
+        </div>
+        
+        <div style={{display:"flex", gap: 58,}}>
+          <TablaControlDeCargas L0={data.L0}/>
+          <TablaControlDeCargas/>
+        </div>
+
+        <div style={{display:"flex", gap: 50,}}>
+          <ProbarFuerza/>
+          <ProbarFuerza/>
+        </div>
+        
       </div>
       
     </div> 
@@ -470,7 +482,7 @@ function App() {
         <ProcessTable medidasRes={data} extremo1={data.Ext1} extremo2={data.Ext2}/>
         
         <H2 style={{marginTop:40,}}>Caracteristica del Resorte</H2>
-        <canvas style={{
+        {/* <canvas style={{
            width: 500,
            height: 400, 
            background: "white",
@@ -478,7 +490,7 @@ function App() {
           //  marginTop: 30,
             }}>
               
-        </canvas>
+        </canvas> */}
 
         <GraficoControlCargas puntos={puntosCCGrafica} slope={lineaCC.k} intercept={lineaCC.b} rSquared={lineaCC.r2}/>
 
