@@ -23,7 +23,7 @@ export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,lo
   const Paragraph = styled.p`
         block-size:1px;
         margin-left:34px;
-        margin-bottom: 20px;
+        margin-bottom: 18px;
         margin-top: 8px;
         font-family:"ABeeZee";
         font-size:12px;
@@ -38,6 +38,7 @@ export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,lo
         margin:9px;
         font-family:"ABeeZee";
         font-size: 12px;
+        line-height: 18px;
         border-radius: 4px;
         border: 2px grey;
         border-style:outset;

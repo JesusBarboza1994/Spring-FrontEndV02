@@ -70,6 +70,7 @@ export function WeightTolerance(){
     margin:9px;
     font-family:"ABeeZee";
     font-size: 12px;
+    line-height: 18px;
     border-radius: 4px;
     border: 2px grey;
     border-style:outset;
@@ -251,7 +252,7 @@ export function WeightTolerance(){
         <DivCalculo id={"Peso"}>{(!isNaN(data3.Peso) && (data3.Peso > 0)) === true ? (data3.Peso) : ""}</DivCalculo>
       </Div>
       <div>
-        <Paragraph style={{width: 480, marginLeft: 48, }}>Grado tolerancias</Paragraph>
+        <Paragraph style={{width: 450, marginLeft: 20, }}>Grado tolerancias</Paragraph>
         
       </div>    
       <Div>

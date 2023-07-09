@@ -26,9 +26,11 @@ const Table3 = styled.table`
 `
 
 const Td = styled.td`
+  height: 37.05px;
   text-align: center;
   width: 40px;
   border: 1px solid ${colors.grey};
+  font-size: 13px;
     
 `
 const Input = styled.input`
@@ -90,64 +92,7 @@ export default function ControlDeCargasSimuladas(props) {
         { id: 6, Def: "" }
     ])
 
-    const L0 = Number(props.L0)
-
-    // const addRow = () => {
-    //     setPuntosCC([...puntosCC, { id: puntosCC.length + 1, Fuerza: "", Long: "" }])
-    //     setDefs([...defs, { id: defs.length + 1, Def: "" }])
-    // };
-
-    // const deleteRow = () => {
-    //     if (puntosCC.length>3){
-    //         setPuntosCC(puntosCC.slice(0, -1))
-    //         setDefs(defs.slice(0, -1))
-    //     }
-    // };
-
-    {/*function handleInputControlCargasSimuladas(e){
-
-        const arreglo = e.target.id.split(',')
-        
-        let puntosCSAux = JSON.parse(JSON.stringify(puntosCS))
-        puntosCSAux.map((punto) => {
-
-            if (arreglo[1] === "Fuerza"){
-                if (punto.id === Number(arreglo[0])) {
-                    punto.Fuerza = Number(e.target.value)
-                }
-            }
-            else if (arreglo[1] === "Long"){
-                if (punto.id === Number(arreglo[0])) {
-                    punto.Long = Number(e.target.value)
-                }
-            }
-
-        })
-
-        setPuntosCS(puntosCSAux)
-
-    }
-
-    useEffect(() => {
-        
-        let puntosCCGlob = []
-        let defsAux = JSON.parse(JSON.stringify(defs))
-        let puntoCC = {}
-        defsAux.map((punto, indice) => {
-
-            punto.Def = Number(L0 - puntosCC[indice].Long)
-
-            //Actualizacion de datos de variable en App.js
-            puntoCC = { id: (indice+1), Fuerza: puntosCC[indice].Fuerza, Long: puntosCC[indice].Long, Def: punto.Def }
-            puntosCCGlob.push(puntoCC)
-
-        })
-
-        setDefs(defsAux)
-
-        setControlCargas(puntosCCGlob)
-
-    }, [puntosCC]) */}
+    
 
     return(
 
@@ -156,25 +101,95 @@ export default function ControlDeCargasSimuladas(props) {
                 <thead>
                     <tr style={{backgroundColor: colors.gray, color: colors.white,}}>
                     
-                    <Th3>N°</Th3>
-                     <Th3>F (kg)</Th3>
-                     <Th3>L (mm)</Th3>
-                     <Th3>x (mm)</Th3>
+                     <Th3 style={{width: 41}}>N°</Th3>
+                     <Th3 style={{width: 63}}>F (kg)</Th3>
+                     <Th3 style={{width: 63}}>L (mm)</Th3>
+                     <Th3 >x (mm)</Th3>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <Td>
-                            {punto.id}
+                            1
                         </Td>
                         <Td>
-                            000
+                            100
                         </Td>
                         <Td>
-                            000
+                            000.0
                         </Td>
                         <Td>
-                            000
+                            000.0
+                        </Td>
+                    </tr>
+                    <tr>
+                        <Td>
+                            2
+                        </Td>
+                        <Td>
+                            200
+                        </Td>
+                        <Td>
+                            0.0
+                        </Td>
+                        <Td>
+                            0.0
+                        </Td>
+                    </tr>
+                    <tr>
+                        <Td>
+                            3
+                        </Td>
+                        <Td>
+                            300
+                        </Td>
+                        <Td>
+                            0.0
+                        </Td>
+                        <Td>
+                            0.0
+                        </Td>
+                    </tr>
+                    <tr>
+                        <Td>
+                            4
+                        </Td>
+                        <Td>
+                            400
+                        </Td>
+                        <Td>
+                            0.0
+                        </Td>
+                        <Td>
+                            0.0
+                        </Td>
+                    </tr>
+                    <tr>
+                        <Td>
+                            5
+                        </Td>
+                        <Td>
+                            500
+                        </Td>
+                        <Td>
+                            0.0
+                        </Td>
+                        <Td>
+                            0.0
+                        </Td>
+                    </tr>
+                    <tr>
+                        <Td>
+                            6
+                        </Td>
+                        <Td>
+                            600
+                        </Td>
+                        <Td>
+                            0.0
+                        </Td>
+                        <Td>
+                            0.0
                         </Td>
                     </tr>
                 </tbody>

@@ -26,6 +26,7 @@ const Table3 = styled.table`
 `
 
 const Td = styled.td`
+  font-size: 13px;
   text-align: center;
   width: 40px;
   border: 1px solid ${colors.grey};
@@ -64,6 +65,7 @@ const Button1 = styled.button`
   border-radius: 6px;
   font-family:"ABeeZee";
   letter-spacing: 1px;
+  line-height: 14px; 
   font-size: 12px;
   color: white;
 `

@@ -18,6 +18,7 @@ import { useAuth } from './context/auth-context';
 import { calculateLinearRegression, generatePointForChart } from "./utils/chart-utils";
 import { isNullLiteral } from "@babel/types";
 import { colors } from "./styles/colors";
+import ControlDeCargasSimuladas from "./components/ControlDeCargasSimuladas";
 
 const Form = styled.form`
   display:flex;
@@ -352,7 +353,7 @@ function App() {
   }
   
   return (
-  <div className="App" style={{backgroundColor:"#1A1A1A", display:"flex"}}>
+  <div className="App" style={{backgroundColor:"#1A1A1A", display:"flex", columnGap: 80 }}>
     
     <div>
       <H1> Diseño de Resortes</H1>
@@ -455,17 +456,17 @@ function App() {
     <div style={{display:"flex", marginTop:58, marginLeft: 50,}}>
       <div>
         <LongTable/>
-        <div style={{display:"flex", gap: 156,}}>
+        <div style={{display:"flex", gap: 200,}}>
          <H2>Cargas reales</H2>
          <H2>Cargas simuladas</H2>
         </div>
         
-        <div style={{display:"flex", gap: 58,}}>
+        <div style={{display:"flex", gap: 100,}}>
           <TablaControlDeCargas L0={data.L0}/>
-          <TablaControlDeCargas/>
+          <ControlDeCargasSimuladas/>
         </div>
 
-        <div style={{display:"flex", gap: 50,}}>
+        <div style={{display:"flex", gap: 70,}}>
           <ProbarFuerza/>
           <ProbarFuerza/>
         </div>
@@ -473,15 +474,12 @@ function App() {
       </div>
       
     </div> 
-
-    <div style={{backgroundColor:"black", display:"flex", columnGap:50, marginTop:28, marginLeft: 28}}>
-
-
+    
     <div style={{display:"flex", marginTop:58, marginLeft: 50}}>        
       <div>
         <ProcessTable medidasRes={data} extremo1={data.Ext1} extremo2={data.Ext2}/>
         
-        <H2 style={{marginTop:40,}}>Caracteristica del Resorte</H2>
+        <H2 style={{marginTop:40, marginBottom: 8 }}>Caracteristica del Resorte</H2>
         {/* <canvas style={{
            width: 500,
            height: 400, 
@@ -497,14 +495,11 @@ function App() {
       </div>
 
     </div>
+         
      
-    
-     
-   </div> 
+  </div> 
    
-  </div>
-
-
+  
   );
 }
 

@@ -10,7 +10,7 @@ const Td = styled.td`
   font-size: 13px;
 `
 const Input = styled.input`
-  width:50px;
+  width:42px;
   height:18px;
   color: white;
   background-color: black;
@@ -37,7 +37,7 @@ const Th = styled.th`
   
 `
 const Input1 = styled.input`
-  width:42px;
+  width:46px;
   height:18px;
   color: white;
   background-color: black;
@@ -59,7 +59,7 @@ color: grey;
 `
 const Table1 = styled.table`
 background-color: black; 
-width:500px;
+width:550px;
 //height:270px;
 font-family: "ABeeZee";
 border-collapse: collapse;
@@ -181,11 +181,11 @@ export default function LongTable() {
                     <tr style={{backgroundColor: "#5B5B5B", color:"white",}}>
                         <Th> </Th>
                         <Th style={{width: 90}}>Long (mm)</Th>
-                        <Th style={{width: 80}}>X (mm)</Th>
+                        <Th style={{width: 90}}>X (mm)</Th>
                         <Th style={{width: 80}}>LL-G (mm)</Th>
                         <Th style={{width: 90}}>Fuerza (kg)</Th>
                         <Th style={{width: 90}}>Esf (MPa)</Th>
-                        <Th style={{width: 60}}>Compr. (%)</Th>
+                        <Th style={{width: 80}}>Compr. (%)</Th>
                     </tr>
                 </thead>
                 <tbody>

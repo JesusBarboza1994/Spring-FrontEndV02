@@ -11,14 +11,15 @@ const Table2 = styled.table`
   border: 2px solid ${colors.grey};
   border-collapse: collapse;
   border: 2px solid grey;
-  color: ${colors.grey};
+  color: ${colors.white};
 
 `
 
 const Td = styled.td`
+  height: 36px;  
   text-align: center;
   border: 1px solid ${colors.grey};
-
+  font-size: 13px;
 `
 const Table1 = styled.table`
   width: 520px;
@@ -26,17 +27,17 @@ const Table1 = styled.table`
   font-family: "ABeeZee";
   border: 2px solid grey;
   border-collapse: collapse;
-  color: grey;
+  color: white;
       
 `
 const Input = styled.input`
-  width:42px;
+  width:50px;
   height:18px;
-  color:${colors.black};
-  background-color: ${colors.purple};
-  margin:8px;
+  color:${colors.white};
+  background-color: ${colors.black};
+  margin:5px;
   font-family:"ABeeZee";
-  font-size: 12px;
+  font-size: 13px;
   border-style:inset;
   border-radius: 4px;  
 `
@@ -102,12 +103,17 @@ const Button1 = styled.button`
   width:125px;
   height:40px;
   margin:20px 0px 0px 20px;
-  border-radius:8px;
-  
+  background-color: #363636;
+  border-radius:6px;
+  font-family:"ABeeZee";
+  letter-spacing: 1px;
+  line-height: 14px; 
+  font-size: 12px;
+  color: white;
 `
 const Button2 = styled.button`
   width:80px;
-  height:80px;
+  height:70px;
   font-size:14px;
   border: none;
   background-color: #5B5B5B;
@@ -118,7 +124,7 @@ const Button2 = styled.button`
 
 const Button3 = styled.button`
   width:20px;
-  height:80px;
+  height:70px;
   font-size:14px;
   border: none;
   background-color: #5B5B5B;
@@ -568,14 +574,14 @@ export default function ProcessTable(props) {
 
     return(
 
-        <div style={{backgroundColor: colors.black}}>
+        <div>
             {/* <Button onClick={CalculateOrReset3Points}>Calcular</Button> */}
             <Table2>
                 <thead>
-                    <tr style={{backgroundColor: colors.gray, color:colors.white}}>
+                    <tr style={{backgroundColor: "#5B5B5B", color:"white",}}>
                         <Th3>Punto</Th3>
-                        <Th3>Luz</Th3>
-                        <Th3>Long</Th3>
+                        <Th3>Luz (mm)</Th3>
+                        <Th3>Long (mm)</Th3>
                         <Th3>N.Vtas</Th3>
                         <Th3>
                             {
@@ -628,17 +634,17 @@ export default function ProcessTable(props) {
                             <Td style={{width: 65}}>
                                 <Input value={punto.Vtas} type="number" id={punto.id+",Vtas"} onChange={(e) => handleInputProcessTableStage1(e)} disabled={indice === (0)}/>
                             </Td>
-                            <Td style={{width: 60}}>
+                            <Td style={{width: 50}}>
                                 {
                                     pasoVisible ? ((!isNaN(processTableStage2Inv[indice].Paso) && Number.isFinite(processTableStage2Inv[indice].Paso) && (processTableStage2Inv[indice].Paso !== 0)) === true ? (processTableStage2Inv[indice].Paso).toFixed(2) : "") : null
                                 }
                             </Td>
-                            <Td style={{width: 60}}>
+                            <Td style={{width: 50}}>
                                 {
                                     kEqVisible ? ((!isNaN(processTableStage2Inv[indice].Keq) && Number.isFinite(processTableStage2Inv[indice].Keq) && (processTableStage2Inv[indice].Keq !== 0)) === true ? (processTableStage2Inv[indice].Keq).toFixed(2) : "") : null
                                 }
                             </Td>
-                            <Td style={{width: 60}}>
+                            <Td style={{width: 50}}>
                                 {
                                     xcVisible ? ((!isNaN(processTableStage2Inv[indice].Xc) && Number.isFinite(processTableStage2Inv[indice].Xc) ) === true ? (processTableStage2Inv[indice].Xc).toFixed(2) : "") : null
                                 }

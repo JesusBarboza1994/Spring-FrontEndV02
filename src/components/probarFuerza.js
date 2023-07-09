@@ -6,33 +6,34 @@ import { colors } from "../styles/colors";
 
 const DivSimul = styled.div`
   display:flex;
-  flex-direction: column;
+  //flex-direction: column;
   flex-wrap: wrap;
-  column-gap:5px;
+  justify-content: center;
+  //column-gap:5px;
   row-gap:none;
   margin-bottom:30px;
-  margin-top: 30px;
-  width: 240px;
+  margin-top: 40px;
+  width: 236px;
   background-color: ${colors.gray};  
   border-radius:8px; 
 `   
 const Paragraph = styled.p`
   block-size:1px;
-  margin-left:15px;
   margin-bottom: 15px;
+  margin-top: 8px;
   font-family:"ABeeZee";
   font-size:12px;
   color: white;  
   width: 148px;
 `
 const Input8 = styled.input`
-  width:42px;
+  width:40px;
   height:18px;
   color:white;
   background-color: black;
   margin:9px;
   font-family:"ABeeZee";
-  font-size: 13px;
+  font-size: 12px;
   border-style:inset;
   border-radius: 4px;
   text-align: left;
@@ -43,7 +44,7 @@ const Div = styled.div`
   aling-items: center;
   width:100px;
   height:40px;
-  margin:8px 6px;
+  margin:3px 7px;
   background: black;
   border:2px solid gray;
   border-radius:8px;  
@@ -57,6 +58,7 @@ const DivCalculo = styled.div`
   margin:9px;
   font-family:"ABeeZee";
   font-size: 12px;
+  line-height: 18px; 
   border-radius: 4px;
   border: 2px grey;
   border-style:outset;
@@ -87,7 +89,7 @@ export default function ProbarFuerza() {
     setInputFuerza(Number(e.target.value))
 
     let defNuevo = (Number(e.target.value)-bControlCargas)/kControlCargas
-    let longNuevo = Number(data.L0)-defNuevo
+    let longNuevo = (Number(data.L0)-defNuevo).toFixed(1)
 
     setLong(longNuevo)
     setDef(defNuevo)

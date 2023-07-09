@@ -67,13 +67,13 @@ export default function GraficoControlCargas ({puntos, slope, intercept, rSquare
   };
 
   return(
-    <div style={{height:"380px", width:"600px", backgroundColor:'white'}}>
-        <h2 style={{textAlign:'center'}}>Gráfico Control de Cargas</h2>
-        <h3 style={{textAlign:'center'}}>
+    <div style={{height:"380px", width:"600px", backgroundColor:'white', borderRadius: 8 }}>
+        <h3 style={{textAlign:'center', fontFamily: "Inter"}}>Gráfico Control de Cargas</h3>
+        <h4 style={{textAlign:'center'}}>
             {
                 (!isNaN(slope) && Number.isFinite(slope) && !isNaN(intercept) && Number.isFinite(intercept) && !isNaN(rSquared) && Number.isFinite(rSquared)) === true ? ( "k = "+(Number(slope)).toFixed(2)+", b = "+(Number(intercept)).toFixed(2)+", R2 = "+ (Number(rSquared)).toFixed(3) ) : ("k = , b = , R2 = ")
             }
-        </h3>
+        </h4>
         <Scatter data={data} options={options} />
     </div>
   ) 

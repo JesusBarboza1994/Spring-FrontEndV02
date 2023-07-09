@@ -17,7 +17,7 @@ export function Textarea(){
 
  return(
     <div>  
-        <Paragraph style={{width: 480}}>Descripcion</Paragraph>
+        <Paragraph style={{width: 450}}>Descripcion</Paragraph>
         <div style={{
           
             width: 500, 
