@@ -30,6 +30,22 @@ export const colors = {
   back: "#fc1221c5",
   grey: grey,
   red: "#EE7272",
+
+  black_one: "#363636",
+  black_two: "#0B090A",
+  black_three: "161A1D",
+  
+  red_one: "660708",
+  red_two: "A4161A",
+  red_three: "BA181B",
+  red_four: "E5383B",
+  
+  gray_one: "B1A7A6",
+  gray_two: "D3D3D3",
+  gray_three: "F5F3F4",
+
+  white_one: "FFFFFF",
+
 };
 
 export const ColorStyle = (dark) =>{
