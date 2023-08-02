@@ -31,20 +31,20 @@ export const colors = {
   grey: grey,
   red: "#EE7272",
 
-  black_one: "#363636",
-  black_two: "#0B090A",
-  black_three: "161A1D",
+  black_light: "#363636",
+  black_dark: "#0B090A",
+  black_medium: "161A1D",
   
-  red_one: "660708",
-  red_two: "A4161A",
-  red_three: "BA181B",
-  red_four: "E5383B",
+  red_dark: "660708",
+  red_medium: "A4161A",
+  red_light: "BA181B",
+  red_highlight: "E5383B",
   
-  gray_one: "B1A7A6",
-  gray_two: "D3D3D3",
-  gray_three: "F5F3F4",
+  gray_medium: "B1A7A6",
+  gray_light: "D3D3D3",
+  gray_highlight: "F5F3F4",
 
-  white_one: "FFFFFF",
+  white_light: "FFFFFF",
 
 };
 
