@@ -15,6 +15,7 @@ import LongTable from "./components/longTable";
 import ProbarFuerza from "./components/probarFuerza";
 import GraficoControlCargas from "./components/graficoControlCargas";
 import Spring3D from "./components/Spring3D";
+import Spring3DLine from "./components/Spring3DLine";
 
 import { useAuth } from './context/auth-context';
 import { calculateLinearRegression, generatePointForChart } from "./utils/chart-utils";
@@ -461,6 +462,7 @@ function App() {
           <GraficoControlCargas puntos={puntosCCGrafica} slope={lineaCC.k} intercept={lineaCC.b} rSquared={lineaCC.r2}/>
           <div style={{backgroundColor:"white"}} >
             <Spring3D points={springPoints3D} wire={data.d}></Spring3D>
+            <Spring3DLine points={springPoints3D} wire={data.d}></Spring3DLine>
           </div>
         </div>
 
