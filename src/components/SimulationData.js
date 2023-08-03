@@ -87,7 +87,7 @@ export function SimulationData(){
   `
 
   //NUEVO---------------------------------------------------------------------------------------------------------------------------------------------------------
-  const {data, data1, setData1, setStateButtonCalculateProcessTable} = useAuth();
+  const {data, data1, setData1, setStateButtonCalculateProcessTable, setSpringPoints3D} = useAuth();
 
   const iniciarFuncion = () => {
     setStateButtonCalculateProcessTable(true);
@@ -145,6 +145,7 @@ export function SimulationData(){
       });
 
       console.log('Resorte creado exitosamente:', response);
+      setSpringPoints3D(response)
       
     } catch (error) {
       console.error('Error al crear el resorte:', error.message);

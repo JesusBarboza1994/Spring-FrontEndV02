@@ -14,6 +14,7 @@ import TablaCarrera from "./components/tablaCarrera";
 import LongTable from "./components/longTable";
 import ProbarFuerza from "./components/probarFuerza";
 import GraficoControlCargas from "./components/graficoControlCargas";
+import Spring3D from "./components/Spring3D";
 
 import { useAuth } from './context/auth-context';
 import { calculateLinearRegression, generatePointForChart } from "./utils/chart-utils";
@@ -223,7 +224,7 @@ function App() {
 
   //Renee-Inicio-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  const {filas, data, setData, data2, setData2, controlCargas, setKControlCargas, setBControlCargas} = useAuth();
+  const {filas, data, setData, data2, setData2, controlCargas, setKControlCargas, setBControlCargas,springPoints3D} = useAuth();
 
   const [puntosCCGrafica, setPuntosCCGrafica] = useState([
     { x: 0, y: 0},
@@ -450,30 +451,25 @@ function App() {
     <div style={{backgroundColor:"black", display:"flex", columnGap:50, marginTop:28, marginLeft: 28}}>
 
 
-    <div style={{display:"flex", marginTop:58, marginLeft: 50}}>        
-      <div>
-        <ProcessTable medidasRes={data} extremo1={data.Ext1} extremo2={data.Ext2}/>
-        
-        <H2 style={{marginTop:40,}}>Caracteristica del Resorte</H2>
-        <canvas style={{
-           width: 500,
-           height: 400, 
-           background: "white",
-           borderRadius: 8,
-          //  marginTop: 30,
-            }}>
-              
-        </canvas>
+      <div style={{display:"flex", marginTop:58, marginLeft: 50}}>        
+        <div>
+          <ProcessTable medidasRes={data} extremo1={data.Ext1} extremo2={data.Ext2}/>
+          
+          <H2 style={{marginTop:40,}}>Caracteristica del Resorte</H2>
+          
 
-        <GraficoControlCargas puntos={puntosCCGrafica} slope={lineaCC.k} intercept={lineaCC.b} rSquared={lineaCC.r2}/>
+          <GraficoControlCargas puntos={puntosCCGrafica} slope={lineaCC.k} intercept={lineaCC.b} rSquared={lineaCC.r2}/>
+          <div style={{backgroundColor:"white"}} >
+            <Spring3D points={springPoints3D} wire={data.d}></Spring3D>
+          </div>
+        </div>
 
       </div>
 
-    </div>
-     
+      
     
      
-   </div> 
+    </div> 
    
   </div>
 
