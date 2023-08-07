@@ -14,18 +14,19 @@ export default function Spring3D({points, wire}) {
   const width = 1;
   //Loading
   const textureLoader = new THREE.TextureLoader()
-  //const normalTexture = textureLoader.load('./textures/NormalMap2.png')
+  const normalTexture = textureLoader.load('../textures/NormalMap2.png')
   //Material del resorte
-  const material = new THREE.MeshStandardMaterial()
+  const material = new THREE.MeshNormalMaterial()
   material.metalness = 0.7
   material.roughness = 0.2
-  //material.normalMap = normalTexture;
+  material.normalMap = normalTexture;
   material.color = new THREE.Color(0xbb1818)
   const alambre = wire
   return (
     <div id="canvas-container" style={{height: 500, width: 700}}>
       <Canvas dpr={[1, 2]} camera={{ fov: 50, near: 0.1, far:5000, position: [0, 1000, 300]}}>
         <pointLight color={0xbb1818} intensity={50} position={[-80,430,-80]}/>
+        <pointLight color={0xbb1818} intensity={50} position={[0,430,-80]}/>
         {
           points.map((punto, indice, arr) =>{
             if (indice < arr.length -1){
