@@ -8,19 +8,20 @@ import * as THREE from '../../node_modules/three/build/three.module.js';
 import { Canvas } from "@react-three/fiber";
 import { Euler } from '../../node_modules/three/build/three.module.js';
 import { Stats, OrbitControls } from '@react-three/drei'
+import texture from '../textures/NormalMap2.png'
 
 export default function Spring3DLine({points, wire}) {
 
   if (points[0] != null){
     //Loading
     const textureLoader = new THREE.TextureLoader()
-    //const normalTexture = textureLoader.load('./textures/NormalMap2.png')
+    const normalTexture = textureLoader.load(texture)
     //Material del resorte
     const material = new THREE.MeshNormalMaterial()
     material.metalness = 0.7
     material.roughness = 0.2
-    //material.normalMap = normalTexture;
-    material.color = new THREE.Color(0x292929)
+    material.normalMap = normalTexture;
+    material.color = new THREE.Color(0xbb1818)
     const alambre = wire
 
     //Cilindro inicial
@@ -106,8 +107,8 @@ export default function Spring3DLine({points, wire}) {
   return (
     <div id="canvas-container" style={{height: 500, width: 700}}>
       <Canvas dpr={[1, 2]} camera={{ fov: 50, near: 0.1, far:5000, position: [0, 1000, 300]}}>
-        <pointLight color={0xbb1818} intensity={50} position={[-80,430,-80]}/>
         <pointLight color={0xbb1818} intensity={50} position={[0,430,-80]}/>
+        <pointLight color={0xbb1818} intensity={50} position={[-80,0,-80]}/>
 
         {
           (resorte!= null) ? <primitive object={resorte} position={[0, 0, 0]} /> : null
