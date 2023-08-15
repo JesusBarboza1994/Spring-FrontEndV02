@@ -17,7 +17,7 @@ export default function Spring3DLine({points, wire}) {
     const textureLoader = new THREE.TextureLoader()
     const normalTexture = textureLoader.load(texture)
     //Material del resorte
-    const material = new THREE.MeshNormalMaterial()
+    const material = new THREE.MeshStandardMaterial()
     material.metalness = 0.7
     material.roughness = 0.2
     material.normalMap = normalTexture;
@@ -105,10 +105,12 @@ export default function Spring3DLine({points, wire}) {
   
 
   return (
-    <div id="canvas-container" style={{height: 500, width: 700}}>
-      <Canvas dpr={[1, 2]} camera={{ fov: 50, near: 0.1, far:5000, position: [0, 1000, 300]}}>
-        <pointLight color={0xbb1818} intensity={50} position={[0,430,-80]}/>
-        <pointLight color={0xbb1818} intensity={50} position={[-80,0,-80]}/>
+    <div id="canvas-container" style={{height: 800, width: 700}}>
+      <Canvas dpr={[1, 2]} camera={{ fov: 50, near: 0.1, far:5000, position: [0, 600, -50]}}>
+        <pointLight color={0xbb1818} intensity={5000000} position={[-80,430,-80]}/>
+        <pointLight color={0xbb1818} intensity={5000000} position={[0,430,-80]}/>
+        <pointLight color={0xbb1818} intensity={500000} position={[0,0,-600]}/>
+        <pointLight color={0xbb1818} intensity={500000} position={[0,0,600]}/>
 
         {
           (resorte!= null) ? <primitive object={resorte} position={[0, 0, 0]} /> : null

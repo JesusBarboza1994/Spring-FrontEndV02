@@ -461,7 +461,7 @@ function App() {
 
           <GraficoControlCargas puntos={puntosCCGrafica} slope={lineaCC.k} intercept={lineaCC.b} rSquared={lineaCC.r2}/>
           <div style={{backgroundColor:"black"}} >
-            <Spring3D points={springPoints3D} wire={data.d}></Spring3D>
+            
             <Spring3DLine points={springPoints3D} wire={data.d}></Spring3DLine>
           </div>
         </div>
