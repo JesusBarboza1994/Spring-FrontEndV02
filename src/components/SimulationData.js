@@ -153,6 +153,52 @@ export function SimulationData(){
     }
   }
 
+  async function simulateSpring() {
+
+    let endpoint = 'simulate-spring/';
+    let requestBody = {
+      "wire":Number(data.d),
+      "diam_ext1":Number(data.Dext),
+      "diam_ext2":Number(data.Dext2),
+      "diam_int1":Number(data.Dint1),
+      "diam_int2":Number(data.Dint2),
+      "length":Number(data.L0),
+      "coils":Number(data.N),
+      "coil_direction":"Derecha",
+      "end1":data.Ext1,
+      "luz1":Number(data.Luz1),
+      "coils_red_1":Number(data.Vtas1),
+      "coils_amp_1":0,
+      "detail1_end1":"-",
+      "detail2_end1":"-",
+      "detail3_end1":"-",
+      "eccentricity1":0,
+      "end2":data.Ext2,
+      "luz2":Number(data.Luz1),
+      "coils_red_2":Number(data.Vtas1),
+      "coils_amp_2":0,
+      "detail1_end2":"-",
+      "detail2_end2":"-",
+      "detail3_end2":"-",
+      "eccentricity2":0,
+      "grade":Number(data1.grado)
+    };
+
+    try {
+      const response = await apiFetch(endpoint, {
+        method: 'POST', 
+        body: requestBody, 
+      });
+
+      console.log('Resorte creado exitosamente:', response);
+      setSpringPoints3D(response)
+      
+    } catch (error) {
+      console.error('Error al crear el resorte:', error.message);
+      
+    }
+  }
+
   // Prueba API ------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -212,8 +258,9 @@ export function SimulationData(){
           <Label style={{color: colors.red}}>grado</Label>
           <Input  value={data1.grado} id={"grado"} onChange={(e) => handleSimulacion(e)}/>
         </Div>
-        <div style={{display: "flex",columnGap:170,width:"100%", marginLeft: 16}}>
-          <Button onClick={createSpring}>Simular</Button>
+        <div style={{display: "flex",columnGap:10,width:"100%", marginLeft: 10}}>
+          <Button onClick={createSpring}>Modelar</Button>
+          <Button onClick={simulateSpring}>Simular</Button>
           <Button onClick={iniciarFuncion}>Calcular</Button>
 
         </div>
