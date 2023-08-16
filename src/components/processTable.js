@@ -11,14 +11,15 @@ const Table2 = styled.table`
   border: 2px solid ${colors.grey};
   border-collapse: collapse;
   border: 2px solid grey;
-  color: ${colors.grey};
+  color: ${colors.white};
 
 `
 
 const Td = styled.td`
+  height: 36px;  
   text-align: center;
   border: 1px solid ${colors.grey};
-
+  font-size: 13px;
 `
 const Table1 = styled.table`
   width: 520px;
@@ -26,17 +27,17 @@ const Table1 = styled.table`
   font-family: "ABeeZee";
   border: 2px solid grey;
   border-collapse: collapse;
-  color: grey;
+  color: white;
       
 `
 const Input = styled.input`
-  width:42px;
+  width:50px;
   height:18px;
-  color:${colors.black};
-  background-color: ${colors.purple};
-  margin:8px;
+  color:${colors.white};
+  background-color: ${colors.black};
+  margin:5px;
   font-family:"ABeeZee";
-  font-size: 12px;
+  font-size: 13px;
   border-style:inset;
   border-radius: 4px;  
 `
@@ -102,12 +103,17 @@ const Button1 = styled.button`
   width:125px;
   height:40px;
   margin:20px 0px 0px 20px;
-  border-radius:8px;
-  
+  background-color: #363636;
+  border-radius:6px;
+  font-family:"ABeeZee";
+  letter-spacing: 1px;
+  line-height: 14px; 
+  font-size: 12px;
+  color: white;
 `
 const Button2 = styled.button`
   width:80px;
-  height:80px;
+  height:70px;
   font-size:14px;
   border: none;
   background-color: #5B5B5B;
@@ -118,7 +124,7 @@ const Button2 = styled.button`
 
 const Button3 = styled.button`
   width:20px;
-  height:80px;
+  height:70px;
   font-size:14px;
   border: none;
   background-color: #5B5B5B;
@@ -129,27 +135,27 @@ const Button3 = styled.button`
 
 /*export function calcularprocessTableStage1(){
         
-    const {data, setData, processTableStage1, setProcessTableStage1, processTableStage2, setProcessTableStage2} = useAuth();
+    const {dimensions, setDimensions, processTableStage1, setProcessTableStage1, processTableStage2, setProcessTableStage2} = useAuth();
 
-    let long1 = (Number(data.Luz2)+Number(data.d))*0.875
-    let long2 = (Number(data.Luz1)+Number(data.d))*0.875
-    let luz1 = long1/0.875 - Number(data.d)
-    let luz2 = long2/0.875 - Number(data.d)
+    let long1 = (Number(dimensions.Luz2)+Number(dimensions.d))*0.875
+    let long2 = (Number(dimensions.Luz1)+Number(dimensions.d))*0.875
+    let luz1 = long1/0.875 - Number(dimensions.d)
+    let luz2 = long2/0.875 - Number(dimensions.d)
     let vtas1 = 0.875
     let vtas2 = 0.875
     
-    let longLineaMedia = Number(data.L0)
-    if (((data.Ext1 === "TASE") && (data.Ext2 === "TASE")) || ((data.Ext1 === "TCSE") && (data.Ext2 === "TASE")) || ((data.Ext1 === "TASE") && (data.Ext2 === "TCSE"))) {
-        longLineaMedia = Number(data.L0) - Number(data.d)
-    } else if (((data.Ext1 === "TAE") && (data.Ext2 === "TAE")) || ((data.Ext1 === "TCE") && (data.Ext2 === "TAE")) || ((data.Ext1 === "TAE") && (data.Ext2 === "TCE"))) {
-        longLineaMedia = Number(data.L0) 
+    let longLineaMedia = Number(dimensions.L0)
+    if (((dimensions.Ext1 === "TASE") && (dimensions.Ext2 === "TASE")) || ((dimensions.Ext1 === "TCSE") && (dimensions.Ext2 === "TASE")) || ((dimensions.Ext1 === "TASE") && (dimensions.Ext2 === "TCSE"))) {
+        longLineaMedia = Number(dimensions.L0) - Number(dimensions.d)
+    } else if (((dimensions.Ext1 === "TAE") && (dimensions.Ext2 === "TAE")) || ((dimensions.Ext1 === "TCE") && (dimensions.Ext2 === "TAE")) || ((dimensions.Ext1 === "TAE") && (dimensions.Ext2 === "TCE"))) {
+        longLineaMedia = Number(dimensions.L0) 
     } else {
-        longLineaMedia = Number(data.L0) - Number(data.d)/2
+        longLineaMedia = Number(dimensions.L0) - Number(dimensions.d)/2
     }
 
-    let vtas3 = Number(data.N)-2*0.875
-    let long3 = longLineaMedia-long1-long2-Number(data.d)
-    let luz3 = (long3/vtas3)-Number(data.d)
+    let vtas3 = Number(dimensions.N)-2*0.875
+    let long3 = longLineaMedia-long1-long2-Number(dimensions.d)
+    let luz3 = (long3/vtas3)-Number(dimensions.d)
 
     let luces = [luz1, luz2, luz3]
     let longitudes = [long1, long2, long3]
@@ -165,7 +171,7 @@ const Button3 = styled.button`
 
 export default function ProcessTable(props) {
 
-    const {data, setData, processTableStage1, setProcessTableStage1, processTableStage2, setProcessTableStage2, stateButtonCalculateProcessTable, setStateButtonCalculateProcessTable} = useAuth();
+    const {dimensions, setDimensions, processTableStage1, setProcessTableStage1, processTableStage2, setProcessTableStage2, stateButtonCalculateProcessTable, setStateButtonCalculateProcessTable} = useAuth();
 
     const [processTableStage1Inv, setProcessTableStage1Inv] = useState([])
     const [processTableStage2Inv, setProcessTableStage2Inv] = useState([])
@@ -180,25 +186,25 @@ export default function ProcessTable(props) {
 
     function calcularprocessTableStage1(){
         
-        let long1 = (Number(data.Luz2)+Number(data.d))*0.875
-        let long2 = (Number(data.Luz1)+Number(data.d))*0.875
-        let luz1 = long1/0.875 - Number(data.d)
-        let luz2 = long2/0.875 - Number(data.d)
+        let long1 = (Number(dimensions.Luz2)+Number(dimensions.d))*0.875
+        let long2 = (Number(dimensions.Luz1)+Number(dimensions.d))*0.875
+        let luz1 = long1/0.875 - Number(dimensions.d)
+        let luz2 = long2/0.875 - Number(dimensions.d)
         let vtas1 = 0.875
         let vtas2 = 0.875
         
-        let longLineaMedia = Number(data.L0)
-        if (((data.Ext1 === "TASE") && (data.Ext2 === "TASE")) || ((data.Ext1 === "TCSE") && (data.Ext2 === "TASE")) || ((data.Ext1 === "TASE") && (data.Ext2 === "TCSE"))) {
-            longLineaMedia = Number(data.L0) - Number(data.d)
-        } else if (((data.Ext1 === "TAE") && (data.Ext2 === "TAE")) || ((data.Ext1 === "TCE") && (data.Ext2 === "TAE")) || ((data.Ext1 === "TAE") && (data.Ext2 === "TCE"))) {
-            longLineaMedia = Number(data.L0) 
+        let longLineaMedia = Number(dimensions.L0)
+        if (((dimensions.Ext1 === "TASE") && (dimensions.Ext2 === "TASE")) || ((dimensions.Ext1 === "TCSE") && (dimensions.Ext2 === "TASE")) || ((dimensions.Ext1 === "TASE") && (dimensions.Ext2 === "TCSE"))) {
+            longLineaMedia = Number(dimensions.L0) - Number(dimensions.d)
+        } else if (((dimensions.Ext1 === "TAE") && (dimensions.Ext2 === "TAE")) || ((dimensions.Ext1 === "TCE") && (dimensions.Ext2 === "TAE")) || ((dimensions.Ext1 === "TAE") && (dimensions.Ext2 === "TCE"))) {
+            longLineaMedia = Number(dimensions.L0) 
         } else {
-            longLineaMedia = Number(data.L0) - Number(data.d)/2
+            longLineaMedia = Number(dimensions.L0) - Number(dimensions.d)/2
         }
 
-        let vtas3 = Number(data.N)-2*0.875
-        let long3 = longLineaMedia-long1-long2-Number(data.d)
-        let luz3 = (long3/vtas3)-Number(data.d)
+        let vtas3 = Number(dimensions.N)-2*0.875
+        let long3 = longLineaMedia-long1-long2-Number(dimensions.d)
+        let luz3 = (long3/vtas3)-Number(dimensions.d)
 
         let luces = [luz1, luz2, luz3]
         let longitudes = [long1, long2, long3]
@@ -282,8 +288,8 @@ export default function ProcessTable(props) {
 
     function calcularprocessTableStage2() {
 
-        let d = Number(data.d)
-        let Dext = Number(data.Dext)
+        let d = Number(dimensions.d)
+        let Dext = Number(dimensions.Dext)
         let Dm = Dext-d
         let N = 0
         
@@ -378,7 +384,7 @@ export default function ProcessTable(props) {
 
         const arreglo = e.target.id.split(',')
         let luz = ""
-        let d = Number(data.d)
+        let d = Number(dimensions.d)
         let sumaVtasParcial = 0;
         let sumaLongsParcial = 0;
         let processTableStage1Aux = JSON.parse(JSON.stringify(processTableStage1))
@@ -413,14 +419,14 @@ export default function ProcessTable(props) {
 
         })
 
-        let vtasTotal = data.N
-        let longTotal = data.L0
+        let vtasTotal = dimensions.N
+        let longTotal = dimensions.L0
         let vtaPuntoFinal = vtasTotal - sumaVtasParcial
         let longPuntoFinal = 0 
 
-        if (((data.Ext1 === "TASE") && (data.Ext2 === "TASE")) || ((data.Ext1 === "TCSE") && (data.Ext2 === "TASE")) || ((data.Ext1 === "TASE") && (data.Ext2 === "TCSE"))) {
+        if (((dimensions.Ext1 === "TASE") && (dimensions.Ext2 === "TASE")) || ((dimensions.Ext1 === "TCSE") && (dimensions.Ext2 === "TASE")) || ((dimensions.Ext1 === "TASE") && (dimensions.Ext2 === "TCSE"))) {
             longPuntoFinal = longTotal - sumaLongsParcial - d
-        } else if (((data.Ext1 === "TAE") && (data.Ext2 === "TAE")) || ((data.Ext1 === "TCE") && (data.Ext2 === "TAE")) || ((data.Ext1 === "TAE") && (data.Ext2 === "TCE"))) {
+        } else if (((dimensions.Ext1 === "TAE") && (dimensions.Ext2 === "TAE")) || ((dimensions.Ext1 === "TCE") && (dimensions.Ext2 === "TAE")) || ((dimensions.Ext1 === "TAE") && (dimensions.Ext2 === "TCE"))) {
             longPuntoFinal = longTotal - sumaLongsParcial 
         } else {
             longPuntoFinal = longTotal - sumaLongsParcial - d/2
@@ -436,7 +442,7 @@ export default function ProcessTable(props) {
     }
     // comentario
     function calcularUltimoPunto(){
-        let d = data.d
+        let d = dimensions.d
         let sumaVtasParcial = 0
         let sumaLongsParcial = 0
         let processTableStage1Aux = JSON.parse(JSON.stringify(processTableStage1))
@@ -448,14 +454,14 @@ export default function ProcessTable(props) {
             }
         })
 
-        let vtasTotal = data.N
-        let longTotal = data.L0
+        let vtasTotal = dimensions.N
+        let longTotal = dimensions.L0
         let vtaPuntoFinal = vtasTotal - sumaVtasParcial
         let longPuntoFinal = 0 
 
-        if (((data.Ext1 === "TASE") && (data.Ext2 === "TASE")) || ((data.Ext1 === "TCSE") && (data.Ext2 === "TASE")) || ((data.Ext1 === "TASE") && (data.Ext2 === "TCSE"))) {
+        if (((dimensions.Ext1 === "TASE") && (dimensions.Ext2 === "TASE")) || ((dimensions.Ext1 === "TCSE") && (dimensions.Ext2 === "TASE")) || ((dimensions.Ext1 === "TASE") && (dimensions.Ext2 === "TCSE"))) {
             longPuntoFinal = longTotal - sumaLongsParcial - d
-        } else if (((data.Ext1 === "TAE") && (data.Ext2 === "TAE")) || ((data.Ext1 === "TCE") && (data.Ext2 === "TAE")) || ((data.Ext1 === "TAE") && (data.Ext2 === "TCE"))) {
+        } else if (((dimensions.Ext1 === "TAE") && (dimensions.Ext2 === "TAE")) || ((dimensions.Ext1 === "TCE") && (dimensions.Ext2 === "TAE")) || ((dimensions.Ext1 === "TAE") && (dimensions.Ext2 === "TCE"))) {
             longPuntoFinal = longTotal - sumaLongsParcial 
         } else {
             longPuntoFinal = longTotal - sumaLongsParcial - d/2
@@ -485,7 +491,7 @@ export default function ProcessTable(props) {
         calcularprocessTableStage1()
         calcularUltimoPunto()
         
-    }, [data])
+    }, [dimensions])
 
     useEffect(() => {
 
@@ -568,14 +574,14 @@ export default function ProcessTable(props) {
 
     return(
 
-        <div style={{backgroundColor: colors.black}}>
+        <div>
             {/* <Button onClick={CalculateOrReset3Points}>Calcular</Button> */}
             <Table2>
                 <thead>
-                    <tr style={{backgroundColor: colors.gray, color:colors.white}}>
+                    <tr style={{backgroundColor: "#5B5B5B", color:"white",}}>
                         <Th3>Punto</Th3>
-                        <Th3>Luz</Th3>
-                        <Th3>Long</Th3>
+                        <Th3>Luz (mm)</Th3>
+                        <Th3>Long (mm)</Th3>
                         <Th3>N.Vtas</Th3>
                         <Th3>
                             {
@@ -628,17 +634,17 @@ export default function ProcessTable(props) {
                             <Td style={{width: 65}}>
                                 <Input value={punto.Vtas} type="number" id={punto.id+",Vtas"} onChange={(e) => handleInputProcessTableStage1(e)} disabled={indice === (0)}/>
                             </Td>
-                            <Td style={{width: 60}}>
+                            <Td style={{width: 50}}>
                                 {
                                     pasoVisible ? ((!isNaN(processTableStage2Inv[indice].Paso) && Number.isFinite(processTableStage2Inv[indice].Paso) && (processTableStage2Inv[indice].Paso !== 0)) === true ? (processTableStage2Inv[indice].Paso).toFixed(2) : "") : null
                                 }
                             </Td>
-                            <Td style={{width: 60}}>
+                            <Td style={{width: 50}}>
                                 {
                                     kEqVisible ? ((!isNaN(processTableStage2Inv[indice].Keq) && Number.isFinite(processTableStage2Inv[indice].Keq) && (processTableStage2Inv[indice].Keq !== 0)) === true ? (processTableStage2Inv[indice].Keq).toFixed(2) : "") : null
                                 }
                             </Td>
-                            <Td style={{width: 60}}>
+                            <Td style={{width: 50}}>
                                 {
                                     xcVisible ? ((!isNaN(processTableStage2Inv[indice].Xc) && Number.isFinite(processTableStage2Inv[indice].Xc) ) === true ? (processTableStage2Inv[indice].Xc).toFixed(2) : "") : null
                                 }

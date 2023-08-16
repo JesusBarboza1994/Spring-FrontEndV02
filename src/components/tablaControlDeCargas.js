@@ -6,7 +6,7 @@ import { colors } from "../styles/colors";
 
 const Table2 = styled.table`
   width: 220px;  
-  margin:20px 0px;
+  margin:10px 0px;
   background: black;
   font-family: "ABeeZee";
   border: 2px solid grey;
@@ -26,6 +26,7 @@ const Table3 = styled.table`
 `
 
 const Td = styled.td`
+  font-size: 13px;
   text-align: center;
   width: 40px;
   border: 1px solid ${colors.grey};
@@ -34,8 +35,8 @@ const Td = styled.td`
 const Input = styled.input`
   width:42px;
   height:18px;
-  color:${colors.black};
-  background-color: ${colors.purple};
+  color:${colors.white};
+  background-color: ${colors.black};
   margin:8px;
   font-family:"ABeeZee";
   font-size: 12px;
@@ -59,9 +60,14 @@ const H2 = styled.h2`
 const Button1 = styled.button`
   width:100px;
   height:40px;
-  margin:0px 0px 0px 10px;
-  border-radius:8px;
-
+  margin:8px 0px 0px 8px;
+  background-color: #363636; 
+  border-radius: 6px;
+  font-family:"ABeeZee";
+  letter-spacing: 1px;
+  line-height: 14px; 
+  font-size: 12px;
+  color: white;
 `
 
 export default function TablaControlDeCargas(props) {
@@ -141,14 +147,14 @@ export default function TablaControlDeCargas(props) {
 
     return(
 
-        <div style={{backgroundColor: colors.black}}>
+        <div>
             <Table2>
                 <thead>
                     <tr style={{backgroundColor: colors.gray, color:colors.white,}}>
-                        <Th3>Punto</Th3>
-                        <Th3>Fuerza (kg)</Th3>
-                        <Th3>Longitud (mm)</Th3>
-                        <Th3>Deformación (mm)</Th3>
+                    <Th3>N°</Th3>
+                     <Th3>F (kg)</Th3>
+                     <Th3>L (mm)</Th3>
+                     <Th3>Deform (mm)</Th3>
                     </tr>
                 </thead>
                 <tbody>

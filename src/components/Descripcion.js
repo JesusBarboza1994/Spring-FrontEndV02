@@ -3,14 +3,14 @@ import { useAuth } from "../context/auth-context";
 
 export function DescripcionResorte(){  //codifica el resorte acorde a los datos presentados en la hoja de diseño
 
-  const {data, data1,tablaToler,coef, descrip, setDescrip,grado} = useAuth();
+  const {dimensions, simulation_data,tablaToler,coef, descrip, setDescrip,grado} = useAuth();
          
  
   
   
   //Se convierte el numero de vueltas (v.totales: "n") a fracción en texto.
-  var residuo = data.N*8 % 8;
-  var entero = (data.N*8-residuo)/8; 
+  var residuo = dimensions.N*8 % 8;
+  var entero = (dimensions.N*8-residuo)/8; 
   var fraccion; 
 
   switch (residuo){
@@ -32,8 +32,8 @@ export function DescripcionResorte(){  //codifica el resorte acorde a los datos 
   
       
   //Se convierte el numero de vueltas amp/red del extremo 1 ("n1") a fracción en texto.
-  var residuo1 = data.Vtas1*8 % 8;
-  var entero1 = (data.Vtas1*8-residuo1)/8; 
+  var residuo1 = dimensions.Vtas1*8 % 8;
+  var entero1 = (dimensions.Vtas1*8-residuo1)/8; 
   var fraccion1; 
   switch (residuo1){
     case 0: fraccion1 = ""; break;
@@ -61,8 +61,8 @@ export function DescripcionResorte(){  //codifica el resorte acorde a los datos 
   }
    
   //Se convierte el numero de vueltas amp/red del extremo 2 ("n2") a fracción en texto.
-  var residuo2 = data.Vtas2*8 % 8;
-  var entero2 = (data.Vtas2*8-residuo2)/8; 
+  var residuo2 = dimensions.Vtas2*8 % 8;
+  var entero2 = (dimensions.Vtas2*8-residuo2)/8; 
   var fraccion2; 
   switch (residuo2){
     case 1: fraccion2 = "1/8"; break;
@@ -95,25 +95,25 @@ export function DescripcionResorte(){  //codifica el resorte acorde a los datos 
  
   
    
-  if(data.Dext2 != ""){
-    mensaje = "Res Susp. " + data1.Mater + " " + data.d  + " x " + data.Dext + " - " + data.Dext2 + " x " + data.L0 + " " + "(+/-" + coef.toler_L0 + ")"+ " x " + n + "\n";
+  if(dimensions.Dext2 != ""){
+    mensaje = "Res Susp. " + simulation_data.material + " " + dimensions.d  + " x " + dimensions.Dext + " - " + dimensions.Dext2 + " x " + dimensions.L0 + " " + "(+/-" + coef.toler_L0 + ")"+ " x " + n + "\n";
   }else{
-    if(data.Dint1 != "" && data.Dint1!=" " && data.Dint1 != "-" && data.Dint2 != "" && data.Dint2!=" " && data.Dint2 != "-"){
-      mensaje = "Res Susp. " + mensaje4 + data1.Mater + " "  + data.d  + " x " + data.Dext + " " + "(+/-" + tablaToler.valor + ")" + " / " + data.Dint1 + " - " + data.Dint2 + " x " + data.L0 + " " + "(+/-" + coef.toler_L0 + ")" + " x " + n + "\n";
+    if(dimensions.Dint1 != "" && dimensions.Dint1!=" " && dimensions.Dint1 != "-" && dimensions.Dint2 != "" && dimensions.Dint2!=" " && dimensions.Dint2 != "-"){
+      mensaje = "Res Susp. " + mensaje4 + simulation_data.material + " "  + dimensions.d  + " x " + dimensions.Dext + " " + "(+/-" + tablaToler.valor + ")" + " / " + dimensions.Dint1 + " - " + dimensions.Dint2 + " x " + dimensions.L0 + " " + "(+/-" + coef.toler_L0 + ")" + " x " + n + "\n";
       }
-    if((data.Dint1 != "" && data.Dint1!=" " && data.Dint1 != "-") && (data.Dint2 == "" || data.Dint2==" " || data.Dint2 == "-")){
-      mensaje = "Res Susp. " + mensaje4 + data1.Mater + " "  + data.d  + " x " + data.Dext + + " " + "(+/-" + tablaToler.valor + ")" + " / " + data.Dint1 + " x " + data.L0 + " " + "(+/-" + coef.toler_L0 + ")" +" x " + n + "\n";  
+    if((dimensions.Dint1 != "" && dimensions.Dint1!=" " && dimensions.Dint1 != "-") && (dimensions.Dint2 == "" || dimensions.Dint2==" " || dimensions.Dint2 == "-")){
+      mensaje = "Res Susp. " + mensaje4 + simulation_data.material + " "  + dimensions.d  + " x " + dimensions.Dext + + " " + "(+/-" + tablaToler.valor + ")" + " / " + dimensions.Dint1 + " x " + dimensions.L0 + " " + "(+/-" + coef.toler_L0 + ")" +" x " + n + "\n";  
       }
-    if((data.Dint2 != "" && data.Dint2!=" " && data.Dint2 != "-") && (data.Dint1 == "" || data.Dint1==" " || data.Dint1 == "-")){
-      mensaje = "Res Susp. " + mensaje4 + data1.Mater + " "  + data.d  + " x " + data.Dext + + " " + "(+/-" + tablaToler.valor + ")" + " / " + data.Dint2 + " x " + data.L0 + " " + "(+/-" + coef.toler_L0 + ")" +" x " + n +"\n";  
+    if((dimensions.Dint2 != "" && dimensions.Dint2!=" " && dimensions.Dint2 != "-") && (dimensions.Dint1 == "" || dimensions.Dint1==" " || dimensions.Dint1 == "-")){
+      mensaje = "Res Susp. " + mensaje4 + simulation_data.material + " "  + dimensions.d  + " x " + dimensions.Dext + + " " + "(+/-" + tablaToler.valor + ")" + " / " + dimensions.Dint2 + " x " + dimensions.L0 + " " + "(+/-" + coef.toler_L0 + ")" +" x " + n +"\n";  
       }
-    if((data.Dint2 == "" || data.Dint2==" " || data.Dint2 == "-") && (data.Dint1 == "" || data.Dint1==" " || data.Dint1 == "-")){
-      mensaje = "Res Susp. " + mensaje4 + data1.Mater + " "  + data.d  + " x " + data.Dext + + " " + "(+/-" + tablaToler.valor + ")" + " x " + data.L0 + " " + "(+/-" + coef.toler_L0 + ")" + " x " + n  +"\n";  
+    if((dimensions.Dint2 == "" || dimensions.Dint2==" " || dimensions.Dint2 == "-") && (dimensions.Dint1 == "" || dimensions.Dint1==" " || dimensions.Dint1 == "-")){
+      mensaje = "Res Susp. " + mensaje4 + simulation_data.material + " "  + dimensions.d  + " x " + dimensions.Dext + + " " + "(+/-" + tablaToler.valor + ")" + " x " + dimensions.L0 + " " + "(+/-" + coef.toler_L0 + ")" + " x " + n  +"\n";  
       }
   }  
   useEffect(() => {
 
-  if(data.d >0 && data.Dext >0 && data.N >0 && data.L0 >0)
+  if(dimensions.d >0 && dimensions.Dext >0 && dimensions.N >0 && dimensions.L0 >0)
     
   setDescrip({...descrip, descrip: mensaje })
           
