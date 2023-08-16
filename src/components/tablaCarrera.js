@@ -36,7 +36,7 @@ const Button1 = styled.button`
 
 export default function TablaCarrera() {
 
-    const {data, processTableStage1, setProcessTableStage1, processTableStage2, setProcessTableStage2, kControlCargas, bControlCargas, l4} = useAuth();
+    const {dimensions, processTableStage1, setProcessTableStage1, processTableStage2, setProcessTableStage2, kControlCargas, bControlCargas, l4} = useAuth();
     
     const [carreras, setCarreras] = useState([
         { id: 1, Carrera: "" },
@@ -51,15 +51,15 @@ export default function TablaCarrera() {
     carreras[0].Carrera = ((fuerzas[0]-bControlCargas)/kControlCargas)
     carreras[1].Carrera = ((fuerzas[1]-bControlCargas)/kControlCargas)
     carreras[2].Carrera = ((fuerzas[2]-bControlCargas)/kControlCargas)
-    carreras[3].Carrera = data.L0 - l4
+    carreras[3].Carrera = dimensions.L0 - l4
 
 
-    if (((data.Ext1 === "TASE") && (data.Ext2 === "TASE")) || ((data.Ext1 === "TCSE") && (data.Ext2 === "TASE")) || ((data.Ext1 === "TASE") && (data.Ext2 === "TCSE"))) {
-        carreras[4].Carrera = data.L0-((Number(data.N) +1)*Number(data.d))
-    } else if (((data.Ext1 === "TAE") && (data.Ext2 === "TAE")) || ((data.Ext1 === "TCE") && (data.Ext2 === "TAE")) || ((data.Ext1 === "TAE") && (data.Ext2 === "TCE"))) {
-        carreras[4].Carrera = data.L0-((Number(data.N) +1)*Number(data.d) - Number(data.d))  
+    if (((dimensions.Ext1 === "TASE") && (dimensions.Ext2 === "TASE")) || ((dimensions.Ext1 === "TCSE") && (dimensions.Ext2 === "TASE")) || ((dimensions.Ext1 === "TASE") && (dimensions.Ext2 === "TCSE"))) {
+        carreras[4].Carrera = dimensions.L0-((Number(dimensions.N) +1)*Number(dimensions.d))
+    } else if (((dimensions.Ext1 === "TAE") && (dimensions.Ext2 === "TAE")) || ((dimensions.Ext1 === "TCE") && (dimensions.Ext2 === "TAE")) || ((dimensions.Ext1 === "TAE") && (dimensions.Ext2 === "TCE"))) {
+        carreras[4].Carrera = dimensions.L0-((Number(dimensions.N) +1)*Number(dimensions.d) - Number(dimensions.d))  
     } else {
-        carreras[4].Carrera = data.L0-((Number(data.N) +1)*Number(data.d) - 0.5*Number(data.d))  
+        carreras[4].Carrera = dimensions.L0-((Number(dimensions.N) +1)*Number(dimensions.d) - 0.5*Number(dimensions.d))  
     }
 
     return(

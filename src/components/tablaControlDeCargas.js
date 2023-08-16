@@ -154,7 +154,7 @@ export default function TablaControlDeCargas(props) {
                     <Th3>N°</Th3>
                      <Th3>F (kg)</Th3>
                      <Th3>L (mm)</Th3>
-                     <Th3>x (mm)</Th3>
+                     <Th3>Deform (mm)</Th3>
                     </tr>
                 </thead>
                 <tbody>

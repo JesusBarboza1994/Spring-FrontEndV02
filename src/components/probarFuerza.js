@@ -78,7 +78,7 @@ const Label = styled.label`
 
 export default function ProbarFuerza() {
 
-  const {data, kControlCargas, bControlCargas} = useAuth();
+  const {dimensions, kControlCargas, bControlCargas} = useAuth();
   
   const [inputFuerza, setInputFuerza] = useState(0);
   const [long, setLong] = useState(0);
@@ -89,7 +89,7 @@ export default function ProbarFuerza() {
     setInputFuerza(Number(e.target.value))
 
     let defNuevo = (Number(e.target.value)-bControlCargas)/kControlCargas
-    let longNuevo = (Number(data.L0)-defNuevo).toFixed(1)
+    let longNuevo = (Number(dimensions.L0)-defNuevo).toFixed(1)
 
     setLong(longNuevo)
     setDef(defNuevo)

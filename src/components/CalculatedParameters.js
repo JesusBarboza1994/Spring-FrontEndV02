@@ -74,7 +74,7 @@ export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,lo
         let dext = Number(diamext1)
         let d = Number(diam) //alambre
     
-     setData2({...data2,
+     setCalculated_data({...calculated_data,
         C : ((dext-d)/d),
         Dmedio: (diamext1 - diam), 
         Rel_d1 : Number((diamint1 + diam)/(diamext1 - diam)),
@@ -86,11 +86,11 @@ export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,lo
 
 
     // useEffect(() => {
-    //  setData2({...data2, Vt_red_VT : ((vred1+vred2)/numvts).toFixed(2) }) 
+    //  setCalculated_data({...calculated_data, Vt_red_VT : ((vred1+vred2)/numvts).toFixed(2) }) 
 
     // }, [vred1, vred2, numvts])
 
-    const {filas, setFilas, data2, setData2} = useAuth();
+    const {filas, setFilas, calculated_data, setCalculated_data} = useAuth();
 
     useEffect(() => {
         const nvtas1 = 0.875;    //primera linea contando desde abajo por arriba (empieza con luz menor)
@@ -105,9 +105,9 @@ export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,lo
         const paso2 = Number((long2/nvtas2).toFixed(2));
         const paso3 = Number((long3/nvtas3).toFixed(2));
     
-        const rigidez1 = 1/((78500*Math.pow(Number(diam),4))/(8*Math.pow(Number(data2.Dmedio),3)*Number(nvtas1))); // N/mm
-        const rigidez2 = 1/((78500*Math.pow(Number(diam),4))/(8*Math.pow(Number(data2.Dmedio),3)*Number(nvtas2)));
-        const rigidez3 = 1/((78500*Math.pow(Number(diam),4))/(8*Math.pow(Number(data2.Dmedio),3)*Number(nvtas3)));
+        const rigidez1 = 1/((78500*Math.pow(Number(diam),4))/(8*Math.pow(Number(calculated_data.Dmedio),3)*Number(nvtas1))); // N/mm
+        const rigidez2 = 1/((78500*Math.pow(Number(diam),4))/(8*Math.pow(Number(calculated_data.Dmedio),3)*Number(nvtas2)));
+        const rigidez3 = 1/((78500*Math.pow(Number(diam),4))/(8*Math.pow(Number(calculated_data.Dmedio),3)*Number(nvtas3)));
     
         const Keq1 = Number((1/(rigidez1+rigidez2+rigidez3)).toFixed(2));
         const Keq2 = Number((1/(rigidez2+rigidez3)).toFixed(2));
@@ -153,7 +153,7 @@ export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,lo
         })
 
     },[diam, diamext1, numvts, longitud, luz1, luz2])
-    console.log( data2)
+    console.log( calculated_data)
 
     return(
        <DivSimul>
@@ -162,35 +162,35 @@ export function CalcParam({diam,diamext1,diamint1,diamint2,vred1,vred2,numvts,lo
           <Label>C</Label>  
                    
           <DivCalculo id={"C"}>
-            {(!isNaN(data2.C) && (data2.C > 0) ) === true ? (Number(data2.C)).toFixed(1): ""}
+            {(!isNaN(calculated_data.C) && (calculated_data.C > 0) ) === true ? (Number(calculated_data.C)).toFixed(1): ""}
           </DivCalculo>
       </Div>
       <Div>
           <Label>D medio</Label>
           <DivCalculo id={"Dmedio"}>
-             {(!isNaN(data2.Dmedio) && (data2.Dmedio > 0)) === true ? Number((data2.Dmedio)) : ""}
+             {(!isNaN(calculated_data.Dmedio) && (calculated_data.Dmedio > 0)) === true ? Number((calculated_data.Dmedio)) : ""}
           </DivCalculo>
       </Div>
       <Div>
           <Label>f</Label>
-          <DivCalculo id={"f"}>{data2.f}</DivCalculo>
+          <DivCalculo id={"f"}>{calculated_data.f}</DivCalculo>
       </Div>
       <Div>
           <Label>Rel.d1</Label>
           <DivCalculo id={"Rel.d1"}>
-            {(!isNaN(data2.Rel_d1) && (data2.Rel_d1 > 0) && Number.isFinite(data2.Rel_d1)) === true ? (Number(data2.Rel_d1)).toFixed(1) : ""}
+            {(!isNaN(calculated_data.Rel_d1) && (calculated_data.Rel_d1 > 0) && Number.isFinite(calculated_data.Rel_d1)) === true ? (Number(calculated_data.Rel_d1)).toFixed(1) : ""}
           </DivCalculo>
       </Div>
       <Div>
           <Label>Rel.d2</Label>
           <DivCalculo id={"Rel.d2"}>
-            {(!isNaN(data2.Rel_d2) && (data2.Rel_d2 > 0) && Number.isFinite(data2.Rel_d2)) === true ? (Number(data2.Rel_d2)).toFixed(1) : ""}
+            {(!isNaN(calculated_data.Rel_d2) && (calculated_data.Rel_d2 > 0) && Number.isFinite(calculated_data.Rel_d2)) === true ? (Number(calculated_data.Rel_d2)).toFixed(1) : ""}
           </DivCalculo>
       </Div>
       <Div>
           <Label>Vt.red/VT</Label>
           <DivCalculo id={"Vt.red/VT"}>
-            {(!isNaN(data2.Vt_red_VT) && (data2.Vt_red_VT > 0) && Number.isFinite(data2.Vt_red_VT)) === true ? Number((data2.Vt_red_VT)) : ""}
+            {(!isNaN(calculated_data.Vt_red_VT) && (calculated_data.Vt_red_VT > 0) && Number.isFinite(calculated_data.Vt_red_VT)) === true ? Number((calculated_data.Vt_red_VT)) : ""}
           </DivCalculo>
       </Div>
 

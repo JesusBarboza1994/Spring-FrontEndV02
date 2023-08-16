@@ -88,7 +88,7 @@ const Button = styled.button`
   `
 
   //NUEVO---------------------------------------------------------------------------------------------------------------------------------------------------------
-  const {data1, setData1, setStateButtonCalculateProcessTable} = useAuth();
+  const {simulation_data, setSimulation_data, setStateButtonCalculateProcessTable} = useAuth();
 
   const iniciarFuncion = () => {
     setStateButtonCalculateProcessTable(true);
@@ -97,8 +97,8 @@ const Button = styled.button`
   const [mater,setMater] = useState("");
 
   function handleSimulacion(e){
-    setData1({...data1, [e.target.id]:e.target.value})
-    console.log(data1)
+    setSimulation_data({...simulation_data, [e.target.id]:e.target.value})
+    console.log(simulation_data)
   }
 
   function handleListaMP(e){
@@ -106,14 +106,14 @@ const Button = styled.button`
   }
 
   useEffect(() => {
-    let material = mater
-    setData1({...data1,
-       Mater: material
+    let materiales = mater
+    setSimulation_data({...simulation_data,
+       material: materiales
     })
-    console.log(material)
-    console.log(data1)
+    console.log(materiales)
+    console.log(simulation_data)
 
-    let mostrarMP = data1.Mater
+    let mostrarMP = simulation_data.material
     console.log(mostrarMP)
   }, [mater])
 
@@ -153,13 +153,13 @@ const Button = styled.button`
         </Div>
         
         <Div style={{marginLeft: 0}}>
-          <Label style={{color: colors.white}}>x</Label>
-          <Input  value={data1.x} id={"x"} onChange={(e) => handleSimulacion(e)}/>
+          <Label style={{color: colors.white}}>deform</Label>
+          <Input  value={simulation_data.deform} id={"deform"} onChange={(e) => handleSimulacion(e)}/>
         </Div>
         
         <Div>
           <Label style={{color: colors.white}}>grado</Label>
-          <Input  value={data1.grado} id={"grado"} onChange={(e) => handleSimulacion(e)}/>
+          <Input  value={simulation_data.grado} id={"grado"} onChange={(e) => handleSimulacion(e)}/>
         </Div>
         <div style={{display: "flex",columnGap:164,width:"100%", marginLeft: 20}}>
           <Button>Simular</Button>

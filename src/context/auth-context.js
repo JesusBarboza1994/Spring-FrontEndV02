@@ -4,7 +4,7 @@ const AuthContext = createContext();
 
 function AuthProvider({children}){
 
-  const [data, setData] = useState({
+  const [dimensions, setDimensions] = useState({
     d:"",        //alambre
     Dext:"",     //diam ext1
     Dext2:"",
@@ -21,13 +21,13 @@ function AuthProvider({children}){
   })   //vts red2
    
 
-  const [data1, setData1] = useState({
-    Mater:"",      
-    x:"",         //deformacion
+  const [simulation_data, setSimulation_data] = useState({
+    material:"",      
+    deform:"",         //deformacion
     grado:"",        
   })
 
-  const [data2, setData2] = useState({
+  const [calculated_data, setCalculated_data] = useState({
     C: 0,      
     Dmedio:"",         
     f:"",      
@@ -102,12 +102,12 @@ function AuthProvider({children}){
     <AuthContext.Provider value={{
       filas,
       setFilas,
-      data,
-      setData,
-      data1,
-      setData1,
-      data2,
-      setData2,
+      dimensions,
+      setDimensions,
+      simulation_data,
+      setSimulation_data,
+      calculated_data,
+      setCalculated_data,
       tablaToler,
       setTablaToler,
       coef,

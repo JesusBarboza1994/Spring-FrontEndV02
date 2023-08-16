@@ -123,7 +123,7 @@ const Button = styled.button`
   color: white;
   
 `
-const Table1 = styled.table`
+const Length_table = styled.table`
   background-color: black; 
   width:500px;
   //height:270px;
@@ -223,7 +223,7 @@ const Canvas = styled.canvas`
 
 function App() {
 
-  const [data3, setData3] = useState({
+  const [production_data, setProduction_data] = useState({
     LDA:"",      
     LDA_adic:"",         
     Peso:"",
@@ -238,7 +238,7 @@ function App() {
 
   //Renee-Inicio-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  const {filas, data, setData, data2, setData2, controlCargas, setKControlCargas, setBControlCargas} = useAuth();
+  const {filas, dimensions, setDimensions, calculated_data, setCalculated_data, controlCargas, setKControlCargas, setBControlCargas} = useAuth();
 
   const [puntosCCGrafica, setPuntosCCGrafica] = useState([
     { x: 0, y: 0},
@@ -292,7 +292,7 @@ function App() {
   useEffect(() => {
     let extremo1 = type1
     let extremo2 = type2
-    setData({...data,
+    setDimensions({...dimensions,
       Ext1: extremo1, Ext2: extremo2
     })
 
@@ -300,25 +300,25 @@ function App() {
 
   
   useEffect(() => {
-    setData2({...data2,
-      C : ((data.Dext-data.d)/data.d).toFixed(2),
-      Dmedio: (data.Dext - data.d), Rel_d1 : ((data.Dint1 + data.d)/(data.Dext - data.d)).toFixed(2),
-      Rel_d2: ((data.Dint2 + data.d)/(data.Dext - data.d)).toFixed(2)})
+    setCalculated_data({...calculated_data,
+      C : ((dimensions.Dext-dimensions.d)/dimensions.d).toFixed(2),
+      Dmedio: (dimensions.Dext - dimensions.d), Rel_d1 : ((dimensions.Dint1 + dimensions.d)/(dimensions.Dext - dimensions.d)).toFixed(2),
+      Rel_d2: ((dimensions.Dint2 + dimensions.d)/(dimensions.Dext - dimensions.d)).toFixed(2)})
 
-  }, [data.d, data.Dext, data.Dint1, data.Dint2])
-
-  useEffect(() => {
-    setData2({...data2, Vt_red_VT : ((data.Vtas1+data.Vtas2)/data.N).toFixed(2) }) 
-
-  }, [data.Vtas1, data.Vtas2, data.N])
+  }, [dimensions.d, dimensions.Dext, dimensions.Dint1, dimensions.Dint2])
 
   useEffect(() => {
-    setData3({...data3, LDA : Math.round((data.Dext-data.d)*data.N*3.14),  Dmedio: (data.Dext - data.d)})
-  }, [data.d, data.Dext, data.N])
+    setCalculated_data({...calculated_data, Vt_red_VT : ((dimensions.Vtas1+dimensions.Vtas2)/dimensions.N).toFixed(2) }) 
+
+  }, [dimensions.Vtas1, dimensions.Vtas2, dimensions.N])
 
   useEffect(() => {
-    setData3({...data3, Peso : (Math.pow(data.d/12.7,2)*data3.LDA/1000).toFixed(2)}) 
-  }, [data.d, data3.LDA])
+    setProduction_data({...production_data, LDA : Math.round((dimensions.Dext-dimensions.d)*dimensions.N*3.14),  Dmedio: (dimensions.Dext - dimensions.d)})
+  }, [dimensions.d, dimensions.Dext, dimensions.N])
+
+  useEffect(() => {
+    setProduction_data({...production_data, Peso : (Math.pow(dimensions.d/12.7,2)*production_data.LDA/1000).toFixed(2)}) 
+  }, [dimensions.d, production_data.LDA])
 
   
   //Renee-Inicio-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -341,15 +341,15 @@ function App() {
 
  
   function handleInput(e){
-    setData({...data, [e.target.id]:e.target.value})
+    setDimensions({...dimensions, [e.target.id]:e.target.value})
   }
   function handleSubmit(e){
     e.preventDefault();
-    console.log(data)
+    console.log(dimensions)
   }
   function handlePrincipal(e){
-    WeightTolerance.setData3({...WeightTolerance.data3, [e.target.id]:e.target.value})
-    console.log(WeightTolerance.data3)
+    WeightTolerance.setProduction_data({...WeightTolerance.production_data, [e.target.id]:e.target.value})
+    console.log(WeightTolerance.production_data)
   }
   
   return (
@@ -363,19 +363,19 @@ function App() {
             <p style={{marginLeft:18,marginTop: 5, fontFamily:"ABeeZee",fontSize:12, }}>Datos principales</p>
               <Div>
                 <Label>d</Label>
-                <Input  value={data.d} type="number" id={"d"} onChange={(e) => handleInput(e)}/>
+                <Input  value={dimensions.d} type="number" id={"d"} onChange={(e) => handleInput(e)}/>
               </Div>
               <Div>
                 <Label>Dext</Label>
-                <Input  value={data.Dext} type="number" id={"Dext"} onChange={(e) => handleInput(e)}/>
+                <Input  value={dimensions.Dext} type="number" id={"Dext"} onChange={(e) => handleInput(e)}/>
               </Div>
               <Div>
                 <Label>N</Label>
-                <Input  value={data.N} type="number" id={"N"} onChange={(e) => handleInput(e)}/>
+                <Input  value={dimensions.N} type="number" id={"N"} onChange={(e) => handleInput(e)}/>
               </Div>
               <Div>
                 <Label>L0</Label>
-                <Input  value={data.L0} type="number" id={"L0"} onChange={(e) => handleInput(e)}/>
+                <Input  value={dimensions.L0} type="number" id={"L0"} onChange={(e) => handleInput(e)}/>
               </Div>
               
           </div>
@@ -384,15 +384,15 @@ function App() {
             <p style={{marginLeft:18,marginTop: 5, fontFamily:"ABeeZee",fontSize:12,}}>Extremo 1</p>
               <Div>
                 <Label>Luz1</Label>
-                <Input  value={data.Luz1} type="number" id={"Luz1"} onChange={(e) => handleInput(e)}/>
+                <Input  value={dimensions.Luz1} type="number" id={"Luz1"} onChange={(e) => handleInput(e)}/>
               </Div>
               <Div>
                 <Label>Dint1</Label>
-                <Input  value={data.Dint1} type="number" id={"Dint1"} onChange={(e) => handleInput(e)}/>
+                <Input  value={dimensions.Dint1} type="number" id={"Dint1"} onChange={(e) => handleInput(e)}/>
               </Div>
               <Div>
                 <Label>Vtas1</Label>
-                <Input  value={data.Vtas1} type="number" id={"Vtas1"} onChange={(e) => handleInput(e)}/>
+                <Input  value={dimensions.Vtas1} type="number" id={"Vtas1"} onChange={(e) => handleInput(e)}/>
               </Div>
               <Div>
                 <Label>Ext1</Label>
@@ -409,15 +409,15 @@ function App() {
             <p style={{marginLeft:18,marginTop: 5, fontFamily:"ABeeZee",fontSize:12,}}>Extremo 2</p>
               <Div>
                 <Label>Luz2</Label>
-                <Input  value={data.Luz2} type="number" id={"Luz2"} onChange={(e) => handleInput(e)}/>
+                <Input  value={dimensions.Luz2} type="number" id={"Luz2"} onChange={(e) => handleInput(e)}/>
               </Div>
               <Div>
                 <Label>Dint2</Label>
-                <Input  value={data.Dint2} type="number" id={"Dint2"} onChange={(e) => handleInput(e)}/>
+                <Input  value={dimensions.Dint2} type="number" id={"Dint2"} onChange={(e) => handleInput(e)}/>
               </Div>
               <Div>
                 <Label>Vtas2</Label>
-                <Input  value={data.Vtas2} type="number" id={"Vtas2"} onChange={(e) => handleInput(e)}/>
+                <Input  value={dimensions.Vtas2} type="number" id={"Vtas2"} onChange={(e) => handleInput(e)}/>
               </Div>
               <Div>
                 <Label>Ext2</Label>
@@ -435,16 +435,16 @@ function App() {
 
       <SimulationData/>
 
-      <CalcParam diam={data.d} 
-            diamext1={data.Dext}
-            diamint1={data.Dint1}
-            diamint2={data.Dint2}
-            vred1={data.Vtas1}
-            vred2={data.Vtas2}
-            numvts={data.N}
-            longitud={data.L0}
-            luz1={data.Luz1}
-            luz2={data.Luz2}/>
+      <CalcParam diam={dimensions.d} 
+            diamext1={dimensions.Dext}
+            diamint1={dimensions.Dint1}
+            diamint2={dimensions.Dint2}
+            vred1={dimensions.Vtas1}
+            vred2={dimensions.Vtas2}
+            numvts={dimensions.N}
+            longitud={dimensions.L0}
+            luz1={dimensions.Luz1}
+            luz2={dimensions.Luz2}/>
        
       <WeightTolerance/>
       
@@ -462,7 +462,7 @@ function App() {
         </div>
         
         <div style={{display:"flex", gap: 100,}}>
-          <TablaControlDeCargas L0={data.L0}/>
+          <TablaControlDeCargas L0={dimensions.L0}/>
           <ControlDeCargasSimuladas/>
         </div>
 
@@ -477,7 +477,7 @@ function App() {
     
     <div style={{display:"flex", marginTop:58, marginLeft: 50}}>        
       <div>
-        <ProcessTable medidasRes={data} extremo1={data.Ext1} extremo2={data.Ext2}/>
+        <ProcessTable medidasRes={dimensions} extremo1={dimensions.Ext1} extremo2={dimensions.Ext2}/>
         
         <H2 style={{marginTop:40, marginBottom: 8 }}>Caracteristica del Resorte</H2>
         {/* <canvas style={{

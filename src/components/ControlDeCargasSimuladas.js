@@ -104,7 +104,7 @@ export default function ControlDeCargasSimuladas(props) {
                      <Th3 style={{width: 41}}>N°</Th3>
                      <Th3 style={{width: 63}}>F (kg)</Th3>
                      <Th3 style={{width: 63}}>L (mm)</Th3>
-                     <Th3 >x (mm)</Th3>
+                     <Th3 >Deform (mm)</Th3>
                     </tr>
                 </thead>
                 <tbody>
