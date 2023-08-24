@@ -190,11 +190,11 @@ export function SimulationData(){
         body: requestBody, 
       });
 
-      console.log('Resorte creado exitosamente:', response);
-      setSpringPoints3D(response)
+      console.log('Resorte simulado exitosamente:', response);
+      //codigo para simular esfuerzos
       
     } catch (error) {
-      console.error('Error al crear el resorte:', error.message);
+      console.error('Error al simular el resorte:', error.message);
       
     }
   }
