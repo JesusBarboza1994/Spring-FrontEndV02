@@ -87,7 +87,7 @@ export function SimulationData(){
   `
 
   //NUEVO---------------------------------------------------------------------------------------------------------------------------------------------------------
-  const {data, data1, setData1, setStateButtonCalculateProcessTable, setSpringPoints3D} = useAuth();
+  const {data, data1, setData1, setStateButtonCalculateProcessTable, setSpringPoints3D, setSpringPointsSimulation} = useAuth();
 
   const iniciarFuncion = () => {
     setStateButtonCalculateProcessTable(true);
@@ -191,7 +191,7 @@ export function SimulationData(){
       });
 
       console.log('Resorte simulado exitosamente:', response);
-      //codigo para simular esfuerzos
+      setSpringPointsSimulation(response)
       
     } catch (error) {
       console.error('Error al simular el resorte:', error.message);
