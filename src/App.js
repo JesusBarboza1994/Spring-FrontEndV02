@@ -16,6 +16,7 @@ import ProbarFuerza from "./components/probarFuerza";
 import GraficoControlCargas from "./components/graficoControlCargas";
 import Spring3D from "./components/Spring3D";
 import Spring3DLine from "./components/Spring3DLine";
+import SpringStressSimulation from "./components/SpringStressSimulation"
 
 import { useAuth } from './context/auth-context';
 import { calculateLinearRegression, generatePointForChart } from "./utils/chart-utils";
@@ -225,7 +226,7 @@ function App() {
 
   //Renee-Inicio-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  const {filas, data, setData, data2, setData2, controlCargas, setKControlCargas, setBControlCargas,springPoints3D} = useAuth();
+  const {filas, data, setData, data2, setData2, controlCargas, setKControlCargas, setBControlCargas, springPoints3D, springPointsSimulation} = useAuth();
 
   const [puntosCCGrafica, setPuntosCCGrafica] = useState([
     { x: 0, y: 0},
@@ -463,6 +464,11 @@ function App() {
           <div style={{backgroundColor:"black"}} >
             
             <Spring3DLine points={springPoints3D} wire={data.d}></Spring3DLine>
+            
+          </div>
+
+          <div>
+            <SpringStressSimulation dataSimulation={springPointsSimulation}></SpringStressSimulation>
           </div>
         </div>
 
