@@ -103,6 +103,9 @@ function rgbToHex(rgbString) {
 
 export default function SpringStressSimulation({dataSimulation}) {
 
+  console.log("dataSimulation es:")
+  console.log(dataSimulation)
+
   //Loading
   const textureLoader = new THREE.TextureLoader()
   const normalTexture = textureLoader.load(texture)
@@ -111,20 +114,15 @@ export default function SpringStressSimulation({dataSimulation}) {
   
   if (dataSimulation.spring != null) {
     var resorteStress = [];
-
-    const width = 1;
-    
     
     alambre = parseFloat(dataSimulation.spring.wire)
   
-    
-  
-    //var data = JSON.parse(dataSimulation);
-    //const posxArray = dataSimulation.points[1].posx;
     let data = dataSimulation;
+    console.log("data es:")
+    console.log(data)
     let esfuerzos = [];
   
-    let numeroDePrueba = 2;
+    let numeroDePrueba = 3;
   
     for (let i = 0; i < data.points.length; i++) {
       let punto = []
@@ -145,13 +143,13 @@ export default function SpringStressSimulation({dataSimulation}) {
 
   }
 
-  
-
   return (
     <div id="canvas-container" style={{height: 800, width: 700, backgroundColor:"black"}}>
       <Canvas dpr={[1, 2]} camera={{ fov: 50, near: 0.1, far:5000, position: [0, 1000, 300]}}>
-        <pointLight color={0xbb1818} intensity={50} position={[-80,430,-80]}/>
-        <pointLight color={0xbb1818} intensity={50} position={[-80,0,-80]}/>
+        <pointLight color={0xbb1818} intensity={5000000} position={[-80,430,-80]}/>
+        <pointLight color={0xbb1818} intensity={5000000} position={[0,430,-80]}/>
+        <pointLight color={0xbb1818} intensity={500000} position={[0,0,-600]}/>
+        <pointLight color={0xbb1818} intensity={500000} position={[0,0,600]}/>
         {
           resorteStress && Array.isArray(resorteStress) && resorteStress.length > 0 && resorteStress.map((punto, indice, arr) => {
             if (indice < arr.length -1){
