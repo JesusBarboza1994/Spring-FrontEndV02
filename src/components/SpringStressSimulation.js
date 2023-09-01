@@ -9,6 +9,7 @@ import { Canvas } from "@react-three/fiber";
 import { Euler } from '../../node_modules/three/build/three.module.js';
 import { Stats, OrbitControls } from '@react-three/drei'
 import texture from '../textures/NormalMap2.png'
+//import { AmbientLight, PerspectiveCamera, Box } from 'drei';
 
 
 function getColorScale(value, minValue, maxValue) {
@@ -144,12 +145,9 @@ export default function SpringStressSimulation({dataSimulation}) {
   }
 
   return (
-    <div id="canvas-container" style={{height: 800, width: 700, backgroundColor:"black"}}>
+    <div id="canvas-container" style={{height: 800, width: 700, backgroundColor:"white"}}>
       <Canvas dpr={[1, 2]} camera={{ fov: 50, near: 0.1, far:5000, position: [0, 1000, 300]}}>
-        <pointLight color={0xbb1818} intensity={5000000} position={[-80,430,-80]}/>
-        <pointLight color={0xbb1818} intensity={5000000} position={[0,430,-80]}/>
-        <pointLight color={0xbb1818} intensity={500000} position={[0,0,-600]}/>
-        <pointLight color={0xbb1818} intensity={500000} position={[0,0,600]}/>
+        <ambientLight intensity={3} />
         {
           resorteStress && Array.isArray(resorteStress) && resorteStress.length > 0 && resorteStress.map((punto, indice, arr) => {
             if (indice < arr.length -1){
@@ -177,10 +175,10 @@ export default function SpringStressSimulation({dataSimulation}) {
 
               //Material del resorte
               let material = new THREE.MeshStandardMaterial()
-              material.metalness = 0.7
-              material.roughness = 0.2
+              //material.metalness = 0
+              //material.roughness = 0
               material.color = new THREE.Color(colorEsf)
-              material.normalMap = normalTexture;
+              //material.normalMap = normalTexture;
               
               let cilindro = new THREE.Mesh(geometry, material);
               let euler = new Euler(beta, alfa,1.5708+theta, 'XZY');
