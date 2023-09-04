@@ -111,6 +111,7 @@ export default function Spring3DLine({points, wire}) {
         <pointLight color={0xbb1818} intensity={5000000} position={[0,430,-80]}/>
         <pointLight color={0xbb1818} intensity={500000} position={[0,0,-600]}/>
         <pointLight color={0xbb1818} intensity={500000} position={[0,0,600]}/>
+        <ambientLight intensity={2}/>
 
         {
           (resorte!= null) ? <primitive object={resorte} position={[0, 0, 0]} /> : null
