@@ -127,42 +127,6 @@ const Button3 = styled.button`
   color:white
 `
 
-/*export function calcularprocessTableStage1(){
-        
-    const {data, setData, processTableStage1, setProcessTableStage1, processTableStage2, setProcessTableStage2} = useAuth();
-
-    let long1 = (Number(data.Luz2)+Number(data.d))*0.875
-    let long2 = (Number(data.Luz1)+Number(data.d))*0.875
-    let luz1 = long1/0.875 - Number(data.d)
-    let luz2 = long2/0.875 - Number(data.d)
-    let vtas1 = 0.875
-    let vtas2 = 0.875
-    
-    let longLineaMedia = Number(data.L0)
-    if (((data.Ext1 === "TASE") && (data.Ext2 === "TASE")) || ((data.Ext1 === "TCSE") && (data.Ext2 === "TASE")) || ((data.Ext1 === "TASE") && (data.Ext2 === "TCSE"))) {
-        longLineaMedia = Number(data.L0) - Number(data.d)
-    } else if (((data.Ext1 === "TAE") && (data.Ext2 === "TAE")) || ((data.Ext1 === "TCE") && (data.Ext2 === "TAE")) || ((data.Ext1 === "TAE") && (data.Ext2 === "TCE"))) {
-        longLineaMedia = Number(data.L0) 
-    } else {
-        longLineaMedia = Number(data.L0) - Number(data.d)/2
-    }
-
-    let vtas3 = Number(data.N)-2*0.875
-    let long3 = longLineaMedia-long1-long2-Number(data.d)
-    let luz3 = (long3/vtas3)-Number(data.d)
-
-    let luces = [luz1, luz2, luz3]
-    let longitudes = [long1, long2, long3]
-    let vueltas = [vtas1, vtas2, vtas3]
-
-    setProcessTableStage1(processTableStage1.map((punto, indice) => {
-      if (punto.id < 4) {
-        return { ...punto, Luz: luces[indice], Long: longitudes[indice], Vtas: vueltas[indice] };
-      }
-      return punto;
-    }));
-}*/
-
 export default function ProcessTable(props) {
 
     const {data, setData, processTableStage1, setProcessTableStage1, processTableStage2, setProcessTableStage2, stateButtonCalculateProcessTable, setStateButtonCalculateProcessTable} = useAuth();
